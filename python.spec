@@ -81,7 +81,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define test_flags -l -x 
 %endif
 
-%ifarch alpha sparc64 ppc64 amd64
+%ifarch alpha amd64 ia64 ppc64 sparc64 ppc64
 %define test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests}
 %else
 %define test_list %{nobuilder_tests} %{broken_tests}
@@ -578,7 +578,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # three modules below does not work on 64-bit architectures
 # see Python README file for explanation
-%ifnarch alpha sparc64 ppc64 amd64
+%ifnarch alpha amd64 ia64 ppc64 sparc64
 %attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/rgbimg.so
 %attr(755,root,root) %{py_dyndir}/imageop.so
