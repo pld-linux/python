@@ -486,6 +486,7 @@ find $RPM_BUILD_ROOT%{py_libdir} \
 	| grep '\.py[co]$' \
 	| grep -v -e 'UserDict\.py[oc]$'\
 	| grep -v -e 'codecs\.py[oc]$' \
+	| grep -v -e 'copy_reg\.py[oc]$' \
 	| grep -v -e 'locale\.py[oc]$' \
 	| grep -v -e 'posixpath\.py[oc]$' \
 	| grep -v -e 'pydoc\.py[oc]$' \
@@ -576,6 +577,7 @@ rm -rf $RPM_BUILD_ROOT
 # required modules by python library
 %{py_libdir}/UserDict.py[co]
 %{py_libdir}/codecs.py[co]
+%{py_libdir}/copy_reg.py[co]
 %{py_libdir}/locale.py[co]
 %{py_libdir}/posixpath.py[co]
 %{py_libdir}/site.py[co]
