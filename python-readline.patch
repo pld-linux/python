@@ -1,0 +1,40 @@
+--- Python-2.0/Modules/readline.c.wiget	Fri Apr 13 12:20:51 2001
++++ Python-2.0/Modules/readline.c	Fri Apr 13 12:20:58 2001
+@@ -28,8 +28,8 @@
+ #include <readline/readline.h> /* You may need to add an -I option to Setup */
+ 
+ extern int rl_parse_and_bind(char *);
+-extern int rl_read_init_file(char *);
+-extern int rl_insert_text(char *);
++extern int rl_read_init_file(const char *);
++extern int rl_insert_text(const char *);
+ extern int rl_bind_key(int, Function *);
+ extern int rl_bind_key_in_map(int, Function *, Keymap);
+ extern int rl_initialize(void);
+@@ -224,7 +224,7 @@
+ 	if(!PyArg_ParseTuple(args, "s:set_completer_delims", &break_chars)) {
+ 		return NULL;
+ 	}
+-	free(rl_completer_word_break_characters);
++	free((char *)rl_completer_word_break_characters);
+ 	rl_completer_word_break_characters = strdup(break_chars);
+ 	Py_INCREF(Py_None);
+ 	return Py_None;
+@@ -351,7 +351,7 @@
+ /* C function to call the Python completer. */
+ 
+ static char *
+-on_completion(char *text, int state)
++on_completion(const char *text, int state)
+ {
+ 	char *result = NULL;
+ 	if (completer != NULL) {
+@@ -396,7 +396,7 @@
+ 	Py_XDECREF(endidx);
+ 	begidx = PyInt_FromLong((long) start);
+ 	endidx = PyInt_FromLong((long) end);
+-	return completion_matches(text, *on_completion);
++	return rl_completion_matches(text, *on_completion);
+ }
+ 
+ /* Helper to initialize GNU readline properly. */
