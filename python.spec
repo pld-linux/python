@@ -1,30 +1,34 @@
-Summary:     Very high level scripting language with X interface
-Summary(de): Very High-Level-Script-Sprache mit X-Oberfläche
-Summary(fr): Langage de script de tés haut niveau avec interface X.
-Summary(pl): Bardzo zaawansowany jêzyk do pisania skryptów
-Summary(tr): X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
-Name:        python
-Version:     1.5.1
-Release:     6
-Copyright:   distributable
-Group:       Development/Languages
-Source:      ftp://ftp.python.org/pub/python/src/pyth151.tgz
-Source1:     Python-Doc.tar.gz
-Patch:       %{name}-%{version}-config.patch
-Patch1:      %{name}-1.4-gccbug.patch
-Patch2:      %{name}-1.5-localbin.patch
-Patch3:      Python-1.5.1-nosed.patch
-URL:         http://www.python.org/
+Summary:	Very high level scripting language with X interface
+Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
+Summary(fr):	Langage de script de tés haut niveau avec interface X.
+Summary(pl):	Python - obiektowy jezyk do tworzenia skryptów (g³ówny pakiet)
+Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
+Name:		python
+Version:	1.5.2
+Release:	6
+Copyright:	distributable
+Group:		Development/Languages
+Source0:	ftp://ftp.python.org/pub/python/src/pyth152.tgz
+Source1:	Python-Doc.tar.gz
+Patch0:		%{name}-%{version}-config.patch
+Patch1:		%{name}-1.4-gccbug.patch
+Patch2:		%{name}-1.5-localbin.patch
+Patch3:		Python-1.5.1-nosed.patch
+URL:		http://www.python.org/
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
-Python in an interpreted, object orientated scripting language. If contains
-support for dynamic loading of objects, classes, modules, and exceptions.
-Adding interfaces to new system libraries through C code is straightforward,
-making Python easy to use in custom settings. 
+Python is an interpreted, interactive, object-oriented programming language. 
+It incorporates modules, exceptions, dynamic typing, very high level dynamic
+data types, and classes. Python combines remarkable power with very clear
+syntax. It has interfaces to many system calls and libraries, as well as to
+various window systems, and is extensible in C or C++. It is also usable as
+an extension language for applications that need a programmable interface. 
+Finally, Python is portable: it runs on many brands of UNIX, on the Mac, and
+on PCs under MS-DOS, Windows, Windows NT, and OS/2.
 
-This Python package includes most of the standard Python modules, along with
-modules for interfacing to the Tix widget set for Tk and RPM.
+To find out more, the best thing to do is to start reading the tutorial from
+the documentation set at <http://www.python.org/doc/>."
 
 %description -l de
 Python ist eine interpretierte, objektorientierte Scriptsprache. Sie unterstützt
@@ -45,11 +49,20 @@ Ce paquetage Python contient la plupart des modules Python standards, ainsi
 que ceux permettant l'interfaçage avec les widgets Tix pour Tk et RPM.
 
 %description -l pl
-Python to zorientowany obiektowo jêzyk do pisania sktyptów. Zawiera
-wsparcie do dynamicznego ³adowania obiektów, klas, modó³ów i wyj±tków.
-Dodawanie interfejsów do nowo powstaj±cych bibliotek systemowych poprzez
-napisanie w jezyku C modu³ów do Pythona jest bezproblemowe. Sprawia to, ¿e
-Python jest ³atwy do u¿ycia w ró¿nych zastosowaniach. 
+Python jest interpretowanym, interaktywnym i "zorientowanym obiektowo"
+jêzykiem programowania. Jest modularny, obs³uguje wyj±tki, dynamiczne typy,
+zaawansowane dynamiczne struktury danych i klasy. Python ³±czy w sobie du¿e
+mo¿liwo¶ci i przejrzyst± sk³adnie. Posiada interfejsy do wielu wywo³añ
+systemowych i bibliotek, w tym rówie¿ do ró¿nych bibliotek okienkowych.
+Mo¿liwo¶ci jego mo¿na jeszcze rozdze¿aæ poprzez odpowiednie modu³y pisane w
+C lub C++. Python mo¿e byæ równie¿ u¿yty jako element aplikacji, którym
+potrzebny jest interpreter do skryptów. I wreszcie, Python jest
+wieloplatformowy, dzia³a na wielu odmianach UNIX'a, Mac'u oraz PC pod
+DOS'em, Windows, WindowsNT oraz OS/2.
+
+Aby lepiej poznaæ Pythona, najlepsz± rzecz± jest zapoznanie siê z
+wprowadzeniem (tutorial) wchodz±cym w sk³ad dokumentacji Pythona znajduj±cej
+siê na <http://www.python.org/doc/>.
 
 %description -l tr
 Python, nesneye yönelik bir kabuk yorumlayýcýdýr. Nesnelerin, sýnýflarýn,
@@ -58,13 +71,13 @@ koduyla birlikte kullanýmý son derece kolaydýr. Bu paket, standart Python
 birimlerinin çoðunun yanýsýra Tk ve RPM için arayüz birimlerini de içerir.
 
 %package devel
-Summary:     Libraries and header files for building python code
-Summary(de): Libraries und Header-Dateien zum Erstellen von Python-Code
-Summary(fr): Bibliothèques et en-têtes pour construire du code python
-Summary(pl): Pliki nag³ówkowe i biblioteki python
-Summary(tr): Python ile geliþtirme yapmak için gerekli dosyalar
-Group:       Development/Languages
-Requires:    %{name} = %{version}
+Summary:	Libraries and header files for building python code
+Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
+Summary(fr):	Bibliothèques et en-têtes pour construire du code python
+Summary(pl):	Pliki nag³ówkowe i biblioteki python
+Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
+Group:		Development/Languages
+Requires:	%{name} = %{version}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically loaded
@@ -91,13 +104,13 @@ Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk dosyalarýný
 ve kitaplýklarý içerir.
 
 %package docs
-Summary:     Documentation on Python
-Summary(de): Dokumentation zu Python 
-Summary(fr): Documentation sur Python
-Summary(pl): Dokumentacja do Python'a 
-Summary(tr): Python belgeleri
-Group:       Development/Languages
-Requires:    %{name} = %{version}
+Summary:	Documentation on Python
+Summary(de):	Dokumentation zu Python 
+Summary(fr):	Documentation sur Python
+Summary(pl):	Dokumentacja do Python'a 
+Summary(tr):	Python belgeleri
+Group:		Development/Languages
+Requires:	%{name} = %{version}
 
 %description docs
 This package contains documentation on the Python language and interpretor
@@ -122,23 +135,27 @@ Bu paket, Python dili ile ilgili belgeleri ve düz ASCII dosyalarý ve LaTeX
 kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 
 %package -n tkinter
-Summary:     GUI interface for Python
-Summary(de): Grafischer Oberfläche für Python
-Summary(fr): Interface graphique pour python.
-Summary(pl): GUI dla Pythona
-Summary(tr): Python için grafik kullanýcý arayüzü
-Group:       Development/Languages
-Requires:    %{name} = %{version}
-Requires:    tcl >= 8.0.3 
-Requires:    tk  >= 8.0.3
+Summary:	Lowlevel Python -> Tk Interface
+Summary(de):	Grafischer Oberfläche für Python
+Summary(fr):	Interface graphique pour python.
+Summary(pl):	modu³y niskiego poziomu dla pakietu Python-tkinter
+Summary(tr):	Python için grafik kullanýcý arayüzü
+Group:		Development/Languages/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name} = %{version}
+Requires:	tcl >= 8.0.3 
+Requires:	tk  >= 8.0.3
+Requires:	blt >= 2.4c
+Requires:	tix >= 4.1.0.6
 
 %description -n tkinter
-A graphical interface for Python, based on Tcl/Tk, and used by many of
-the configuration tools.
+This is the lowlevel C module that interfaces Tk and which is the basis for
+the Tkinter, Python's OO interface to Tk, which is included in the package
+python-tkinter.
 
-%description -l pl -n tkinter 
-Interfejs graficzny dla Puyhone, bazuj±cy na Tcl/Tk. Program ten jest u¿ywany
-przez wiele programów konfiguracyjnych.
+The only reason this file is removed from python-tkinter, is to make it more
+easy to replay _tkinter with a PIL (Python Imaging Libary) aware version of
+it. Look at my PIL distribution.
 
 %description -l de -n tkinter
 Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von 
@@ -148,13 +165,120 @@ vielen Konfigurations-Tools genutzt.
 Interface graphique pour Python, basée sur Tcl/Tk et utilisée par beaucoup
 des outils de configuration.
 
+%description -l pl -n tkinter 
+Ten pakiet zawiera modu³y w C, które po¶rednicz± w wywo³aniach pomiêdzy
+samym Tk a modu³em Tkinter bêd±cym g³ownym interfejsem Tk dla Pythona.
+Tkinter jets dostêpny w pakiecie python-tkinter.rpm
+
+Jedynym powodem wdzielenia tego pakietu jest u³atwienie wymiany go na PIL
+(Python Imaging Library).
+
 %description -l tr -n tkinter
 Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan kullanýlan
 grafik bir arayüzdür.
 
+%package demos
+Summary:	Demoscripts and tools for/in Python
+Summary:	Dema i skrypty narzêdziowe do/z Pythona
+Group:		Development/Languages/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Icon:		linux-python-doc-icon.gif
+Requires:	%{name} = %{version}
+
+%description demos
+The package contains the demos and tools distributed along with the Python
+source distribution.
+
+The demos cover nearly all aspects of Python and all fields Python can be
+used in.
+
+The tools are
+
+	audiopy - program struj±cy urz±dzeniem dzwiêkowym w Solarisie.  BGEN
+	-- Automatic Generation of Extension Modules.  FAQ Wizard -- skrypt
+	CGI do zarz±dzania baz± pytañ FAQ. THE FREEZE SCRIPT -- Freeze
+	umo¿liwia "wyeksportowanie" skryptów w Pythonie na maszyny na
+	których nie jest on zainstalowany.  programs to people who don't
+	have Python.
+
+	IDLE -- a Tkinter-based IDE for Python
+	modulator -- generuje kod w C do pisania nowych modu³ów dla Pythona.
+	Pynche -- The PYthonically Natural Color and Hue Editor
+	Webchecker -- Prosty program przeszukij±cy drzewo WWW w poszukiwaniu
+		      na przyk³ad nie istniej±cych linków.
+	world -- wy¶wietla nazwy pañstw i odpowiadaj±ce im domeny w DNS
+
+%description -l pl demos
+Ten pakiet zawiera przyk³adowe programy i narzêdzia znajduj±ce siê w 
+¼ród³owej dystrybucji Pythona.
+
+Dema obrazuj± prawie wszystkie cechy Pythona i zastosowania w których mo¿e
+on byæ u¿yty.
+
+Zawatre w pakiecie narzêdzia to:
+
+	audiopy - program do sterowania urz±dzeniem dzwiêkowym w Solarisie.
+	BGEN -- Automatyczny generator modu³ów rozszerzaj±cych.
+	FAQ Wizard -- skrypt CGI do zarz±czania baz± pytañ (FAQ).
+	THE FREEZE SCRIPT -- Freeze make it possible to ship arbitrary Python
+			 programs to people who don't have Python.
+	IDLE -- napisane z Tkinter ¶rodowisko programistyczne (IDE) do Pythona
+	modulator -- a generator of boilerplate code for modules to be written in C.
+	Pynche -- The PYthonically Natural Color and Hue Editor
+	Webchecker -- This is a simple web tree checker, useful to find bad links in
+								a web tree.
+	world -- Print mappings between country names and DNS country codes
+
+%package gdbm
+Summary:	Python interface to the GDBM library
+Summary(pl):	Interfejs do biblioteki GDBM dla Pythona
+Group:		Development/Languages/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Icon:		linux-python-db-icon.gif
+Requires:	%{name} =%{version}
+
+%description gdbm
+An easy to use interface to GDBM databases. GDBM is the GNU implementation
+of the standard unix dbm databases.
+
+%description -l pl gdbm
+Interfejs do baz danych GDBM dla Pythona. GDBM to implementacja
+standarwowych unixowych baz danych DBM zrealizowana przez GNU.
+
+%package curses
+Summary:	Python interface to the (n)curses library
+Summary(pl):	Interfejs do biblioteki (n)curses dla Pythona
+Group:		Development/Languages/Python
+Icon:		linux-python-curses-icon.gif
+Requires:	%{name} =%{version}
+
+%description curses
+An easy to use interface to (n)curses CUI library. CUI stands for console
+user interface.
+
+%description curses
+Interfejs do biblioteki (n)curses. curses do biblioteka uno¿liwiaj±ce tworzenie
+okienkowego interfejsu u¿ytkownika na terminalu tekstowym.
+
+%package zlib
+Summary:	Python interface to the zlib library
+Summary(pl):	Interfejs do biblioteki zlib  dla Pythona
+Group:		Development/Languages/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Icon:		linux-python-zlib-icon.gif
+Requires:	%{name} =%{version}
+
+%description zlib
+An interface to the zlib library. zlib offers the gzip algorithms for
+applications programmers.
+
+%description -l pl zlib
+Interfejs do biblioteki zlib dla Pythona. Zlib udostêpnia algorytmy
+kompresji u¿ywane przez gzip'a.
+
 %prep
 %setup -q -n Python-1.5.1 -a1
-%patch -p1 
+%patch0 -p1 
 %patch2 -p1
 %patch3 -p1 
 
@@ -233,54 +357,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
 
 %changelog
-* Wed Nov 25 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [1.5.1-6]
-- added URL.
-
-* Sun Nov 15 1998 Wojtek ¦lusarczyk <wojtek@shadow.eu.org>
-  [1.5.1-1]
-- build for PLD Linux,
-- added pl translation,
-- major changes.
-
-* Thu Sep  3 1998 Jeff Johnson <jbj@redhat.com>
-- recompile for RH 5.2.
-
-* Wed May 06 1998 Prospector System <bugs@redhat.com>
-- translations modified for de, fr, tr
-
-* Wed May 06 1998 Cristian Gafton <gafton@redhat.com>
-- python-docs used to require %{_bindir}/sed. Changed to /bin/sed instead
-
-* Wed Apr 29 1998 Cristian Gafton <gafton@redhat.com>
-- fixed the spec file for version 1.5.1
-- buildroot (!)
-
-* Mon Apr 20 1998 Michael K. Johnson <johnsonm@redhat.com>
-- updated to python 1.5.1
-- created our own Python-Doc tar file from 1.5 to substitute for the
-  not-yet-released Doc package.
-- build _tkinter properly
-- use readline again
-- build crypt module again
-- install rand replacement module
-- added a few modules
-
-* Thu Apr 09 1998 Erik Troan <ewt@redhat.com>
-- updated to python 1.5
-- made %{_libdir}/python1.5 file list automatically generated
-
-* Tue Nov 04 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Fixed dependencies for python and tkinter
-
-* Mon Nov 03 1997 Michael K. Johnson <johnsonm@redhat.com>
-- pulled out tk-related stuff into tkinter package
-
-* Fri Oct 10 1997 Erik Troan <ewt@redhat.com>
-- bunches of scripts used /usr/local/bin/python instead of %{_bindir}/python
-
-* Tue Sep 30 1997 Erik Troan <ewt@redhat.com>
-- updated for tcl/tk 8.0
-
-* Thu Jul 10 1997 Erik Troan <ewt@redhat.com>
-- built against glibc
+* Sun Jun  6 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [1.5.2-1]
+- based on RH spec,
+- spec rewrited by PLD team,
+- pl translation by Wojtek ¦lusarczyk <wojtek@shadow.eu.org>.
