@@ -19,7 +19,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	1
+Release:	1.1
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -176,28 +176,30 @@ Python modules.
 %description modules -l pl
 Modu³y jêzyka Python.
 
-%package pydoc
+%package -n pydoc
 Summary:	Python interactive module documentation access support
 Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
 Group:		Applications
 Requires:	%{name}-modules = %{epoch}:%{version}
+Obsoletes:	python-pydoc
 
-%description pydoc
+%description -n pydoc
 Python interactive module documentation access support.
 
-%description pydoc -l pl
+%description -n pydoc -l pl
 Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
 
-%package idle
+%package -n idle
 Summary:	IDE for Python language
 Summary(pl):	IDE dla jêzyka Python
 Group:		Applications
 Requires:	%{name}-modules = %{epoch}:%{version}
+Obsoletes:	python-idle
 
-%description idle
+%description -n idle
 IDE for Python language.
 
-%description idle -l pl
+%description -n idle -l pl
 IDE dla jêzyka Python.
 
 %package devel
@@ -343,7 +345,7 @@ LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 §§ ¦ÎÔÅÒÐÒÅÔÁÔÏÒÕ Õ ×ÉÇÌÑÄ¦ ÎÁÂÏÒÁ ÔÅËÓÔÏ×ÉÈ ÆÁÊÌ¦× ÔÁ ×ÉÈ¦ÄÎÉÈ
 ÔÅËÓÔ¦× Õ ÆÏÒÍÁÔ¦ LaTeX.
 
-%package -n tkinter
+%package tkinter
 Summary:	Standard Python interface to the Tk GUI toolkit
 Summary(de):	Grafischer Oberfläche für Python
 Summary(es):	Interface GUI para Phyton
@@ -356,37 +358,38 @@ Requires:	%{name}-modules = %{epoch}:%{version}
 Requires:	tcl >= 8.0.3
 Requires:	tk  >= 8.0.3
 Requires:	tix >= 4.1.0.6
+Obsoletes:	tkinter
 
-%description -n tkinter
+%description tkinter
 Standard Python interface to the Tk GUI toolkit.
 
-%description -n tkinter -l de
+%description tkinter -l de
 Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von
 vielen Konfigurations-Tools genutzt.
 
-%description -n tkinter -l es
+%description tkinter -l es
 Una interface gráfica para Python, basada en Tcl/Tk, y usada por
 muchas herramientas de configuración.
 
-%description -n tkinter -l fr
+%description tkinter -l fr
 Interface graphique pour Python, basée sur Tcl/Tk et utilisée par
 beaucoup des outils de configuration.
 
-%description -n tkinter -l pl
+%description tkinter -l pl
 Standardowy interfejs Pythona do biblioteki Tk.
 
-%description -n tkinter -l pt_BR
+%description tkinter -l pt_BR
 Uma interface gráfica para Python, baseada em Tcl/Tk, e usada por
 muitas ferramentas de configuração.
 
-%description -n tkinter -l ru
+%description tkinter -l ru
 çÒÁÆÉÞÅÓËÉÊ ÉÎÔÅÒÆÅÊÓ (GUI) ÄÌÑ Python, ÐÏÓÔÒÏÅÎÎÙÊ ÎÁ Tcl/Tk.
 
-%description -n tkinter -l tr
+%description tkinter -l tr
 Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan
 kullanýlan grafik bir arayüzdür.
 
-%description -n tkinter -l uk
+%description tkinter -l uk
 çÒÁÆ¦ÞÎÉÊ ¦ÎÔÅÒÆÅÊÓ (GUI) ÄÌÑ Python, ÐÏÂÕÄÏ×ÁÎÉÊ ÎÁ Tcl/Tk.
 
 %package old
@@ -459,33 +462,6 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-echo "%defattr(644,root,root,755)" > modules.filelist
-
-find $RPM_BUILD_ROOT%{py_libdir} \
-	-type f \
-	-maxdepth 1 \
-	-printf %{py_libdir}/%f\\n \
-	| grep '\.py[co]$' \
-	| grep -v -e 'UserDict\.py[oc]$'\
-	| grep -v -e 'codecs\.py[oc]$' \
-	| grep -v -e 'copy_reg\.py[oc]$' \
-	| grep -v -e 'locale\.py[oc]$' \
-	| grep -v -e 'posixpath\.py[oc]$' \
-	| grep -v -e 'pydoc\.py[oc]$' \
-	| grep -v -e 'site\.py[oc]$' \
-	| grep -v -e 'stat\.py[oc]$' \
-	| grep -v -e 'os\.py[oc]$' \
-	| grep -v -e 'encodings\/.*\.py[oc]$' >> modules.filelist
-
-find $RPM_BUILD_ROOT%{py_dyndir} \
-	-type f \
-	-maxdepth 1 \
-	-printf "%%%%attr(755,root,root) %{py_dyndir}/%f\\n" \
-	| grep '\.so$' \
-	| grep -v -e '_iconv_codec\.so$' \
-	| grep -v -e 'readline\.so$' \
-	| grep -v -e 'struct\.so$' \
-	| grep -v -e '_tkinter\.so$' >> modules.filelist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -501,8 +477,74 @@ rm -rf $RPM_BUILD_ROOT
 # readline support for python binary
 %attr(755,root,root) %{py_dyndir}/readline.so
 
-%files modules -f modules.filelist
+%files modules
 %defattr(644,root,root,755)
+%exclude %{py_libdir}/UserDict.py[co]
+%exclude %{py_libdir}/codecs.py[co]
+%exclude %{py_libdir}/copy_reg.py[co]
+%exclude %{py_libdir}/locale.py[co]
+%exclude %{py_libdir}/posixpath.py[co]
+%exclude %{py_libdir}/pydoc.py[co]
+%exclude %{py_libdir}/site.py[co]
+%exclude %{py_libdir}/stat.py[co]
+%exclude %{py_libdir}/os.py[co]
+%exclude %{py_libdir}/encodings/*.py[co]
+
+%{py_libdir}/*.py[co]
+
+# list .so modules to be sure that all of them are built
+%attr(755,root,root) %{py_dyndir}/_bsddb.so
+%attr(755,root,root) %{py_dyndir}/_csv.so
+%attr(755,root,root) %{py_dyndir}/_curses.so
+%attr(755,root,root) %{py_dyndir}/_curses_panel.so
+%attr(755,root,root) %{py_dyndir}/_hotshot.so
+%attr(755,root,root) %{py_dyndir}/_locale.so
+%attr(755,root,root) %{py_dyndir}/_random.so
+%attr(755,root,root) %{py_dyndir}/_socket.so
+%attr(755,root,root) %{py_dyndir}/_ssl.so
+%attr(755,root,root) %{py_dyndir}/_testcapi.so
+%attr(755,root,root) %{py_dyndir}/_weakref.so
+%attr(755,root,root) %{py_dyndir}/array.so
+%attr(755,root,root) %{py_dyndir}/audioop.so
+%attr(755,root,root) %{py_dyndir}/binascii.so
+%attr(755,root,root) %{py_dyndir}/bz2.so
+%attr(755,root,root) %{py_dyndir}/cPickle.so
+%attr(755,root,root) %{py_dyndir}/cStringIO.so
+%attr(755,root,root) %{py_dyndir}/cmath.so
+%attr(755,root,root) %{py_dyndir}/crypt.so
+%attr(755,root,root) %{py_dyndir}/datetime.so
+%attr(755,root,root) %{py_dyndir}/dl.so
+%attr(755,root,root) %{py_dyndir}/fcntl.so
+%attr(755,root,root) %{py_dyndir}/gdbm.so
+%attr(755,root,root) %{py_dyndir}/grp.so
+%attr(755,root,root) %{py_dyndir}/imageop.so
+%attr(755,root,root) %{py_dyndir}/itertools.so
+%attr(755,root,root) %{py_dyndir}/linuxaudiodev.so
+%attr(755,root,root) %{py_dyndir}/math.so
+%attr(755,root,root) %{py_dyndir}/md5.so
+%attr(755,root,root) %{py_dyndir}/mmap.so
+%attr(755,root,root) %{py_dyndir}/mpz.so
+%attr(755,root,root) %{py_dyndir}/nis.so
+%attr(755,root,root) %{py_dyndir}/operator.so
+%attr(755,root,root) %{py_dyndir}/ossaudiodev.so
+%attr(755,root,root) %{py_dyndir}/parser.so
+%attr(755,root,root) %{py_dyndir}/pcre.so
+%attr(755,root,root) %{py_dyndir}/pwd.so
+%attr(755,root,root) %{py_dyndir}/pyexpat.so
+%attr(755,root,root) %{py_dyndir}/regex.so
+%attr(755,root,root) %{py_dyndir}/resource.so
+%attr(755,root,root) %{py_dyndir}/rgbimg.so
+%attr(755,root,root) %{py_dyndir}/rotor.so
+%attr(755,root,root) %{py_dyndir}/select.so
+%attr(755,root,root) %{py_dyndir}/sha.so
+%attr(755,root,root) %{py_dyndir}/strop.so
+%attr(755,root,root) %{py_dyndir}/syslog.so
+%attr(755,root,root) %{py_dyndir}/termios.so
+%attr(755,root,root) %{py_dyndir}/time.so
+%attr(755,root,root) %{py_dyndir}/timing.so
+%attr(755,root,root) %{py_dyndir}/unicodedata.so
+%attr(755,root,root) %{py_dyndir}/xreadlines.so
+%attr(755,root,root) %{py_dyndir}/zlib.so
 
 %dir %{py_libdir}/plat-*
 %attr(755,root,root) %{py_libdir}/plat-*/regen
@@ -552,8 +594,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}
 %dir %{py_sitedir}
 
-# required shared modules by python library
-#%attr(755,root,root) %{py_dyndir}/_iconv_codec.so
 %attr(755,root,root) %{py_dyndir}/struct.so
 
 # required modules by python library
@@ -570,12 +610,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/encodings
 %{py_libdir}/encodings/*.py[co]
 
-%files pydoc
+%files -n pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
 %{py_libdir}/pydoc.py[co]
 
-%files idle
+%files -n idle
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/idle
 %dir %{py_libdir}/idlelib
@@ -635,7 +675,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
 
-%files -n tkinter
+%files tkinter
 %defattr(644,root,root,755)
 
 %{py_libdir}/lib-tk
