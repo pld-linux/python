@@ -1,0 +1,12 @@
+diff -durN -x '*~' Python-2.3.3c1.orig/setup.py Python-2.3.3c1/setup.py
+--- Python-2.3.3c1.orig/setup.py	2004-12-20 23:18:23.000000000 +0100
++++ Python-2.3.3c1/setup.py	2004-12-20 23:20:54.356394456 +0100
+@@ -264,7 +264,7 @@
+         # lib_dirs and inc_dirs are used to search for files;
+         # if a file is found in one of those directories, it can
+         # be assumed that no additional -I,-L directives are needed.
+-        lib_dirs = self.compiler.library_dirs + ['/lib', '/usr/lib']
++        lib_dirs = self.compiler.library_dirs + ['/lib64', '/usr/lib64']
+         inc_dirs = self.compiler.include_dirs + ['/usr/include']
+         exts = []
+ 
