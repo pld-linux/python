@@ -1,5 +1,4 @@
-
-%define py_ver         2.1
+%define py_ver         2.2
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
 %define py_incdir      %{_includedir}/python%{py_ver}
@@ -14,8 +13,8 @@ Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{py_ver}.1
-Release:	7
+Version:	%{py_ver}
+Release:	1
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -25,16 +24,15 @@ Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
-Patch1:		%{name}-dl_global.patch
-Patch2:		%{name}-setup-install.patch
-Patch3:		%{name}-readline.patch
-Patch4:		%{name}-pythonpath.patch
-Patch5:		%{name}-notermcap.patch
-Patch6:		%{name}-ac25x.patch
-Patch7:		%{name}-default_encoding.patch
+Patch1:		%{name}-readline.patch
+Patch2:		%{name}-pythonpath.patch
+Patch3:		%{name}-ac25x.patch
+Patch4:		%{name}-default_encoding.patch
+#Patch7:		%{name}-dl_global.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
+BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.6b
 BuildRequires:	readline-devel >= 4.2
@@ -112,6 +110,47 @@ destek verir. C koduyla birlikte kullanýmý son derece kolaydýr. Bu
 paket, standart Python birimlerinin çoðunun yanýsýra Tk ve RPM için
 arayüz birimlerini de içerir.
 
+%package libs
+Summary:	Python library
+Summary(pl):	Biblioteka jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+
+%description libs
+Python library.
+
+%description -l pl libs
+Biblioteka jêzyka Python.
+
+%package modules
+Summary:	Python modules
+Summary(pl):	Modu³y jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name} = %{version}
+
+%description modules
+Python modules.
+
+%description -l pl modules
+Modu³y jêzyka Python.
+
+%package pydoc
+Summary:	Python interactive module documentation access support
+Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name}-modules = %{version}
+
+%description pydoc
+Python interactive module documentation access support.
+
+%description -l pl pydoc
+Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
+
 %package devel
 Summary:	Libraries and header files for building python code
 Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
@@ -121,7 +160,7 @@ Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name} = %{version}
+Requires:	%{name}-libs = %{version}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -149,6 +188,20 @@ standardowej biblioteki.
 %description -l tr devel
 Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
 dosyalarýný ve kitaplýklarý içerir.
+
+%package devel-src
+Summary:	Python module sources
+Summary(pl):	Pliki ¼ród³owe modu³ów Pythona
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name}-modules = %{version}
+
+%description devel-src
+Python module sources.
+
+%description -l pl devel-src
+Pliki ¼ród³owe modu³ów Pythona.
 
 %package static
 Summary:	Static python library
@@ -226,7 +279,7 @@ Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name} = %{version}
+Requires:	%{name}-modules = %{version}
 Requires:	tcl >= 8.0.3 
 Requires:	tk  >= 8.0.3
 Requires:	tix >= 4.1.0.6
@@ -266,7 +319,7 @@ Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name} = %{version}
+Requires:	%{name}-modules = %{version}
 
 %description old
 Install this package when one of your program written in Python is old
@@ -289,10 +342,10 @@ Requires:	%{name}-devel = %{version}
 Obsoletes:	python-tools
 
 %description examples
-Example programs in Python
+Example programs in Python.
 
 %description -l pl examples
-Przyk³adowe programy w Pythonie
+Przyk³adowe programy w Pythonie.
 
 %prep
 %setup -q -n Python-%{version}
@@ -301,9 +354,7 @@ Przyk³adowe programy w Pythonie
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
+#%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
@@ -329,7 +380,8 @@ CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 
-export LD_LIBRARY_PATH=$(pwd)
+LD_LIBRARY_PATH=$(pwd)
+export LD_LIBRARY_PATH
 %{__make} install \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
 	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
@@ -349,7 +401,36 @@ ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
-gzip -9nf Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
+install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
+
+gzip -9nf Misc/{ACKS,NEWS,README,unicode.txt}
+
+echo "%defattr(644,root,root,755)" > modules.filelist
+
+find $RPM_BUILD_ROOT%{py_libdir} \
+	-type f \
+	-maxdepth 1 \
+	-printf %{py_libdir}/%f\\n \
+	| grep '\.py[co]$' \
+	| grep -v -e 'UserDict\.py[oc]$'\
+	| grep -v -e 'codecs\.py[oc]$' \
+	| grep -v -e 'locale\.py[oc]$' \
+	| grep -v -e 'posixpath\.py[oc]$' \
+	| grep -v -e 'pydoc\.py[oc]$' \
+	| grep -v -e 'site\.py[oc]$' \
+	| grep -v -e 'stat\.py[oc]$' \
+	| grep -v -e 'os\.py[oc]$' \
+	| grep -v -e 'encodings\/.*\.py[oc]$' >> modules.filelist
+ 
+find $RPM_BUILD_ROOT%{py_dyndir} \
+	-type f \
+	-maxdepth 1 \
+	-printf "%%%%attr(755,root,root) %{py_dyndir}/%f\\n" \
+	| grep '\.so$' \
+	| grep -v -e 'codecsmodule\.so$' \
+	| grep -v -e 'readline\.so$' \
+	| grep -v -e 'structmodule\.so$' \
+	| grep -v -e '_tkinter\.so$' >> modules.filelist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -359,18 +440,34 @@ rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/libpython*so.*
+%attr(755,root,root) %{_bindir}/python
 %{_mandir}/man1/*
+
+%dir %{py_dyndir}
+
+# required modules by python core
+%attr(755,root,root) %{py_dyndir}/_codecsmodule.so
+%attr(755,root,root) %{py_dyndir}/structmodule.so
+# readline support for python binary
+%attr(755,root,root) %{py_dyndir}/readline.so
+
+# required modules by python core
+%{py_libdir}/UserDict.py?
+%{py_libdir}/codecs.py?
+%{py_libdir}/locale.py?
+%{py_libdir}/posixpath.py?
+%{py_libdir}/site.py?
+%{py_libdir}/stat.py?
+%{py_libdir}/os.py?
+
+%dir %{py_libdir}/encodings
+%{py_libdir}/encodings/*.py?
+
+%files modules -f modules.filelist
+%defattr(644,root,root,755)
 
 %dir %{py_sitedir}
 %dir %{py_libdir}
-%{py_libdir}/*.py?
- 
-%dir %{py_dyndir}
-%attr(755,root,root) %{py_dyndir}/[a-z]*.so
-%attr(755,root,root) %{py_dyndir}/_te*.so
-%attr(755,root,root) %{py_dyndir}/_[a-su-z]*.so
 
 %dir %{py_libdir}/plat-*
 %attr(755,root,root) %{py_libdir}/plat-*/regen
@@ -385,9 +482,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/distutils/command
 %{py_libdir}/distutils/command/*.py?
 
-%dir %{py_libdir}/encodings
-%{py_libdir}/encodings/*.py?
-
 %dir %{py_libdir}/xml
 %{py_libdir}/xml/*.py?
 
@@ -400,12 +494,34 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/xml/dom
 %{py_libdir}/xml/dom/*.py?
 
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpython*so.*
+
+%files pydoc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/pydoc
+%{py_libdir}/pydoc.py?
+
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/*.gz
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
+
+%dir %{py_libdir}/config
+%attr(755,root,root) %{py_libdir}/config/makesetup
+%attr(755,root,root) %{py_libdir}/config/install-sh
+%{py_libdir}/config/Makefile
+%{py_libdir}/config/Setup
+%{py_libdir}/config/Setup.config
+%{py_libdir}/config/Setup.local
+%{py_libdir}/config/config.c
+%{py_libdir}/config/config.c.in
+%{py_libdir}/config/python.o
+
+%files devel-src
 %attr(-,root,root) %{py_libdir}/*.py
 %{py_libdir}/plat-*/*.py
 %{py_libdir}/curses/*.py
@@ -416,18 +532,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/xml/sax/*.py
 %{py_libdir}/xml/dom/*.py
 %{py_libdir}/encodings/*.py
-
-%dir %{py_libdir}/config
-%attr(755,root,root) %{py_libdir}/config/makesetup
-%attr(755,root,root) %{py_libdir}/config/install-sh
-%{py_libdir}/config/Makefile
-%{py_libdir}/config/Makefile.pre.in
-%{py_libdir}/config/Setup
-%{py_libdir}/config/Setup.config
-%{py_libdir}/config/Setup.local
-%{py_libdir}/config/config.c
-%{py_libdir}/config/config.c.in
-%{py_libdir}/config/python.o
 
 %files static
 %defattr(644,root,root,755)
