@@ -138,6 +138,7 @@ Group:		Development/Languages
 Group(de):	Entwicklung/Sprachen
 Group(pl):	Programowanie/Jêzyki
 Requires:	%{name} = %{version}
+Obsoletes:	python-docs
 
 %description doc
 This package contains documentation on the Python language and
