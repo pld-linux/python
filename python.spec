@@ -5,7 +5,7 @@ Summary(pl):	Python - obiektowy jezyk do tworzenia skryptów (g³ówny pakiet)
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	7
+Release:	8
 Copyright:	distributable
 Group:		Development/Languages
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
@@ -18,7 +18,7 @@ BuildRequires:	readline-devel
 BuildRequires:	tix
 BuildRequires:	tk-devel
 BuildRequires:	tcl-devel
-BuildRequires:	ncurses-devel
+BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
