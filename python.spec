@@ -36,6 +36,7 @@ Patch7:		%{name}-sec-lib-os-execvpe.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
+BuildRequires:	gdbm-devel >= 1.0.8-7
 BuildRequires:	expat-devel
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
@@ -439,8 +440,6 @@ tar -xf %{SOURCE1} --use=bzip2 -C html-doc
 install %{SOURCE2} Modules/Setup
 
 %build
-find ./ -name '*gdbm*'|xargs rm -f 
-
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
