@@ -13,10 +13,12 @@ Summary(es):	Lenguaje script de alto nivel con interface X
 Summary(fr):	Langage de script de tИs haut niveau avec interface X
 Summary(pl):	Python - jЙzyk obiektowy wysokiego poziomu
 Summary(pt_BR):	Linguagem de programaГЦo interpretada, orientada a objeto de alto nМvel
+Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
+Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	2
+Release:	3
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -78,8 +80,6 @@ benutzt werden, die ein programmierbares Interface brauchen. Dieses
 Paket enthДlt die meisten Standard-Python-Module, und Module zum
 Ansprechen von Tix (Tk-widget set) und RPM.
 
-Dokumentationen zu Python sind in python-doc enthalten.
-
 %description -l es
 Python es un lenguaje de scripts interpretado orientado a objetos.
 Contiene soporte para carga dinАmica de objetos, clases, mСdulos y
@@ -126,12 +126,27 @@ Este pacote Python inclui a maioria do mСdulos padrЦo Python, junto
 com mСdulos para interfaceamento para o conjunto de componentes Tix
 para Tk e RPM.
 
+%description -l ru
+Python - это интерпретируемый, объектно-ориентированный язык
+программирования. Он поддерживает динамическую загрузку объектов,
+классы, модули и обработку исключительных ситуаций (exceptions).
+Простота добавления интерфейсов к новым системным библиотекам через
+код на языке C делает Python хорошим выбором для использования в
+специальных конфигурациях.
+
 %description -l tr
 Python, nesneye yЖnelik bir kabuk yorumlayЩcЩdЩr. Nesnelerin,
 sЩnЩflarЩn, modЭllerin ve aykЩrЩ durumlarЩn dinamik yЭklenmelerine
 destek verir. C koduyla birlikte kullanЩmЩ son derece kolaydЩr. Bu
 paket, standart Python birimlerinin ГoПunun yanЩsЩra Tk ve RPM iГin
 arayЭz birimlerini de iГerir.
+
+%description -l uk
+Python - це ╕нтерпретована, об'╓ктно-ор╕╓нтована мова програмування.
+В╕н п╕дтриму╓ динам╕чну загрузку об'╓кт╕в, класи, модул╕ та обробку
+виключних ситуац╕й (exceptions). Простота додавання ╕нтерфейс╕в для
+нових системних б╕бл╕отек через код на мов╕ C робить Python добрим
+вибором для використання в спец╕альних конф╕гурац╕ях.
 
 %package libs
 Summary:	Python library
@@ -177,7 +192,9 @@ Summary(es):	Bibliotecas y archivos de inclusiСn para construir programas en pyt
 Summary(fr):	BibliothХques et en-tЙtes pour construire du code python
 Summary(pl):	Pliki nagЁСwkowe i biblioteki Pythona
 Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo para o Python
+Summary(ru):	Библиотеки и хедеры для построения кода на языке Python
 Summary(tr):	Python ile geliЧtirme yapmak iГin gerekli dosyalar
+Summary(uk):	Б╕бл╕отеки та хедери для програмування на мов╕ Python
 Group:		Development/Languages/Python
 Requires:	%{name}-libs = %{version}
 
@@ -216,9 +233,20 @@ carregadas dinamicamente. Python И tambИm fАcil de ser embutido em
 outros programas. Este pacote contИm os arquivos de inclusЦo e
 bibliotecas necessАrios para estas duas tarefas.
 
+%description devel -l ru
+Интерпретатор Python относительно легко расширяется при помощи
+динамически загружаемых расширений и встраивается в другие программы.
+Этот пакет содержит хедеры и библиотеки, необходимые для обеих этих
+задач.
+
 %description devel -l tr
 Bu paket, Python ile geliЧtirme yapЩlabilmesi iГin gerekli baЧlЩk
 dosyalarЩnЩ ve kitaplЩklarЩ iГerir.
+
+%description devel -l uk
+╤нтерпретатор Python в╕дносно легко розширю╓ться за допомогою
+розширень з динам╕чною загрузкою та вбудову╓ться в ╕нш╕ програми. Цей
+пакет м╕стить хедери та б╕бл╕отеки, необх╕дн╕ для обох цих задач.
 
 %package devel-src
 Summary:	Python module sources
@@ -252,7 +280,9 @@ Summary(es):	DocumentaciСn para Python
 Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Pythona
 Summary(pt_BR):	DocumentaГЦo para a linguagem de programaГЦo Python.
+Summary(ru):	Документация по языку Python
 Summary(tr):	Python belgeleri
+Summary(uk):	Документац╕я по мов╕ Python
 Group:		Documentation
 Requires:	%{name} = %{version}
 Obsoletes:	python-docs
@@ -284,13 +314,25 @@ O pacote python-doc contИm documentaГЦo para a linguagem de
 programaГЦo e para o interpretador Python. Fornecida em arquivos texto
 e Postcript.
 
+%description docs -l ru
+Этот пакет содержит документацию по собственно языку Python и по
+исполняющему его интерпретатору в виде набора текстовых файлов и
+исходных текстов в формате LaTeX.
+
 %description doc -l tr
 Bu paket, Python dili ile ilgili belgeleri ve dЭz ASCII dosyalarЩ ve
 LaTeX kaynaklarЩnЩn bir karЩЧЩmЩ olan yorumlayЩcЩyЩ iГerir.
 
+%description docs -l uk
+Цей пакет м╕стить документац╕ю по власне мов╕ Python та по виконуючому
+╖╖ ╕нтерпретатору у вигляд╕ набора текстових файл╕в та вих╕дних
+текст╕в у формат╕ LaTeX.
+
 %package without-thread
 Summary:	Python without threads
 Summary(pl):	Pyton bez w╠tkСw
+Summary(ru):	Визуальный интерфейс (GUI) для Python
+Summary(uk):	В╕зуальний ╕нтерфейс (GUI) для Python
 Group:		Libraries/Python
 Provides:	%{name}-without-thread = %{py_ver}
 Requires:	%{name} = %{version}
@@ -303,6 +345,12 @@ of use are unknown.
 %description without-thread -l pl
 Pyton bez w╠tkСw jest wЁa╤ciwie potrzebny tylko moduЁowi
 apache-mod_python, bo apache nie ich na razie nie wspiera.
+
+%description -n tkinter -l ru
+Графический интерфейс (GUI) для Python, построенный на Tcl/Tk.
+
+%description -n tkinter -l uk
+Граф╕чний ╕нтерфейс (GUI) для Python, побудований на Tcl/Tk.
 
 %package -n tkinter
 Summary:	Lowlevel Python -> Tk Interface
