@@ -8,14 +8,15 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	1
+Release:	2
 Copyright:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.pythonlabs.com/
 Source0:	http://www.pythonlabs.com/tech/python2.0/BeOpen-Python-%{version}.tar.bz2
 Source1:	http://www.pythonlabs.com/tech/python2.0/doc/html-%{version}.tar.bz2
-Patch0:		python-pld.patch
+Patch0:		python-shared-lib.patch
+Patch1:		python-pld.patch
 Patch2:		python-dl_global.patch
 Patch3:		python-shared.patch
 Patch4:		python-tkinter.patch
@@ -196,6 +197,7 @@ kullanýlan grafik bir arayüzdür.
 %prep
 %setup -q -n Python-%{version}
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
@@ -204,6 +206,8 @@ install -d html-doc && tar Ixf %{SOURCE1} -C html-doc
 
 %build
 export POSIXLY_CORRECT=TRUE
+
+autoconf
 
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
@@ -220,6 +224,7 @@ CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 
+export LD_LIBRARY_PATH=$(pwd)
 %{__make} install \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
 	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
@@ -247,6 +252,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.gz Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,README,unicode.txt}.gz
 
 %attr(755,root,root) %{_bindir}/*
+
+%attr(755,root,root) %{_libdir}/libpython*so.*
 
 %dir %{_libdir}/python%{pver}
 %attr(-,root,root) %{_libdir}/python%{pver}/*.py
