@@ -1,0 +1,13 @@
+--- Python-2.1/setup.py.notermcap	Sun Apr 15 12:16:12 2001
++++ Python-2.1/setup.py	Wed Apr 25 19:19:28 2001
+@@ -276,9 +276,4 @@
+         if self.compiler.find_library_file(lib_dirs, 'readline'):
+-            readline_libs = ['readline']
+-            if self.compiler.find_library_file(lib_dirs +
+-                                               ['/usr/lib/termcap'],
+-                                               'termcap'):
+-                readline_libs.append('termcap')
++            readline_libs = ['readline', 'ncurses']
+             exts.append( Extension('readline', ['readline.c'],
+-                                   library_dirs=['/usr/lib/termcap'],
+                                    libraries=readline_libs) )
