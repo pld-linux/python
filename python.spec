@@ -11,7 +11,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	4
+Release:	5
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -36,7 +36,7 @@ BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	zlib-devel
-BuildRequires:	gmp-devel
+BuildRequires:	gmp-devel >= 3.1.1
 %requires_eq	openssl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
@@ -136,8 +136,8 @@ nécessaires à ces deux tâches.
 
 %description -l pl devel
 Wszystko co potrzebne, aby napisaæ w C/C++ modu³ rozszerzaj±cy
-mo¿liwo¶ci Pythona. S± tu równie¿ wersje ¼ród³owe modu³ów ze standardowej
-biblioteki.
+mo¿liwo¶ci Pythona. S± tu równie¿ wersje ¼ród³owe modu³ów ze
+standardowej biblioteki.
 
 %description -l tr devel
 Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
@@ -258,14 +258,15 @@ Group(pl):	Programowanie/Jêzyki/Python
 Requires:	python = %{version}
 
 %description old
-Install this package when one of your program written in Python
-is old as Miss Universum of 1918, who only you want to see... ooops,
-which only you want to run. 
+Install this package when one of your program written in Python is old
+as Miss Universum of 1918, who only you want to see... ooops, which
+only you want to run.
 
 %description -l pl old
 Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programów napisanych
 w jêzyku Python jest tak stary jak Miss Universum z roku 1918, któr±
-tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz uruchomiæ.
+tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz
+uruchomiæ.
 
 %prep
 %setup -q -n Python-%{version}
