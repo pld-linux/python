@@ -1,4 +1,7 @@
 
+# Conditional build:
+%bcond_without tkinter	# disables tkinter module building
+
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
@@ -19,7 +22,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	1.1
+Release:	1.2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -33,7 +36,6 @@ Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
 Patch3:		%{name}-no_ndbm.patch
 Patch4:		%{name}-ac_fixes.patch
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
@@ -42,9 +44,8 @@ BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	readline-devel >= 4.2
-BuildRequires:	tcl-devel >= 8.4.3
-BuildRequires:	tix-devel >= 1:8.1.4-4
-BuildRequires:	tk-devel >= 8.4.3
+%{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
+%{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	%{name} = %{py_ver}
@@ -685,10 +686,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,root) %{py_libdir}/test/*
 
 %files tkinter
+%if %{with tkinter}
 %defattr(644,root,root,755)
-
 %{py_libdir}/lib-tk
 %attr(755,root,root) %{py_dyndir}/_tkinter.so
+%endif
 
 %files old
 %defattr(644,root,root,755)
