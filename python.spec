@@ -453,7 +453,7 @@ echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
 
-autoconf
+%{__autoconf}
 
 POSIXLY_CORRECT=TRUE; export POSIXLY_CORRECT
 
