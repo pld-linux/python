@@ -69,8 +69,12 @@ Obsoletes:	python-zlib
 Obsoletes:	python2
 Obsoletes:	python2-devel
 
+# tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
-%define		broken_tests	test_anydbm test_bsddb test_re test_shelve test_socket test_whichdb test_zipimport
+# tests which may fail because of builder environment limitations (no /proc or /dev/pts)
+%define		nobuilder_tests test_resource test_openpty test_socket
+# test which fail because of some unknown/unresolved reason (this list should be empty)
+%define		broken_tests	test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
 
 %description
 Python is an interpreted, interactive, object-oriented programming
@@ -483,9 +487,9 @@ LC_ALL=C
 export LC_ALL
 %if %{with tests}
 %ifarch alpha sparc64 ppc64 amd64
-%{__make} test TESTOPTS="-l -x %{no64bit_tests} %{broken_tests}"
+%{__make} test TESTOPTS="-l -x %{no64bit_tests} %{nobuilder_tests} %{broken_tests}"
 %else
-%{__make} test TESTOPTS="-l -x %{broken_tests}"
+%{__make} test TESTOPTS="-l -x %{nobuilder_tests} %{broken_tests}"
 %endif
 %endif
 
