@@ -28,7 +28,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	4
+Release:	5
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -46,7 +46,6 @@ BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	expat-devel >= 1.95.7
-BuildRequires:	python-PyXML >= 0.8.3
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7c
