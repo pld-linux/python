@@ -14,7 +14,7 @@
 # AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
 
 %define py_ver		2.4
-%define py_beta	b2
+%define py_beta		c1
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir	%{_includedir}/python%{py_ver}
@@ -37,7 +37,7 @@ Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{py_beta}.tar.bz2
-# Source0-md5:	683929acb0af30a7280250f80448daa6
+# Source0-md5:	bb11d7670a412554c580ee1807056479
 Source1:	http://www.python.org/ftp/python/doc/2.3/html-2.3.tar.bz2
 # Source1-md5:	382a934e0943a24f44ed161e78ff8347
 Patch0:		%{name}-readline.patch
@@ -486,8 +486,8 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}%{py_beta}.
 tar -xf %{SOURCE1} --use=bzip2
 
 %build
+sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 %{__autoconf}
-
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
