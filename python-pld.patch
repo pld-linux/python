@@ -119,7 +119,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  # The standard Unix dbm module:
  
 -#dbm dbmmodule.c 	# dbm(3) may require -lndbm or similar
-+dbm dbmmodule.c -I/usr/include/db1 -ldb 	# dbm(3) may require -lndbm or similar
++dbm dbmmodule.c -I/usr/include/db3 -ldb3 	# dbm(3) may require -lndbm or similar
  
  # Anthony Baxter's gdbm module.  GNU dbm(3) will require -lgdbm:
  
@@ -133,7 +133,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  #DB=/depot/sundry/src/berkeley-db/db.1.85
  #DBPORT=$(DB)/PORT/irix.5.3
 -#bsddb bsddbmodule.c -I$(DBPORT)/include -I$(DBPORT) $(DBPORT)/libdb.a
-+bsddb bsddbmodule.c -I/usr/include/db1 -ldb
++bsddb bsddbmodule.c -I/usr/include/db3 -ldb3
  
  
  
