@@ -1,5 +1,5 @@
 
-%define pver 1.6
+%define pver 2.0
  
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
@@ -9,18 +9,14 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}b1
 Release:	1
-Copyright:	CNRI Open Source License
+Copyright:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
-URL:		http://www.python.org/
-Source0:	ftp://ftp.python.org/pub/python/src/Python-%{version}.tgz
-Source1:	Python-Doc.tar.gz
-Source2:	cursesmodule.c
+URL:		http://www.pythonlabs.com/
+Source0:	http://www.pythonlabs.com/tech/python2.0/BeOpen-Python-%{version}.tar.gz
+Source1:	http://www.pythonlabs.com/tech/python2.0/doc/html-%{version}.tar.bz2
 Patch0:		python-pld.patch
-Patch1:		python-sed.patch
 Patch2:		python-dl_global.patch
-Patch4:		python-wuftpd.patch
-Patch5:		python-_locale.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	readline-devel >= 4.1
 BuildRequires:	ncurses-devel >= 5.0
@@ -194,18 +190,15 @@ Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan
 kullanýlan grafik bir arayüzdür.
 
 %prep
-%setup -q -n Python-%{version} -a1
+%setup -q -n Python-%{version}
 %patch0 -p1
-%patch1 -p0
 %patch2 -p1
-%patch4 -p1
-%patch5 -p1
 
 rm -f Doc/{ref,}/.cvsignore
+mkdir Doc && tar Ixf %{SOURCE1} -C Doc
 
 %build
 export POSIXLY_CORRECT=TRUE
-cp -f %{SOURCE2} Modules
 
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
@@ -258,6 +251,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/*.pyo
  
 %dir %{_libdir}/python%{pver}/lib-dynload
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_codecsmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_cursesmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_localemodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_socketmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_tkinter.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/arraymodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/binascii.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/bsddbmodule.so
@@ -265,7 +263,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cStringIO.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cmathmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cryptmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cursesmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/dbmmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/errnomodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/fcntlmodule.so
@@ -273,6 +270,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/grpmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/mathmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/md5module.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/mmapmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/newmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/nismodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/operator.so
@@ -283,14 +281,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/rotormodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/selectmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/shamodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/socketmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/stropmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/structmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/syslogmodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/termios.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/timemodule.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/timingmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/ucnhash.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/unicodedata.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/zlibmodule.so
+
 
 %dir %{_libdir}/python%{pver}/plat-*
 %attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
@@ -312,7 +312,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/config/Makefile.pre.in
 %{_libdir}/python%{pver}/config/Setup
 %{_libdir}/python%{pver}/config/Setup.local
-%{_libdir}/python%{pver}/config/Setup.thread
 %{_libdir}/python%{pver}/config/config.c
 %{_libdir}/python%{pver}/config/config.c.in
 %{_libdir}/python%{pver}/config/python.o
@@ -322,7 +321,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Misc/HYPE.gz Misc/README.gz Misc/cheatsheet Misc/BLURB* Doc
+%doc Misc/HYPE.gz Misc/README.gz Misc/cheatsheet Misc/BLURB* Doc/*
 
 %files -n tkinter
 %defattr(644,root,root,755)
