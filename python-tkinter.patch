@@ -1,0 +1,11 @@
+--- Python-2.0b2/Modules/Setup.in.wiget	Tue Oct 10 16:24:05 2000
++++ Python-2.0b2/Modules/Setup.in	Tue Oct 10 16:29:16 2000
+@@ -297,7 +297,7 @@
+ # *** Uncomment and edit to reflect where your Tcl/Tk libraries are:
+ #	-L/usr/local/lib \
+ # *** Uncomment and edit to reflect your Tcl/Tk versions:
+-	-ltk8.0 -ltcl8.0 \
++	-ltk -ltcl \
+ # *** Uncomment and edit to reflect where your X11 libraries are:
+ 	-L/usr/X11R6/lib \
+ # *** Or uncomment this for Solaris:
