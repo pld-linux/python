@@ -1,6 +1,6 @@
 diff -urN Python-2.3.1.org/configure.in Python-2.3.1/configure.in
---- Python-2.3.1.org/configure.in	2003-09-26 23:46:32.000000000 +0000
-+++ Python-2.3.1/configure.in	2003-09-26 23:46:45.000000000 +0000
+--- Python-2.3.1.org/configure.in	2003-09-27 12:45:29.550715080 +0200
++++ Python-2.3.1/configure.in	2003-09-27 12:45:53.014148096 +0200
 @@ -2093,7 +2093,7 @@
  )
  AC_MSG_CHECKING(for fsync)
@@ -10,3 +10,15 @@ diff -urN Python-2.3.1.org/configure.in Python-2.3.1/configure.in
    AC_MSG_RESULT(yes),
    AC_MSG_RESULT(no)
  )
+diff -urN Python-2.3.1.org/pyconfig.h.in Python-2.3.1/pyconfig.h.in
+--- Python-2.3.1.org/pyconfig.h.in	2003-09-27 12:45:29.623703984 +0200
++++ Python-2.3.1/pyconfig.h.in	2003-09-27 12:46:09.172691624 +0200
+@@ -486,7 +486,7 @@
+ #undef HAVE_SYMLINK
+ 
+ /* Define if you have the 'fsync' function. */
+-#undef HAVE_SYNC
++#undef HAVE_FSYNC
+ 
+ /* Define to 1 if you have the `sysconf' function. */
+ #undef HAVE_SYSCONF
