@@ -5,9 +5,17 @@
 #
 
 # Conditional build:
-%bcond_without tkinter	# disables tkinter module building
-%bcond_without tests	# disables Python testing
-#
+%bcond_without tkinter		# disables tkinter module building
+%bcond_without tests		# disables Python testing
+%bcond_with verbose_tests	# runs tests in verbose mode
+
+# tests which will not work on 64-bit platforms
+%define		no64bit_tests	test_audioop test_rgbimg test_imageop
+# tests which may fail because of builder environment limitations (no /proc or /dev/pts)
+%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix
+# test which fail because of some unknown/unresolved reason (this list should be empty)
+%define		broken_tests	test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
+
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/%{_lib}/python%{py_ver}
@@ -69,12 +77,17 @@ Obsoletes:	python-zlib
 Obsoletes:	python2
 Obsoletes:	python2-devel
 
-# tests which will not work on 64-bit platforms
-%define		no64bit_tests	test_audioop test_rgbimg test_imageop
-# tests which may fail because of builder environment limitations (no /proc or /dev/pts)
-%define		nobuilder_tests test_resource test_openpty test_socket
-# test which fail because of some unknown/unresolved reason (this list should be empty)
-%define		broken_tests	test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
+%if %{with verbose_tests}
+%define test_flags -v -l -x 
+%else
+%define test_flags -l -x 
+%endif
+
+%ifarch alpha sparc64 ppc64 amd64
+%define test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests}
+%else
+%define test_list %{nobuilder_tests} %{broken_tests}
+%endif
 
 %description
 Python is an interpreted, interactive, object-oriented programming
@@ -486,11 +499,7 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
-%ifarch alpha sparc64 ppc64 amd64
-%{__make} test TESTOPTS="-v -l -x %{no64bit_tests} %{nobuilder_tests} %{broken_tests}"
-%else
-%{__make} test TESTOPTS="-v -l -x %{nobuilder_tests} %{broken_tests}"
-%endif
+%{__make} test TESTOPTS="%{test_flags} %{test_list}"
 %endif
 
 %install
