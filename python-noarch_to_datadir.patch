@@ -35,23 +35,6 @@ diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutil
          if standard_lib:
              return libpython
          else:
-diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
---- Python-2.3.4.orig/Lib/site.py	2004-09-10 08:26:38.221827272 +0200
-+++ Python-2.3.4/Lib/site.py	2004-09-10 08:41:12.837021494 +0200
-@@ -169,7 +169,12 @@
-                                      "lib",
-                                      "python" + sys.version[:3],
-                                      "site-packages"),
--                        os.path.join(prefix, "lib", "site-python")]
-+                        os.path.join(prefix, "lib", "site-python"),
-+                        os.path.join(prefix,
-+                                     "share",
-+                                     "python" + sys.version[:3],
-+                                     "site-packages"),
-+                        os.path.join(prefix, "share", "site-python")]
-         else:
-             sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
-         if sys.platform == 'darwin':
 diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
 --- Python-2.3.4.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
 +++ Python-2.3.4/Makefile.pre.in	2004-09-10 08:41:12.838021439 +0200
@@ -120,3 +103,20 @@ diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
      }
      else
          reduce(prefix);
+--- Python-2.4a3/Lib/site.py~	2004-09-22 10:59:13.438619336 +0000
++++ Python-2.4a3/Lib/site.py	2004-09-22 11:01:46.976278064 +0000
+@@ -182,7 +182,13 @@
+                                          "lib",
+                                          "python" + sys.version[:3],
+                                          "site-packages"),
+-                            os.path.join(prefix, "lib", "site-python")]
++		            os.path.join(prefix, "lib", "site-python"),
++			    os.path.join(prefix,
++                                         "share",
++                                         "python" + sys.version[:3],
++                                         "site-packages"),
++			    os.path.join(prefix, "share", "site-python")]
++
+             else:
+                 sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
+             if sys.platform == 'darwin':
