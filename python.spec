@@ -19,7 +19,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}c1
-Release:	0.1
+Release:	0.2
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -167,6 +167,7 @@ Group:		Libraries/Python
 Provides:	%{name}-modules = %{py_ver}
 Requires:	%{name} = %{version}
 Obsoletes:	python-logging
+Obsoletes:	python-xmlrpc <= 1.0.1
 
 %description modules
 Python modules.
