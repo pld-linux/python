@@ -413,19 +413,23 @@ find $RPM_BUILD_ROOT%{py_libdir} \
 	-printf %{py_libdir}/%f\\n \
 	| grep '\.py[co]$' \
 	| grep -v -e 'UserDict\.py[oc]$'\
+	| grep -v -e 'codecs\.py[oc]$' \
 	| grep -v -e 'locale\.py[oc]$' \
 	| grep -v -e 'posixpath\.py[oc]$' \
 	| grep -v -e 'pydoc\.py[oc]$' \
 	| grep -v -e 'site\.py[oc]$' \
 	| grep -v -e 'stat\.py[oc]$' \
-	| grep -v -e 'os\.py[oc]$' >> modules.filelist
+	| grep -v -e 'os\.py[oc]$' \
+	| grep -v -e 'encodings\/.*\.py[oc]$' >> modules.filelist
  
 find $RPM_BUILD_ROOT%{py_dyndir} \
 	-type f \
 	-maxdepth 1 \
 	-printf "%%%%attr(755,root,root) %{py_dyndir}/%f\\n" \
 	| grep '\.so$' \
+	| grep -v -e 'codecsmodule\.so$' \
 	| grep -v -e 'readline\.so$' \
+	| grep -v -e 'structmodule\.so$' \
 	| grep -v -e '_tkinter\.so$' >> modules.filelist
 
 %clean
@@ -442,16 +446,22 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_dyndir}
 
 # required modules by python core
+%attr(755,root,root) %{py_dyndir}/_codecsmodule.so
+%attr(755,root,root) %{py_dyndir}/structmodule.so
 # readline support for python binary
 %attr(755,root,root) %{py_dyndir}/readline.so
 
 # required modules by python core
 %{py_libdir}/UserDict.py?
+%{py_libdir}/codecs.py?
 %{py_libdir}/locale.py?
 %{py_libdir}/posixpath.py?
 %{py_libdir}/site.py?
 %{py_libdir}/stat.py?
 %{py_libdir}/os.py?
+
+%dir %{py_libdir}/encodings
+%{py_libdir}/encodings/*.py?
 
 %files modules -f modules.filelist
 %defattr(644,root,root,755)
@@ -471,9 +481,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/distutils/command
 %{py_libdir}/distutils/command/*.py?
-
-%dir %{py_libdir}/encodings
-%{py_libdir}/encodings/*.py?
 
 %dir %{py_libdir}/xml
 %{py_libdir}/xml/*.py?
