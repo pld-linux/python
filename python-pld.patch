@@ -1,8 +1,6 @@
-Binary files Python-2.0b1.orig/Modules/.Setup.in.rej.swp and Python-2.0b1/Modules/.Setup.in.rej.swp differ
-Binary files Python-2.0b1.orig/Modules/.Setup.in.swp and Python-2.0b1/Modules/.Setup.in.swp differ
-diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
---- Python-2.0b1.orig/Modules/Setup.in	Thu Aug 31 18:11:07 2000
-+++ Python-2.0b1/Modules/Setup.in	Wed Sep  6 13:58:29 2000
+diff -Nur Python-2.0.orig/Modules/Setup.in Python-2.0/Modules/Setup.in
+--- Python-2.0.orig/Modules/Setup.in	Mon Oct 16 23:49:33 2000
++++ Python-2.0/Modules/Setup.in	Fri Nov 17 22:50:00 2000
 @@ -111,7 +111,7 @@
  # modules are to be built as shared libraries (see above for more
  # detail; also note that *static* reverses this effect):
@@ -21,7 +19,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  # Modules that should always be present (non UNIX dependent):
-@@ -162,15 +162,15 @@
+@@ -164,15 +164,15 @@
  
  # The crypt module is now disabled by default because it breaks builds
  # on many systems (where -lcrypt is needed), e.g. Linux (I believe).
@@ -41,7 +39,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  # Multimedia modules -- off by default.
-@@ -207,7 +207,7 @@
+@@ -209,7 +209,7 @@
  # ftp://gatekeeper.dec.com/.b/usenet/comp.sources.misc/volume40/fgmp/part01.Z
  
  #GMP=/ufs/guido/src/gmp
@@ -50,7 +48,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  # SGI IRIX specific modules -- off by default.
-@@ -258,7 +258,7 @@
+@@ -260,7 +260,7 @@
  
  # George Neville-Neil's timing module:
  
@@ -59,7 +57,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  # The _tkinter module.
-@@ -276,15 +276,15 @@
+@@ -278,15 +278,15 @@
  # every system.
  
  # *** Always uncomment this (leave the leading underscore in!):
@@ -78,7 +76,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  # *** Uncomment and edit for BLT extension only:
  #	-DWITH_BLT -I/usr/local/blt/blt8.0-unoff/include -lBLT8.0 \
  # *** Uncomment and edit for PIL (TkImaging) extension only:
-@@ -294,9 +294,9 @@
+@@ -296,9 +296,9 @@
  # *** Uncomment and edit to reflect where your Tcl/Tk libraries are:
  #	-L/usr/local/lib \
  # *** Uncomment and edit to reflect your Tcl/Tk versions:
@@ -90,7 +88,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  # *** Or uncomment this for Solaris:
  #	-L/usr/openwin/lib \
  # *** Uncomment these for TOGL extension only:
-@@ -304,12 +304,12 @@
+@@ -306,12 +306,12 @@
  # *** Uncomment for AIX:
  #	-lld \
  # *** Always uncomment this; X11 libraries to link with:
@@ -105,7 +103,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  # Curses support, requring the System V version of curses, often
-@@ -317,7 +317,7 @@
+@@ -319,7 +319,7 @@
  # instead of -lcurses; on SunOS 4.1.3, insert -I/usr/5include
  # -L/usr/5lib before -lcurses).
  
@@ -114,7 +112,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  
-@@ -343,11 +343,11 @@
+@@ -345,11 +345,11 @@
  
  # The standard Unix dbm module:
  
@@ -128,7 +126,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  # Berkeley DB interface.
-@@ -366,7 +366,7 @@
+@@ -370,7 +370,7 @@
  
  #DB=/depot/sundry/src/berkeley-db/db.1.85
  #DBPORT=$(DB)/PORT/irix.5.3
@@ -137,7 +135,7 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  
  
-@@ -404,7 +404,7 @@
+@@ -408,7 +408,7 @@
  # Andrew Kuchling's zlib module.
  # This require zlib 1.1.3 (or later).
  # See http://www.cdrom.com/pub/infozip/zlib/
@@ -146,3 +144,11 @@ diff -Nur Python-2.0b1.orig/Modules/Setup.in Python-2.0b1/Modules/Setup.in
  
  # Interface to the Expat XML parser
  #
+@@ -431,6 +431,7 @@
+ #
+ #EXPAT_DIR=/usr/local/src/expat
+ #pyexpat pyexpat.c -I$(EXPAT_DIR)/xmlparse -L$(EXPAT_DIR) -lexpat
++pyexpat pyexpat.c -lexpat -DHAVE_EXPAT_H
+ 
+ 
+ # Example -- included for reference only:
