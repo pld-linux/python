@@ -492,7 +492,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_libdir}/*.py[co]
 
+#
 # list .so modules to be sure that all of them are built
+#
+
+# three modules below does not work on 64-bit architectures
+# see Python README file for explanation
+%ifnarch alpha sparc64 ppc64
+%attr(755,root,root) %{py_dyndir}/audioop.so
+%attr(755,root,root) %{py_dyndir}/rgbimg.so
+%attr(755,root,root) %{py_dyndir}/imageop.so
+%endif
+
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
 %attr(755,root,root) %{py_dyndir}/_csv.so
 %attr(755,root,root) %{py_dyndir}/_curses.so
@@ -505,7 +516,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
 %attr(755,root,root) %{py_dyndir}/_weakref.so
 %attr(755,root,root) %{py_dyndir}/array.so
-%attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/binascii.so
 %attr(755,root,root) %{py_dyndir}/bz2.so
 %attr(755,root,root) %{py_dyndir}/cPickle.so
@@ -517,7 +527,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/fcntl.so
 %attr(755,root,root) %{py_dyndir}/gdbm.so
 %attr(755,root,root) %{py_dyndir}/grp.so
-%attr(755,root,root) %{py_dyndir}/imageop.so
 %attr(755,root,root) %{py_dyndir}/itertools.so
 %attr(755,root,root) %{py_dyndir}/linuxaudiodev.so
 %attr(755,root,root) %{py_dyndir}/math.so
@@ -533,7 +542,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/pyexpat.so
 %attr(755,root,root) %{py_dyndir}/regex.so
 %attr(755,root,root) %{py_dyndir}/resource.so
-%attr(755,root,root) %{py_dyndir}/rgbimg.so
 %attr(755,root,root) %{py_dyndir}/rotor.so
 %attr(755,root,root) %{py_dyndir}/select.so
 %attr(755,root,root) %{py_dyndir}/sha.so
