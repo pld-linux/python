@@ -31,6 +31,7 @@ Patch2:		%{name}-%{name}path.patch
 Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
 Patch5:		%{name}-no_ndbm.patch
+Patch6:		%{name}-ac_fixes.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db3-devel
@@ -411,6 +412,7 @@ Przyk³adowe programy w Pythonie.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
