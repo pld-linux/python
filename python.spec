@@ -8,20 +8,20 @@
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
-%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale
+%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
 
-%define py_ver         2.3
-%define py_prefix      %{_prefix}
-%define py_libdir      %{py_prefix}/%{_lib}/python%{py_ver}
-%define py_scriptdir   %{py_prefix}/share/python%{py_ver}
-%define py_incdir      %{_includedir}/python%{py_ver}
-%define py_sitedir     %{py_libdir}/site-packages
-%define py_sitescriptdir %{py_scriptdir}/site-packages
-%define py_dyndir      %{py_libdir}/lib-dynload
-%define py_comp        ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
-%define py_ocomp       ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
+%define		py_ver			2.3
+%define		py_prefix		%{_prefix}
+%define		py_libdir		%{py_prefix}/%{_lib}/python%{py_ver}
+%define		py_scriptdir		%{py_prefix}/share/python%{py_ver}
+%define		py_incdir		%{_includedir}/python%{py_ver}
+%define		py_sitedir		%{py_libdir}/site-packages
+%define		py_sitescriptdir	%{py_scriptdir}/site-packages
+%define		py_dyndir		%{py_libdir}/lib-dynload
+%define		py_comp			./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
+%define		py_ocomp		./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
 
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfl‰che
@@ -34,7 +34,7 @@ Summary(tr):	X aray¸zl¸, y¸ksek d¸zeyli, kabuk yorumlay˝c˝ dili
 Summary(uk):	Ìœ◊¡ –“œ«“¡Õ’◊¡ŒŒ— ƒ’÷≈ ◊…”œÀœ«œ “¶◊Œ— ⁄ X-¶Œ‘≈“∆≈ ”œÕ
 Name:		python
 Version:	%{py_ver}.4
-Release:	2
+Release:	5
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -65,7 +65,6 @@ BuildRequires:	readline-devel >= 4.2
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
 Obsoletes:	python-intl
 Obsoletes:	python-curses
@@ -184,7 +183,7 @@ Python - √≈ ¶Œ‘≈“–“≈‘œ◊¡Œ¡, œ¬'§À‘Œœ-œ“¶§Œ‘œ◊¡Œ¡ Õœ◊¡ –“œ«“¡Õ’◊¡ŒŒ—.
 Summary:	Python library
 Summary(pl):	Biblioteka jÍzyka Python
 Group:		Libraries/Python
-Provides:	%{name}-libs = %{py_ver}
+Provides:	python(bytecode) = %{py_ver}
 
 %description libs
 Python library.
@@ -196,8 +195,7 @@ Biblioteka jÍzyka Python.
 Summary:	Python modules
 Summary(pl):	Modu≥y jÍzyka Python
 Group:		Libraries/Python
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	%{name}-modules = %{py_ver}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-logging
 Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
@@ -327,7 +325,6 @@ Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	%{name}-static = %{py_ver}
 
 %description static
 Static python library.
@@ -402,7 +399,7 @@ Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Requires:	tcl >= 8.4.3
 Requires:	tix >= 1:8.1.4-4
-Requires:	tk  >= 8.4.3
+Requires:	tk >= 8.4.3
 Obsoletes:	tkinter
 
 %description tkinter
@@ -489,6 +486,7 @@ tar -xf %{SOURCE1} --use=bzip2
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
+	--with-cxx=%{__cxx} \
 	--enable-unicode=ucs4 \
 	--enable-shared
 
@@ -526,13 +524,13 @@ cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 SCRIPT_EXT="_py"
 %if %{with noautosys}
-    SCRIPT_EXT=".py"
+	SCRIPT_EXT=".py"
 %endif
 export SCRIPT_EXT
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py
 for script in timeit profile pdb pstats; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
+	cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
 exec python %{py_scriptdir}/${script}.pyc "\$@"
 END
@@ -544,8 +542,8 @@ install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   libs -p /sbin/ldconfig
-%postun libs -p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -607,7 +605,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/crypt.so
 %attr(755,root,root) %{py_dyndir}/datetime.so
+%ifnarch sparc64
 %attr(755,root,root) %{py_dyndir}/dbm.so
+%attr(755,root,root) %{py_dyndir}/mpz.so
+%endif
 %attr(755,root,root) %{py_dyndir}/fcntl.so
 %attr(755,root,root) %{py_dyndir}/gdbm.so
 %attr(755,root,root) %{py_dyndir}/grp.so
@@ -616,7 +617,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/math.so
 %attr(755,root,root) %{py_dyndir}/md5.so
 %attr(755,root,root) %{py_dyndir}/mmap.so
-%attr(755,root,root) %{py_dyndir}/mpz.so
 %attr(755,root,root) %{py_dyndir}/nis.so
 %attr(755,root,root) %{py_dyndir}/operator.so
 %attr(755,root,root) %{py_dyndir}/ossaudiodev.so
@@ -733,7 +733,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/Setup.local
 %{py_libdir}/config/config.c
 %{py_libdir}/config/config.c.in
-%{py_libdir}/config/python.o
+%{py_libdir}/config/ccpython.o
 
 %files devel-src
 %defattr(644,root,root,755)
