@@ -8,7 +8,7 @@ Version:	1.5.2
 Release:	17
 Copyright:	Distributable
 Group:		Development/Languages/Python
-Group(pl):      Programowanie/Jêzyki/Python
+Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.python.org/
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
@@ -29,22 +29,23 @@ BuildRequires:	gdbm-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Python is an interpreted, interactive, object-oriented programming language. 
-It incorporates modules, exceptions, dynamic typing, very high level dynamic
-data types, and classes. Python combines remarkable power with very clear
-syntax. It has interfaces to many system calls and libraries, as well as to
-various window systems, and is extensible in C or C++. It is also usable as
-an extension language for applications that need a programmable interface. 
-Finally, Python is portable: it runs on many brands of UNIX, on the Mac, and
-on PCs under MS-DOS, Windows, Windows NT, and OS/2.
+Python is an interpreted, interactive, object-oriented programming
+language. It incorporates modules, exceptions, dynamic typing, very high
+level dynamic data types, and classes. Python combines remarkable power
+with very clear syntax. It has interfaces to many system calls and
+libraries, as well as to various window systems, and is extensible in C or
+C++. It is also usable as an extension language for applications that need
+a programmable interface. Finally, Python is portable: it runs on many
+brands of UNIX, on the Mac, and on PCs under MS-DOS, Windows, Windows NT,
+and OS/2.
 
 %description -l de
 Python ist eine interpretierte, interaktive, objektorientierte
 Programmiersprache, vergleichbar zu Tcl, Perl, Scheme oder Java. Python
 enthält Module, Klassen, Exceptions, High-Level dynamische Datentypen und
 dynamisches Typisieren. Python unterstützt Interfaces zu vielen
-Systemaufrufen und Libraries, sowie verschiedene Fenstersysteme (X11, Motif,
-Tk, Mac und MFC)
+Systemaufrufen und Libraries, sowie verschiedene Fenstersysteme (X11,
+Motif, Tk, Mac und MFC)
 
 Programmierer können neue built-in-Module für Python in C oder C++
 schreiben. Python kann auch als Erweiterungssprache für Applikationen
@@ -52,13 +53,14 @@ benutzt werden, die ein programmierbares Interface brauchen. Dieses Paket
 enthält die meisten Standard-Python-Module, und Module zum Ansprechen von
 Tix (Tk-widget set) und RPM.
 
-Dokumentationen zu Python sind in python-docs enthalten.
+Dokumentationen zu Python sind in python-doc enthalten.
 
 %description -l fr
 Python est un langage de script interprété et orienté objet. Il gère le
-chargement dynamique des objets, les classes, les modules et les exceptions.
-L'ajout d'interfaces aux nouvelles bibliothèques systèmes avec du code C est
-simple, ce qui rend Python facile à utiliser dans des configs personnalisées.
+chargement dynamique des objets, les classes, les modules et les
+exceptions. L'ajout d'interfaces aux nouvelles bibliothèques systèmes avec
+du code C est simple, ce qui rend Python facile à utiliser dans des configs
+personnalisées.
 
 Ce paquetage Python contient la plupart des modules Python standards, ainsi
 que ceux permettant l'interfaçage avec les widgets Tix pour Tk et RPM.
@@ -69,8 +71,8 @@ jêzykiem programowania. Jest modularny, obs³uguje wyj±tki, dynamiczne typy,
 zaawansowane dynamiczne struktury danych i klasy. Python ³±czy w sobie du¿e
 mo¿liwo¶ci i przejrzyst± sk³adniê. Posiada interfejsy do wielu wywo³añ
 systemowych i bibliotek, w tym równie¿ do ró¿nych bibliotek okienkowych.
-Mo¿liwo¶ci jego mo¿na jeszcze rozszerzaæ poprzez odpowiednie modu³y pisane w
-C lub C++. Python mo¿e byæ równie¿ u¿yty jako element aplikacji, którym
+Mo¿liwo¶ci jego mo¿na jeszcze rozszerzaæ poprzez odpowiednie modu³y pisane
+w C lub C++. Python mo¿e byæ równie¿ u¿yty jako element aplikacji, którym
 potrzebny jest interpreter do skryptów. I wreszcie, Python jest
 wieloplatformowy, dzia³a na wielu odmianach UNIX'a, Mac'u oraz PC pod
 DOS'em, Windows, WindowsNT oraz OS/2.
@@ -88,7 +90,7 @@ Summary(fr):	Bibliothèques et en-têtes pour construire du code python
 Summary(pl):	Pliki nag³ówkowe i biblioteki Python'a
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
-Group(pl):      Programowanie/Jêzyki/Python
+Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
 %description devel
@@ -97,10 +99,10 @@ extensions and to embed in other programs. This packages contains the
 header files and libraries which are needed to do both of these tasks.
 
 %description -l de devel
-Der Python-Interpretierer ist relativ einfach anhand von dynamisch 
-ladbaren Erweiterungen auszubauen und läßt sich in andere 
-Programme integrieren. Dieses Paket enthält die Header-Dateien und 
-Libraries, die für beide Aufgaben erforderlich sind. 
+Der Python-Interpretierer ist relativ einfach anhand von dynamisch ladbaren
+Erweiterungen auszubauen und läßt sich in andere Programme integrieren.
+Dieses Paket enthält die Header-Dateien und Libraries, die für beide
+Aufgaben erforderlich sind.
 
 %description -l fr devel
 L'interpréteur Python est relativement facile à étendre avec des extensions
@@ -112,38 +114,38 @@ Wszystko co potrzebne, aby napisaæ w C/C++ modu³ rozszerzaj±cy mo¿liwo¶ci
 Pythona.
 
 %description -l tr devel
-Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk dosyalarýný
-ve kitaplýklarý içerir.
+Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
+dosyalarýný ve kitaplýklarý içerir.
 
-%package docs
+%package doc
 Summary:	Documentation on Python
 Summary(de):	Dokumentation zu Python 
 Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Python'a 
 Summary(tr):	Python belgeleri
 Group:		Development/Languages/Python
-Group(pl):      Programowanie/Jêzyki/Python
+Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
-%description docs
+%description doc
 This package contains documentation on the Python language and interpretor
 as a mix of plain ASCII files and LaTeX sources.
 
-%description -l de docs
-Dieses Paket enthält Dokumentationen zu Python (Sprache und Interpreter)
-in Form von einfachen ASCII-Dateien und LaTeX-Quellen.
+%description -l de doc
+Dieses Paket enthält Dokumentationen zu Python (Sprache und Interpreter) in
+Form von einfachen ASCII-Dateien und LaTeX-Quellen.
 
-%description -l fr docs
+%description -l fr doc
 Ce paquetage contient la documentation sur le langage python et sur son
 interpréteur sous forme de fichiers ASCII et LaTeX.
 
-%description -l pl docs
+%description -l pl doc
 Oficjalna dokumentacja do Pythona. Zawiera przyk³adowe programy, narzêdzia
-i dokumentacjê. Strony podrêcznika man znajduj± siê w g³ównym pakiecie.
-Ten pakiet nie zawiera ¼róde³ dokumentacji napisanych w LaTeX'u,
-tylko gotowe do wykorzystania pliki postscript'owe i HTML. 
+i dokumentacjê. Strony podrêcznika man znajduj± siê w g³ównym pakiecie. Ten
+pakiet nie zawiera ¼róde³ dokumentacji napisanych w LaTeX'u, tylko gotowe
+do wykorzystania pliki postscript'owe i HTML.
 
-%description -l tr docs
+%description -l tr doc
 Bu paket, Python dili ile ilgili belgeleri ve düz ASCII dosyalarý ve LaTeX
 kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 
@@ -165,13 +167,13 @@ This is the lowlevel C module that interfaces Tk and which is the basis for
 the Tkinter, Python's OO interface to Tk, which is included in the package
 python-tkinter.
 
-The only reason this file is removed from python-tkinter, is to make it more
-easy to replay _tkinter with a PIL (Python Imaging Libary) aware version of
-it. Look at my PIL distribution.
+The only reason this file is removed from python-tkinter, is to make it
+more easy to replay _tkinter with a PIL (Python Imaging Libary) aware
+version of it. Look at my PIL distribution.
 
 %description -l de -n tkinter
-Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von 
-vielen Konfigurations-Tools genutzt. 
+Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von
+vielen Konfigurations-Tools genutzt.
 
 %description -l fr -n tkinter
 Interface graphique pour Python, basée sur Tcl/Tk et utilisée par beaucoup
@@ -185,8 +187,8 @@ Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na PIL
 (Python Imaging Library).
 
 %description -l tr -n tkinter
-Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan kullanýlan
-grafik bir arayüzdür.
+Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan
+kullanýlan grafik bir arayüzdür.
 
 %prep
 %setup -q -n Python-%{version} -a1
@@ -209,7 +211,7 @@ echo ': ${CCSHARED='-fPIC'}' >> config.cache
 cp Lib/lib-old/rand.py Lib
 
 LDFLAGS="-s"; export LDFLAGS
-CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
+CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads 
 
@@ -301,7 +303,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libpython1.5.a
 %{_libdir}/libpython.a
 
-%files docs
+%files doc
 %defattr(644,root,root,755)
 %doc Misc/HYPE.gz Misc/README.gz Misc/cheatsheet Misc/BLURB* Doc
 
