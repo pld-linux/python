@@ -37,8 +37,8 @@ Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 # Source0-md5:	44c2226eff0f3fc1f2fedaa1ce596533
 #Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-Source1:	http://www.python.org/ftp/python/doc/2.3/html-2.3.tar.bz2
-# Source1-md5:	382a934e0943a24f44ed161e78ff8347
+Source1:	http://www.python.org/ftp/python/doc/2.3.4/html-2.3.4.tar.bz2
+# Source1-md5:	599abc498714de055814d4542de4f2fc
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
@@ -789,7 +789,7 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 # FIXME
-%doc Python-Docs-2.3/*
+%doc Python-Docs-*/*
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
 %attr(-,root,root) %{py_libdir}/email/test/*
