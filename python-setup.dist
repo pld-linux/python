@@ -235,7 +235,7 @@ sha shamodule.c
 # ftp://gatekeeper.dec.com/.b/usenet/comp.sources.misc/volume40/fgmp/part01.Z
 
 #GMP=/ufs/guido/src/gmp
-#mpz mpzmodule.c -lgmp
+mpz mpzmodule.c -lgmp -D__GNU_MP__=2
 
 
 # SGI IRIX specific modules -- off by default.
