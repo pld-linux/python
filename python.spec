@@ -1,3 +1,5 @@
+# TODO: Check patch #5 - currenly commented out.
+
 %define py_ver         2.2
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
@@ -17,12 +19,14 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}.2
+Version:	%{py_ver}.3
 Release:	1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
+# Source0-md5:	169f89f318e252dac0c54dd1b165d229
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tgz
+# Source1-md5:	62247099e1e50c05c2d8e7bebd12b060
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
@@ -30,7 +34,7 @@ Patch1:		%{name}-readline.patch
 Patch2:		%{name}-%{name}path.patch
 Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
-Patch5:		%{name}-no_ndbm.patch
+#Patch5:		%{name}-no_ndbm.patch
 Patch6:		%{name}-ac_fixes.patch
 
 BuildRequires:	XFree86-devel
@@ -430,7 +434,7 @@ PrzykЁadowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
+#%%patch5 -p1
 %patch6 -p1
 
 install -d html-doc
