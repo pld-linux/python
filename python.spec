@@ -18,7 +18,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	19
+Release:	20
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -471,12 +471,17 @@ export LD_LIBRARY_PATH
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
 install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
+ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
+
+# mod_python expects /usr/lib/python2.2/config/libpython2.2.a
+# as we have copy of libpython2.2.a in $RPM_BUILD_ROOT%{_libdir}
+# in place of same libpython2.2 make link and add it to python-static
+ln -sf %{_libdir}/libpython%{py_ver}.a  $RPM_BUILD_ROOT%{py_libdir}/config/libpython%{py_ver}.a
 
 %py_comp $RPM_BUILD_ROOT%{py_libdir}
 %py_ocomp $RPM_BUILD_ROOT%{py_libdir}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
-ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
@@ -631,6 +636,8 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+# Needed to build static apache-mod_python
+%{py_libdir}/config/libpython%{py_ver}.a
 
 %files examples
 %defattr(644,root,root,755)
