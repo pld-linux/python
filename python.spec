@@ -23,7 +23,9 @@ License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tgz
+# Source0-md5: 1c1067396e5aa0299978486eb5bd1a5c
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
+# Source1-md5: 758314b1650eec929d2bae20f03e6d7b
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
 Patch1:		%{name}-readline.patch
