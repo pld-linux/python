@@ -401,13 +401,13 @@ tar -xf %{SOURCE1} --use=bzip2 -C html-doc
 install %{SOURCE2} Modules/Setup
 
 %build
-export POSIXLY_CORRECT=TRUE
-
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
 
 autoconf
+
+POSIXLY_CORRECT=TRUE; export POSIXLY_CORRECT
 
 CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 %configure \
