@@ -19,7 +19,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	0.1
+Release:	0.2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -166,7 +166,7 @@ Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Provides:	%{name}-modules = %{py_ver}
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 Obsoletes:	python-logging
 Obsoletes:	python-xmlrpc <= 1.0.1
 
@@ -180,7 +180,7 @@ Modu³y jêzyka Python.
 Summary:	Python interactive module documentation access support
 Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
 Group:		Applications
-Requires:	%{name}-modules = %{version}
+Requires:	%{name}-modules = %{epoch}:%{version}
 
 %description pydoc
 Python interactive module documentation access support.
@@ -192,7 +192,7 @@ Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
 Summary:	IDE for Python language
 Summary(pl):	IDE dla jêzyka Python
 Group:		Applications
-Requires:	%{name}-modules = %{version}
+Requires:	%{name}-modules = %{epoch}:%{version}
 
 %description idle
 IDE for Python language.
@@ -211,7 +211,7 @@ Summary(ru):	âÉÂÌÉÏÔÅËÉ É ÈÅÄÅÒÙ ÄÌÑ ÐÏÓÔÒÏÅÎÉÑ ËÏÄÁ ÎÁ ÑÚÙËÅ Python
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Summary(uk):	â¦ÂÌ¦ÏÔÅËÉ ÔÁ ÈÅÄÅÒÉ ÄÌÑ ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÎÁ ÍÏ×¦ Python
 Group:		Development/Languages/Python
-Requires:	%{name}-libs = %{version}
+Requires:	%{name}-libs = %{epoch}:%{version}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -267,7 +267,7 @@ dosyalarýný ve kitaplýklarý içerir.
 Summary:	Python module sources
 Summary(pl):	Pliki ¼ród³owe modu³ów Pythona
 Group:		Development/Languages/Python
-Requires:	%{name}-modules = %{version}
+Requires:	%{name}-modules = %{epoch}:%{version}
 
 %description devel-src
 Python module sources.
@@ -280,7 +280,7 @@ Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
 Provides:	%{name}-static = %{py_ver}
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{epoch}:%{version}
 
 %description static
 Static python library.
@@ -299,7 +299,7 @@ Summary(ru):	äÏËÕÍÅÎÔÁÃÉÑ ÐÏ ÑÚÙËÕ Python
 Summary(tr):	Python belgeleri
 Summary(uk):	äÏËÕÍÅÎÔÁÃ¦Ñ ÐÏ ÍÏ×¦ Python
 Group:		Documentation
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 Obsoletes:	python-docs
 
 %description doc
@@ -352,7 +352,7 @@ Summary(pl):	Standardowy interfejs Pythona do biblioteki Tk
 Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Libraries/Python
-Requires:	%{name}-modules = %{version}
+Requires:	%{name}-modules = %{epoch}:%{version}
 Requires:	tcl >= 8.0.3
 Requires:	tk  >= 8.0.3
 Requires:	tix >= 4.1.0.6
@@ -393,7 +393,7 @@ kullanýlan grafik bir arayüzdür.
 Summary:	Depreciated Python modules
 Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Libraries/Python
-Requires:	%{name}-modules = %{version}
+Requires:	%{name}-modules = %{epoch}:%{version}
 
 %description old
 Install this package when one of your program written in Python is old
@@ -410,7 +410,7 @@ uruchomiæ.
 Summary:	Example programs in Python
 Summary(pl):	Przyk³adowe programy w Pythonie
 Group:		Development/Languages/Python
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{epoch}:%{version}
 Obsoletes:	python-tools
 
 %description examples
@@ -453,6 +453,7 @@ install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython.so
+ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
