@@ -18,15 +18,16 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}c2
+Version:	%{py_ver}
 Release:	0.1
+Epoch:		1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
 Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tgz
-# Source0-md5:	022ed1d1db12822bc13f930bc19f079c
+# Source0-md5:	595620a4769073a812e353597585c4e8
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	c4c35e85912e23898871b5cedc521f17
+# Source1-md5:	382a934e0943a24f44ed161e78ff8347
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
@@ -341,24 +342,6 @@ LaTeX kaynaklarЩnЩn bir karЩЧЩmЩ olan yorumlayЩcЩyЩ iГerir.
 Цей пакет м╕стить документац╕ю по власне мов╕ Python та по виконуючому
 ╖╖ ╕нтерпретатору у вигляд╕ набора текстових файл╕в та вих╕дних
 текст╕в у формат╕ LaTeX.
-
-%package without-thread
-Summary:	Python without threads
-Summary(pl):	Pyton bez w╠tkСw
-Summary(ru):	Визуальный интерфейс (GUI) для Python
-Summary(uk):	В╕зуальний ╕нтерфейс (GUI) для Python
-Group:		Libraries/Python
-Provides:	%{name}-without-thread = %{py_ver}
-Requires:	%{name} = %{version}
-Obsoletes:	python-without-thread
-
-%description without-thread
-This package is rather needed for apache-mod_python module. Other ways
-of use are unknown.
-
-%description without-thread -l pl
-Pyton bez w╠tkСw jest wЁa╤ciwie potrzebny tylko moduЁowi
-apache-mod_python, bo apache nie ich na razie nie wspiera.
 
 %package -n tkinter
 Summary:	Standard Python interface to the Tk GUI toolkit
