@@ -1,0 +1,38 @@
+diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
+--- Python-2.3.3.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
++++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-15 15:25:43.968022601 +0100
+@@ -38,14 +38,14 @@
+ 
+ INSTALL_SCHEMES = {
+     'unix_prefix': {
+-        'purelib': '$base/lib/python$py_version_short/site-packages',
++        'purelib': '$base/share/python$py_version_short/site-packages',
+         'platlib': '$platbase/lib/python$py_version_short/site-packages',
+         'headers': '$base/include/python$py_version_short/$dist_name',
+         'scripts': '$base/bin',
+         'data'   : '$base',
+         },
+     'unix_home': {
+-        'purelib': '$base/lib/python',
++        'purelib': '$base/share/python',
+         'platlib': '$base/lib/python',
+         'headers': '$base/include/python/$dist_name',
+         'scripts': '$base/bin',
+Only in Python-2.3.3/Lib/distutils/command: install.py~
+diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
+--- Python-2.3.3.orig/Lib/site.py	2004-01-15 15:20:36.000000000 +0100
++++ Python-2.3.3/Lib/site.py	2004-01-15 15:25:22.596052633 +0100
+@@ -170,7 +170,12 @@
+                                      "lib",
+                                      "python" + sys.version[:3],
+                                      "site-packages"),
+-                        os.path.join(prefix, "lib", "site-python")]
++                        os.path.join(prefix, "lib", "site-python"),
++	    		os.path.join(prefix,
++                                     "share",
++                                     "python" + sys.version[:3],
++                                     "site-packages"),
++                        os.path.join(prefix, "share", "site-python")]
+         else:
+             sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
+         if sys.platform == 'darwin':
