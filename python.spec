@@ -483,7 +483,7 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py
-for script in timeit.py profile.py pdb.py; do
+for script in timeit.py profile.py pdb.py pstats.py; do
     cat <<END > $RPM_BUILD_ROOT%{_bindir}/$script
 #!/bin/sh
 exec python %{py_libdir}/${script}c \$@
