@@ -39,7 +39,7 @@ BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	zlib-devel
 BuildRequires:	gmp-devel >= 3.1.1
 BuildRequires:	db3-devel
-%requires_eq	openssl
+BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
@@ -97,7 +97,7 @@ bibliotek okienkowych. Mo¿liwo¶ci jego mo¿na jeszcze rozszerzaæ
 poprzez odpowiednie modu³y pisane w C lub C++. Python mo¿e byæ równie¿
 u¿yty jako element aplikacji, którym potrzebny jest interpreter do
 skryptów. I wreszcie, Python jest wieloplatformowy, dzia³a na wielu
-odmianach UNIX'a, Mac'u oraz PC pod DOS'em, Windows, WindowsNT oraz
+odmianach UNIX-a, Macu oraz PC pod DOS-em, Windows, WindowsNT oraz
 OS/2.
 
 %description -l tr
@@ -111,7 +111,7 @@ arayüz birimlerini de içerir.
 Summary:	Libraries and header files for building python code
 Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
 Summary(fr):	Bibliothèques et en-têtes pour construire du code python
-Summary(pl):	Pliki nag³ówkowe i biblioteki Python'a
+Summary(pl):	Pliki nag³ówkowe i biblioteki Pythona
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -163,7 +163,7 @@ Statyczna biblioteka Pythona.
 Summary:	Documentation on Python
 Summary(de):	Dokumentation zu Python 
 Summary(fr):	Documentation sur Python
-Summary(pl):	Dokumentacja do Python'a 
+Summary(pl):	Dokumentacja do Pythona 
 Summary(tr):	Python belgeleri
 Group:		Development/Languages
 Group(de):	Entwicklung/Sprachen
