@@ -1,7 +1,6 @@
 
 #
 # todo:
-# - curses module does not build
 # - update and review patches
 # - idle subpackage
 #
