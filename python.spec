@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	7
+Release:	8
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -29,6 +29,7 @@ BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
+BuildRequires:	expat-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
