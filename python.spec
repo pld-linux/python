@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	9
+Release:	10
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -326,6 +326,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/xml/*.pyc
 %{_libdir}/python%{pver}/xml/*.pyo
 
+%dir %{_libdir}/python%{pver}/xml/parsers
+%{_libdir}/python%{pver}/xml/parsers/*.pyc
+%{_libdir}/python%{pver}/xml/parsers/*.pyo
+
 %dir %{_libdir}/python%{pver}/xml/sax
 %{_libdir}/python%{pver}/xml/sax/*.pyc
 %{_libdir}/python%{pver}/xml/sax/*.pyo
@@ -346,6 +350,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/distutils/*.py
 %{_libdir}/python%{pver}/distutils/command/*.py
 %{_libdir}/python%{pver}/xml/*.py
+%{_libdir}/python%{pver}/xml/parsers/*.py
 %{_libdir}/python%{pver}/xml/sax/*.py
 %{_libdir}/python%{pver}/xml/dom/*.py
 %{_libdir}/python%{pver}/encodings/*.py
