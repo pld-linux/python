@@ -18,7 +18,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	2
+Release:	3
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -35,7 +35,7 @@ Patch6:		%{name}-ac_fixes.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
-BuildRequires:	gdbm-devel >= 1.0.8-7
+BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	expat-devel
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
