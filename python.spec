@@ -23,7 +23,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -639,6 +639,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/idlelib/Icons
 %{py_libdir}/idlelib/*.py[co]
 %{py_libdir}/idlelib/Icons/*
+%{py_libdir}/idlelib/*.def
 
 %files devel
 %defattr(644,root,root,755)
