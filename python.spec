@@ -704,7 +704,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel-tools
 %defattr(644,root,root,755)
 %doc Lib/profile.doc Lib/pdb.doc
-%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/timeit.py
 %attr(755,root,root) %{_bindir}/profile.py
 %attr(755,root,root) %{_bindir}/pdb.py
