@@ -199,6 +199,7 @@ Group:		Libraries/Python
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-modules = %{py_ver}
 Obsoletes:	python-logging
+Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
 
 %description modules
