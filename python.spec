@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}
-Release:	12
+Release:	13
 License:	PSF
 Group:		Development/Languages/Python
 URL:		http://www.python.org/
@@ -489,6 +489,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_libdir}/plat-*/regen
 %{py_libdir}/plat-*/*.py?
 
+%dir %{py_libdir}/compiler
+%{py_libdir}/compiler/*.py?
+
 %dir %{py_libdir}/curses
 %{py_libdir}/curses/*.py?
 
@@ -497,6 +500,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/distutils/command
 %{py_libdir}/distutils/command/*.py?
+
+%dir %{py_libdir}/email
+%{py_libdir}/email/*.py?
+
+%dir %{py_libdir}/hotshot
+%{py_libdir}/hotshot/*.py?
 
 %dir %{py_libdir}/xml
 %{py_libdir}/xml/*.py?
@@ -563,9 +572,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(-,root,root) %{py_libdir}/*.py
 %{py_libdir}/plat-*/*.py
+%{py_libdir}/compiler/*.py
 %{py_libdir}/curses/*.py
 %{py_libdir}/distutils/*.py
 %{py_libdir}/distutils/command/*.py
+%{py_libdir}/email/*.py
+%{py_libdir}/hotshot/*.py
 %{py_libdir}/xml/*.py
 %{py_libdir}/xml/parsers/*.py
 %{py_libdir}/xml/sax/*.py
