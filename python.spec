@@ -34,7 +34,7 @@ Patch1:		%{name}-readline.patch
 Patch2:		%{name}-%{name}path.patch
 Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
-#Patch5:		%{name}-no_ndbm.patch
+Patch5:		%{name}-no_ndbm.patch
 Patch6:		%{name}-ac_fixes.patch
 
 BuildRequires:	XFree86-devel
@@ -434,7 +434,7 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-#%%patch5 -p1
+%patch5 -p1
 %patch6 -p1
 
 install -d html-doc
