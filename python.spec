@@ -30,7 +30,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -563,7 +563,6 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_scriptdir}/pstats.py[co]
 %exclude %{py_scriptdir}/pydoc.py[co]
 %exclude %{py_scriptdir}/site.py[co]
-%exclude %{py_scriptdir}/smtpd.py[co]
 %exclude %{py_scriptdir}/stat.py[co]
 %exclude %{py_scriptdir}/timeit.py[co]
 %exclude %{py_scriptdir}/os.py[co]
@@ -776,7 +775,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/pdb.py[co]
 %{py_scriptdir}/profile.py[co]
 %{py_scriptdir}/pstats.py[co]
-%{py_scriptdir}/smtpd.py[co]
 %{py_scriptdir}/timeit.py[co]
 
 %files static
