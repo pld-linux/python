@@ -210,7 +210,7 @@ echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
 
 LDFLAGS="-s"; export LDFLAGS
-CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
+CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 %configure \
 	--with-threads 
 
