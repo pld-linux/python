@@ -1,8 +1,8 @@
-
+#
 # Conditional build:
 %bcond_without tkinter	# disables tkinter module building
 %bcond_without tests	# disables Python testing
-
+#
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
@@ -27,7 +27,6 @@ Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
-URL:		http://www.python.org/
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 # Source0-md5:	9271171d55690e5cacd692e563924305
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
@@ -37,6 +36,7 @@ Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
 Patch3:		%{name}-no_ndbm.patch
 Patch4:		%{name}-ac_fixes.patch
+URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
@@ -219,7 +219,7 @@ Requires:	%{name}-libs = %{epoch}:%{version}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
-loaded extensions and to embed in other programs. This packages
+loaded extensions and to embed in other programs. This package
 contains the header files and libraries which are needed to do both of
 these tasks.
 
@@ -242,9 +242,10 @@ programmes. Ce paquetage contient les en-têtes et les bibliothèques
 nécessaires à ces deux tâches.
 
 %description devel -l pl
-Wszystko co potrzebne, aby napisaæ w C/C++ modu³ rozszerzaj±cy
-mo¿liwo¶ci Pythona. S± tu równie¿ wersje ¼ród³owe modu³ów ze
-standardowej biblioteki.
+Interpreter Pythona jest w miarê ³atwy do rozszerzania przy pomocy
+dynamicznie ³adowanych rozszerzeñ napisanych w C lub C++ oraz
+osadzania w innych programach. Ten pakiet zawiera pliki nag³ówkowe i
+wszystko inne co potrzebne do tych celów.
 
 %description devel -l pt_BR
 O interpretador Python permite incluir com facilidade extensões
@@ -326,7 +327,7 @@ Oficjalna dokumentacja do Pythona. Zawiera przyk³adowe programy,
 narzêdzia i dokumentacjê. Strony podrêcznika man znajduj± siê w
 g³ównym pakiecie. Ten pakiet nie zawiera ¼róde³ dokumentacji
 napisanych w LaTeXu, tylko gotowe do wykorzystania pliki
-postscript'owe i HTML.
+postscriptowe i HTML.
 
 %description doc -l pt_BR
 O pacote python-doc contém documentação para a linguagem de
@@ -453,7 +454,8 @@ export LC_ALL
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} $RPM_BUILD_ROOT%{_mandir}/man1
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
@@ -466,7 +468,6 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
