@@ -1,6 +1,78 @@
+diff -durN -x '*~' Python-2.3.3c1.orig/Lib/distutils/command/install.py Python-2.3.3c1/Lib/distutils/command/install.py
+--- Python-2.3.3c1.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
++++ Python-2.3.3c1/Lib/distutils/command/install.py	2004-12-21 10:33:41.710623824 +0100
+@@ -38,15 +38,15 @@
+ 
+ INSTALL_SCHEMES = {
+     'unix_prefix': {
+-        'purelib': '$base/lib/python$py_version_short/site-packages',
+-        'platlib': '$platbase/lib/python$py_version_short/site-packages',
++        'purelib': '$base/lib64/python$py_version_short/site-packages',
++        'platlib': '$platbase/lib64/python$py_version_short/site-packages',
+         'headers': '$base/include/python$py_version_short/$dist_name',
+         'scripts': '$base/bin',
+         'data'   : '$base',
+         },
+     'unix_home': {
+-        'purelib': '$base/lib/python',
+-        'platlib': '$base/lib/python',
++        'purelib': '$base/lib64/python',
++        'platlib': '$base/lib64/python',
+         'headers': '$base/include/python/$dist_name',
+         'scripts': '$base/bin',
+         'data'   : '$base',
+diff -durN -x '*~' Python-2.3.3c1.orig/Makefile.pre.in Python-2.3.3c1/Makefile.pre.in
+--- Python-2.3.3c1.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
++++ Python-2.3.3c1/Makefile.pre.in	2004-12-21 10:31:00.556123032 +0100
+@@ -79,11 +79,11 @@
+ 
+ # Expanded directories
+ BINDIR=		$(exec_prefix)/bin
+-LIBDIR=		$(exec_prefix)/lib
++LIBDIR=		$(exec_prefix)/lib64
+ MANDIR=		@mandir@
+ INCLUDEDIR=	@includedir@
+ CONFINCLUDEDIR=	$(exec_prefix)/include
+-SCRIPTDIR=	$(prefix)/lib
++SCRIPTDIR=	$(prefix)/lib64
+ 
+ # Detailed destination directories
+ BINLIBDEST=	$(LIBDIR)/python$(VERSION)
+diff -durN -x '*~' Python-2.3.3c1.orig/Modules/getpath.c Python-2.3.3c1/Modules/getpath.c
+--- Python-2.3.3c1.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
++++ Python-2.3.3c1/Modules/getpath.c	2004-12-21 10:32:06.670072184 +0100
+@@ -112,8 +112,8 @@
+ #endif
+ 
+ #ifndef PYTHONPATH
+-#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
+-              EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
++#define PYTHONPATH PREFIX "/lib64/python" VERSION ":" \
++              EXEC_PREFIX "/lib64/python" VERSION "/lib-dynload"
+ #endif
+ 
+ #ifndef LANDMARK
+@@ -124,7 +124,7 @@
+ static char exec_prefix[MAXPATHLEN+1];
+ static char progpath[MAXPATHLEN+1];
+ static char *module_search_path = NULL;
+-static char lib_python[] = "lib/python" VERSION;
++static char lib_python[] = "lib64/python" VERSION;
+ 
+ static void
+ reduce(char *dir)
+@@ -492,7 +492,7 @@
+     }
+     else
+         strncpy(zip_path, PREFIX, MAXPATHLEN);
+-    joinpath(zip_path, "lib/python00.zip");
++    joinpath(zip_path, "lib64/python00.zip");
+     bufsz = strlen(zip_path);	/* Replace "00" with version */
+     zip_path[bufsz - 6] = VERSION[0];
+     zip_path[bufsz - 5] = VERSION[2];
 diff -durN -x '*~' Python-2.3.3c1.orig/setup.py Python-2.3.3c1/setup.py
---- Python-2.3.3c1.orig/setup.py	2004-12-20 23:18:23.000000000 +0100
-+++ Python-2.3.3c1/setup.py	2004-12-20 23:20:54.356394456 +0100
+--- Python-2.3.3c1.orig/setup.py	2004-12-21 10:27:26.478667752 +0100
++++ Python-2.3.3c1/setup.py	2004-12-21 10:31:00.557122880 +0100
 @@ -264,7 +264,7 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
