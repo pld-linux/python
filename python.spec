@@ -33,6 +33,9 @@ BuildRequires:	expat-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
+Obsoletes:	python-curses
+Obsoletes:	python-gdbm
+Obsoletes:	python-zlib
 
 %description
 Python is an interpreted, interactive, object-oriented programming
