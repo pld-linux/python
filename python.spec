@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	13
+Release:	14
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -22,14 +22,14 @@ Patch2:		%{name}-dl_global.patch
 Patch3:		%{name}-shared.patch
 Patch4:		%{name}-tkinter.patch
 BuildRequires:	XFree86-devel
-BuildRequires:	readline-devel >= 4.1
-BuildRequires:	ncurses-devel >= 5.0
+BuildRequires:	expat-devel
+BuildRequires:	gdbm-devel >= 1.0.8-7
+BuildRequires:	ncurses-devel >= 5.2
+BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	zlib-devel
-BuildRequires:	gdbm-devel >= 1.0.8-7
-BuildRequires:	expat-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
