@@ -28,7 +28,7 @@ BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.0
 BuildRequires:	tcl-devel >= 8.0
 BuildRequires:	zlib-devel
-BuildRequires:	gdbm-devel
+BuildRequires:	gdbm-devel >= 1.0.8-7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
