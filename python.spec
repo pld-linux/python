@@ -22,16 +22,16 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}
-Release:	3
+Version:	%{py_ver}.1
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
-Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tgz
-# Source0-md5:	595620a4769073a812e353597585c4e8
+Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tgz
+# Source0-md5:	a3dcbe1c7f173c8e3c7cce28495016ae
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	382a934e0943a24f44ed161e78ff8347
+# Source1-md5:	276d92220473d452ab3a89005cf0bf1d
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
@@ -689,7 +689,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Python-Docs-%{py_ver}/*
+%doc Python-Docs-%{version}/*
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
 %attr(-,root,root) %{py_libdir}/email/test/*
