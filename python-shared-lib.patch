@@ -1,6 +1,6 @@
-diff -Nur Python-2.2c1.orig/Makefile.pre.in Python-2.2c1/Makefile.pre.in
---- Python-2.2c1.orig/Makefile.pre.in	Thu Dec  6 22:47:20 2001
-+++ Python-2.2c1/Makefile.pre.in	Mon Dec 17 14:24:28 2001
+diff -urN Python-2.2.1.org/Makefile.pre.in Python-2.2.1/Makefile.pre.in
+--- Python-2.2.1.org/Makefile.pre.in	Thu Apr 11 09:24:54 2002
++++ Python-2.2.1/Makefile.pre.in	Thu Apr 11 09:26:34 2002
 @@ -25,6 +25,7 @@
  
  # === Variables set by configure
@@ -46,10 +46,10 @@ diff -Nur Python-2.2c1.orig/Makefile.pre.in Python-2.2c1/Makefile.pre.in
  # Build the shared modules
  sharedmods: $(BUILDPYTHON)
  	case $$MAKEFLAGS in \
--	*-s*) CC='$(CC)' LDSHARED='$(LDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
--	*) CC='$(CC)' LDSHARED='$(LDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
-+	*-s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(LDSHARED)' ./$(PYTHON) -E $(srcdir)/setup.py -q build;; \
-+	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(LDSHARED)' ./$(PYTHON) -E $(srcdir)/setup.py build;; \
+-	*-s*) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
+-	*) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
++	*-s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
++	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
  	esac
  
  # buildno should really depend on something like LIBRARY_SRC
@@ -199,9 +199,9 @@ diff -Nur Python-2.2c1.orig/Makefile.pre.in Python-2.2c1/Makefile.pre.in
  # Rerun configure with the same options as it was run last time,
  # provided the config.status script exists
  recheck:
-diff -Nur Python-2.2c1.orig/configure.in Python-2.2c1/configure.in
---- Python-2.2c1.orig/configure.in	Fri Dec  7 16:38:26 2001
-+++ Python-2.2c1/configure.in	Mon Dec 17 14:12:45 2001
+diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
+--- Python-2.2.1.org/configure.in	Thu Apr 11 09:24:54 2002
++++ Python-2.2.1/configure.in	Thu Apr 11 09:24:58 2002
 @@ -8,6 +8,10 @@
  AC_SUBST(VERSION)
  VERSION=2.2
@@ -231,16 +231,16 @@ diff -Nur Python-2.2c1.orig/configure.in Python-2.2c1/configure.in
  	esac
  fi
  AC_MSG_RESULT($LINKCC)
-@@ -796,7 +804,7 @@
- 			# No framework. Ignore undefined symbols, assuming they come from Python
- 			LDSHARED="$LDSHARED -flat_namespace -undefined suppress"
+@@ -799,7 +807,7 @@
+ 			BLDSHARED="$LDSHARED "'-bundle_loader $(BUILDPYTHON)'
+ 			LDSHARED="$LDSHARED "'-bundle_loader $(BINDIR)/$(PYTHON)'
  		fi ;;
 -	Linux*) LDSHARED="gcc -shared";;
 +	Linux*|GNU*) LDSHARED="gcc -shared";;
  	dgux*) LDSHARED="ld -G";;
  	BSD/OS*/4*) LDSHARED="gcc -shared";;
  	OpenBSD*|NetBSD*|FreeBSD*)
-@@ -832,7 +840,7 @@
+@@ -835,7 +843,7 @@
  		 then CCSHARED="-fPIC";
  		 else CCSHARED="+z";
  		 fi;;
@@ -249,7 +249,7 @@ diff -Nur Python-2.2c1.orig/configure.in Python-2.2c1/configure.in
  	BSD/OS*/4*) CCSHARED="-fpic";;
  	FreeBSD*|NetBSD*|OpenBSD*) CCSHARED="-fPIC";;
  	OpenUNIX*|UnixWare*)
-@@ -860,7 +868,7 @@
+@@ -863,7 +871,7 @@
  	hp*|HP*)
  	    LINKFORSHARED="-Wl,-E -Wl,+s -Wl,+b\$(BINLIBDEST)/lib-dynload";;
  	BSD/OS/4*) LINKFORSHARED="-Xlinker -export-dynamic";;
@@ -258,7 +258,7 @@ diff -Nur Python-2.2c1.orig/configure.in Python-2.2c1/configure.in
  	# -u libsys_s pulls in all symbols in libsys
  	Darwin/*) 
  		# -u __dummy makes the linker aware of the objc runtime
-@@ -1033,8 +1041,14 @@
+@@ -1036,8 +1044,14 @@
      AC_MSG_RESULT($unistd_defines_pthreads)
  
      AC_DEFINE(_REENTRANT)
@@ -273,7 +273,7 @@ diff -Nur Python-2.2c1.orig/configure.in Python-2.2c1/configure.in
      LIBOBJS="$LIBOBJS thread.o"],[
      AC_MSG_CHECKING(for --with-pth)
      AC_ARG_WITH(pth,
-@@ -1088,7 +1102,7 @@
+@@ -1091,7 +1105,7 @@
      LIBS="$LIBS -lcma"
      LIBOBJS="$LIBOBJS thread.o"],[
      USE_THREAD_MODULE="#"])
