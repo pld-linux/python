@@ -18,7 +18,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.2
-Release:	3
+Release:	3.1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -450,7 +450,12 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads
 
+
 %{__make} OPT="%{rpmcflags} -D_REENTRANT"
+
+# workaround for examples package auto-require /usr/local/bin/python
+# make examples more usable =)
+%{__perl} -pi -e 's/\/usr\/local\/bin\/python/\/usr\/bin\/python/g' Demo/*/*.py Demo/*/*/*.py Tools/*/*.py Tools/*/*/*.py
 
 %install
 rm -rf $RPM_BUILD_ROOT
