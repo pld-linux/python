@@ -1,10 +1,4 @@
 
-#
-# todo:
-# - idle subpackage should contain .pyo files, too /maybe it will be fixed
-#   in beta release?/
-#
-
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
@@ -37,6 +31,7 @@ Patch2:		%{name}-%{name}path.patch
 Patch3:		%{name}-default_encoding.patch
 Patch4:		%{name}-no_ndbm.patch
 Patch5:		%{name}-ac_fixes.patch
+Patch6:		%{name}-idle.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -448,6 +443,7 @@ Przyk³adowe programy w Pythonie.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
