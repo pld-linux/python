@@ -1,6 +1,6 @@
-diff -durN -x '*~' Python-2.3.3c1.orig/Lib/distutils/command/install.py Python-2.3.3c1/Lib/distutils/command/install.py
---- Python-2.3.3c1.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
-+++ Python-2.3.3c1/Lib/distutils/command/install.py	2004-12-21 10:33:41.710623824 +0100
+diff -durN -x '*~' Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
+--- Python-2.3.3.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
++++ Python-2.3.3/Lib/distutils/command/install.py	2004-12-21 11:43:22.982973808 +0100
 @@ -38,15 +38,15 @@
  
  INSTALL_SCHEMES = {
@@ -21,9 +21,21 @@ diff -durN -x '*~' Python-2.3.3c1.orig/Lib/distutils/command/install.py Python-2
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
          'data'   : '$base',
-diff -durN -x '*~' Python-2.3.3c1.orig/Makefile.pre.in Python-2.3.3c1/Makefile.pre.in
---- Python-2.3.3c1.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
-+++ Python-2.3.3c1/Makefile.pre.in	2004-12-21 10:31:00.556123032 +0100
+diff -durN -x '*~' Python-2.3.3.orig/Lib/distutils/sysconfig.py Python-2.3.3/Lib/distutils/sysconfig.py
+--- Python-2.3.3.orig/Lib/distutils/sysconfig.py	2003-02-10 15:02:33.000000000 +0100
++++ Python-2.3.3/Lib/distutils/sysconfig.py	2004-12-21 11:44:08.293085624 +0100
+@@ -100,7 +100,7 @@
+ 
+     if os.name == "posix":
+         libpython = os.path.join(prefix,
+-                                 "lib", "python" + get_python_version())
++                                 "lib64", "python" + get_python_version())
+         if standard_lib:
+             return libpython
+         else:
+diff -durN -x '*~' Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
+--- Python-2.3.3.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
++++ Python-2.3.3/Makefile.pre.in	2004-12-21 11:43:22.983973656 +0100
 @@ -79,11 +79,11 @@
  
  # Expanded directories
@@ -38,9 +50,9 @@ diff -durN -x '*~' Python-2.3.3c1.orig/Makefile.pre.in Python-2.3.3c1/Makefile.p
  
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
-diff -durN -x '*~' Python-2.3.3c1.orig/Modules/getpath.c Python-2.3.3c1/Modules/getpath.c
---- Python-2.3.3c1.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
-+++ Python-2.3.3c1/Modules/getpath.c	2004-12-21 10:32:06.670072184 +0100
+diff -durN -x '*~' Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
+--- Python-2.3.3.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
++++ Python-2.3.3/Modules/getpath.c	2004-12-21 11:43:22.983973656 +0100
 @@ -112,8 +112,8 @@
  #endif
  
@@ -70,9 +82,9 @@ diff -durN -x '*~' Python-2.3.3c1.orig/Modules/getpath.c Python-2.3.3c1/Modules/
      bufsz = strlen(zip_path);	/* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
-diff -durN -x '*~' Python-2.3.3c1.orig/setup.py Python-2.3.3c1/setup.py
---- Python-2.3.3c1.orig/setup.py	2004-12-21 10:27:26.478667752 +0100
-+++ Python-2.3.3c1/setup.py	2004-12-21 10:31:00.557122880 +0100
+diff -durN -x '*~' Python-2.3.3.orig/setup.py Python-2.3.3/setup.py
+--- Python-2.3.3.orig/setup.py	2004-12-21 11:45:16.634696120 +0100
++++ Python-2.3.3/setup.py	2004-12-21 11:43:22.984973504 +0100
 @@ -264,7 +264,7 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
