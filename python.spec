@@ -25,7 +25,11 @@ BuildRequires:	tk-devel
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel
+BuildRequires:	db1-devel
+BuildRequires:	db2-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	python-xml
+Obsoletes:	python-intl
 
 %description
 Python is an interpreted, interactive, object-oriented programming
@@ -297,6 +301,42 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/plat-*/*.py
 %{_libdir}/python%{pver}/plat-*/*.pyc
 %{_libdir}/python%{pver}/plat-*/*.pyo
+
+%dir %{_libdir}/python%{pver}/curses
+%{_libdir}/python%{pver}/curses/*.py
+%{_libdir}/python%{pver}/curses/*.pyc
+%{_libdir}/python%{pver}/curses/*.pyo
+
+%dir %{_libdir}/python%{pver}/distutils
+%{_libdir}/python%{pver}/distutils/*.py
+%{_libdir}/python%{pver}/distutils/*.pyc
+%{_libdir}/python%{pver}/distutils/*.pyo
+
+%dir %{_libdir}/python%{pver}/distutils/command
+%{_libdir}/python%{pver}/distutils/command/*.py
+%{_libdir}/python%{pver}/distutils/command/*.pyc
+%{_libdir}/python%{pver}/distutils/command/*.pyo
+
+%dir %{_libdir}/python%{pver}/encodings
+%{_libdir}/python%{pver}/encodings/*
+
+%dir %{_libdir}/python%{pver}/lib-old
+%{_libdir}/python%{pver}/lib-old/*
+
+%dir %{_libdir}/python%{pver}/xml
+%{_libdir}/python%{pver}/xml/*.py
+%{_libdir}/python%{pver}/xml/*.pyc
+%{_libdir}/python%{pver}/xml/*.pyo
+
+%dir %{_libdir}/python%{pver}/xml/sax
+%{_libdir}/python%{pver}/xml/sax/*.py
+%{_libdir}/python%{pver}/xml/sax/*.pyc
+%{_libdir}/python%{pver}/xml/sax/*.pyo
+
+%dir %{_libdir}/python%{pver}/xml/dom
+%{_libdir}/python%{pver}/xml/dom/*.py
+%{_libdir}/python%{pver}/xml/dom/*.pyc
+%{_libdir}/python%{pver}/xml/dom/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
