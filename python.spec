@@ -30,7 +30,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	6
+Release:	7
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -491,7 +491,8 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 	--with-threads \
 	--with-cxx=%{__cxx} \
 	--enable-unicode=ucs4 \
-	--enable-shared
+	--enable-shared \
+	LINKCC='$(PURIFY) $(CXX)'
 
 %{__make} \
 	OPT="%{rpmcflags}"
