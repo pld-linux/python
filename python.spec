@@ -509,7 +509,6 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_libdir}/UserDict.py[co]
 %exclude %{py_libdir}/codecs.py[co]
 %exclude %{py_libdir}/copy_reg.py[co]
-%exclude %{py_libdir}/hotshot
 %exclude %{py_libdir}/locale.py[co]
 %exclude %{py_libdir}/posixpath.py[co]
 %exclude %{py_libdir}/pdb.py[co]
