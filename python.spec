@@ -1,5 +1,5 @@
 
-%define py_ver         2.1
+%define py_ver         2.2
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
 %define py_incdir      %{_includedir}/python%{py_ver}
@@ -14,8 +14,8 @@ Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{py_ver}.1
-Release:	7
+Version:	%{py_ver}b2
+Release:	1
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
