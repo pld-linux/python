@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}
-Release:	9
+Release:	10
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -542,6 +542,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %dir %{py_dyndir}
+%dir %{py_libdir}
+%dir %{py_sitedir}
 
 # required modules by python core
 %attr(755,root,root) %{py_dyndir}/_codecsmodule.so
@@ -563,9 +565,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files modules -f modules.filelist
 %defattr(644,root,root,755)
-
-%dir %{py_sitedir}
-%dir %{py_libdir}
 
 %dir %{py_libdir}/plat-*
 %attr(755,root,root) %{py_libdir}/plat-*/regen
