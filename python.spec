@@ -489,7 +489,7 @@ sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
-	--with-cxx=%{__cxx} \
+	--with-cxx="%{__cxx}" \
 	--enable-unicode=ucs4 \
 	--enable-shared \
 	LINKCC='$(PURIFY) $(CXX)'
