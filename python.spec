@@ -41,6 +41,7 @@ Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
 Patch3:		%{name}-no_ndbm.patch
 Patch4:		%{name}-ac_fixes.patch
+Patch5:		%{name}-lib64.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -451,6 +452,9 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%ifarch amd64
+%patch5 -p1
+%endif
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -464,21 +468,23 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 	--enable-shared
 
 %{__make} \
-	LIBDIR=%{_libdir} \
-	SCRIPTDIR=%{_libdir} \
 	OPT="%{rpmcflags}"
 
 LC_ALL=C
 export LC_ALL
-%{?with_tests:%{__make} test}
+%if %{with tests}
+%ifarch alpha sparc64 ppc64 amd64
+%{__make} test TESTOPTS="-l -x test_audioop test_rgbimg test_imageop"
+%else
+%{__make} test
+%endif
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
-	LIBDIR=%{_libdir} \
-	SCRIPTDIR=%{_libdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
@@ -540,7 +546,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # three modules below does not work on 64-bit architectures
 # see Python README file for explanation
-%ifnarch alpha sparc64 ppc64
+%ifnarch alpha sparc64 ppc64 amd64
 %attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/rgbimg.so
 %attr(755,root,root) %{py_dyndir}/imageop.so
