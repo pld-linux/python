@@ -34,7 +34,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.4
-Release:	4
+Release:	5
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -65,7 +65,6 @@ BuildRequires:	readline-devel >= 4.2
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
 Obsoletes:	python-intl
 Obsoletes:	python-curses
@@ -184,7 +183,7 @@ Python - це ╕нтерпретована, об'╓ктно-ор╕╓нтована мова програмування.
 Summary:	Python library
 Summary(pl):	Biblioteka jЙzyka Python
 Group:		Libraries/Python
-Provides:	%{name}-libs = %{py_ver}
+Provides:	python(bytecode) = %{py_ver}
 
 %description libs
 Python library.
@@ -196,8 +195,7 @@ Biblioteka jЙzyka Python.
 Summary:	Python modules
 Summary(pl):	ModuЁy jЙzyka Python
 Group:		Libraries/Python
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Provides:	%{name}-modules = %{py_ver}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-logging
 Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
@@ -327,7 +325,6 @@ Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	%{name}-static = %{py_ver}
 
 %description static
 Static python library.
