@@ -18,7 +18,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.1
-Release:	5
+Release:	6
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -347,11 +347,11 @@ Pyton bez w±tków jest w³a¶ciwie potrzebny tylko modu³owi
 apache-mod_python, bo apache nie ich na razie nie wspiera.
 
 %package -n tkinter
-Summary:	Lowlevel Python -> Tk Interface
+Summary:	Standard Python interface to the Tk GUI toolkit
 Summary(de):	Grafischer Oberfläche für Python
 Summary(es):	Interface GUI para Phyton
 Summary(fr):	Interface graphique pour python.
-Summary(pl):	Modu³y niskiego poziomu dla pakietu Python-tkinter
+Summary(pl):	Standardowy interfejs Pythona do biblioteki Tk
 Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Libraries/Python
@@ -361,13 +361,7 @@ Requires:	tk  >= 8.0.3
 Requires:	tix >= 4.1.0.6
 
 %description -n tkinter
-This is the lowlevel C module that interfaces Tk and which is the
-basis for the Tkinter, Python's OO interface to Tk, which is included
-in the package python-tkinter.
-
-The only reason this file is removed from python-tkinter, is to make
-it more easy to replay _tkinter with a PIL (Python Imaging Libary)
-aware version of it. Look at my PIL distribution.
+Standard Python interface to the Tk GUI toolkit.
 
 %description -n tkinter -l de
 Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von
@@ -382,12 +376,7 @@ Interface graphique pour Python, basée sur Tcl/Tk et utilisée par
 beaucoup des outils de configuration.
 
 %description -n tkinter -l pl
-Ten pakiet zawiera modu³y w C, które po¶rednicz± w wywo³aniach
-pomiêdzy samym Tk a modu³em Tkinter bêd±cym g³ównym interfejsem Tk dla
-Pythona.
-
-Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na
-PIL (Python Imaging Library).
+Standardowy interfejs Pythona do biblioteki Tk.
 
 %description -n tkinter -l pt_BR
 Uma interface gráfica para Python, baseada em Tcl/Tk, e usada por
