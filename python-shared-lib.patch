@@ -1,307 +1,234 @@
-diff -Nru Python-2.0/Makefile.in Python-2.0.new/Makefile.in
---- Python-2.0/Makefile.in	Thu Dec  7 21:39:52 2000
-+++ Python-2.0.new/Makefile.in	Thu Dec  7 21:37:06 2000
-@@ -48,12 +48,14 @@
+diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
+--- Python-2.1.orig/Makefile.pre.in	Sat Apr 14 19:57:07 2001
++++ Python-2.1/Makefile.pre.in	Thu May 24 17:57:09 2001
+@@ -25,6 +25,7 @@
  
- # Substitutions by configure
+ # === Variables set by configure
  VERSION=	@VERSION@
 +SOVERSION=	@SOVERSION@
  srcdir=		@srcdir@
  VPATH=		@srcdir@
- CC=		@CC@
- AR=		@AR@
- RANLIB=		@RANLIB@
- DEFS=		@DEFS@
-+SOLIBS=		@LIBS@
+ 
+@@ -64,7 +65,7 @@
+ # Extra C flags added for building the interpreter object files.
+ CFLAGSFORSHARED=@CFLAGSFORSHARED@
+ # C flags used for building the interpreter object files
+-PY_CFLAGS=	$(CFLAGS) $(CFLAGSFORSHARED)
++PY_CFLAGS=	$(CFLAGS)
+ 
  
  # Machine-dependent subdirectories
- MACHDEP=	@MACHDEP@
-@@ -168,6 +170,22 @@
- 		for i in $(SUBDIRS); do \
- 			(cd $$i; $(MAKE) VERSION="$(VERSION)" add2lib); done
+@@ -96,6 +97,7 @@
+ LDSHARED=	@LDSHARED@
+ BLDSHARED=	@BLDSHARED@
+ DESTSHARED=	$(BINLIBDEST)/lib-dynload
++RUNSHARED=	LD_PRELOAD=./$(LDLIBRARY)
  
-+#
+ # Executable suffix (.exe on Windows and Mac OS X)
+ EXE=		@EXEEXT@
+@@ -268,7 +270,7 @@
+ # Rules
+ 
+ # Default target
+-all:		$(PYTHON) oldsharedmods sharedmods 
++all:		$(PYTHON) $(LIBRARY) oldsharedmods sharedmods 
+ 
+ # Build the interpreter
+ $(PYTHON):	Modules/$(MAINOBJ) $(LDLIBRARY)
+@@ -277,12 +279,12 @@
+ 			$(LDLIBRARY) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
+ 
+ platform: $(PYTHON)
+-	./$(PYTHON) -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
++	$(RUNSHARED) ./$(PYTHON) -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
+ 
+ 
+ # Build the shared modules
+ sharedmods: $(PYTHON)
+-	PYTHONPATH= ./$(PYTHON) $(srcdir)/setup.py build
++	PYTHONPATH= $(RUNSHARED) ./$(PYTHON) $(srcdir)/setup.py build
+ 
+ # buildno should really depend on something like LIBRARY_SRC
+ buildno: $(PARSER_OBJS) \
+@@ -309,6 +311,19 @@
+ 	$(AR) cr $@ $(MODOBJS)
+ 	$(RANLIB) $@
+ 
 +# WARNING: The following is only tested for Debian GNU/Linux.
 +# This rule is silly and needs to be cleaned up ASAP!
 +#      Gregor Hoffleit <flight@debian.org>
 +#
 +# This rule is here for Linux shared libs
 +# The PIC code will be built additionally to the static lib!
-+libpython$(VERSION).so.$(SOVERSION):  $(SUBDIRS)
-+							test -d shobjs || mkdir shobjs
-+							rm -f shobjs/*
-+							for i in $(SUBDIRS); do \
-+							        (cd $$i; rm -f add2shlib; \
-+							                $(MAKE) VERSION="$(VERSION)" add2shlib); done
-+							$(CC) -shared -Wl,-soname,$(LDLIBRARY) \
-+							        $(SOLIBS) shobjs/* -o $(LDLIBRARY)
++libpython$(VERSION).so.$(SOVERSION): $(LIBRARY_OBJS:%.o=%.pic_o)
++	case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
++	*linux*) \
++	    $(CC) -shared -Wl,-soname,$@ -o $@ $(LIBRARY_OBJS:%.o=%.pic_o) $(LIBS) $(LIBM) \
++	    ;; \
++	esac
 +
- # This rule is only here for DG/UX and BeOS!!!
+ # This rule is only here for DG/UX, UnixWare, and BeOS!!!
  libpython$(VERSION).so:	$(LIBRARY)
- 		case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
-@@ -243,6 +261,12 @@
- 			fi; \
- 		done
- 		$(INSTALL_PROGRAM) python$(EXE) $(BINDIR)/python$(VERSION)$(EXE)
-+		if test -f libpython$(VERSION).so.$(SOVERSION); then \
-+			mkdir $(LIBDIR); \
-+			$(INSTALL_DATA) libpython$(VERSION).so.$(SOVERSION) $(LIBDIR); \
-+			(cd $(LIBDIR) && $(LN) -sf libpython$(VERSION).so.$(SOVERSION) libpython$(VERSION).so); \
-+		else	true; \
-+		fi
- 		if test -f libpython$(VERSION).so; then \
- 			$(INSTALL_DATA) libpython$(VERSION).so $(LIBDIR); \
+ 	case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
+@@ -370,6 +385,9 @@
+ Modules/getbuildinfo.o: $(srcdir)/Modules/getbuildinfo.c buildno
+ 	$(CC) -c $(PY_CFLAGS) -DBUILD=`cat buildno` -o $@ $(srcdir)/Modules/getbuildinfo.c
+ 
++Modules/getbuildinfo.pic_o: $(srcdir)/Modules/getbuildinfo.c buildno
++	$(CC) -c $(PY_CFLAGS) $(CCSHARED) -DBUILD=`cat buildno` -o $@ $(srcdir)/Modules/getbuildinfo.c
++
+ Modules/getpath.o: $(srcdir)/Modules/getpath.c Makefile
+ 	$(CC) -c $(PY_CFLAGS) -DPYTHONPATH='"$(PYTHONPATH)"' \
+ 		-DPREFIX='"$(prefix)"' \
+@@ -378,9 +396,20 @@
+ 		-DVPATH='"$(VPATH)"' \
+ 		-o $@ $(srcdir)/Modules/getpath.c
+ 
++Modules/getpath.pic_o: $(srcdir)/Modules/getpath.c Makefile
++	$(CC) -c $(PY_CFLAGS) $(CCSHARED) -DPYTHONPATH='"$(PYTHONPATH)"' \
++		-DPREFIX='"$(prefix)"' \
++		-DEXEC_PREFIX='"$(exec_prefix)"' \
++		-DVERSION='"$(VERSION)"' \
++		-DVPATH='"$(VPATH)"' \
++		-o $@ $(srcdir)/Modules/getpath.c
++
+ Modules/ccpython.o: $(srcdir)/Modules/ccpython.cc
+ 	$(CXX) -c $(PY_CFLAGS) -o $@ $(srcdir)/Modules/ccpython.cc
+ 
++Modules/ccpython.pic_o: $(srcdir)/Modules/ccpython.cc
++	$(CXX) -c $(PY_CFLAGS) $(CCSHARED) -o $@ $(srcdir)/Modules/ccpython.cc
++
+ 
+ $(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
+ 		-$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+@@ -400,9 +429,15 @@
+ Python/getplatform.o: $(srcdir)/Python/getplatform.c
+ 		$(CC) -c $(CFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
+ 
++Python/getplatform.pic_o: $(srcdir)/Python/getplatform.c
++		$(CC) -c $(CFLAGS) $(CCSHARED) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
++
+ Python/importdl.o: $(srcdir)/Python/importdl.c
+ 		$(CC) -c $(CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
+ 
++Python/importdl.pic_o: $(srcdir)/Python/importdl.c
++		$(CC) -c $(CFLAGS) $(CCSHARED) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
++
+ Objects/object.o: $(srcdir)/Objects/object.c $(srcdir)/Objects/obmalloc.c
+ 
+ Objects/unicodectype.o:	$(srcdir)/Objects/unicodectype.c \
+@@ -462,7 +497,7 @@
+ # Test the interpreter (twice, once without .pyc files, once with)
+ TESTOPTS=	-l
+ TESTPROG=	$(srcdir)/Lib/test/regrtest.py
+-TESTPYTHON=	./$(PYTHON) -tt
++TESTPYTHON=	$(RUNSHARED) ./$(PYTHON) -tt
+ test:		all platform
+ 		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
+ 		-PYTHONPATH= $(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
+@@ -532,6 +567,12 @@
+ 		fi; \
+ 	done
+ 	$(INSTALL_PROGRAM) $(PYTHON) $(BINDIR)/python$(VERSION)$(EXE)
++	if test -f libpython$(VERSION).so.$(SOVERSION); then \
++		mkdir $(LIBDIR); \
++		$(INSTALL_DATA) libpython$(VERSION).so.$(SOVERSION) $(LIBDIR); \
++		(cd $(LIBDIR) && $(LN) -sf libpython$(VERSION).so.$(SOVERSION) libpython$(VERSION).so); \
++	else	true; \
++	fi
+ 	if test -f libpython$(VERSION).so; then \
+ 		$(INSTALL_DATA) libpython$(VERSION).so $(LIBDIR); \
+ 	else	true; \
+@@ -615,10 +656,10 @@
+ 		done; \
+ 	done
+ 	$(INSTALL_DATA) $(srcdir)/LICENSE $(LIBDEST)/LICENSE.txt
+-	PYTHONPATH=$(LIBDEST) \
+-		./$(PYTHON) -tt $(LIBDEST)/compileall.py $(LIBDEST)
+-	PYTHONPATH=$(LIBDEST) \
+-		./$(PYTHON) -O $(LIBDEST)/compileall.py $(LIBDEST)
++##	PYTHONPATH=$(LIBDEST) \
++##		$(RUNSHARED) ./$(PYTHON) -tt $(LIBDEST)/compileall.py $(LIBDEST)
++##	PYTHONPATH=$(LIBDEST) \
++##		$(RUNSHARED) ./$(PYTHON) -O $(LIBDEST)/compileall.py $(LIBDEST)
+ 
+ # Create the PLATDIR source directory, if one wasn't distributed..
+ $(srcdir)/Lib/$(PLATDIR):
+@@ -659,9 +700,9 @@
  		else	true; \
-@@ -507,10 +531,12 @@
- 			 fi); \
- 		    else true; fi; \
- 		done
-+		-rm -f shobjs/*.pic_o
+ 		fi; \
+ 	done
+-	@if test -d $(LDLIBRARY); then :; else \
+-		$(INSTALL_DATA) $(LDLIBRARY) $(LIBPL)/$(LDLIBRARY) ; \
+-		$(RANLIB) $(LIBPL)/$(LDLIBRARY) ; \
++	@if test -d $(LIBRARY); then :; else \
++		$(INSTALL_DATA) $(LIBRARY) $(LIBPL)/$(LIBRARY) ; \
++		$(RANLIB) $(LIBPL)/$(LIBRARY) ; \
+ 	fi
+ 	$(INSTALL_DATA) Modules/config.c $(LIBPL)/config.c
+ 	$(INSTALL_DATA) Modules/$(MAINOBJ) $(LIBPL)/$(MAINOBJ)
+@@ -703,7 +744,7 @@
+ # Install the dynamically loadable modules
+ # This goes into $(exec_prefix)
+ sharedinstall:
+-	PYTHONPATH= ./$(PYTHON) $(srcdir)/setup.py install \
++	PYTHONPATH= $(RUNSHARED) ./$(PYTHON) $(srcdir)/setup.py install \
+ 		--install-platlib=$(DESTSHARED)
  
- localclobber:	localclean
- 		-rm -f tags TAGS python$(EXE) $(LIBRARY) $(LDLIBRARY) *.o
- 		-rm -f config.log config.cache config.h
-+		-rm -rf shobjs/*.pic_o
+ # Build the toplevel Makefile
+@@ -721,6 +762,11 @@
+ .c.o:
+ 	$(CC) -c $(PY_CFLAGS) -o $@ $<
  
- clobber:	localclobber
- 		-for i in $(SUBDIRS); do \
-diff -Nru Python-2.0/Modules/Makefile.pre.in Python-2.0.new/Modules/Makefile.pre.in
---- Python-2.0/Modules/Makefile.pre.in	Thu Dec  7 21:39:53 2000
-+++ Python-2.0.new/Modules/Makefile.pre.in	Thu Dec  7 21:37:06 2000
-@@ -14,6 +14,7 @@
- # === Variables set by configure ===
- 
- VERSION=	@VERSION@
-+SOVERSION=	@SOVERSION@
- srcdir=		@srcdir@
- VPATH=		@srcdir@
- 
-@@ -98,6 +99,8 @@
- FIXOBJS=	config.o getpath.o main.o getbuildinfo.o
- OBJS=		$(MODOBJS) $(FIXOBJS)
- 
-+SHOBJS=		$(OBJS:%.o=%.pic_o)
++.SUFFIXES: .pic_o
 +
- #MAINOBJ=	python.o
- MAINOBJ=	@MAINOBJ@
- 
-@@ -121,6 +124,15 @@
- 		$(AR) cr $(LIBRARY) $(OBJS)
- 		touch add2lib
- 
-+add2shlib:  $(SHOBJS)
-+		-if test -f hassignal; \
-+		then echo removing sigcheck.pic_o intrcheck.pic_o; \
-+		     rm ../shobjs/sigcheck.pic_o ../shobjs/intrcheck.pic_o \
-+		         2>/dev/null; \
-+		else echo leaving sigcheck.pic_o intrcheck.pic_o in; fi
-+		cp -f $(SHOBJS) ../shobjs/.
-+		touch add2shlib
++.c.pic_o:
++	$(CC) -c $(PY_CFLAGS) $(CCSHARED) -o $@ $<
 +
- # This target is used by the master Makefile to link the final binary.
- link:		$(MAINOBJ)
- 		$(LINKCC) $(LDFLAGS) $(LINKFORSHARED) $(MAINOBJ) \
-@@ -130,6 +142,7 @@
- clean:
- 		-rm -f *.o python$(EXE) core *~ [@,#]* *.old *.orig *.rej
- 		-rm -f add2lib hassignal
-+		-rm -f add2shlib *.pic_o
- 
- clobber:	clean
- 		-rm -f *.a tags TAGS config.c Makefile.pre
-@@ -143,6 +156,15 @@
- 		      -DVPATH='"$(VPATH)"' \
- 		      $(srcdir)/getpath.c
- 
-+getpath.pic_o:	getpath.c Makefile
-+		$(CC) -c $(CFLAGS) -DPYTHONPATH='"$(PYTHONPATH)"' \
-+		      -DPREFIX='"$(prefix)"' \
-+		      -DEXEC_PREFIX='"$(exec_prefix)"' \
-+		      -DVERSION='"$(VERSION)"' \
-+		      -DVPATH='"$(VPATH)"' \
-+		      -fPIC -o getpath.pic_o \
-+		      $(srcdir)/getpath.c
-+
- # When the configuration changes, we remove the library, so that it
- # gets remade from scratch; this ensures to remove modules that are no
- # longer pertinent (but that were in a previous configuration).
-@@ -182,6 +204,11 @@
- depend:
- 		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
- 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
-+
-+.SUFFIXES:	.pic_o
-+
-+%.pic_o:	%.c
-+		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
- 
- .PRECIOUS:	../python$(EXE)
- 
-diff -Nru Python-2.0/Objects/Makefile.in Python-2.0.new/Objects/Makefile.in
---- Python-2.0/Objects/Makefile.in	Thu Dec  7 21:39:53 2000
-+++ Python-2.0.new/Objects/Makefile.in	Thu Dec  7 21:37:06 2000
-@@ -48,6 +48,8 @@
- 		tupleobject.c typeobject.c \
- 		unicodeobject.c unicodectype.c
- 
-+SHOBJS=		$(OBJS:%.o=%.pic_o)
-+
- LIBRARY=	../libpython$(VERSION).a
- 
- # === Rules ===
-@@ -59,8 +61,13 @@
- 		$(AR) cr $(LIBRARY) $(OBJS)
- 		touch add2lib
- 
-+add2shlib:	$(SHOBJS)
-+		cp -f $(SHOBJS) ../shobjs/.
-+		touch add2shlib
-+
- clean:
--		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib
-+		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib \
-+			*.pic_o add2shlib
- 
- clobber:	clean
- 		-rm -f *.a tags TAGS
-@@ -72,6 +79,12 @@
- depend:
- 		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
- 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
-+
-+# Rules for building libpython as shared library
-+.SUFFIXES:	.pic_o
-+
-+%.pic_o:	%.c
-+		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
- 
- .PRECIOUS:	Makefile
- 
-diff -Nru Python-2.0/Parser/Makefile.in Python-2.0.new/Parser/Makefile.in
---- Python-2.0/Parser/Makefile.in	Thu Dec  7 21:39:53 2000
-+++ Python-2.0.new/Parser/Makefile.in	Thu Dec  7 21:37:06 2000
-@@ -37,6 +37,7 @@
- AROBJS=		$(POBJS) myreadline.o
- OBJS=		$(AROBJS) intrcheck.o
- 
-+SHOBJS=		$(OBJS:%.o=%.pic_o)
- 
- PGENMAIN=	pgenmain.o
- 
-@@ -62,11 +63,16 @@
- 		else echo leaving intrcheck.o out; fi
- 		touch add2lib
- 
-+add2shlib:	$(SHOBJS)
-+		cp -f $(SHOBJS) ../shobjs/.
-+		touch add2shlib
-+
- $(PGEN):	$(PGENOBJS)
- 		$(CC) $(OPT) $(PGENOBJS) $(LIBS) -o $(PGEN)
+ # Rerun configure with the same options as it was run last time,
+ # provided the config.status script exists
+ recheck:
+@@ -751,6 +797,7 @@
  
  clean:
--		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib
-+		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib \
-+			*.pic_o add2shlib
+ 	find . -name '*.o' -exec rm -f {} ';'
++	find . -name '*.pic_o' -exec rm -f {} ';'
+ 	find . -name '*.s[ol]' -exec rm -f {} ';'
+ 	find $(srcdir) -name '*.py[co]' -exec rm -f {} ';'
  
- clobber:	clean
- 		-rm -f $(PGEN) *.a tags TAGS
-@@ -78,6 +84,11 @@
- depend:
- 		$(MKDEP) $(CFLAGS) `echo $(DOBJS) | tr ' ' '\012' | \
- 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
-+
-+.SUFFIXES:	.pic_o
-+
-+%.pic_o:	%.c
-+		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
- 
- .PRECIOUS:	Makefile
- 
-diff -Nru Python-2.0/Python/Makefile.in Python-2.0.new/Python/Makefile.in
---- Python-2.0/Python/Makefile.in	Thu Dec  7 21:39:53 2000
-+++ Python-2.0.new/Python/Makefile.in	Thu Dec  7 21:37:06 2000
-@@ -51,6 +51,8 @@
- 		$(LIBOBJS)
- OBJS=		$(AROBJS) sigcheck.o
- 
-+SHOBJS=		$(OBJS:%.o=%.pic_o)
-+
- LIBRARY=	../libpython$(VERSION).a
- 
- 
-@@ -66,8 +68,13 @@
- 		else echo leaving sigcheck.o out; fi
- 		touch add2lib
- 
-+add2shlib:	$(SHOBJS)
-+		cp -f $(SHOBJS) ../shobjs/.
-+		touch add2shlib
-+
- clean:
--		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib
-+		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib \
-+			*.pic_o add2shlib
- 
- clobber:	clean
- 		-rm -f *.a tags TAGS
-@@ -80,12 +87,25 @@
- 		$(CC) -c $(CFLAGS) -DPLATFORM='"$(MACHDEP)"' \
- 		      $(srcdir)/getplatform.c
- 
-+getplatform.pic_o:	getplatform.c Makefile
-+		$(CC) -c $(CFLAGS) -DPLATFORM='"$(MACHDEP)"' \
-+		      $(CPPFLAGS) -fPIC -o $@ \
-+		      $(srcdir)/getplatform.c
-+
- importdl.o:	importdl.c
- 		$(CC) -c $(CFLAGS) -I$(DLINCLDIR) $(srcdir)/importdl.c
- 
-+importdl.pic_o:	importdl.c
-+		$(CC) -c $(CFLAGS) -I$(DLINCLDIR) -fPIC -o $@ $(srcdir)/importdl.c
-+
- depend:
- 		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
- 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
-+
-+.SUFFIXES:	.pic_o
-+
-+%.pic_o:	%.c
-+		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
- 
- .PRECIOUS:	Makefile
- 
-diff -Nru Python-2.0/configure.in Python-2.0.new/configure.in
---- Python-2.0/configure.in	Thu Dec  7 21:39:53 2000
-+++ Python-2.0.new/configure.in	Thu Dec  7 21:41:46 2000
-@@ -7,6 +7,8 @@
- # Set VERSION so we only need to edit in one place (i.e., here)
+diff -Nur Python-2.1.orig/configure.in Python-2.1/configure.in
+--- Python-2.1.orig/configure.in	Wed Apr 11 22:56:19 2001
++++ Python-2.1/configure.in	Thu May 24 17:57:09 2001
+@@ -8,6 +8,10 @@
  AC_SUBST(VERSION)
- VERSION=2.0
+ VERSION=2.1
+ 
++# Set SOVERSION
 +AC_SUBST(SOVERSION)
 +SOVERSION=0.0
- 
- # NEXTSTEP|MacOSX|Darwin stuff
- if test -f /usr/lib/NextStep/software_version -o -f /System/Library/CoreServices/software_version ; then
-@@ -225,6 +227,7 @@
++
+ # Arguments passed to configure.
+ AC_SUBST(CONFIG_ARGS)
+ CONFIG_ARGS="$ac_configure_args"
+@@ -235,6 +239,7 @@
  # LINKCC is the command that links the python executable -- default is $(CC).
  # This is altered for AIX in order to build the export list before 
  # linking.
 +# For Linux, we now build a shared library, too.
  AC_SUBST(LINKCC)
  AC_MSG_CHECKING(LINKCC)
- if test -z "$LINKCC" -a ! -z "$CXX"
-@@ -240,6 +243,9 @@
+ if test -z "$LINKCC"
+@@ -246,6 +251,9 @@
  	   LINKCC="LD_RUN_PATH=$libdir \$(PURIFY) \$(CC)";;
  	Monterey64*)
  	   LINKCC="\$(PURIFY) \$(CC) -L/usr/lib/ia64l64";;
-+  Linux*)
-+           LDLIBRARY='libpython$(VERSION).so.$(SOVERSION)'
-+     LINKCC="\$(CC)";;
++	Linux*)
++	   LDLIBRARY='libpython$(VERSION).so.$(SOVERSION)'
++	   LINKCC="\$(CC)";;
  	*) LINKCC="\$(PURIFY) \$(CC)";;
  	esac
  fi
-@@ -582,7 +588,7 @@
+@@ -596,7 +604,7 @@
  	if test "$with_next_framework" ; then
  		    LDSHARED="$LDSHARED \$(LDLIBRARY)"
  		fi ;;
@@ -310,20 +237,3 @@ diff -Nru Python-2.0/configure.in Python-2.0.new/configure.in
  	dgux*) LDSHARED="ld -G";;
  	BSD/OS*/4*) LDSHARED="gcc -shared";;
  	OpenBSD*) LDSHARED="ld -Bshareable";;
-@@ -616,7 +622,7 @@
- 		 then CCSHARED="-fpic";
- 		 else CCSHARED="+z";
- 		 fi;;
--	Linux*) CCSHARED="-fpic";;
-+	Linux*) CCSHARED="-fPIC";;
- 	BSD/OS*/4*) CCSHARED="-fpic";;
- 	OpenBSD*) CCSHARED="-fpic";;
- 	FreeBSD*|NetBSD*) CCSHARED="-fPIC";;
-@@ -669,6 +675,7 @@
- # checks for libraries
- AC_CHECK_LIB(dl, dlopen)	# Dynamic linking for SunOS/Solaris and SYSV
- AC_CHECK_LIB(dld, shl_load)	# Dynamic linking for HP-UX
-+AC_CHECK_LIB(m, main)
- 
- # Check for --with-pydebug
- AC_MSG_CHECKING(for --with-pydebug)
