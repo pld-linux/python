@@ -373,10 +373,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python1.5/lib-tk
 
 #%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
-
-%changelog
-* Sun Jun  6 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [1.5.2-1]
-- based on RH spec,
-- spec rewrited by PLD team,
-- pl translation by Wojtek ¦lusarczyk <wojtek@shadow.eu.org>.
