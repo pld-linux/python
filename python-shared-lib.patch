@@ -208,7 +208,7 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
  
 +# Set SOVERSION
 +AC_SUBST(SOVERSION)
-+SOVERSION=1.0
++SOVERSION=0.0
 +
  # Arguments passed to configure.
  AC_SUBST(CONFIG_ARGS)
