@@ -447,7 +447,7 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 
 LC_ALL=C
 export LC_ALL
-%{?_with_tests:%{__make} test}
+%{?with_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
