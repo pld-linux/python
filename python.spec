@@ -45,7 +45,7 @@ BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.4.3
-BuildRequires:	tix-devel
+BuildRequires:	tix-devel >= 1:8.1.4-4
 BuildRequires:	tk-devel >= 8.4.3
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
