@@ -19,7 +19,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	1
+Release:	2
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -45,7 +45,7 @@ BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.6b
 BuildRequires:	readline-devel >= 4.2
-BuildRequires:	tcl-devel >= 8.3.2
+BuildRequires:	tcl-devel >= 8.3.4-10
 BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	zlib-devel
