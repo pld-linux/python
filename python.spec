@@ -11,7 +11,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	1
+Release:	2
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -23,8 +23,9 @@ Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
 Patch1:		%{name}-dl_global.patch
 Patch2:		%{name}-setup-install.patch
-# don't know what to do with it, so it is only commented out, at now
-#Patch3:		%{name}-readline.patch
+Patch3:		%{name}-readline.patch
+Patch4:		%{name}-pythonpath.patch
+Patch5:		%{name}-notermcap.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
@@ -41,6 +42,8 @@ Obsoletes:	python-intl
 Obsoletes:	python-curses
 Obsoletes:	python-gdbm
 Obsoletes:	python-zlib
+Obsoletes:	python2
+Obsoletes:	python2-devel
 
 %description
 Python is an interpreted, interactive, object-oriented programming
@@ -249,7 +252,9 @@ tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz uruchomiæ.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-#%patch3 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
