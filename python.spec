@@ -187,6 +187,24 @@ postscript'owe i HTML.
 Bu paket, Python dili ile ilgili belgeleri ve düz ASCII dosyalarý ve
 LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 
+#%package without-thread
+#Summary:	Python without threads
+#Summary(pl):	Pyton bez w±tków
+#Group:          Development/Languages
+#Group(de):      Entwicklung/Sprachen
+#Group(pl):      Programowanie/Jêzyki
+#Requires:       %{name} = %{version}
+#Obsoletes:      python-without-thread
+
+#%description without-thread
+#This package is rather needed for apache-mod_python module.
+#Other ways of use are unknown.
+
+#%description -l pl without-thread
+#Pyton bez w±tków jest w³a¶ciwie potrzebny
+#tylko modu³owi apache-mod_python, bo apache nie
+#ich na razie nie wspiera.
+
 %package -n tkinter
 Summary:	Lowlevel Python -> Tk Interface
 Summary(de):	Grafischer Oberfläche für Python
