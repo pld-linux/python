@@ -53,7 +53,7 @@ URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
-BuildRequires:	expat-devel >= 1.95.7
+BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
@@ -61,7 +61,7 @@ BuildRequires:	readline-devel >= 4.2
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
-Requires:	python-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
 Obsoletes:	python-intl
