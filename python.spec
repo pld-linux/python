@@ -1,9 +1,4 @@
 
-#
-# todo:
-# - fix locale test to use configured locale instead of en_US (or sth.)
-#
-
 # Conditional build:
 %bcond_without tkinter		# disables tkinter module building
 %bcond_without tests		# disables Python testing
@@ -12,9 +7,9 @@
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
-%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix
+%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale
 # test which fail because of some unknown/unresolved reason (this list should be empty)
-%define		broken_tests	test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
+%define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
 
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
@@ -38,7 +33,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk):	íÏ×Á ĞÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	1.3
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -477,7 +472,7 @@ Przyk³adowe programy w Pythonie.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%ifarch amd64
+%if "%{_lib}" == "lib64"
 %patch6 -p1
 %endif
 %patch7 -p1
