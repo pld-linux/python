@@ -11,7 +11,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}.1
-Release:	2
+Release:	3
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -27,6 +27,7 @@ Patch3:		%{name}-readline.patch
 Patch4:		%{name}-pythonpath.patch
 Patch5:		%{name}-notermcap.patch
 Patch6:		%{name}-ac25x.patch
+Patch7:		%{name}-default_encoding.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
@@ -283,6 +284,7 @@ uruchomiæ.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
