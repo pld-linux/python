@@ -307,8 +307,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %dir %{_libdir}/python%{pver}
-%{_libdir}/python%{pver}/*.pyc
-%{_libdir}/python%{pver}/*.pyo
+%{_libdir}/python%{pver}/*.py?
  
 %dir %{_libdir}/python%{pver}/lib-dynload
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/[a-z]*.so
@@ -317,40 +316,31 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_libdir}/python%{pver}/plat-*
 %attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
-%{_libdir}/python%{pver}/plat-*/*.pyc
-%{_libdir}/python%{pver}/plat-*/*.pyo
+%{_libdir}/python%{pver}/plat-*/*.py?
 
 %dir %{_libdir}/python%{pver}/curses
-%{_libdir}/python%{pver}/curses/*.pyc
-%{_libdir}/python%{pver}/curses/*.pyo
+%{_libdir}/python%{pver}/curses/*.py?
 
 %dir %{_libdir}/python%{pver}/distutils
-%{_libdir}/python%{pver}/distutils/*.pyc
-%{_libdir}/python%{pver}/distutils/*.pyo
+%{_libdir}/python%{pver}/distutils/*.py?
 
 %dir %{_libdir}/python%{pver}/distutils/command
-%{_libdir}/python%{pver}/distutils/command/*.pyc
-%{_libdir}/python%{pver}/distutils/command/*.pyo
+%{_libdir}/python%{pver}/distutils/command/*.py?
 
 %dir %{_libdir}/python%{pver}/encodings
-%{_libdir}/python%{pver}/encodings/*.pyc
-%{_libdir}/python%{pver}/encodings/*.pyo
+%{_libdir}/python%{pver}/encodings/*.py?
 
 %dir %{_libdir}/python%{pver}/xml
-%{_libdir}/python%{pver}/xml/*.pyc
-%{_libdir}/python%{pver}/xml/*.pyo
+%{_libdir}/python%{pver}/xml/*.py?
 
 %dir %{_libdir}/python%{pver}/xml/parsers
-%{_libdir}/python%{pver}/xml/parsers/*.pyc
-%{_libdir}/python%{pver}/xml/parsers/*.pyo
+%{_libdir}/python%{pver}/xml/parsers/*.py?
 
 %dir %{_libdir}/python%{pver}/xml/sax
-%{_libdir}/python%{pver}/xml/sax/*.pyc
-%{_libdir}/python%{pver}/xml/sax/*.pyo
+%{_libdir}/python%{pver}/xml/sax/*.py?
 
 %dir %{_libdir}/python%{pver}/xml/dom
-%{_libdir}/python%{pver}/xml/dom/*.pyc
-%{_libdir}/python%{pver}/xml/dom/*.pyo
+%{_libdir}/python%{pver}/xml/dom/*.py?
 
 %files devel
 %defattr(644,root,root,755)
@@ -401,5 +391,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %dir %{_libdir}/python%{pver}/lib-old
-%{_libdir}/python%{pver}/lib-old/*.pyc
-%{_libdir}/python%{pver}/lib-old/*.pyo
+%{_libdir}/python%{pver}/lib-old/*.py?
