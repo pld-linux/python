@@ -1,22 +1,24 @@
+
+%define pver 1.6
+ 
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
 Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	1.5.2
-Release:	20
+Version:	%{pver}b1
+Release:	1
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.python.org/
-Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
+Source0:	ftp://ftp.python.org/pub/python/src/Python-%{version}.tgz
 Source1:	Python-Doc.tar.gz
 Source2:	cursesmodule.c
 Patch0:		python-pld.patch
 Patch1:		python-sed.patch
 Patch2:		python-dl_global.patch
-Patch3:		python-wdb.patch
 Patch4:		python-wuftpd.patch
 Patch5:		python-_locale.patch
 BuildRequires:	XFree86-devel
@@ -196,7 +198,6 @@ kullanýlan grafik bir arayüzdür.
 %patch0 -p1
 %patch1 -p0
 %patch2 -p1
-%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
@@ -231,95 +232,93 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
 
-install libpython1.5.a $RPM_BUILD_ROOT%{_libdir}
+install libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}
 
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/*.so \
-	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk*
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}%{pver}/lib-dynload/*.so \
+	$RPM_BUILD_ROOT%{_libdir}/%{name}%{pver}/lib-dynload/_tk*
 
-rm -f $RPM_BUILD_ROOT%{_bindir}/python1.5
-ln -s libpython1.5.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
+rm -f $RPM_BUILD_ROOT%{_bindir}/python%{pver}
+ln -s libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man1/* \
-	Misc/{ACKS,BLURB.LUTZ,COPYRIGHT,NEWS,HYPE,README,HISTORY}
+	Misc/{ACKS,BLURB.LUTZ,NEWS,HYPE,README,HISTORY}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%doc README.gz Misc/{ACKS,COPYRIGHT,NEWS,HISTORY}.gz
+%doc README.gz Misc/{ACKS,NEWS,HISTORY}.gz
 
 %attr(755,root,root) %{_bindir}/*
 
-%dir %{_libdir}/python1.5
-%attr(-,root,root) %{_libdir}/python1.5/*.py
-%{_libdir}/python1.5/*.pyc
-%{_libdir}/python1.5/*.pyo
+%dir %{_libdir}/python%{pver}
+%attr(-,root,root) %{_libdir}/python%{pver}/*.py
+%{_libdir}/python%{pver}/*.pyc
+%{_libdir}/python%{pver}/*.pyo
  
-%dir %{_libdir}/python1.5/lib-dynload
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/arraymodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/binascii.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/bsddbmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cPickle.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cStringIO.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cmathmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cryptmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cursesmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/dbmmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/errnomodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/fcntlmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/gdbmmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/grpmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/mathmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/md5module.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/newmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/nismodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/operator.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/parsermodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/pwdmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/readline.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/resource.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/rotormodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/selectmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/shamodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/socketmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/stropmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/structmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/syslogmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/termios.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/timemodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/timingmodule.so
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/zlibmodule.so
+%dir %{_libdir}/python%{pver}/lib-dynload
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/arraymodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/binascii.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/bsddbmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cPickle.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cStringIO.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cmathmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cryptmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cursesmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/dbmmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/errnomodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/fcntlmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/gdbmmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/grpmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/mathmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/md5module.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/newmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/nismodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/operator.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/parsermodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/pwdmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/readline.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/resource.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/rotormodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/selectmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/shamodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/socketmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/stropmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/structmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/syslogmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/termios.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/timemodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/timingmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/zlibmodule.so
 
-%{_libdir}/python1.5/lib-stdwin
-
-%dir %{_libdir}/python1.5/plat-*
-%attr(755,root,root) %{_libdir}/python1.5/plat-*/regen
-%{_libdir}/python1.5/plat-*/*.py
-%{_libdir}/python1.5/plat-*/*.pyc
-%{_libdir}/python1.5/plat-*/*.pyo
+%dir %{_libdir}/python%{pver}/plat-*
+%attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
+%{_libdir}/python%{pver}/plat-*/*.py
+%{_libdir}/python%{pver}/plat-*/*.pyc
+%{_libdir}/python%{pver}/plat-*/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
 
-%dir %{_includedir}/python1.5
-%{_includedir}/python1.5/*.h
+%dir %{_includedir}/python%{pver}
+%{_includedir}/python%{pver}/*.h
 %{_libdir}/lib*.a
 
-%dir %{_libdir}/python1.5/config
-%attr(755,root,root) %{_libdir}/python1.5/config/makesetup
-%attr(755,root,root) %{_libdir}/python1.5/config/install-sh
-%{_libdir}/python1.5/config/Makefile
-%{_libdir}/python1.5/config/Makefile.pre.in
-%{_libdir}/python1.5/config/Setup
-%{_libdir}/python1.5/config/Setup.local
-%{_libdir}/python1.5/config/Setup.thread
-%{_libdir}/python1.5/config/config.c
-%{_libdir}/python1.5/config/config.c.in
-%{_libdir}/python1.5/config/python.o
+%dir %{_libdir}/python%{pver}/config
+%attr(755,root,root) %{_libdir}/python%{pver}/config/makesetup
+%attr(755,root,root) %{_libdir}/python%{pver}/config/install-sh
+%{_libdir}/python%{pver}/config/Makefile
+%{_libdir}/python%{pver}/config/Makefile.pre.in
+%{_libdir}/python%{pver}/config/Setup
+%{_libdir}/python%{pver}/config/Setup.local
+%{_libdir}/python%{pver}/config/Setup.thread
+%{_libdir}/python%{pver}/config/config.c
+%{_libdir}/python%{pver}/config/config.c.in
+%{_libdir}/python%{pver}/config/python.o
 
-%dir %{_libdir}/python1.5/test
-%attr(-,root,root) %{_libdir}/python1.5/test/*
+%dir %{_libdir}/python%{pver}/test
+%attr(-,root,root) %{_libdir}/python%{pver}/test/*
 
 %files doc
 %defattr(644,root,root,755)
@@ -328,5 +327,5 @@ rm -rf $RPM_BUILD_ROOT
 %files -n tkinter
 %defattr(644,root,root,755)
 
-%{_libdir}/python1.5/lib-tk
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
+%{_libdir}/python%{pver}/lib-tk
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_tkinter.so
