@@ -9,7 +9,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}b1
 Release:	1
-Copyright:	distributable
+Copyright:	CNRI Open Source License
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.python.org/
