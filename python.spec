@@ -1,8 +1,11 @@
 
-%define python_compile_opt ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[2])"
-%define python_compile ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[2])"
-
-%define pver 2.1
+%define py_ver         2.1
+%define py_prefix      %{_prefix}
+%define py_libdir      %{py_prefix}/lib/python%{py_ver}
+%define py_sitedir     %{py_libdir}/site-packages
+%define py_dyndir      %{py_libdir}/lib-dynload
+%define py_comp        ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
+%define py_ocomp       ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
  
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
@@ -10,8 +13,8 @@ Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{pver}.1
-Release:	3
+Version:	%{py_ver}.1
+Release:	4
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -319,13 +322,13 @@ export LD_LIBRARY_PATH=$(pwd)
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
 
-install libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}
+install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
 
-%python_compile $RPM_BUILD_ROOT%{_libdir}/python%{pver} %{_libdir}/python%{pver}
-%python_compile_opt $RPM_BUILD_ROOT%{_libdir}/python%{pver} %{_libdir}/python%{pver}
+%py_comp $RPM_BUILD_ROOT%{py_libdir}
+%py_ocomp $RPM_BUILD_ROOT%{py_libdir}
 
-rm -f $RPM_BUILD_ROOT%{_bindir}/python%{pver}
-ln -sf libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
+rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
+ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
 
@@ -341,70 +344,71 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpython*so.*
 %{_mandir}/man1/*
 
-%dir %{_libdir}/python%{pver}
-%{_libdir}/python%{pver}/*.py?
+%dir %{py_sitedir}
+%dir %{py_libdir}
+%{py_libdir}/*.py?
  
-%dir %{_libdir}/python%{pver}/lib-dynload
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/[a-z]*.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_te*.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_[a-su-z]*.so
+%dir %{py_dyndir}
+%attr(755,root,root) %{py_dyndir}/[a-z]*.so
+%attr(755,root,root) %{py_dyndir}/_te*.so
+%attr(755,root,root) %{py_dyndir}/_[a-su-z]*.so
 
-%dir %{_libdir}/python%{pver}/plat-*
-%attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
-%{_libdir}/python%{pver}/plat-*/*.py?
+%dir %{py_libdir}/plat-*
+%attr(755,root,root) %{py_libdir}/plat-*/regen
+%{py_libdir}/plat-*/*.py?
 
-%dir %{_libdir}/python%{pver}/curses
-%{_libdir}/python%{pver}/curses/*.py?
+%dir %{py_libdir}/curses
+%{py_libdir}/curses/*.py?
 
-%dir %{_libdir}/python%{pver}/distutils
-%{_libdir}/python%{pver}/distutils/*.py?
+%dir %{py_libdir}/distutils
+%{py_libdir}/distutils/*.py?
 
-%dir %{_libdir}/python%{pver}/distutils/command
-%{_libdir}/python%{pver}/distutils/command/*.py?
+%dir %{py_libdir}/distutils/command
+%{py_libdir}/distutils/command/*.py?
 
-%dir %{_libdir}/python%{pver}/encodings
-%{_libdir}/python%{pver}/encodings/*.py?
+%dir %{py_libdir}/encodings
+%{py_libdir}/encodings/*.py?
 
-%dir %{_libdir}/python%{pver}/xml
-%{_libdir}/python%{pver}/xml/*.py?
+%dir %{py_libdir}/xml
+%{py_libdir}/xml/*.py?
 
-%dir %{_libdir}/python%{pver}/xml/parsers
-%{_libdir}/python%{pver}/xml/parsers/*.py?
+%dir %{py_libdir}/xml/parsers
+%{py_libdir}/xml/parsers/*.py?
 
-%dir %{_libdir}/python%{pver}/xml/sax
-%{_libdir}/python%{pver}/xml/sax/*.py?
+%dir %{py_libdir}/xml/sax
+%{py_libdir}/xml/sax/*.py?
 
-%dir %{_libdir}/python%{pver}/xml/dom
-%{_libdir}/python%{pver}/xml/dom/*.py?
+%dir %{py_libdir}/xml/dom
+%{py_libdir}/xml/dom/*.py?
 
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/*.gz
 %attr(755,root,root) %{_libdir}/lib*.so
-%dir %{_includedir}/python%{pver}
-%{_includedir}/python%{pver}/*.h
-%attr(-,root,root) %{_libdir}/python%{pver}/*.py
-%{_libdir}/python%{pver}/plat-*/*.py
-%{_libdir}/python%{pver}/curses/*.py
-%{_libdir}/python%{pver}/distutils/*.py
-%{_libdir}/python%{pver}/distutils/command/*.py
-%{_libdir}/python%{pver}/xml/*.py
-%{_libdir}/python%{pver}/xml/parsers/*.py
-%{_libdir}/python%{pver}/xml/sax/*.py
-%{_libdir}/python%{pver}/xml/dom/*.py
-%{_libdir}/python%{pver}/encodings/*.py
+%dir %{_includedir}/python%{py_ver}
+%{_includedir}/python%{py_ver}/*.h
+%attr(-,root,root) %{py_libdir}/*.py
+%{py_libdir}/plat-*/*.py
+%{py_libdir}/curses/*.py
+%{py_libdir}/distutils/*.py
+%{py_libdir}/distutils/command/*.py
+%{py_libdir}/xml/*.py
+%{py_libdir}/xml/parsers/*.py
+%{py_libdir}/xml/sax/*.py
+%{py_libdir}/xml/dom/*.py
+%{py_libdir}/encodings/*.py
 
-%dir %{_libdir}/python%{pver}/config
-%attr(755,root,root) %{_libdir}/python%{pver}/config/makesetup
-%attr(755,root,root) %{_libdir}/python%{pver}/config/install-sh
-%{_libdir}/python%{pver}/config/Makefile
-%{_libdir}/python%{pver}/config/Makefile.pre.in
-%{_libdir}/python%{pver}/config/Setup
-%{_libdir}/python%{pver}/config/Setup.config
-%{_libdir}/python%{pver}/config/Setup.local
-%{_libdir}/python%{pver}/config/config.c
-%{_libdir}/python%{pver}/config/config.c.in
-%{_libdir}/python%{pver}/config/python.o
+%dir %{py_libdir}/config
+%attr(755,root,root) %{py_libdir}/config/makesetup
+%attr(755,root,root) %{py_libdir}/config/install-sh
+%{py_libdir}/config/Makefile
+%{py_libdir}/config/Makefile.pre.in
+%{py_libdir}/config/Setup
+%{py_libdir}/config/Setup.config
+%{py_libdir}/config/Setup.local
+%{py_libdir}/config/config.c
+%{py_libdir}/config/config.c.in
+%{py_libdir}/config/python.o
 
 %files static
 %defattr(644,root,root,755)
@@ -413,17 +417,17 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 %doc html-doc/*
-%dir %{_libdir}/python%{pver}/test
-%attr(-,root,root) %{_libdir}/python%{pver}/test/*
+%dir %{py_libdir}/test
+%attr(-,root,root) %{py_libdir}/test/*
 
 %files -n tkinter
 %defattr(644,root,root,755)
 
-%{_libdir}/python%{pver}/lib-tk
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_tkinter.so
+%{py_libdir}/lib-tk
+%attr(755,root,root) %{py_dyndir}/_tkinter.so
 
 %files old
 %defattr(644,root,root,755)
 
-%dir %{_libdir}/python%{pver}/lib-old
-%{_libdir}/python%{pver}/lib-old/*.py?
+%dir %{py_libdir}/lib-old
+%{py_libdir}/lib-old/*.py?
