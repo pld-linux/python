@@ -279,7 +279,7 @@ Summary(de):	Dokumentation zu Python
 Summary(es):	Documentación para Python
 Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Pythona
-Summary(pt_BR):	Documentação para a linguagem de programação Python.
+Summary(pt_BR):	Documentação para a linguagem de programação Python
 Summary(ru):	äÏËÕÍÅÎÔÁÃÉÑ ĞÏ ÑÚÙËÕ Python
 Summary(tr):	Python belgeleri
 Summary(uk):	äÏËÕÍÅÎÔÁÃ¦Ñ ĞÏ ÍÏ×¦ Python
@@ -350,7 +350,7 @@ apache-mod_python, bo apache nie ich na razie nie wspiera.
 Summary:	Standard Python interface to the Tk GUI toolkit
 Summary(de):	Grafischer Oberfläche für Python
 Summary(es):	Interface GUI para Phyton
-Summary(fr):	Interface graphique pour python.
+Summary(fr):	Interface graphique pour python
 Summary(pl):	Standardowy interfejs Pythona do biblioteki Tk
 Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanıcı arayüzü
