@@ -306,7 +306,7 @@ diff -Nur Python-2.0.orig/configure.in Python-2.0/configure.in
  		    LDSHARED="$LDSHARED \$(LDLIBRARY)"
  		fi ;;
 -	Linux*) LDSHARED="gcc -shared";;
-+	Linux*) LDSHARED="gcc -shared -lm -lc";;
++	Linux*) LDSHARED="gcc -shared -lc";;
  	dgux*) LDSHARED="ld -G";;
  	BSD/OS*/4*) LDSHARED="gcc -shared";;
  	OpenBSD*) LDSHARED="ld -Bshareable";;
