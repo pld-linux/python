@@ -62,9 +62,9 @@ que ceux permettant l'interfaçage avec les widgets Tix pour Tk et RPM.
 Python jest interpretowanym, interaktywnym i "zorientowanym obiektowo"
 jêzykiem programowania. Jest modularny, obs³uguje wyj±tki, dynamiczne typy,
 zaawansowane dynamiczne struktury danych i klasy. Python ³±czy w sobie du¿e
-mo¿liwo¶ci i przejrzyst± sk³adnie. Posiada interfejsy do wielu wywo³añ
+mo¿liwo¶ci i przejrzyst± sk³adniê. Posiada interfejsy do wielu wywo³añ
 systemowych i bibliotek, w tym rówie¿ do ró¿nych bibliotek okienkowych.
-Mo¿liwo¶ci jego mo¿na jeszcze rozdze¿aæ poprzez odpowiednie modu³y pisane w
+Mo¿liwo¶ci jego mo¿na jeszcze rozszerzaæ poprzez odpowiednie modu³y pisane w
 C lub C++. Python mo¿e byæ równie¿ u¿yty jako element aplikacji, którym
 potrzebny jest interpreter do skryptów. I wreszcie, Python jest
 wieloplatformowy, dzia³a na wielu odmianach UNIX'a, Mac'u oraz PC pod
@@ -132,9 +132,9 @@ interpréteur sous forme de fichiers ASCII et LaTeX.
 
 %description -l pl docs
 Oficjalna dokumentacja do Pythona. Zawiera programy przyk³adowe, narzêdzia
-i dokumentacje. Strony do manuala znajduj± sie w g³ównym pakiecie.
+i dokumentacjê. Strony do manuala znajduj± sie w g³ównym pakiecie.
 Ten pakiet nie zawiera ¼róde³ dokumentacji napisanych w LaTeX'u,
-tylko Gotowe do wykorzystania pliki postscript'owe i html. 
+tylko gotowe do wykorzystania pliki postscript'owe i HTML. 
 
 %description -l tr docs
 Bu paket, Python dili ile ilgili belgeleri ve düz ASCII dosyalarý ve LaTeX
@@ -176,7 +176,7 @@ Ten pakiet zawiera modu³y w C, które po¶rednicz± w wywo³aniach pomiêdzy
 samym Tk a modu³em Tkinter bêd±cym g³ownym interfejsem Tk dla Pythona.
 Tkinter jets dostêpny w pakiecie python-tkinter.rpm
 
-Jedynym powodem wdzielenia tego pakietu jest u³atwienie wymiany go na PIL
+Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na PIL
 (Python Imaging Library).
 
 %description -l tr -n tkinter
@@ -218,7 +218,7 @@ The tools are
 Ten pakiet zawiera przyk³adowe programy i narzêdzia znajduj±ce siê w 
 ¼ród³owej dystrybucji Pythona.
 
-Dema obrazuj± prawie wszystkie cechy Pythona i zastosowania w których mo¿e
+Dema obrazuj± prawie wszystkie cechy Pythona i zastosowania, w których mo¿e
 on byæ u¿yty.
 
 Zawatre w pakiecie narzêdzia to:
@@ -263,7 +263,7 @@ An easy to use interface to (n)curses CUI library. CUI stands for console
 user interface.
 
 %description curses
-Interfejs do biblioteki (n)curses. curses do biblioteka uno¿liwiaj±ce tworzenie
+Interfejs do biblioteki (n)curses. curses to biblioteka umo¿liwiaj±ca tworzenie
 okienkowego interfejsu u¿ytkownika na terminalu tekstowym.
 
 %package zlib
