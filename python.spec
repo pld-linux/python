@@ -25,14 +25,15 @@ Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
-#Patch1:		%{name}-dl_global.patch
-Patch3:		%{name}-readline.patch
-Patch4:		%{name}-pythonpath.patch
-Patch6:		%{name}-ac25x.patch
-Patch7:		%{name}-default_encoding.patch
+Patch1:		%{name}-readline.patch
+Patch2:		%{name}-pythonpath.patch
+Patch3:		%{name}-ac25x.patch
+Patch4:		%{name}-default_encoding.patch
+#Patch7:		%{name}-dl_global.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
+BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.6b
 BuildRequires:	readline-devel >= 4.2
@@ -350,11 +351,11 @@ Przyk³adowe programy w Pythonie.
 %prep
 %setup -q -n Python-%{version}
 %patch0 -p1
-#%patch1 -p1
+%patch1 -p1
+%patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch6 -p1
-%patch7 -p1
+#%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
