@@ -15,7 +15,7 @@ Patch1:      %{name}-1.4-gccbug.patch
 Patch2:      %{name}-1.5-localbin.patch
 Patch3:      Python-1.5.1-nosed.patch
 URL:         http://www.python.org/
-Buildroot:   /tmp/%{name}-%{version}-root
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 Python in an interpreted, object orientated scripting language. If contains
