@@ -15,7 +15,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}b2
-Release:	1
+Release:	2
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -109,6 +109,20 @@ sýnýflarýn, modüllerin ve aykýrý durumlarýn dinamik yüklenmelerine
 destek verir. C koduyla birlikte kullanýmý son derece kolaydýr. Bu
 paket, standart Python birimlerinin çoðunun yanýsýra Tk ve RPM için
 arayüz birimlerini de içerir.
+
+%package modules
+Summary:	Python modules
+Summary(pl):	Modu³y jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name} = %{version}
+
+%description modules
+Python modules.
+
+%description -l pl modules
+Modu³y jêzyka Python.
 
 %package devel
 Summary:	Libraries and header files for building python code
@@ -345,7 +359,29 @@ ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
+install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
+
 gzip -9nf Misc/{ACKS,NEWS,README,unicode.txt}
+
+find $RPM_BUILD_ROOT%{py_libdir} \
+	-type f \
+	-maxdepth 1 \
+	-printf %{py_libdir}/%f\\n \
+	| grep '\.py[co]$' \
+	| grep -v -e 'UserDict\.py[oc]$'\
+	| grep -v -e 'locale\.py[oc]$' \
+	| grep -v -e 'posixpath\.py[oc]$' \
+	| grep -v -e 'site\.py[oc]$' \
+	| grep -v -e 'stat\.py[oc]$' \
+	| grep -v -e 'os\.py[oc]$' > modules.filelist
+ 
+find $RPM_BUILD_ROOT%{py_dyndir} \
+	-type f \
+	-maxdepth 1 \
+	-printf "%%%%attr(755,root,root) %{py_dyndir}/%f\\n" \
+	| grep '\.so$' \
+	| grep -v -e 'readline\.so$' \
+	| grep -v -e '_tkinter\.so$' >> modules.filelist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -359,14 +395,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpython*so.*
 %{_mandir}/man1/*
 
+%dir %{py_dyndir}
+
+# required modules by python core
+# readline support for python binary
+%attr(755,root,root) %{py_dyndir}/readline.so
+
+# required modules by python core
+%{py_libdir}/UserDict.py?
+%{py_libdir}/locale.py?
+%{py_libdir}/posixpath.py?
+%{py_libdir}/site.py?
+%{py_libdir}/stat.py?
+%{py_libdir}/os.py?
+
+%files modules -f modules.filelist
 %dir %{py_sitedir}
 %dir %{py_libdir}
-%{py_libdir}/*.py?
- 
-%dir %{py_dyndir}
-%attr(755,root,root) %{py_dyndir}/[a-z]*.so
-%attr(755,root,root) %{py_dyndir}/_te*.so
-%attr(755,root,root) %{py_dyndir}/_[a-su-z]*.so
 
 %dir %{py_libdir}/plat-*
 %attr(755,root,root) %{py_libdir}/plat-*/regen
