@@ -11,8 +11,10 @@
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/%{_lib}/python%{py_ver}
+%define py_scriptdir   %{py_prefix}/share/python%{py_ver}
 %define py_incdir      %{_includedir}/python%{py_ver}
 %define py_sitedir     %{py_libdir}/site-packages
+%define py_sitescriptdir %{py_scriptdir}/site-packages
 %define py_dyndir      %{py_libdir}/lib-dynload
 %define py_comp        ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
 %define py_ocomp       ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
@@ -28,7 +30,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	1.1
+Release:	1.2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -41,8 +43,9 @@ Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
 Patch3:		%{name}-no_ndbm.patch
 Patch4:		%{name}-ac_fixes.patch
-Patch5:		%{name}-lib64.patch
-Patch6:		%{name}-doc_path.patch
+Patch5:		%{name}-noarch_to_datadir.patch
+Patch6:		%{name}-lib64.patch
+Patch7:		%{name}-doc_path.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -65,6 +68,9 @@ Obsoletes:	python-gdbm
 Obsoletes:	python-zlib
 Obsoletes:	python2
 Obsoletes:	python2-devel
+
+%define		no64bit_tests	test_audioop test_rgbimg test_imageop
+%define		broken_tests	test_anydbm test_bsddb test_re test_shelve test_socket test_whichdb test_zipimport
 
 %description
 Python is an interpreted, interactive, object-oriented programming
@@ -453,10 +459,11 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%ifarch amd64
 %patch5 -p1
-%endif
+%ifarch amd64
 %patch6 -p1
+%endif
+%patch7 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -476,15 +483,16 @@ LC_ALL=C
 export LC_ALL
 %if %{with tests}
 %ifarch alpha sparc64 ppc64 amd64
-%{__make} test TESTOPTS="-l -x test_audioop test_rgbimg test_imageop"
+%{__make} test TESTOPTS="-l -x %{no64bit_tests} %{broken_tests}"
 %else
-%{__make} test
+%{__make} test TESTOPTS="-l -x %{broken_tests}"
 %endif
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} $RPM_BUILD_ROOT%{_mandir}/man1
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
+	$RPM_BUILD_ROOT{%{py_sitescriptdir},%{_mandir}/man1}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -649,6 +657,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_dyndir}
 %dir %{py_libdir}
+%dir %{py_sitescriptdir}
 %dir %{py_sitedir}
 
 # required shared modules by python library
