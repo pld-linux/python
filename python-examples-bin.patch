@@ -1,0 +1,81 @@
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/Balloon.py Python-2.2.2/Demo/tix/samples/Balloon.py
+--- Python-2.2.2/Demo.orig/tix/samples/Balloon.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/Balloon.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/BtnBox.py Python-2.2.2/Demo/tix/samples/BtnBox.py
+--- Python-2.2.2/Demo.orig/tix/samples/BtnBox.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/BtnBox.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/CmpImg.py Python-2.2.2/Demo/tix/samples/CmpImg.py
+--- Python-2.2.2/Demo.orig/tix/samples/CmpImg.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/CmpImg.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/ComboBox.py Python-2.2.2/Demo/tix/samples/ComboBox.py
+--- Python-2.2.2/Demo.orig/tix/samples/ComboBox.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/ComboBox.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/Control.py Python-2.2.2/Demo/tix/samples/Control.py
+--- Python-2.2.2/Demo.orig/tix/samples/Control.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/Control.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/NoteBook.py Python-2.2.2/Demo/tix/samples/NoteBook.py
+--- Python-2.2.2/Demo.orig/tix/samples/NoteBook.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/NoteBook.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/OptMenu.py Python-2.2.2/Demo/tix/samples/OptMenu.py
+--- Python-2.2.2/Demo.orig/tix/samples/OptMenu.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/OptMenu.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Demo.orig/tix/samples/Tree.py Python-2.2.2/Demo/tix/samples/Tree.py
+--- Python-2.2.2/Demo.orig/tix/samples/Tree.py	Fri May 16 13:01:40 2003
++++ Python-2.2.2/Demo/tix/samples/Tree.py	Fri May 16 13:34:29 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ # 
+ # $Id$
+ #
+diff -ruN Python-2.2.2/Tools.orig/scripts/parseentities.py Python-2.2.2/Tools/scripts/parseentities.py
+--- Python-2.2.2/Tools.orig/scripts/parseentities.py	Fri May 16 13:01:47 2003
++++ Python-2.2.2/Tools/scripts/parseentities.py	Fri May 16 13:34:49 2003
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/python
++#!/usr/bin/python
+ """ Utility for parsing HTML entity definitions available from:
+ 
+       http://www.w3.org/ as e.g.
