@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}
-Release:	10
+Release:	12
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -541,27 +541,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/python
 %{_mandir}/man1/*
 
-%dir %{py_dyndir}
-%dir %{py_libdir}
-%dir %{py_sitedir}
-
-# required modules by python core
-%attr(755,root,root) %{py_dyndir}/_codecsmodule.so
-%attr(755,root,root) %{py_dyndir}/structmodule.so
 # readline support for python binary
 %attr(755,root,root) %{py_dyndir}/readline.so
-
-# required modules by python core
-%{py_libdir}/UserDict.py?
-%{py_libdir}/codecs.py?
-%{py_libdir}/locale.py?
-%{py_libdir}/posixpath.py?
-%{py_libdir}/site.py?
-%{py_libdir}/stat.py?
-%{py_libdir}/os.py?
-
-%dir %{py_libdir}/encodings
-%{py_libdir}/encodings/*.py?
 
 %files modules -f modules.filelist
 %defattr(644,root,root,755)
@@ -594,6 +575,27 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpython*so.*
+
+%dir %{py_dyndir}
+%dir %{py_libdir}
+%dir %{py_sitedir}
+
+# required shared modules by python library
+%attr(755,root,root) %{py_dyndir}/_codecsmodule.so
+%attr(755,root,root) %{py_dyndir}/structmodule.so
+
+# required modules by python library
+%{py_libdir}/UserDict.py?
+%{py_libdir}/codecs.py?
+%{py_libdir}/locale.py?
+%{py_libdir}/posixpath.py?
+%{py_libdir}/site.py?
+%{py_libdir}/stat.py?
+%{py_libdir}/os.py?
+
+# required encodings by python library
+%dir %{py_libdir}/encodings
+%{py_libdir}/encodings/*.py?
 
 %files pydoc
 %defattr(644,root,root,755)
