@@ -1,6 +1,6 @@
 
-%define python_compile_opt ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1])"
-%define python_compile ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1])"
+%define python_compile_opt ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[2])"
+%define python_compile ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[2])"
 
 %define pver 2.1
  
@@ -286,8 +286,8 @@ export LD_LIBRARY_PATH=$(pwd)
 
 install libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}
 
-%python_compile $RPM_BUILD_ROOT%{_libdir}/python%{pver}
-%python_compile_opt $RPM_BUILD_ROOT%{_libdir}/python%{pver}
+%python_compile $RPM_BUILD_ROOT%{_libdir}/python%{pver} %{_libdir}/python%{pver}
+%python_compile_opt $RPM_BUILD_ROOT%{_libdir}/python%{pver} %{_libdir}/python%{pver}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{pver}
 ln -sf libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
