@@ -181,6 +181,9 @@ Python - це ╕нтерпретована, об'╓ктно-ор╕╓нтована мова програмування.
 Summary:	Python library
 Summary(pl):	Biblioteka jЙzyka Python
 Group:		Libraries/Python
+# broken detection in rpm/pythondeps.sh
+Provides:	python(abi) = %{py_ver}
+# for compatibility with existing Ac packages
 Provides:	python(bytecode) = %{py_ver}
 
 %description libs
