@@ -1,6 +1,7 @@
 
 # Conditional build:
 %bcond_without tkinter	# disables tkinter module building
+%bcond_without test	# disables Python testing
 
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
@@ -22,7 +23,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	1.2
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -436,14 +437,17 @@ tar -xf %{SOURCE1} --use=bzip2
 %build
 %{__autoconf}
 
-POSIXLY_CORRECT=TRUE; export POSIXLY_CORRECT
-
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
+	--enable-unicode=ucs4 \
 	--enable-shared
 
 %{__make} OPT="%{rpmcflags}"
+
+LC_ALL=C
+export LC_ALL
+%{!?_without_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -503,6 +507,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/rgbimg.so
 %attr(755,root,root) %{py_dyndir}/imageop.so
+# sizeof(long) != sizeof(int), so dl module will not be built on 64-bit
+# platforms
+%attr(755,root,root) %{py_dyndir}/dl.so
 %endif
 
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
@@ -524,7 +531,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/crypt.so
 %attr(755,root,root) %{py_dyndir}/datetime.so
-%attr(755,root,root) %{py_dyndir}/dl.so
+%attr(755,root,root) %{py_dyndir}/dbm.so
 %attr(755,root,root) %{py_dyndir}/fcntl.so
 %attr(755,root,root) %{py_dyndir}/gdbm.so
 %attr(755,root,root) %{py_dyndir}/grp.so
@@ -684,6 +691,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc Python-Docs-%{py_ver}/*
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
+%attr(-,root,root) %{py_libdir}/email/test/*
+%attr(-,root,root) %{py_libdir}/bsddb/test/*
 
 %if %{with tkinter}
 %files tkinter
