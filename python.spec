@@ -436,7 +436,7 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 #%patch3 -p1 - remove?
 %patch4 -p1
-#%patch5 -p1 - review
+%patch5 -p1
 %patch6 -p1
 
 install -d html-doc
