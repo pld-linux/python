@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}
-Release:	8
+Release:	9
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -446,6 +446,8 @@ export LD_LIBRARY_PATH
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
 
+install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
+
 install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
 
 %py_comp $RPM_BUILD_ROOT%{py_libdir}
@@ -570,6 +572,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_libdir}/config/makesetup
 %attr(755,root,root) %{py_libdir}/config/install-sh
 %{py_libdir}/config/Makefile
+%{py_libdir}/config/Makefile.pre.in
 %{py_libdir}/config/Setup
 %{py_libdir}/config/Setup.config
 %{py_libdir}/config/Setup.local
