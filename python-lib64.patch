@@ -1,6 +1,6 @@
-diff -dur Python-2.3.4.orig/Lib/distutils/command/install.py Python-2.3.4/Lib/distutils/command/install.py
---- Python-2.3.4.orig/Lib/distutils/command/install.py	2004-09-10 11:20:47.575586795 +0200
-+++ Python-2.3.4/Lib/distutils/command/install.py	2004-09-10 11:24:51.994535966 +0200
+diff -Nur Python-2.4.orig/Lib/distutils/command/install.py Python-2.4/Lib/distutils/command/install.py
+--- Python-2.4.orig/Lib/distutils/command/install.py	2004-12-23 09:49:49.805802000 +0000
++++ Python-2.4/Lib/distutils/command/install.py	2004-12-23 09:50:42.787747736 +0000
 @@ -39,14 +39,14 @@
  INSTALL_SCHEMES = {
      'unix_prefix': {
@@ -18,9 +18,9 @@ diff -dur Python-2.3.4.orig/Lib/distutils/command/install.py Python-2.3.4/Lib/di
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
          'data'   : '$base',
-diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutils/sysconfig.py
---- Python-2.3.4.orig/Lib/distutils/sysconfig.py	2004-09-10 11:20:47.576586553 +0200
-+++ Python-2.3.4/Lib/distutils/sysconfig.py	2004-09-10 11:25:27.367990366 +0200
+diff -Nur Python-2.4.orig/Lib/distutils/sysconfig.py Python-2.4/Lib/distutils/sysconfig.py
+--- Python-2.4.orig/Lib/distutils/sysconfig.py	2004-12-23 09:49:49.806802000 +0000
++++ Python-2.4/Lib/distutils/sysconfig.py	2004-12-23 09:50:42.788747584 +0000
 @@ -101,7 +101,7 @@
      if os.name == "posix":
          if plat_specific: 
@@ -30,25 +30,34 @@ diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutil
          else:
              libpython = os.path.join(prefix,
                                   "share", "python" + get_python_version())
-diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
---- Python-2.3.4.orig/Lib/site.py	2004-09-10 11:20:47.576586553 +0200
-+++ Python-2.3.4/Lib/site.py	2004-09-10 11:24:51.995535725 +0200
-@@ -166,10 +166,10 @@
-             sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
-         elif os.sep == '/':
-             sitedirs = [os.path.join(prefix,
--                                     "lib",
-+                                     "lib64",
-                                      "python" + sys.version[:3],
-                                      "site-packages"),
--                        os.path.join(prefix, "lib", "site-python"),
-+                        os.path.join(prefix, "lib64", "site-python"),
-                         os.path.join(prefix,
-                                      "share",
-                                      "python" + sys.version[:3],
-diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
---- Python-2.3.4.orig/Makefile.pre.in	2004-09-10 11:20:47.577586311 +0200
-+++ Python-2.3.4/Makefile.pre.in	2004-09-10 11:24:51.996535483 +0200
+diff -Nur Python-2.4.orig/Lib/site.py Python-2.4/Lib/site.py
+--- Python-2.4.orig/Lib/site.py	2004-12-23 09:49:49.807801000 +0000
++++ Python-2.4/Lib/site.py	2004-12-23 09:52:09.563555808 +0000
+@@ -179,10 +179,10 @@
+                 sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
+             elif os.sep == '/':
+                 sitedirs = [os.path.join(prefix,
+-                                         "lib",
++                                         "lib64",
+                                          "python" + sys.version[:3],
+                                          "site-packages"),
+-		            os.path.join(prefix, "lib", "site-python"),
++		            os.path.join(prefix, "lib64", "site-python"),
+ 			    os.path.join(prefix,
+                                          "share",
+                                          "python" + sys.version[:3],
+@@ -190,7 +190,7 @@
+ 			    os.path.join(prefix, "share", "site-python")]
+ 
+             else:
+-                sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
++                sitedirs = [prefix, os.path.join(prefix, "lib64", "site-packages")]
+             if sys.platform == 'darwin':
+                 # for framework builds *only* we add the standard Apple
+                 # locations. Currently only per-user, but /Library and
+diff -Nur Python-2.4.orig/Makefile.pre.in Python-2.4/Makefile.pre.in
+--- Python-2.4.orig/Makefile.pre.in	2004-12-23 09:49:49.806802000 +0000
++++ Python-2.4/Makefile.pre.in	2004-12-23 09:50:42.789747432 +0000
 @@ -79,7 +79,7 @@
  
  # Expanded directories
@@ -58,9 +67,9 @@ diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
-diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
---- Python-2.3.4.orig/Modules/getpath.c	2004-09-10 11:20:47.582585104 +0200
-+++ Python-2.3.4/Modules/getpath.c	2004-09-10 11:24:51.996535483 +0200
+diff -Nur Python-2.4.orig/Modules/getpath.c Python-2.4/Modules/getpath.c
+--- Python-2.4.orig/Modules/getpath.c	2004-12-23 09:49:49.807801000 +0000
++++ Python-2.4/Modules/getpath.c	2004-12-23 09:50:42.790747280 +0000
 @@ -113,7 +113,7 @@
  
  #ifndef PYTHONPATH
@@ -79,7 +88,7 @@ diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
  static char share_python[] = "share/python" VERSION;
  
  static void
-@@ -493,7 +493,7 @@
+@@ -516,7 +516,7 @@
      }
      else
          strncpy(zip_path, PREFIX, MAXPATHLEN);
@@ -88,24 +97,15 @@ diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
      bufsz = strlen(zip_path);	/* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
-diff -dur Python-2.3.4.orig/setup.py Python-2.3.4/setup.py
---- Python-2.3.4.orig/setup.py	2004-09-10 11:20:47.560590418 +0200
-+++ Python-2.3.4/setup.py	2004-09-10 11:24:51.997535242 +0200
-@@ -264,7 +264,7 @@
-         # lib_dirs and inc_dirs are used to search for files;
-         # if a file is found in one of those directories, it can
-         # be assumed that no additional -I,-L directives are needed.
--        lib_dirs = self.compiler.library_dirs + ['/lib', '/usr/lib']
-+        lib_dirs = self.compiler.library_dirs + ['/lib64', '/usr/lib64']
-         inc_dirs = self.compiler.include_dirs + ['/usr/include']
-         exts = []
+diff -Nur Python-2.4.orig/setup.py Python-2.4/setup.py
+--- Python-2.4.orig/setup.py	2004-12-23 09:49:49.798803000 +0000
++++ Python-2.4/setup.py	2004-12-23 09:56:00.934382096 +0000
+@@ -239,7 +239,7 @@
  
-@@ -966,7 +966,7 @@
-             added_lib_dirs.append('/usr/openwin/lib')
-         elif os.path.exists('/usr/X11R6/include'):
-             include_dirs.append('/usr/X11R6/include')
--            added_lib_dirs.append('/usr/X11R6/lib')
-+            added_lib_dirs.append('/usr/X11R6/lib64')
-         elif os.path.exists('/usr/X11R5/include'):
-             include_dirs.append('/usr/X11R5/include')
-             added_lib_dirs.append('/usr/X11R5/lib')
+     def detect_modules(self):
+         # Ensure that /usr/local is always used
+-        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
++        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib64')
+         add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
+ 
+         # Add paths to popular package managers on OS X/darwin
