@@ -1,4 +1,5 @@
-%define py_ver         2.2
+
+%define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
 %define py_incdir      %{_includedir}/python%{py_ver}
@@ -17,24 +18,20 @@ Summary(ru):	ñÚÙË ÐÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏÞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
-Version:	%{py_ver}.3
-Release:	2
+Version:	%{py_ver}c1
+Release:	0.1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tgz
-# Source0-md5:	169f89f318e252dac0c54dd1b165d229
+Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tgz
+# Source0-md5:	167327b762b305d72b1cce3a5d78ccdf
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	62247099e1e50c05c2d8e7bebd12b060
-Source2:	%{name}-setup.dist
-Patch0:		%{name}-shared-lib.patch
-Patch1:		%{name}-readline.patch
-Patch2:		%{name}-%{name}path.patch
-Patch3:		%{name}-ac25x.patch
-Patch4:		%{name}-default_encoding.patch
-Patch5:		%{name}-no_ndbm.patch
-Patch6:		%{name}-ac_fixes.patch
-Patch7:		%{name}-examples-bin.patch
+# Source1-md5:	e52227f258c2d7405f9ecf33175f8987
+Patch0:		%{name}-readline.patch
+Patch1:		%{name}-%{name}path.patch
+Patch2:		%{name}-default_encoding.patch
+Patch3:		%{name}-no_ndbm.patch
+Patch4:		%{name}-ac_fixes.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -169,6 +166,7 @@ Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Provides:	%{name}-modules = %{py_ver}
 Requires:	%{name} = %{version}
+Obsoletes:	python-logging
 
 %description modules
 Python modules.
@@ -187,6 +185,18 @@ Python interactive module documentation access support.
 
 %description pydoc -l pl
 Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
+
+%package idle
+Summary:	IDE for Python language
+Summary(pl):	IDE dla jêzyka Python
+Group:		Applications
+Requires:	%{name}-modules = %{version}
+
+%description idle
+IDE for Python language.
+
+%description idle -l pl
+IDE dla jêzyka Python.
 
 %package devel
 Summary:	Libraries and header files for building python code
@@ -432,59 +442,38 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
 
-install %{SOURCE2} Modules/Setup
-
 %build
-echo ': ${LDSHARED='gcc -shared'}' > config.cache
-echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
-echo ': ${CCSHARED='-fPIC'}' >> config.cache
-
 %{__autoconf}
 
 POSIXLY_CORRECT=TRUE; export POSIXLY_CORRECT
 
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
-	--with-threads
+	--with-threads \
+	--enable-shared
 
-
-%{__make} OPT="%{rpmcflags} -D_REENTRANT"
+%{__make} OPT="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} $RPM_BUILD_ROOT%{_mandir}/man1
 
-LD_LIBRARY_PATH=$(pwd)
-export LD_LIBRARY_PATH
-%{__make} install \
-	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
-	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
-	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
-	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
-	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
 install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
-
-%py_comp $RPM_BUILD_ROOT%{py_libdir}
-%py_ocomp $RPM_BUILD_ROOT%{py_libdir}
+ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython.so
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
-
-install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
 
 echo "%defattr(644,root,root,755)" > modules.filelist
 
@@ -495,6 +484,7 @@ find $RPM_BUILD_ROOT%{py_libdir} \
 	| grep '\.py[co]$' \
 	| grep -v -e 'UserDict\.py[oc]$'\
 	| grep -v -e 'codecs\.py[oc]$' \
+	| grep -v -e 'copy_reg\.py[oc]$' \
 	| grep -v -e 'locale\.py[oc]$' \
 	| grep -v -e 'posixpath\.py[oc]$' \
 	| grep -v -e 'pydoc\.py[oc]$' \
@@ -508,16 +498,16 @@ find $RPM_BUILD_ROOT%{py_dyndir} \
 	-maxdepth 1 \
 	-printf "%%%%attr(755,root,root) %{py_dyndir}/%f\\n" \
 	| grep '\.so$' \
-	| grep -v -e 'codecsmodule\.so$' \
+	| grep -v -e '_iconv_codec\.so$' \
 	| grep -v -e 'readline\.so$' \
-	| grep -v -e 'structmodule\.so$' \
+	| grep -v -e 'struct\.so$' \
 	| grep -v -e '_tkinter\.so$' >> modules.filelist
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post   libs -p /sbin/ldconfig
+%postun libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -532,37 +522,43 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/plat-*
 %attr(755,root,root) %{py_libdir}/plat-*/regen
-%{py_libdir}/plat-*/*.py?
+%{py_libdir}/plat-*/*.py[co]
+
+%dir %{py_libdir}/bsddb
+%{py_libdir}/bsddb/*.py[co]
 
 %dir %{py_libdir}/compiler
-%{py_libdir}/compiler/*.py?
+%{py_libdir}/compiler/*.py[co]
 
 %dir %{py_libdir}/curses
-%{py_libdir}/curses/*.py?
+%{py_libdir}/curses/*.py[co]
 
 %dir %{py_libdir}/distutils
-%{py_libdir}/distutils/*.py?
+%{py_libdir}/distutils/*.py[co]
 
 %dir %{py_libdir}/distutils/command
-%{py_libdir}/distutils/command/*.py?
+%{py_libdir}/distutils/command/*.py[co]
 
 %dir %{py_libdir}/email
-%{py_libdir}/email/*.py?
+%{py_libdir}/email/*.py[co]
 
 %dir %{py_libdir}/hotshot
-%{py_libdir}/hotshot/*.py?
+%{py_libdir}/hotshot/*.py[co]
+
+%dir %{py_libdir}/logging
+%{py_libdir}/logging/*.py[co]
 
 %dir %{py_libdir}/xml
-%{py_libdir}/xml/*.py?
+%{py_libdir}/xml/*.py[co]
 
 %dir %{py_libdir}/xml/parsers
-%{py_libdir}/xml/parsers/*.py?
+%{py_libdir}/xml/parsers/*.py[co]
 
 %dir %{py_libdir}/xml/sax
-%{py_libdir}/xml/sax/*.py?
+%{py_libdir}/xml/sax/*.py[co]
 
 %dir %{py_libdir}/xml/dom
-%{py_libdir}/xml/dom/*.py?
+%{py_libdir}/xml/dom/*.py[co]
 
 %files libs
 %defattr(644,root,root,755)
@@ -573,26 +569,35 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}
 
 # required shared modules by python library
-%attr(755,root,root) %{py_dyndir}/_codecsmodule.so
-%attr(755,root,root) %{py_dyndir}/structmodule.so
+#%attr(755,root,root) %{py_dyndir}/_iconv_codec.so
+%attr(755,root,root) %{py_dyndir}/struct.so
 
 # required modules by python library
-%{py_libdir}/UserDict.py?
-%{py_libdir}/codecs.py?
-%{py_libdir}/locale.py?
-%{py_libdir}/posixpath.py?
-%{py_libdir}/site.py?
-%{py_libdir}/stat.py?
-%{py_libdir}/os.py?
+%{py_libdir}/UserDict.py[co]
+%{py_libdir}/codecs.py[co]
+%{py_libdir}/copy_reg.py[co]
+%{py_libdir}/locale.py[co]
+%{py_libdir}/posixpath.py[co]
+%{py_libdir}/site.py[co]
+%{py_libdir}/stat.py[co]
+%{py_libdir}/os.py[co]
 
 # required encodings by python library
 %dir %{py_libdir}/encodings
-%{py_libdir}/encodings/*.py?
+%{py_libdir}/encodings/*.py[co]
 
 %files pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
-%{py_libdir}/pydoc.py?
+%{py_libdir}/pydoc.py[co]
+
+%files idle
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/idle
+%dir %{py_libdir}/idlelib
+%dir %{py_libdir}/idlelib/Icons
+%{py_libdir}/idlelib/*.py[co]
+%{py_libdir}/idlelib/Icons/*
 
 %files devel
 %defattr(644,root,root,755)
@@ -617,17 +622,20 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(-,root,root) %{py_libdir}/*.py
 %{py_libdir}/plat-*/*.py
+%{py_libdir}/bsddb/*.py
 %{py_libdir}/compiler/*.py
 %{py_libdir}/curses/*.py
 %{py_libdir}/distutils/*.py
 %{py_libdir}/distutils/command/*.py
 %{py_libdir}/email/*.py
 %{py_libdir}/hotshot/*.py
+%{py_libdir}/logging/*.py
 %{py_libdir}/xml/*.py
 %{py_libdir}/xml/parsers/*.py
 %{py_libdir}/xml/sax/*.py
 %{py_libdir}/xml/dom/*.py
 %{py_libdir}/encodings/*.py
+%{py_libdir}/idlelib/*.py
 
 %files static
 %defattr(644,root,root,755)
@@ -654,4 +662,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %dir %{py_libdir}/lib-old
-%{py_libdir}/lib-old/*.py?
+%{py_libdir}/lib-old/*.py[co]
