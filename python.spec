@@ -17,8 +17,8 @@ Summary(ru):	ñÚÙË ÐÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏÞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
-Version:	%{py_ver}.1
-Release:	21
+Version:	%{py_ver}.2
+Release:	1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -32,7 +32,6 @@ Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
 Patch5:		%{name}-no_ndbm.patch
 Patch6:		%{name}-ac_fixes.patch
-Patch7:		%{name}-sec-lib-os-execvpe.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -432,7 +431,6 @@ Przyk³adowe programy w Pythonie.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
