@@ -38,6 +38,7 @@ BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	zlib-devel
 BuildRequires:	gmp-devel >= 3.1.1
+BuildRequires:	db3-devel
 %requires_eq	openssl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
