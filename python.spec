@@ -1,11 +1,13 @@
 
+%define		pver 2.0
+
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
 Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	2.0
+Version:	%{pver}
 Release:	4
 License:	BeOpen Python License
 Group:		Development/Languages/Python
@@ -252,15 +254,15 @@ export LD_LIBRARY_PATH=$(pwd)
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
 
-install libpython%{version}.a $RPM_BUILD_ROOT%{_libdir}
+install libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}
 
-rm -f $RPM_BUILD_ROOT%{_bindir}/python%{version}
-ln -sf libpython%{version}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
+rm -f $RPM_BUILD_ROOT%{_bindir}/python%{pver}
+ln -sf libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
 
 %post
-/usr/bin/python %{libdir}/python%{version}/compileall.py
+/usr/bin/python %{libdir}/python%{pver}/compileall.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -270,58 +272,58 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/libpython*so.*
 
-%dir %{_libdir}/python%{version}
-%attr(-,root,root) %{_libdir}/python%{version}/*.py
+%dir %{_libdir}/python%{pver}
+%attr(-,root,root) %{_libdir}/python%{pver}/*.py
  
-%dir %{_libdir}/python%{version}/lib-dynload
-%attr(755,root,root) %{_libdir}/python%{version}/lib-dynload/*.so
+%dir %{_libdir}/python%{pver}/lib-dynload
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/*.so
 
-%dir %{_libdir}/python%{version}/plat-*
-%attr(755,root,root) %{_libdir}/python%{version}/plat-*/regen
-%{_libdir}/python%{version}/plat-*/*.py
+%dir %{_libdir}/python%{pver}/plat-*
+%attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
+%{_libdir}/python%{pver}/plat-*/*.py
 
-%dir %{_libdir}/python%{version}/curses
-%{_libdir}/python%{version}/curses/*.py
+%dir %{_libdir}/python%{pver}/curses
+%{_libdir}/python%{pver}/curses/*.py
 
-%dir %{_libdir}/python%{version}/distutils
-%{_libdir}/python%{version}/distutils/*.py
+%dir %{_libdir}/python%{pver}/distutils
+%{_libdir}/python%{pver}/distutils/*.py
 
-%dir %{_libdir}/python%{version}/distutils/command
-%{_libdir}/python%{version}/distutils/command/*.py
+%dir %{_libdir}/python%{pver}/distutils/command
+%{_libdir}/python%{pver}/distutils/command/*.py
 
-%dir %{_libdir}/python%{version}/encodings
-%{_libdir}/python%{version}/encodings/*
+%dir %{_libdir}/python%{pver}/encodings
+%{_libdir}/python%{pver}/encodings/*
 
-%dir %{_libdir}/python%{version}/lib-old
-%{_libdir}/python%{version}/lib-old/*
+%dir %{_libdir}/python%{pver}/lib-old
+%{_libdir}/python%{pver}/lib-old/*
 
-%dir %{_libdir}/python%{version}/xml
-%{_libdir}/python%{version}/xml/*.py
+%dir %{_libdir}/python%{pver}/xml
+%{_libdir}/python%{pver}/xml/*.py
 
-%dir %{_libdir}/python%{version}/xml/sax
-%{_libdir}/python%{version}/xml/sax/*.py
+%dir %{_libdir}/python%{pver}/xml/sax
+%{_libdir}/python%{pver}/xml/sax/*.py
 
-%dir %{_libdir}/python%{version}/xml/dom
-%{_libdir}/python%{version}/xml/dom/*.py
+%dir %{_libdir}/python%{pver}/xml/dom
+%{_libdir}/python%{pver}/xml/dom/*.py
 
 %files devel
 %defattr(644,root,root,755)
 %doc README.gz Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,README,unicode.txt}.gz
 %attr(755,root,root) %{_libdir}/lib*.so
-%dir %{_includedir}/python%{version}
-%{_includedir}/python%{version}/*.h
+%dir %{_includedir}/python%{pver}
+%{_includedir}/python%{pver}/*.h
 
-%dir %{_libdir}/python%{version}/config
-%attr(755,root,root) %{_libdir}/python%{version}/config/makesetup
-%attr(755,root,root) %{_libdir}/python%{version}/config/install-sh
-%{_libdir}/python%{version}/config/Makefile
-%{_libdir}/python%{version}/config/Makefile.pre.in
-%{_libdir}/python%{version}/config/Setup
-%{_libdir}/python%{version}/config/Setup.config
-%{_libdir}/python%{version}/config/Setup.local
-%{_libdir}/python%{version}/config/config.c
-%{_libdir}/python%{version}/config/config.c.in
-%{_libdir}/python%{version}/config/python.o
+%dir %{_libdir}/python%{pver}/config
+%attr(755,root,root) %{_libdir}/python%{pver}/config/makesetup
+%attr(755,root,root) %{_libdir}/python%{pver}/config/install-sh
+%{_libdir}/python%{pver}/config/Makefile
+%{_libdir}/python%{pver}/config/Makefile.pre.in
+%{_libdir}/python%{pver}/config/Setup
+%{_libdir}/python%{pver}/config/Setup.config
+%{_libdir}/python%{pver}/config/Setup.local
+%{_libdir}/python%{pver}/config/config.c
+%{_libdir}/python%{pver}/config/config.c.in
+%{_libdir}/python%{pver}/config/python.o
 
 %files static
 %defattr(644,root,root,755)
@@ -330,11 +332,11 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 %doc html-doc/*
-%dir %{_libdir}/python%{version}/test
-%attr(-,root,root) %{_libdir}/python%{version}/test/*
+%dir %{_libdir}/python%{pver}/test
+%attr(-,root,root) %{_libdir}/python%{pver}/test/*
 
 %files -n tkinter
 %defattr(644,root,root,755)
 
-%{_libdir}/python%{version}/lib-tk
-%attr(755,root,root) %{_libdir}/python%{version}/lib-dynload/_tkinter.so
+%{_libdir}/python%{pver}/lib-tk
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_tkinter.so
