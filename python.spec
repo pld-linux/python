@@ -2,6 +2,7 @@
 %define py_ver         2.1
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
+%define py_incdir      %{_includedir}/python%{py_ver}
 %define py_sitedir     %{py_libdir}/site-packages
 %define py_dyndir      %{py_libdir}/lib-dynload
 %define py_comp        ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
@@ -14,7 +15,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}.1
-Release:	4
+Release:	5
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -385,8 +386,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Misc/*.gz
 %attr(755,root,root) %{_libdir}/lib*.so
-%dir %{_includedir}/python%{py_ver}
-%{_includedir}/python%{py_ver}/*.h
+%dir %{py_incdir}
+%{py_incdir}/*.h
 %attr(-,root,root) %{py_libdir}/*.py
 %{py_libdir}/plat-*/*.py
 %{py_libdir}/curses/*.py
