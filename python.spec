@@ -43,7 +43,7 @@ BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
-BuildRequires:	openssl-devel >= 0.9.6b
+BuildRequires:	openssl-devel >= 0.9.6m
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.3.4-10
 BuildRequires:	tix-devel
