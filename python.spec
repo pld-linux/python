@@ -10,7 +10,8 @@ Copyright:	distributable
 Group:		Development/Languages
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
-Patch:		Python-pld.patch
+Patch0:		Python-pld.patch
+Patch1:		Python-sed.patch
 URL:		http://www.python.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	readline-devel
@@ -283,7 +284,8 @@ kompresji u¿ywane przez gzip'a.
 
 %prep
 %setup -q -n Python-%{version} -a1
-%patch -p1
+%patch0 -p1
+%patch1 -p0
 
 %build
 find . -name "*.nosed" -exec rm -f {} \;
