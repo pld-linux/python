@@ -221,7 +221,7 @@ Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
 Summary:	IDE for Python language
 Summary(pl):	IDE dla jêzyka Python
 Group:		Applications
-Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
+Requires:	%{name}-tkinter = %{epoch}:%{version}-%{release}
 Obsoletes:	python-idle
 
 %description -n idle
