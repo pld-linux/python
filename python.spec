@@ -28,7 +28,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -53,6 +53,7 @@ BuildRequires:	readline-devel >= 4.2
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
+Requires:	python-libs = %{epoch}:%{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
