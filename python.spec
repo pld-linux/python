@@ -619,7 +619,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/datetime.so
 %ifnarch sparc64
 %attr(755,root,root) %{py_dyndir}/dbm.so
-%attr(755,root,root) %{py_dyndir}/mpz.so
 %endif
 %attr(755,root,root) %{py_dyndir}/fcntl.so
 %attr(755,root,root) %{py_dyndir}/gdbm.so
@@ -633,7 +632,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/operator.so
 %attr(755,root,root) %{py_dyndir}/ossaudiodev.so
 %attr(755,root,root) %{py_dyndir}/parser.so
-%attr(755,root,root) %{py_dyndir}/pcre.so
 %attr(755,root,root) %{py_dyndir}/pwd.so
 %attr(755,root,root) %{py_dyndir}/pyexpat.so
 %attr(755,root,root) %{py_dyndir}/regex.so
@@ -694,7 +692,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}
 %dir %{py_sitescriptdir}
 %dir %{py_sitedir}
-%dir %{py_scriptdir}
 
 # shared modules required by python library
 %attr(755,root,root) %{py_dyndir}/struct.so
@@ -746,7 +743,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/config.c.in
 %{py_libdir}/config/ccpython.o
 %{py_libdir}/config/libpython2.4.a
-%{py_libdir}/config/python.o
 
 %files devel-src
 %defattr(644,root,root,755)
@@ -797,7 +793,7 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 # FIXME
-%doc Python-Docs-2.3/*
+%doc Python-Docs-%{version}
 %dir %{py_scriptdir}/test
 %attr(-,root,root) %{py_scriptdir}/test/*
 %attr(-,root,root) %{py_scriptdir}/email/test/*
