@@ -5,11 +5,12 @@ Summary(pl):	Python - obiektowy jezyk do tworzenia skryptów (g³ówny pakiet)
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	8
+Release:	9
 Copyright:	distributable
 Group:		Development/Languages
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
+Source2:	cursesmodule.c
 Patch0:		Python-pld.patch
 Patch1:		Python-sed.patch
 URL:		http://www.python.org/
@@ -188,7 +189,7 @@ Summary:	Demoscripts and tools for/in Python
 Summary:	Dema i skrypty narzêdziowe do/z Pythona
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Icon:		linux-python-doc-icon.gif
+#Icon:		linux-python-doc-icon.gif
 Requires:	%{name} = %{version}
 
 %description demos
@@ -240,7 +241,7 @@ Summary:	Python interface to the GDBM library
 Summary(pl):	Interfejs do biblioteki GDBM dla Pythona
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Icon:		linux-python-db-icon.gif
+#Icon:		linux-python-db-icon.gif
 Requires:	%{name} = %{version}
 
 %description gdbm
@@ -255,7 +256,7 @@ standarwowych unixowych baz danych DBM zrealizowana przez GNU.
 Summary:	Python interface to the (n)curses library
 Summary(pl):	Interfejs do biblioteki (n)curses dla Pythona
 Group:		Development/Languages/Python
-Icon:		linux-python-curses-icon.gif
+#Icon:		linux-python-curses-icon.gif
 Requires:	%{name} = %{version}
 
 %description curses
@@ -271,7 +272,7 @@ Summary:	Python interface to the zlib library
 Summary(pl):	Interfejs do biblioteki zlib  dla Pythona
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Icon:		linux-python-zlib-icon.gif
+#Icon:		linux-python-zlib-icon.gif
 Requires:	%{name} = %{version}
 
 %description zlib
@@ -289,6 +290,7 @@ kompresji u¿ywane przez gzip'a.
 
 %build
 export POSIXLY_CORRECT=TRUE
+cp -f %{SOURCE2} Modules
 
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
