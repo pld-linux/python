@@ -260,7 +260,7 @@ CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 %configure \
 	--with-threads 
 
-%{__make} OPT="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} -D_REENTRANT"
+%{__make} OPT="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -D_REENTRANT"
 
 %install
 rm -rf $RPM_BUILD_ROOT
