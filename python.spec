@@ -243,7 +243,8 @@ tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz uruchomiæ.
 %patch3 -p1
 %patch4 -p1
 
-install -d html-doc && tar Ixf %{SOURCE1} -C html-doc
+install -d html-doc
+bzip2 -dc %{SOURCE1} | tar -xf - -C html-doc
 
 %build
 export POSIXLY_CORRECT=TRUE
