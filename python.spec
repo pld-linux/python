@@ -11,7 +11,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}.1
-Release:	1
+Release:	2
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
