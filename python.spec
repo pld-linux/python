@@ -702,6 +702,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/idlelib/*.py
 
 %files devel-tools
+%defattr(644,root,root,755)
 %doc Lib/profile.doc Lib/pdb.doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/timeit.py
