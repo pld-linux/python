@@ -12,16 +12,16 @@
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
 
-%define py_ver         2.3
-%define py_prefix      %{_prefix}
-%define py_libdir      %{py_prefix}/%{_lib}/python%{py_ver}
-%define py_scriptdir   %{py_prefix}/share/python%{py_ver}
-%define py_incdir      %{_includedir}/python%{py_ver}
-%define py_sitedir     %{py_libdir}/site-packages
-%define py_sitescriptdir %{py_scriptdir}/site-packages
-%define py_dyndir      %{py_libdir}/lib-dynload
-%define py_comp        ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
-%define py_ocomp       ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
+%define		py_ver			2.3
+%define		py_prefix		%{_prefix}
+%define		py_libdir		%{py_prefix}/%{_lib}/python%{py_ver}
+%define		py_scriptdir		%{py_prefix}/share/python%{py_ver}
+%define		py_incdir		%{_includedir}/python%{py_ver}
+%define		py_sitedir		%{py_libdir}/site-packages
+%define		py_sitescriptdir	%{py_scriptdir}/site-packages
+%define		py_dyndir		%{py_libdir}/lib-dynload
+%define		py_comp			./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
+%define		py_ocomp		./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
 
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
@@ -402,7 +402,7 @@ Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Requires:	tcl >= 8.4.3
 Requires:	tix >= 1:8.1.4-4
-Requires:	tk  >= 8.4.3
+Requires:	tk >= 8.4.3
 Obsoletes:	tkinter
 
 %description tkinter
@@ -527,13 +527,13 @@ cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 SCRIPT_EXT="_py"
 %if %{with noautosys}
-    SCRIPT_EXT=".py"
+	SCRIPT_EXT=".py"
 %endif
 export SCRIPT_EXT
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py
 for script in timeit profile pdb pstats; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
+	cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
 exec python %{py_scriptdir}/${script}.pyc "\$@"
 END
@@ -545,8 +545,8 @@ install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   libs -p /sbin/ldconfig
-%postun libs -p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
