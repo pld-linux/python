@@ -21,7 +21,7 @@
 %define py_dyndir	%{py_libdir}/lib-dynload
 
 Summary:	Very high level scripting language with X interface
-Summary(es):	Lenguaje script de alto nivel con interface X
+Summary(es):	Lenguaje script de alto nivel con interfaz X
 Summary(fr):	Langage de script de très haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(pt_BR):	Linguagem de programação interpretada de alto nível
@@ -387,11 +387,11 @@ LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 
 %package tkinter
 Summary:	Standard Python interface to the Tk GUI toolkit
-Summary(de):	Grafischer Oberfläche für Python
-Summary(es):	Interface GUI para Phyton
-Summary(fr):	Interface graphique pour python
+Summary(de):	Grafische Tk-Schnittstelle für Python
+Summary(es):	Interfaz de GUI Tk para Python
+Summary(fr):	Interface graphique Tk pour Python
 Summary(pl):	Standardowy interfejs Pythona do biblioteki Tk
-Summary(pt_BR):	Interface GUI para Phyton
+Summary(pt_BR):	Interface GUI Tk para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
@@ -408,7 +408,7 @@ Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von
 vielen Konfigurations-Tools genutzt.
 
 %description tkinter -l es
-Una interface gráfica para Python, basada en Tcl/Tk, y usada por
+Una interfaz gráfica para Python, basada en Tcl/Tk, y usada por
 muchas herramientas de configuración.
 
 %description tkinter -l fr
