@@ -9,12 +9,14 @@
  
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
+Summary(es):	Lenguaje script de alto nivel con interface X
 Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
+Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alto nível
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}
-Release:	1
+Release:	8
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -25,24 +27,23 @@ Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
 Patch1:		%{name}-readline.patch
-Patch2:		%{name}-pythonpath.patch
+Patch2:		%{name}-%{name}path.patch
 Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
-#Patch7:		%{name}-dl_global.patch
+Patch5:		%{name}-no_ndbm.patch
 BuildRequires:	XFree86-devel
+BuildRequires:	autoconf
+BuildRequires:	db3-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.6b
 BuildRequires:	readline-devel >= 4.2
+BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
-BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	zlib-devel
-BuildRequires:	gmp-devel >= 3.1.1
-BuildRequires:	db3-devel
-BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
@@ -79,6 +80,17 @@ Ansprechen von Tix (Tk-widget set) und RPM.
 
 Dokumentationen zu Python sind in python-doc enthalten.
 
+%description -l es
+Python es un lenguaje de scripts interpretado orientado a objetos.
+Contiene soporte para carga dinámica de objetos, clases, módulos y
+excepciones.
+
+Es sencillo adicionar interfaces para nuevos sistemas de biblioteca a
+través de código C, tornando Python fácil de usar en ambientes
+articulares/ personalizados. Este paquete Python incluye la mayoría de
+los módulos padrón Python, junto con módulos para crear interfaces
+para el conjunto de componentes Tix para Tk y RPM.
+
 %description -l fr
 Python est un langage de script interprété et orienté objet. Il gère
 le chargement dynamique des objets, les classes, les modules et les
@@ -103,6 +115,17 @@ skryptów. I wreszcie, Python jest wieloplatformowy, dzia³a na wielu
 odmianach UNIX-a, Macu oraz PC pod DOS-em, Windows, WindowsNT oraz
 OS/2.
 
+%description -l pt_BR
+Python é uma linguagem de scripts interpretada orientada a objetos.
+Contém suporte para carga dinâmica de objetos, classes, módulos e
+exceções. Adicionar interfaces para novos sistemas de biblioteca
+através de código C é simples, tornando Python fácil de usar em
+ambientes particulares/personalizados.
+
+Este pacote Python inclui a maioria do módulos padrão Python, junto
+com módulos para interfaceamento para o conjunto de componentes Tix
+para Tk e RPM.
+
 %description -l tr
 Python, nesneye yönelik bir kabuk yorumlayýcýdýr. Nesnelerin,
 sýnýflarýn, modüllerin ve aykýrý durumlarýn dinamik yüklenmelerine
@@ -120,7 +143,7 @@ Group(pl):	Programowanie/Jêzyki/Python
 %description libs
 Python library.
 
-%description -l pl libs
+%description libs -l pl
 Biblioteka jêzyka Python.
 
 %package modules
@@ -134,7 +157,7 @@ Requires:	%{name} = %{version}
 %description modules
 Python modules.
 
-%description -l pl modules
+%description modules -l pl
 Modu³y jêzyka Python.
 
 %package pydoc
@@ -148,14 +171,16 @@ Requires:	%{name}-modules = %{version}
 %description pydoc
 Python interactive module documentation access support.
 
-%description -l pl pydoc
+%description pydoc -l pl
 Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
 
 %package devel
 Summary:	Libraries and header files for building python code
 Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
+Summary(es):	Bibliotecas y archivos de inclusión para construir programas en python
 Summary(fr):	Bibliothèques et en-têtes pour construire du code python
 Summary(pl):	Pliki nag³ówkowe i biblioteki Pythona
+Summary(pt_BR):	Bibliotecas e arquivos de inclusão para o Python
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -168,24 +193,36 @@ loaded extensions and to embed in other programs. This packages
 contains the header files and libraries which are needed to do both of
 these tasks.
 
-%description -l de devel
+%description devel -l de
 Der Python-Interpretierer ist relativ einfach anhand von dynamisch
 ladbaren Erweiterungen auszubauen und läßt sich in andere Programme
 integrieren. Dieses Paket enthält die Header-Dateien und Libraries,
 die für beide Aufgaben erforderlich sind.
 
-%description -l fr devel
+%description devel -l es
+El interpretador Python permite incluir con facilidad extensiones
+cargadas dinámicamente. Python es también fácil de ser empotrado en
+otros programas. Este paquete contiene los archivos de inclusión y
+bibliotecas necesarios para estas dos tareas.
+
+%description devel -l fr
 L'interpréteur Python est relativement facile à étendre avec des
 extensions chargées dynamiquement et à insérer dans d'autres
 programmes. Ce paquetage contient les en-têtes et les bibliothèques
 nécessaires à ces deux tâches.
 
-%description -l pl devel
+%description devel -l pl
 Wszystko co potrzebne, aby napisaæ w C/C++ modu³ rozszerzaj±cy
 mo¿liwo¶ci Pythona. S± tu równie¿ wersje ¼ród³owe modu³ów ze
 standardowej biblioteki.
 
-%description -l tr devel
+%description devel -l pt_BR
+O interpretador Python permite incluir com facilidade extensões
+carregadas dinamicamente. Python é também fácil de ser embutido em
+outros programas. Este pacote contém os arquivos de inclusão e
+bibliotecas necessários para estas duas tarefas.
+
+%description devel -l tr
 Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
 dosyalarýný ve kitaplýklarý içerir.
 
@@ -200,7 +237,7 @@ Requires:	%{name}-modules = %{version}
 %description devel-src
 Python module sources.
 
-%description -l pl devel-src
+%description devel-src -l pl
 Pliki ¼ród³owe modu³ów Pythona.
 
 %package static
@@ -220,8 +257,10 @@ Statyczna biblioteka Pythona.
 %package doc
 Summary:	Documentation on Python
 Summary(de):	Dokumentation zu Python 
+Summary(es):	Documentación para Python
 Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Pythona 
+Summary(pt_BR):	Documentação para a linguagem de programação Python.
 Summary(tr):	Python belgeleri
 Group:		Development/Languages
 Group(de):	Entwicklung/Sprachen
@@ -233,48 +272,57 @@ Obsoletes:	python-docs
 This package contains documentation on the Python language and
 interpretor as a mix of plain ASCII files and LaTeX sources.
 
-%description -l de doc
+%description doc -l de
 Dieses Paket enthält Dokumentationen zu Python (Sprache und
 Interpreter) in Form von einfachen ASCII-Dateien und LaTeX-Quellen.
 
-%description -l fr doc
+%description doc -l es
+Documentación para Python. Contiene archivos en texto y PostScript.
+
+%description doc -l fr
 Ce paquetage contient la documentation sur le langage python et sur
 son interpréteur sous forme de fichiers ASCII et LaTeX.
 
-%description -l pl doc
+%description doc -l pl
 Oficjalna dokumentacja do Pythona. Zawiera przyk³adowe programy,
 narzêdzia i dokumentacjê. Strony podrêcznika man znajduj± siê w
 g³ównym pakiecie. Ten pakiet nie zawiera ¼róde³ dokumentacji
 napisanych w LaTeX'u, tylko gotowe do wykorzystania pliki
 postscript'owe i HTML.
 
-%description -l tr doc
+%description doc -l pt_BR
+O pacote python-doc contém documentação para a linguagem de
+programação e para o interpretador Python. Fornecida em arquivos texto
+e Postcript.
+
+%description doc -l tr
 Bu paket, Python dili ile ilgili belgeleri ve düz ASCII dosyalarý ve
 LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 
-#%package without-thread
-#Summary:	Python without threads
-#Summary(pl):	Pyton bez w±tków
-#Group:          Development/Languages
-#Group(de):      Entwicklung/Sprachen
-#Group(pl):      Programowanie/Jêzyki
-#Requires:       %{name} = %{version}
-#Obsoletes:      python-without-thread
+%package without-thread
+Summary:	Python without threads
+Summary(pl):	Pyton bez w±tków
+Group:		Development/Languages
+Group(de):	Entwicklung/Sprachen
+Group(pl):	Programowanie/Jêzyki
+Requires:	%{name} = %{version}
+Obsoletes:	python-without-thread
 
-#%description without-thread
-#This package is rather needed for apache-mod_python module.
-#Other ways of use are unknown.
+%description without-thread
+This package is rather needed for apache-mod_python module. Other ways
+of use are unknown.
 
-#%description -l pl without-thread
-#Pyton bez w±tków jest w³a¶ciwie potrzebny
-#tylko modu³owi apache-mod_python, bo apache nie
-#ich na razie nie wspiera.
+%description without-thread -l pl
+Pyton bez w±tków jest w³a¶ciwie potrzebny tylko modu³owi
+apache-mod_python, bo apache nie ich na razie nie wspiera.
 
 %package -n tkinter
 Summary:	Lowlevel Python -> Tk Interface
 Summary(de):	Grafischer Oberfläche für Python
+Summary(es):	Interface GUI para Phyton
 Summary(fr):	Interface graphique pour python.
 Summary(pl):	Modu³y niskiego poziomu dla pakietu Python-tkinter
+Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -293,15 +341,19 @@ The only reason this file is removed from python-tkinter, is to make
 it more easy to replay _tkinter with a PIL (Python Imaging Libary)
 aware version of it. Look at my PIL distribution.
 
-%description -l de -n tkinter
+%description -n tkinter -l de
 Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von
 vielen Konfigurations-Tools genutzt.
 
-%description -l fr -n tkinter
+%description -n tkinter -l es
+Una interface gráfica para Python, basada en Tcl/Tk, y usada por
+muchas herramientas de configuración.
+
+%description -n tkinter -l fr
 Interface graphique pour Python, basée sur Tcl/Tk et utilisée par
 beaucoup des outils de configuration.
 
-%description -l pl -n tkinter 
+%description -n tkinter -l pl
 Ten pakiet zawiera modu³y w C, które po¶rednicz± w wywo³aniach
 pomiêdzy samym Tk a modu³em Tkinter bêd±cym g³ównym interfejsem Tk dla
 Pythona.
@@ -309,7 +361,11 @@ Pythona.
 Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na
 PIL (Python Imaging Library).
 
-%description -l tr -n tkinter
+%description -n tkinter -l pt_BR
+Uma interface gráfica para Python, baseada em Tcl/Tk, e usada por
+muitas ferramentas de configuração.
+
+%description -n tkinter -l tr
 Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan
 kullanýlan grafik bir arayüzdür.
 
@@ -326,7 +382,7 @@ Install this package when one of your program written in Python is old
 as Miss Universum of 1918, who only you want to see... ooops, which
 only you want to run.
 
-%description -l pl old
+%description old -l pl
 Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programów napisanych
 w jêzyku Python jest tak stary jak Miss Universum z roku 1918, któr±
 tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz
@@ -344,7 +400,7 @@ Obsoletes:	python-tools
 %description examples
 Example programs in Python.
 
-%description -l pl examples
+%description examples -l pl
 Przyk³adowe programy w Pythonie.
 
 %prep
@@ -354,7 +410,7 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-#%patch7 -p1
+%patch5 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
@@ -522,6 +578,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/python.o
 
 %files devel-src
+%defattr(644,root,root,755)
 %attr(-,root,root) %{py_libdir}/*.py
 %{py_libdir}/plat-*/*.py
 %{py_libdir}/curses/*.py
