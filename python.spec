@@ -3,7 +3,6 @@
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
 %bcond_with	verbose_tests		# runs tests in verbose mode
-%bcond_with	noautosys		# do not put sys.argv[0] directory in sys.path
 #
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
@@ -15,7 +14,7 @@
 # AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
 
 %define py_ver		2.4
-%define py_alpha	a3
+%define py_beta	b2
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir	%{_includedir}/python%{py_ver}
@@ -33,12 +32,12 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	0.%{py_alpha}.1
+Release:	0.%{py_beta}.1
 Epoch:		1
 License:	PSF
 Group:		Applications
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{py_alpha}.tar.bz2
-# Source0-md5:	65479a0d9ff8c9c1ecd31bd8b224fec7
+Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{py_beta}.tar.bz2
+# Source0-md5:	683929acb0af30a7280250f80448daa6
 Source1:	http://www.python.org/ftp/python/doc/2.3/html-2.3.tar.bz2
 # Source1-md5:	382a934e0943a24f44ed161e78ff8347
 Patch0:		%{name}-readline.patch
@@ -49,7 +48,6 @@ Patch4:		%{name}-ac_fixes.patch
 Patch5:		%{name}-noarch_to_datadir.patch
 Patch6:		%{name}-lib64.patch
 Patch7:		%{name}-doc_path.patch
-Patch8:		%{name}-noautosys.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -464,15 +462,15 @@ Obsoletes:	python-tools
 %description examples
 Example programs in Python.
 
-These are for Python 2.3.4, not %{version}%{py_alpha}.
+These are for Python 2.3.4, not %{version}%{py_beta}.
 
 %description examples -l pl
 Przyk³adowe programy w Pythonie.
 
-Przyk³ady te s± dla Pythona 2.3.4, nie %{version}%{py_alpha}.
+Przyk³ady te s± dla Pythona 2.3.4, nie %{version}%{py_beta}.
 
 %prep
-%setup -q -n Python-%{version}%{py_alpha}
+%setup -q -n Python-%{version}%{py_beta}
 %patch0 -p1
 %patch1 -p1
 # should be already fixed in the source but seems not to be:
@@ -484,7 +482,6 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}%{py_alpha}.
 %patch6 -p1
 %endif
 %patch7 -p1
-%{?with_noautosys:%patch8 -p1}
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -528,10 +525,7 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-SCRIPT_EXT="_py"
-%if %{with noautosys}
-    SCRIPT_EXT=".py"
-%endif
+SCRIPT_EXT=".py"
 export SCRIPT_EXT
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
