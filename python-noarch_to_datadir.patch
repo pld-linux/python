@@ -26,7 +26,7 @@ diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutil
  
      if os.name == "posix":
 -        libpython = os.path.join(prefix,
-+	if plat_specific: 
++        if plat_specific: 
 +            libpython = os.path.join(prefix,
                                   "lib", "python" + get_python_version())
 +        else:
@@ -44,7 +44,7 @@ diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
                                       "site-packages"),
 -                        os.path.join(prefix, "lib", "site-python")]
 +                        os.path.join(prefix, "lib", "site-python"),
-+	    		os.path.join(prefix,
++                        os.path.join(prefix,
 +                                     "share",
 +                                     "python" + sys.version[:3],
 +                                     "site-packages"),

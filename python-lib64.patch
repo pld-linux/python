@@ -27,7 +27,7 @@ diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutil
              libpython = os.path.join(prefix,
 -                                 "lib", "python" + get_python_version())
 +                                 "lib64", "python" + get_python_version())
-         else:
+        else:
              libpython = os.path.join(prefix,
                                   "share", "python" + get_python_version())
 diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
@@ -43,7 +43,7 @@ diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
                                       "site-packages"),
 -                        os.path.join(prefix, "lib", "site-python"),
 +                        os.path.join(prefix, "lib64", "site-python"),
- 	    		os.path.join(prefix,
+                         os.path.join(prefix,
                                       "share",
                                       "python" + sys.version[:3],
 diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
