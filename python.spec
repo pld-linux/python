@@ -15,7 +15,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}b2
-Release:	2
+Release:	3
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -124,6 +124,20 @@ Python modules.
 %description -l pl modules
 Modu³y jêzyka Python.
 
+%package pydoc
+Summary:	Python interactive module documentation access support
+Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name}-modules = %{version}
+
+%description pydoc
+Python interactive module documentation access support.
+
+%description -l pl pydoc
+Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
+
 %package devel
 Summary:	Libraries and header files for building python code
 Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
@@ -133,7 +147,7 @@ Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name} = %{version}
+Requires:	%{name}-modules = %{version}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -238,7 +252,7 @@ Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name} = %{version}
+Requires:	%{name}-modules = %{version}
 Requires:	tcl >= 8.0.3 
 Requires:	tk  >= 8.0.3
 Requires:	tix >= 4.1.0.6
@@ -278,7 +292,7 @@ Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name} = %{version}
+Requires:	%{name}-modules = %{version}
 
 %description old
 Install this package when one of your program written in Python is old
@@ -301,10 +315,10 @@ Requires:	%{name}-devel = %{version}
 Obsoletes:	python-tools
 
 %description examples
-Example programs in Python
+Example programs in Python.
 
 %description -l pl examples
-Przyk³adowe programy w Pythonie
+Przyk³adowe programy w Pythonie.
 
 %prep
 %setup -q -n Python-%{version}
@@ -339,7 +353,8 @@ CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 
-export LD_LIBRARY_PATH=$(pwd)
+LD_LIBRARY_PATH=$(pwd)
+export LD_LIBRARY_PATH
 %{__make} install \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
 	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
@@ -363,6 +378,8 @@ install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
 
 gzip -9nf Misc/{ACKS,NEWS,README,unicode.txt}
 
+echo "%defattr(644,root,root,755)" > modules.filelist
+
 find $RPM_BUILD_ROOT%{py_libdir} \
 	-type f \
 	-maxdepth 1 \
@@ -371,9 +388,10 @@ find $RPM_BUILD_ROOT%{py_libdir} \
 	| grep -v -e 'UserDict\.py[oc]$'\
 	| grep -v -e 'locale\.py[oc]$' \
 	| grep -v -e 'posixpath\.py[oc]$' \
+	| grep -v -e 'pydoc\.py[oc]$' \
 	| grep -v -e 'site\.py[oc]$' \
 	| grep -v -e 'stat\.py[oc]$' \
-	| grep -v -e 'os\.py[oc]$' > modules.filelist
+	| grep -v -e 'os\.py[oc]$' >> modules.filelist
  
 find $RPM_BUILD_ROOT%{py_dyndir} \
 	-type f \
@@ -391,7 +409,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/python
 %attr(755,root,root) %{_libdir}/libpython*so.*
 %{_mandir}/man1/*
 
@@ -410,6 +428,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/os.py?
 
 %files modules -f modules.filelist
+%defattr(644,root,root,755)
+
 %dir %{py_sitedir}
 %dir %{py_libdir}
 
@@ -440,6 +460,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/xml/dom
 %{py_libdir}/xml/dom/*.py?
+
+%files pydoc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/pydoc
+%{py_libdir}/pydoc.py?
 
 %files devel
 %defattr(644,root,root,755)
