@@ -7,13 +7,13 @@ Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{pver}b1
-Release:	2
+Version:	%{pver}b2
+Release:	1
 Copyright:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.pythonlabs.com/
-Source0:	http://www.pythonlabs.com/tech/python2.0/BeOpen-Python-%{version}.tar.gz
+Source0:	http://www.pythonlabs.com/tech/python2.0/BeOpen-Python-%{version}.tar.bz2
 Source1:	http://www.pythonlabs.com/tech/python2.0/doc/html-%{version}.tar.bz2
 Patch0:		python-pld.patch
 Patch2:		python-dl_global.patch
@@ -25,8 +25,6 @@ BuildRequires:	tk-devel
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel
-BuildRequires:	db1-devel
-BuildRequires:	db2-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	python-xml
 Obsoletes:	python-intl
@@ -252,45 +250,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/*.pyo
  
 %dir %{_libdir}/python%{pver}/lib-dynload
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_codecsmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_cursesmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_localemodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_socketmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_tkinter.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/arraymodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/binascii.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/bsddbmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cPickle.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cStringIO.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cmathmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/cryptmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/dbmmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/errnomodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/fcntlmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/gdbmmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/grpmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/mathmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/md5module.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/mmapmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/newmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/nismodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/operator.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/parsermodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/pwdmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/readline.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/resource.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/rotormodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/selectmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/shamodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/stropmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/structmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/syslogmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/termios.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/timemodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/timingmodule.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/ucnhash.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/unicodedata.so
-%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/zlibmodule.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/*.so
 
 
 %dir %{_libdir}/python%{pver}/plat-*
