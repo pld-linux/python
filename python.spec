@@ -685,8 +685,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
 
-%files tkinter
 %if %{with tkinter}
+%files tkinter
 %defattr(644,root,root,755)
 %{py_libdir}/lib-tk
 %attr(755,root,root) %{py_dyndir}/_tkinter.so
@@ -694,6 +694,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files old
 %defattr(644,root,root,755)
-
 %dir %{py_libdir}/lib-old
 %{py_libdir}/lib-old/*.py[co]
