@@ -1,6 +1,6 @@
 diff -dur Python-2.3.4.orig/Lib/distutils/command/install.py Python-2.3.4/Lib/distutils/command/install.py
---- Python-2.3.4.orig/Lib/distutils/command/install.py	2004-09-10 08:50:27.601692800 +0200
-+++ Python-2.3.4/Lib/distutils/command/install.py	2004-09-10 08:51:00.726881742 +0200
+--- Python-2.3.4.orig/Lib/distutils/command/install.py	2004-09-10 11:20:47.575586795 +0200
++++ Python-2.3.4/Lib/distutils/command/install.py	2004-09-10 11:24:51.994535966 +0200
 @@ -39,14 +39,14 @@
  INSTALL_SCHEMES = {
      'unix_prefix': {
@@ -19,20 +19,23 @@ diff -dur Python-2.3.4.orig/Lib/distutils/command/install.py Python-2.3.4/Lib/di
          'scripts': '$base/bin',
          'data'   : '$base',
 diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutils/sysconfig.py
---- Python-2.3.4.orig/Lib/distutils/sysconfig.py	2004-09-10 08:50:27.602692745 +0200
-+++ Python-2.3.4/Lib/distutils/sysconfig.py	2004-09-10 08:51:46.443382256 +0200
+--- Python-2.3.4.orig/Lib/distutils/sysconfig.py	2004-09-10 11:20:47.576586553 +0200
++++ Python-2.3.4/Lib/distutils/sysconfig.py	2004-09-10 11:25:27.367990366 +0200
 @@ -101,7 +101,7 @@
      if os.name == "posix":
- 	if plat_specific: 
+         if plat_specific: 
              libpython = os.path.join(prefix,
 -                                 "lib", "python" + get_python_version())
 +                                 "lib64", "python" + get_python_version())
-        else:
+         else:
              libpython = os.path.join(prefix,
                                   "share", "python" + get_python_version())
+Only in Python-2.3.4/Lib/distutils: sysconfig.py.orig
+Only in Python-2.3.4/Lib/distutils: sysconfig.py.rej
+Only in Python-2.3.4/Lib/distutils: sysconfig.py~
 diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
---- Python-2.3.4.orig/Lib/site.py	2004-09-10 08:50:27.603692691 +0200
-+++ Python-2.3.4/Lib/site.py	2004-09-10 08:51:00.729881578 +0200
+--- Python-2.3.4.orig/Lib/site.py	2004-09-10 11:20:47.576586553 +0200
++++ Python-2.3.4/Lib/site.py	2004-09-10 11:24:51.995535725 +0200
 @@ -166,10 +166,10 @@
              sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
          elif os.sep == '/':
@@ -47,8 +50,8 @@ diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
                                       "share",
                                       "python" + sys.version[:3],
 diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
---- Python-2.3.4.orig/Makefile.pre.in	2004-09-10 08:50:27.604692636 +0200
-+++ Python-2.3.4/Makefile.pre.in	2004-09-10 08:51:00.730881524 +0200
+--- Python-2.3.4.orig/Makefile.pre.in	2004-09-10 11:20:47.577586311 +0200
++++ Python-2.3.4/Makefile.pre.in	2004-09-10 11:24:51.996535483 +0200
 @@ -79,7 +79,7 @@
  
  # Expanded directories
@@ -59,8 +62,8 @@ diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
 diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
---- Python-2.3.4.orig/Modules/getpath.c	2004-09-10 08:50:27.605692581 +0200
-+++ Python-2.3.4/Modules/getpath.c	2004-09-10 08:51:00.731881469 +0200
+--- Python-2.3.4.orig/Modules/getpath.c	2004-09-10 11:20:47.582585104 +0200
++++ Python-2.3.4/Modules/getpath.c	2004-09-10 11:24:51.996535483 +0200
 @@ -113,7 +113,7 @@
  
  #ifndef PYTHONPATH
@@ -90,8 +93,8 @@ diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
      zip_path[bufsz - 5] = VERSION[2];
 Only in Python-2.3.4.orig: Python-Docs-2.3.4
 diff -dur Python-2.3.4.orig/setup.py Python-2.3.4/setup.py
---- Python-2.3.4.orig/setup.py	2004-09-10 08:50:27.562694932 +0200
-+++ Python-2.3.4/setup.py	2004-09-10 08:51:00.733881359 +0200
+--- Python-2.3.4.orig/setup.py	2004-09-10 11:20:47.560590418 +0200
++++ Python-2.3.4/setup.py	2004-09-10 11:24:51.997535242 +0200
 @@ -264,7 +264,7 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
