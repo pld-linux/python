@@ -324,7 +324,7 @@ son interpréteur sous forme de fichiers ASCII et LaTeX.
 Oficjalna dokumentacja do Pythona. Zawiera przyk³adowe programy,
 narzêdzia i dokumentacjê. Strony podrêcznika man znajduj± siê w
 g³ównym pakiecie. Ten pakiet nie zawiera ¼róde³ dokumentacji
-napisanych w LaTeX'u, tylko gotowe do wykorzystania pliki
+napisanych w LaTeXu, tylko gotowe do wykorzystania pliki
 postscript'owe i HTML.
 
 %description doc -l pt_BR
