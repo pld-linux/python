@@ -25,11 +25,9 @@ Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
-Patch1:		%{name}-dl_global.patch
-Patch2:		%{name}-setup-install.patch
+#Patch1:		%{name}-dl_global.patch
 Patch3:		%{name}-readline.patch
 Patch4:		%{name}-pythonpath.patch
-Patch5:		%{name}-notermcap.patch
 Patch6:		%{name}-ac25x.patch
 Patch7:		%{name}-default_encoding.patch
 BuildRequires:	XFree86-devel
@@ -297,11 +295,9 @@ Przyk³adowe programy w Pythonie
 %prep
 %setup -q -n Python-%{version}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
+#%patch1 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 %patch6 -p1
 %patch7 -p1
 
@@ -349,7 +345,7 @@ ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
-gzip -9nf Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
+gzip -9nf Misc/{ACKS,NEWS,README,unicode.txt}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -421,7 +417,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_libdir}/config/makesetup
 %attr(755,root,root) %{py_libdir}/config/install-sh
 %{py_libdir}/config/Makefile
-%{py_libdir}/config/Makefile.pre.in
 %{py_libdir}/config/Setup
 %{py_libdir}/config/Setup.config
 %{py_libdir}/config/Setup.local
