@@ -21,6 +21,7 @@ Patch1:		%{name}-pld.patch
 Patch2:		%{name}-dl_global.patch
 Patch3:		%{name}-shared.patch
 Patch4:		%{name}-tkinter.patch
+Patch5:		%{name}-readline.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
@@ -246,9 +247,10 @@ tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz uruchomiæ.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 install -d html-doc
-bzip2 -dc %{SOURCE1} | tar -xf - -C html-doc
+tar -xf %{SOURCE1} --use=bzip2 -C html-doc
 
 %build
 export POSIXLY_CORRECT=TRUE
