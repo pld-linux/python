@@ -17,12 +17,14 @@ Source0:	http://www.pythonlabs.com/tech/python2.0/BeOpen-Python-%{version}.tar.b
 Source1:	http://www.pythonlabs.com/tech/python2.0/doc/html-%{version}.tar.bz2
 Patch0:		python-pld.patch
 Patch2:		python-dl_global.patch
+Patch3:		python-shared.patch
+Patch4:		python-tkinter.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	readline-devel >= 4.1
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	tix
-BuildRequires:	tk-devel
-BuildRequires:	tcl-devel
+BuildRequires:	tk-devel >= 8.0
+BuildRequires:	tcl-devel >= 8.0
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -195,6 +197,8 @@ kullanýlan grafik bir arayüzdür.
 %setup -q -n Python-%{version}
 %patch0 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 install -d html-doc && tar Ixf %{SOURCE1} -C html-doc
 
