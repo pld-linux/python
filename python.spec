@@ -1,6 +1,6 @@
 
-%define		pver 2.0
-
+%define pver 2.0
+ 
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
 Summary(fr):	Langage de script de tés haut niveau avec interface X
@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	4
+Release:	5
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -122,7 +122,8 @@ nécessaires à ces deux tâches.
 
 %description -l pl devel
 Wszystko co potrzebne, aby napisaæ w C/C++ modu³ rozszerzaj±cy
-mo¿liwo¶ci Pythona.
+mo¿liwo¶ci Pythona. S± tu równie¿ wersje ¼ród³owe modu³ów ze standardowej
+biblioteki.
 
 %description -l tr devel
 Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
@@ -261,9 +262,6 @@ ln -sf libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
 
-%post
-/usr/bin/python %{libdir}/python%{pver}/compileall.py
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -273,38 +271,48 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpython*so.*
 
 %dir %{_libdir}/python%{pver}
-%attr(-,root,root) %{_libdir}/python%{pver}/*.py
+%{_libdir}/python%{pver}/*.pyc
+%{_libdir}/python%{pver}/*.pyo
  
 %dir %{_libdir}/python%{pver}/lib-dynload
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/*.so
 
 %dir %{_libdir}/python%{pver}/plat-*
 %attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
-%{_libdir}/python%{pver}/plat-*/*.py
+%{_libdir}/python%{pver}/plat-*/*.pyc
+%{_libdir}/python%{pver}/plat-*/*.pyo
 
 %dir %{_libdir}/python%{pver}/curses
-%{_libdir}/python%{pver}/curses/*.py
+%{_libdir}/python%{pver}/curses/*.pyc
+%{_libdir}/python%{pver}/curses/*.pyo
 
 %dir %{_libdir}/python%{pver}/distutils
-%{_libdir}/python%{pver}/distutils/*.py
+%{_libdir}/python%{pver}/distutils/*.pyc
+%{_libdir}/python%{pver}/distutils/*.pyo
 
 %dir %{_libdir}/python%{pver}/distutils/command
-%{_libdir}/python%{pver}/distutils/command/*.py
+%{_libdir}/python%{pver}/distutils/command/*.pyc
+%{_libdir}/python%{pver}/distutils/command/*.pyo
 
 %dir %{_libdir}/python%{pver}/encodings
-%{_libdir}/python%{pver}/encodings/*
+%{_libdir}/python%{pver}/encodings/*.pyc
+%{_libdir}/python%{pver}/encodings/*.pyo
 
 %dir %{_libdir}/python%{pver}/lib-old
-%{_libdir}/python%{pver}/lib-old/*
+%{_libdir}/python%{pver}/lib-old/*.pyc
+%{_libdir}/python%{pver}/lib-old/*.pyo
 
 %dir %{_libdir}/python%{pver}/xml
-%{_libdir}/python%{pver}/xml/*.py
+%{_libdir}/python%{pver}/xml/*.pyc
+%{_libdir}/python%{pver}/xml/*.pyo
 
 %dir %{_libdir}/python%{pver}/xml/sax
-%{_libdir}/python%{pver}/xml/sax/*.py
+%{_libdir}/python%{pver}/xml/sax/*.pyc
+%{_libdir}/python%{pver}/xml/sax/*.pyo
 
 %dir %{_libdir}/python%{pver}/xml/dom
-%{_libdir}/python%{pver}/xml/dom/*.py
+%{_libdir}/python%{pver}/xml/dom/*.pyc
+%{_libdir}/python%{pver}/xml/dom/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
@@ -312,6 +320,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{_includedir}/python%{pver}
 %{_includedir}/python%{pver}/*.h
+%attr(-,root,root) %{_libdir}/python%{pver}/*.py
+%{_libdir}/python%{pver}/plat-*/*.py
+%{_libdir}/python%{pver}/curses/*.py
+%{_libdir}/python%{pver}/distutils/*.py
+%{_libdir}/python%{pver}/distutils/command/*.py
+%{_libdir}/python%{pver}/xml/*.py
+%{_libdir}/python%{pver}/xml/sax/*.py
+%{_libdir}/python%{pver}/xml/dom/*.py
+%{_libdir}/python%{pver}/encodings/*.py
+%{_libdir}/python%{pver}/lib-old/*.py
 
 %dir %{_libdir}/python%{pver}/config
 %attr(755,root,root) %{_libdir}/python%{pver}/config/makesetup
