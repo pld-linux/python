@@ -19,7 +19,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	0.2
+Release:	0.3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -427,8 +427,7 @@ PrzykЁadowe programy w Pythonie.
 %patch3 -p1
 %patch4 -p1
 
-install -d html-doc
-tar -xf %{SOURCE1} --use=bzip2 -C html-doc
+tar -xf %{SOURCE1} --use=bzip2
 
 %build
 %{__autoconf}
@@ -633,7 +632,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc html-doc/*
+%doc Python-Docs-%{py_ver}/*
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
 
