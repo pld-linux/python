@@ -14,8 +14,8 @@ Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{py_ver}b2
-Release:	3
+Version:	%{py_ver}c1
+Release:	1
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -110,6 +110,19 @@ destek verir. C koduyla birlikte kullanýmý son derece kolaydýr. Bu
 paket, standart Python birimlerinin çoðunun yanýsýra Tk ve RPM için
 arayüz birimlerini de içerir.
 
+%package libs
+Summary:	Python library
+Summary(pl):	Biblioteka jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+
+%description libs
+Python library.
+
+%description -l pl libs
+Biblioteka jêzyka Python.
+
 %package modules
 Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
@@ -147,7 +160,7 @@ Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	%{name}-modules = %{version}
+Requires:	%{name}-libs = %{version}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -175,6 +188,20 @@ standardowej biblioteki.
 %description -l tr devel
 Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
 dosyalarýný ve kitaplýklarý içerir.
+
+%package devel-src
+Summary:	Python module sources
+Summary(pl):	Pliki ¼ród³owe modu³ów Pythona
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name}-modules = %{version}
+
+%description devel-src
+Python module sources.
+
+%description -l pl devel-src
+Pliki ¼ród³owe modu³ów Pythona.
 
 %package static
 Summary:	Static python library
@@ -410,7 +437,6 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/python
-%attr(755,root,root) %{_libdir}/libpython*so.*
 %{_mandir}/man1/*
 
 %dir %{py_dyndir}
@@ -461,6 +487,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/xml/dom
 %{py_libdir}/xml/dom/*.py?
 
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpython*so.*
+
 %files pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
@@ -472,16 +502,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
-%attr(-,root,root) %{py_libdir}/*.py
-%{py_libdir}/plat-*/*.py
-%{py_libdir}/curses/*.py
-%{py_libdir}/distutils/*.py
-%{py_libdir}/distutils/command/*.py
-%{py_libdir}/xml/*.py
-%{py_libdir}/xml/parsers/*.py
-%{py_libdir}/xml/sax/*.py
-%{py_libdir}/xml/dom/*.py
-%{py_libdir}/encodings/*.py
 
 %dir %{py_libdir}/config
 %attr(755,root,root) %{py_libdir}/config/makesetup
@@ -493,6 +513,18 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/config.c
 %{py_libdir}/config/config.c.in
 %{py_libdir}/config/python.o
+
+%files devel-src
+%attr(-,root,root) %{py_libdir}/*.py
+%{py_libdir}/plat-*/*.py
+%{py_libdir}/curses/*.py
+%{py_libdir}/distutils/*.py
+%{py_libdir}/distutils/command/*.py
+%{py_libdir}/xml/*.py
+%{py_libdir}/xml/parsers/*.py
+%{py_libdir}/xml/sax/*.py
+%{py_libdir}/xml/dom/*.py
+%{py_libdir}/encodings/*.py
 
 %files static
 %defattr(644,root,root,755)
