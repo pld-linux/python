@@ -1,6 +1,7 @@
---- python-1.999b1.orig/Makefile.in
-+++ python-1.999b1/Makefile.in
-@@ -58,12 +58,14 @@
+diff -Nur Python-2.0.orig/Makefile.in Python-2.0/Makefile.in
+--- Python-2.0.orig/Makefile.in	Mon Oct 16 23:50:06 2000
++++ Python-2.0/Makefile.in	Mon Oct 30 09:42:28 2000
+@@ -48,12 +48,14 @@
  
  # Substitutions by configure
  VERSION=	@VERSION@
@@ -15,7 +16,7 @@
  
  # Machine-dependent subdirectories
  MACHDEP=	@MACHDEP@
-@@ -179,6 +181,22 @@
+@@ -168,6 +170,22 @@
  		for i in $(SUBDIRS); do \
  			(cd $$i; $(MAKE) VERSION="$(VERSION)" add2lib); done
  
@@ -26,19 +27,19 @@
 +#
 +# This rule is here for Linux shared libs
 +# The PIC code will be built additionally to the static lib!
-+libpython$(VERSION).so.$(SOVERSION):	$(SUBDIRS)
-+		test -d shobjs || mkdir shobjs
-+		rm -f shobjs/*
-+		for i in $(SUBDIRS); do \
-+			(cd $$i; rm -f add2shlib; \
-+				$(MAKE) VERSION="$(VERSION)" add2shlib); done
-+		$(CC) -shared -Wl,-soname,$(LDLIBRARY) \
-+			$(SOLIBS) shobjs/* -o $(LDLIBRARY)
++libpython$(VERSION).so.$(SOVERSION):  $(SUBDIRS)
++							test -d shobjs || mkdir shobjs
++							rm -f shobjs/*
++							for i in $(SUBDIRS); do \
++							        (cd $$i; rm -f add2shlib; \
++							                $(MAKE) VERSION="$(VERSION)" add2shlib); done
++							$(CC) -shared -Wl,-soname,$(LDLIBRARY) \
++							        $(SOLIBS) shobjs/* -o $(LDLIBRARY)
 +
- # This rule is only here for DG/UX!!!
+ # This rule is only here for DG/UX and BeOS!!!
  libpython$(VERSION).so:	$(LIBRARY)
  		case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
-@@ -247,6 +265,12 @@
+@@ -243,6 +261,12 @@
  			fi; \
  		done
  		$(INSTALL_PROGRAM) python$(EXE) $(BINDIR)/python$(VERSION)$(EXE)
@@ -51,7 +52,7 @@
  		if test -f libpython$(VERSION).so; then \
  			$(INSTALL_DATA) libpython$(VERSION).so $(LIBDIR); \
  		else	true; \
-@@ -492,10 +518,12 @@
+@@ -507,10 +531,12 @@
  			 fi); \
  		    else true; fi; \
  		done
@@ -64,55 +65,9 @@
  
  clobber:	localclobber
  		-for i in $(SUBDIRS); do \
---- python-1.999b1.orig/configure.in
-+++ python-1.999b1/configure.in
-@@ -7,6 +7,8 @@
- # Set VERSION so we only need to edit in one place (i.e., here)
- AC_SUBST(VERSION)
- VERSION=2.0
-+AC_SUBST(SOVERSION)
-+SOVERSION=0.0
- 
- # NEXTSTEP stuff
- if test -f /usr/lib/NextStep/software_version -o -f /System/Library/CoreServices/software_version ; then
-@@ -220,6 +222,7 @@
- # LINKCC is the command that links the python executable -- default is $(CC).
- # This is altered for AIX and BeOS in order to build the export list before 
- # linking.
-+# For Linux, we now build a shared library, too.
- AC_SUBST(LINKCC)
- AC_MSG_CHECKING(LINKCC)
- if test -z "$LINKCC" -a ! -z "$CXX"
-@@ -236,6 +239,9 @@
- 	   LDLIBRARY='libpython$(VERSION).so';;
- 	dgux*)
- 	   LINKCC="LD_RUN_PATH=$libdir \$(PURIFY) \$(CC)";;
-+	Linux*)
-+           LDLIBRARY='libpython$(VERSION).so.$(SOVERSION)'
-+	   LINKCC="\$(CC)";;
- 	*) LINKCC="\$(PURIFY) \$(CC)";;
- 	esac
- fi
-@@ -526,7 +532,7 @@
-                 if test "$with_next_framework" ; then
- 		    LDSHARED="$LDSHARED \$(LDLIBRARY)"
- 		fi ;;
--	Linux*) LDSHARED="gcc -shared";;
-+	Linux*) LDSHARED="gcc -shared -lc";;
- 	dgux*) LDSHARED="ld -G";;
- 	BSD/OS*/4*) LDSHARED="gcc -shared";;
- 	FreeBSD*/[[34]]*) LDSHARED="gcc -shared";;
-@@ -553,7 +559,7 @@
- 		 then CCSHARED="-fpic";
- 		 else CCSHARED="+z";
- 		 fi;;
--	Linux*) CCSHARED="-fpic";;
-+	Linux*) CCSHARED="-fPIC";;
- 	BSD/OS*/4*) CCSHARED="-fpic";;
- 	FreeBSD*|OpenBSD*) CCSHARED="-fpic";;
- 	NetBSD*) CCSHARED="-fPIC";;
---- python-1.999b1.orig/Modules/Makefile.pre.in
-+++ python-1.999b1/Modules/Makefile.pre.in
+diff -Nur Python-2.0.orig/Modules/Makefile.pre.in Python-2.0/Modules/Makefile.pre.in
+--- Python-2.0.orig/Modules/Makefile.pre.in	Mon Oct 16 23:49:33 2000
++++ Python-2.0/Modules/Makefile.pre.in	Mon Oct 30 09:38:22 2000
 @@ -14,6 +14,7 @@
  # === Variables set by configure ===
  
@@ -121,7 +76,7 @@
  srcdir=		@srcdir@
  VPATH=		@srcdir@
  
-@@ -95,6 +96,8 @@
+@@ -98,6 +99,8 @@
  FIXOBJS=	config.o getpath.o main.o getbuildinfo.o
  OBJS=		$(MODOBJS) $(FIXOBJS)
  
@@ -130,11 +85,11 @@
  #MAINOBJ=	python.o
  MAINOBJ=	@MAINOBJ@
  
-@@ -118,6 +121,15 @@
+@@ -121,6 +124,15 @@
  		$(AR) cr $(LIBRARY) $(OBJS)
  		touch add2lib
  
-+add2shlib:	$(SHOBJS)
++add2shlib:  $(SHOBJS)
 +		-if test -f hassignal; \
 +		then echo removing sigcheck.pic_o intrcheck.pic_o; \
 +		     rm ../shobjs/sigcheck.pic_o ../shobjs/intrcheck.pic_o \
@@ -143,9 +98,9 @@
 +		cp -f $(SHOBJS) ../shobjs/.
 +		touch add2shlib
 +
- # Use ``EXE=.exe'' for Unix emulations on DOS/Windows
- EXE=
- 
+ # This target is used by the master Makefile to link the final binary.
+ link:		$(MAINOBJ)
+ 		$(LINKCC) $(LDFLAGS) $(LINKFORSHARED) $(MAINOBJ) \
 @@ -130,6 +142,7 @@
  clean:
  		-rm -f *.o python$(EXE) core *~ [@,#]* *.old *.orig *.rej
@@ -170,7 +125,7 @@
  # When the configuration changes, we remove the library, so that it
  # gets remade from scratch; this ensures to remove modules that are no
  # longer pertinent (but that were in a previous configuration).
-@@ -173,6 +195,11 @@
+@@ -182,6 +204,11 @@
  depend:
  		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
  					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
@@ -182,8 +137,9 @@
  
  .PRECIOUS:	../python$(EXE)
  
---- python-1.999b1.orig/Objects/Makefile.in
-+++ python-1.999b1/Objects/Makefile.in
+diff -Nur Python-2.0.orig/Objects/Makefile.in Python-2.0/Objects/Makefile.in
+--- Python-2.0.orig/Objects/Makefile.in	Mon Oct 16 23:49:24 2000
++++ Python-2.0/Objects/Makefile.in	Mon Oct 30 09:28:07 2000
 @@ -48,6 +48,8 @@
  		tupleobject.c typeobject.c \
  		unicodeobject.c unicodectype.c
@@ -221,8 +177,9 @@
  
  .PRECIOUS:	Makefile
  
---- python-1.999b1.orig/Parser/Makefile.in
-+++ python-1.999b1/Parser/Makefile.in
+diff -Nur Python-2.0.orig/Parser/Makefile.in Python-2.0/Parser/Makefile.in
+--- Python-2.0.orig/Parser/Makefile.in	Mon Oct 16 23:49:29 2000
++++ Python-2.0/Parser/Makefile.in	Mon Oct 30 09:28:07 2000
 @@ -37,6 +37,7 @@
  AROBJS=		$(POBJS) myreadline.o
  OBJS=		$(AROBJS) intrcheck.o
@@ -261,8 +218,9 @@
  
  .PRECIOUS:	Makefile
  
---- python-1.999b1.orig/Python/Makefile.in
-+++ python-1.999b1/Python/Makefile.in
+diff -Nur Python-2.0.orig/Python/Makefile.in Python-2.0/Python/Makefile.in
+--- Python-2.0.orig/Python/Makefile.in	Mon Oct 16 23:49:29 2000
++++ Python-2.0/Python/Makefile.in	Mon Oct 30 09:28:07 2000
 @@ -51,6 +51,8 @@
  		$(LIBOBJS)
  OBJS=		$(AROBJS) sigcheck.o
@@ -313,3 +271,51 @@
  
  .PRECIOUS:	Makefile
  
+diff -Nur Python-2.0.orig/configure.in Python-2.0/configure.in
+--- Python-2.0.orig/configure.in	Mon Oct 16 23:50:06 2000
++++ Python-2.0/configure.in	Mon Oct 30 09:30:29 2000
+@@ -7,6 +7,8 @@
+ # Set VERSION so we only need to edit in one place (i.e., here)
+ AC_SUBST(VERSION)
+ VERSION=2.0
++AC_SUBST(SOVERSION)
++SOVERSION=0.0
+ 
+ # NEXTSTEP|MacOSX|Darwin stuff
+ if test -f /usr/lib/NextStep/software_version -o -f /System/Library/CoreServices/software_version ; then
+@@ -225,6 +227,7 @@
+ # LINKCC is the command that links the python executable -- default is $(CC).
+ # This is altered for AIX in order to build the export list before 
+ # linking.
++# For Linux, we now build a shared library, too.
+ AC_SUBST(LINKCC)
+ AC_MSG_CHECKING(LINKCC)
+ if test -z "$LINKCC" -a ! -z "$CXX"
+@@ -240,6 +243,9 @@
+ 	   LINKCC="LD_RUN_PATH=$libdir \$(PURIFY) \$(CC)";;
+ 	Monterey64*)
+ 	   LINKCC="\$(PURIFY) \$(CC) -L/usr/lib/ia64l64";;
++  Linux*)
++           LDLIBRARY='libpython$(VERSION).so.$(SOVERSION)'
++     LINKCC="\$(CC)";;
+ 	*) LINKCC="\$(PURIFY) \$(CC)";;
+ 	esac
+ fi
+@@ -582,7 +588,7 @@
+ 	if test "$with_next_framework" ; then
+ 		    LDSHARED="$LDSHARED \$(LDLIBRARY)"
+ 		fi ;;
+-	Linux*) LDSHARED="gcc -shared";;
++	Linux*) LDSHARED="gcc -shared -lc";;
+ 	dgux*) LDSHARED="ld -G";;
+ 	BSD/OS*/4*) LDSHARED="gcc -shared";;
+ 	OpenBSD*) LDSHARED="ld -Bshareable";;
+@@ -616,7 +622,7 @@
+ 		 then CCSHARED="-fpic";
+ 		 else CCSHARED="+z";
+ 		 fi;;
+-	Linux*) CCSHARED="-fpic";;
++	Linux*) CCSHARED="-fPIC";;
+ 	BSD/OS*/4*) CCSHARED="-fpic";;
+ 	OpenBSD*) CCSHARED="-fpic";;
+ 	FreeBSD*|NetBSD*) CCSHARED="-fPIC";;
