@@ -351,6 +351,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/python1.5/*.h
 
 %{_libdir}/python1.5/config
+%attr(755,root,root) %{_libdir}/python1.5/config/makesetup
+%attr(755,root,root) %{_libdir}/python1.5/config/install-sh
 
 %dir %{_libdir}/python1.5/test
 %attr(-,root,root) %{_libdir}/python1.5/test/*
