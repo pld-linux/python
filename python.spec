@@ -15,7 +15,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}.1
-Release:	5
+Release:	6
 License:	PSF
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -266,7 +266,7 @@ Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-Requires:	python = %{version}
+Requires:	%{name} = %{version}
 
 %description old
 Install this package when one of your program written in Python is old
@@ -278,6 +278,20 @@ Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programów napisanych
 w jêzyku Python jest tak stary jak Miss Universum z roku 1918, któr±
 tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz
 uruchomiæ.
+
+%package examples
+Summary:	Example programs in Python
+Summary(pl):	Przyk³adowe programy w Pythonie
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name}-devel = %{version}
+
+%description examples
+Example programs in Python
+
+%description -l pl examples
+Przyk³adowe programy w Pythonie
 
 %prep
 %setup -q -n Python-%{version}
@@ -330,6 +344,9 @@ install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
+
+install -d $RPM_BUILD_ROOT%{_examplesdir}/python
+cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
 gzip -9nf Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
 
@@ -414,6 +431,11 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+
+%files examples
+%defattr(644,root,root,755)
+%{_examplesdir}/python/Tools
+%{_examplesdir}/python/Demo
 
 %files doc
 %defattr(644,root,root,755)
