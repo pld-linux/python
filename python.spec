@@ -188,24 +188,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(755,root,root) /usr/bin/*
 
-%dir /usr/lib/python1.5
-%attr(-,root,root) /usr/lib/python1.5/*.py
-%attr(-,root,root) /usr/lib/python1.5/*.pyc
-%attr(-,root,root) /usr/lib/python1.5/*.pyo
+%dir %{_libdir}/python1.5
+%attr(-,root,root) %{_libdir}/python1.5/*.py
+%attr(-,root,root) %{_libdir}/python1.5/*.pyc
+%attr(-,root,root) %{_libdir}/python1.5/*.pyo
 
-%dir /usr/lib/python1.5/lib-dynload
-%attr(755,root,root) /usr/lib/python1.5/lib-dynload/*.so
+%dir %{_libdir}/python1.5/lib-dynload
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/*.so
 
-%dir /usr/lib/python1.5/lib-stdwin
-%attr(755,root,root) /usr/lib/python1.5/lib-stdwin/*.py
-/usr/lib/python1.5/lib-stdwin/*.pyc
-/usr/lib/python1.5/lib-stdwin/*.pyo
+%dir %{_libdir}/python1.5/lib-stdwin
+%attr(755,root,root) %{_libdir}/python1.5/lib-stdwin/*.py
+%{_libdir}/python1.5/lib-stdwin/*.pyc
+%{_libdir}/python1.5/lib-stdwin/*.pyo
 
-%dir /usr/lib/python1.5/plat-linux-%{buildarch}
-%attr(755,root,root) /usr/lib/python1.5/plat-linux-%{buildarch}/regen
-/usr/lib/python1.5/plat-linux-%{buildarch}/*.py
-/usr/lib/python1.5/plat-linux-%{buildarch}/*.pyc
-/usr/lib/python1.5/plat-linux-%{buildarch}/*.pyo
+%dir %{_libdir}/python1.5/plat-linux-%{buildarch}
+%attr(755,root,root) %{_libdir}/python1.5/plat-linux-%{buildarch}/regen
+%{_libdir}/python1.5/plat-linux-%{buildarch}/*.py
+%{_libdir}/python1.5/plat-linux-%{buildarch}/*.pyc
+%{_libdir}/python1.5/plat-linux-%{buildarch}/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
@@ -213,11 +213,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir /usr/include/python1.5
 /usr/include/python1.5/*.h
 
-%dir /usr/lib/python1.5/config
-%attr(-,root,root) /usr/lib/python1.5/config/*
+%dir %{_libdir}/python1.5/config
+%attr(-,root,root) %{_libdir}/python1.5/config/*
 
-%dir /usr/lib/python1.5/test
-%attr(-,root,root,755) /usr/lib/python1.5/test/*
+%dir %{_libdir}/python1.5/test
+%attr(-,root,root,755) %{_libdir}/python1.5/test/*
 
 %files docs
 %defattr(645,root,root,755)
@@ -227,10 +227,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n tkinter
 %defattr(644,root,root,755)
 
-%dir /usr/lib/python1.5/lib-tk
-%attr(-,root,root) /usr/lib/python1.5/lib-tk/*
+%dir %{_libdir}/python1.5/lib-tk
+%attr(-,root,root) %{_libdir}/python1.5/lib-tk/*
 
-%attr(755,root,root) /usr/lib/python1.5/lib-dynload/_tkinter.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
 
 %changelog
 * Wed Nov 25 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
@@ -268,7 +268,7 @@ rm -rf $RPM_BUILD_ROOT
 
 * Thu Apr 09 1998 Erik Troan <ewt@redhat.com>
 - updated to python 1.5
-- made /usr/lib/python1.5 file list automatically generated
+- made %{_libdir}/python1.5 file list automatically generated
 
 * Tue Nov 04 1997 Michael K. Johnson <johnsonm@redhat.com>
 - Fixed dependencies for python and tkinter
