@@ -1,0 +1,10 @@
+--- Python-2.3b1.orig/Makefile.pre.in	Thu May 15 16:33:02 2003
++++ Python-2.3b1/Makefile.pre.in	Thu May 15 16:39:06 2003
+@@ -864,6 +864,7 @@
+ 	--prefix=$(prefix) \
+ 	--install-scripts=$(BINDIR) \
+ 	--install-platlib=$(DESTSHARED) \
++	--optimize=2 \
+ 	--root=/$(DESTDIR)
+ 
+ # This installs a few of the useful scripts in Tools/scripts
