@@ -1,4 +1,9 @@
+
 #
+# todo:
+# - fix locale test to use configured locale instead of en_US (or sth.)
+#
+
 # Conditional build:
 %bcond_without tkinter	# disables tkinter module building
 %bcond_without tests	# disables Python testing
