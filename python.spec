@@ -37,8 +37,8 @@ License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 # Source0-md5:	44c2226eff0f3fc1f2fedaa1ce596533
-Source1:	http://www.python.org/ftp/python/doc/2.3.4/html-2.3.4.tar.bz2
-# Source1-md5:	599abc498714de055814d4542de4f2fc
+Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
+# Source1-md5:	10cca09fcdf1b5ad269bc9edb652d76f
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
