@@ -240,7 +240,7 @@ Summary(pl):	Interfejs do biblioteki GDBM dla Pythona
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Icon:		linux-python-db-icon.gif
-Requires:	%{name} =%{version}
+Requires:	%{name} = %{version}
 
 %description gdbm
 An easy to use interface to GDBM databases. GDBM is the GNU implementation
@@ -255,7 +255,7 @@ Summary:	Python interface to the (n)curses library
 Summary(pl):	Interfejs do biblioteki (n)curses dla Pythona
 Group:		Development/Languages/Python
 Icon:		linux-python-curses-icon.gif
-Requires:	%{name} =%{version}
+Requires:	%{name} = %{version}
 
 %description curses
 An easy to use interface to (n)curses CUI library. CUI stands for console
@@ -271,7 +271,7 @@ Summary(pl):	Interfejs do biblioteki zlib  dla Pythona
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Icon:		linux-python-zlib-icon.gif
-Requires:	%{name} =%{version}
+Requires:	%{name} = %{version}
 
 %description zlib
 An interface to the zlib library. zlib offers the gzip algorithms for
