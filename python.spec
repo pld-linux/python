@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}.1
-Release:	0.1
+Release:	0.3
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -439,7 +439,7 @@ cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
 install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
 
-gzip -9nf Misc/{ACKS,NEWS,README,unicode.txt}
+gzip -9nf Misc/{ACKS,NEWS,README}
 
 echo "%defattr(644,root,root,755)" > modules.filelist
 
