@@ -18,7 +18,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	18
+Release:	19
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -32,7 +32,7 @@ Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
 Patch5:		%{name}-no_ndbm.patch
 Patch6:		%{name}-ac_fixes.patch
-Patch7:		%{name}-lib-os-execvpe.patch
+Patch7:		%{name}-sec-lib-os-execvpe.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db3-devel
