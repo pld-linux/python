@@ -27,15 +27,15 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}.2
-Release:	5
+Version:	%{py_ver}.3
+Release:	0.1.c1
 Epoch:		1
 License:	PSF
 Group:		Applications
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-# Source0-md5:	9271171d55690e5cacd692e563924305
-Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	099df1801c947e4a821605a6ae01c6b2
+Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}c1.tar.bz2
+# Source0-md5:	51eefdde28f833972126bdae199a23f1
+Source1:	http://www.python.org/ftp/python/doc/%{version}c1/html-%{version}c1.tar.bz2
+# Source1-md5:	e5e022497720ae4aa8b169c4c37a0460
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
@@ -445,7 +445,7 @@ Example programs in Python.
 PrzykЁadowe programy w Pythonie.
 
 %prep
-%setup -q -n Python-%{version}
+%setup -q -n Python-%{version}c1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -733,7 +733,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Python-Docs-%{version}/*
+%doc Python-Docs-%{version}c1/*
 %dir %{py_libdir}/test
 %attr(-,root,root) %{py_libdir}/test/*
 %attr(-,root,root) %{py_libdir}/email/test/*
