@@ -186,7 +186,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 
-%attr(755,root,root) /usr/bin/*
+%attr(755,root,root) %{_bindir}/*
 
 %dir %{_libdir}/python1.5
 %attr(-,root,root) %{_libdir}/python1.5/*.py
@@ -250,7 +250,7 @@ rm -rf $RPM_BUILD_ROOT
 - translations modified for de, fr, tr
 
 * Wed May 06 1998 Cristian Gafton <gafton@redhat.com>
-- python-docs used to require /usr/bin/sed. Changed to /bin/sed instead
+- python-docs used to require %{_bindir}/sed. Changed to /bin/sed instead
 
 * Wed Apr 29 1998 Cristian Gafton <gafton@redhat.com>
 - fixed the spec file for version 1.5.1
@@ -277,7 +277,7 @@ rm -rf $RPM_BUILD_ROOT
 - pulled out tk-related stuff into tkinter package
 
 * Fri Oct 10 1997 Erik Troan <ewt@redhat.com>
-- bunches of scripts used /usr/local/bin/python instead of /usr/bin/python
+- bunches of scripts used /usr/local/bin/python instead of %{_bindir}/python
 
 * Tue Sep 30 1997 Erik Troan <ewt@redhat.com>
 - updated for tcl/tk 8.0
