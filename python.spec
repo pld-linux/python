@@ -21,11 +21,10 @@
 %define py_dyndir	%{py_libdir}/lib-dynload
 
 Summary:	Very high level scripting language with X interface
-Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
 Summary(es):	Lenguaje script de alto nivel con interface X
-Summary(fr):	Langage de script de tés haut niveau avec interface X
+Summary(fr):	Langage de script de très haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
-Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alto nível
+Summary(pt_BR):	Linguagem de programação interpretada de alto nível
 Summary(ru):	ñÚÙË ĞÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏŞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk):	íÏ×Á ĞÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
@@ -115,7 +114,7 @@ excepciones.
 
 Es sencillo adicionar interfaces para nuevos sistemas de biblioteca a
 través de código C, tornando Python fácil de usar en ambientes
-articulares/ personalizados. Este paquete Python incluye la mayoría de
+particulares/personalizados. Este paquete Python incluye la mayoría de
 los módulos padrón Python, junto con módulos para crear interfaces
 para el conjunto de componentes Tix para Tk y RPM.
 
@@ -434,7 +433,7 @@ kullanılan grafik bir arayüzdür.
 çÒÁÆ¦ŞÎÉÊ ¦ÎÔÅÒÆÅÊÓ (GUI) ÄÌÑ Python, ĞÏÂÕÄÏ×ÁÎÉÊ ÎÁ Tcl/Tk.
 
 %package old
-Summary:	Depreciated Python modules
+Summary:	Deprecated Python modules
 Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
