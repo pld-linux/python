@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	5
+Release:	6
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
@@ -217,6 +217,24 @@ PIL (Python Imaging Library).
 Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan
 kullanýlan grafik bir arayüzdür.
 
+%package old
+Summary:	Depreciated Python modules
+Summary(pl):	Nieaktualne modu³y jêzyka Python
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	python = %{version}
+
+%description old
+Install this package when one of your program written in Python
+is old as Miss Universum of 1918, who only you want to see... ooops,
+which only you want to run. 
+
+%description -l pl old
+Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programów napisanych
+w jêzyku Python jest tak stary jak Miss Universum z roku 1918, któr±
+tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz uruchomiæ.
+
 %prep
 %setup -q -n Python-%{version}
 %patch0 -p1
@@ -301,10 +319,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/encodings/*.pyc
 %{_libdir}/python%{pver}/encodings/*.pyo
 
-%dir %{_libdir}/python%{pver}/lib-old
-%{_libdir}/python%{pver}/lib-old/*.pyc
-%{_libdir}/python%{pver}/lib-old/*.pyo
-
 %dir %{_libdir}/python%{pver}/xml
 %{_libdir}/python%{pver}/xml/*.pyc
 %{_libdir}/python%{pver}/xml/*.pyo
@@ -332,7 +346,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/xml/sax/*.py
 %{_libdir}/python%{pver}/xml/dom/*.py
 %{_libdir}/python%{pver}/encodings/*.py
-%{_libdir}/python%{pver}/lib-old/*.py
 
 %dir %{_libdir}/python%{pver}/config
 %attr(755,root,root) %{_libdir}/python%{pver}/config/makesetup
@@ -361,3 +374,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %{_libdir}/python%{pver}/lib-tk
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_tkinter.so
+
+%files old
+%defattr(644,root,root,755)
+
+%dir %{_libdir}/python%{pver}/lib-old
+%{_libdir}/python%{pver}/lib-old/*.pyc
+%{_libdir}/python%{pver}/lib-old/*.pyo
