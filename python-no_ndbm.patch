@@ -1,19 +1,31 @@
-For historical reasons, libndbm is actually Berkeley DB.  Take it out.
-
---- Python-2.2/setup.py	Fri Jan 25 13:00:29 2002
-+++ Python-2.2/setup.py	Fri Jan 25 13:00:25 2002
-@@ -375,14 +375,7 @@
+--- Python-2.3a2.orig/setup.py	Tue Feb 18 11:24:34 2003
++++ Python-2.3a2/setup.py	Thu Apr 10 14:04:18 2003
+@@ -552,28 +552,7 @@
  
          # The standard Unix dbm module:
          if platform not in ['cygwin']:
--            if (self.compiler.find_library_file(lib_dirs, 'ndbm')):
+-            if find_file("ndbm.h", inc_dirs, []) is not None:
+-                # Some systems have -lndbm, others don't
+-                if self.compiler.find_library_file(lib_dirs, 'ndbm'):
+-                    ndbm_libs = ['ndbm']
+-                else:
+-                    ndbm_libs = []
 -                exts.append( Extension('dbm', ['dbmmodule.c'],
--                                       libraries = ['ndbm'] ) )
--            elif self.compiler.find_library_file(lib_dirs, 'db1'):
+-                                       define_macros=[('HAVE_NDBM_H',None)],
+-                                       libraries = ndbm_libs ) )
+-            elif (self.compiler.find_library_file(lib_dirs, 'gdbm')
+-                  and find_file("gdbm/ndbm.h", inc_dirs, []) is not None):
 -                exts.append( Extension('dbm', ['dbmmodule.c'],
--                                       libraries = ['db1'] ) )
--            else:
--                exts.append( Extension('dbm', ['dbmmodule.c']) )
+-                                       define_macros=[('HAVE_GDBM_NDBM_H',None)],
+-                                       libraries = ['gdbm'] ) )
+-            elif db_incs is not None:
+-                exts.append( Extension('dbm', ['dbmmodule.c'],
+-                                       library_dirs=dblib_dir,
+-                                       runtime_library_dirs=dblib_dir,
+-                                       include_dirs=db_incs,
+-                                       define_macros=[('HAVE_BERKDB_H',None),
+-                                                      ('DB_DBM_HSEARCH',None)],
+-                                       libraries=dblibs))
 +            exts.append( Extension('dbm', ['dbmmodule.c']) )
  
          # Anthony Baxter's gdbm module.  GNU dbm(3) will require -lgdbm:
