@@ -5,7 +5,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	19
+Release:	20
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
