@@ -30,7 +30,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.3
-Release:	1.2
+Release:	1.3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -487,9 +487,9 @@ LC_ALL=C
 export LC_ALL
 %if %{with tests}
 %ifarch alpha sparc64 ppc64 amd64
-%{__make} test TESTOPTS="-l -x %{no64bit_tests} %{nobuilder_tests} %{broken_tests}"
+%{__make} test TESTOPTS="-v -l -x %{no64bit_tests} %{nobuilder_tests} %{broken_tests}"
 %else
-%{__make} test TESTOPTS="-l -x %{nobuilder_tests} %{broken_tests}"
+%{__make} test TESTOPTS="-v -l -x %{nobuilder_tests} %{broken_tests}"
 %endif
 %endif
 
