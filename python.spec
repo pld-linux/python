@@ -58,7 +58,6 @@ BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	gmp-devel >= 4.0
-BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 4.2
