@@ -253,7 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_libdir}/python1.5
 %attr(-,root,root) %{_libdir}/python1.5/*.py
-
+%{_libdir}/python1.5/*.pyc
+%{_libdir}/python1.5/*.pyo
+ 
 %dir %{_libdir}/python1.5/lib-dynload
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/arraymodule.so
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/binascii.so
@@ -289,11 +291,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/timingmodule.so
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/zlibmodule.so
 
-%{_libdir}/python1.5/lib-stdwin/*.py
+%{_libdir}/python1.5/lib-stdwin
 
 %dir %{_libdir}/python1.5/plat-*
 %attr(755,root,root) %{_libdir}/python1.5/plat-*/regen
 %{_libdir}/python1.5/plat-*/*.py
+%{_libdir}/python1.5/plat-*/*.pyc
+%{_libdir}/python1.5/plat-*/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
@@ -302,6 +306,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/python1.5/*.h
 %{_libdir}/libpython1.5.a
 %{_libdir}/libpython.a
+
+%dir %{_libdir}/python1.5/test
+%attr(-,root,root) %{_libdir}/python1.5/test/*
 
 %files doc
 %defattr(644,root,root,755)
