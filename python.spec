@@ -19,7 +19,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	0.3
+Release:	0.4
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -456,8 +456,8 @@ ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}/python
-cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
+install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 echo "%defattr(644,root,root,755)" > modules.filelist
 
@@ -627,8 +627,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files examples
 %defattr(644,root,root,755)
-%{_examplesdir}/python/Tools
-%{_examplesdir}/python/Demo
+%{_examplesdir}/%{name}-%{version}
 
 %files doc
 %defattr(644,root,root,755)
