@@ -1,19 +1,23 @@
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
 Summary(fr):	Langage de script de tés haut niveau avec interface X.
-Summary(pl):	Python - obiektowy jezyk do tworzenia skryptów (g³ówny pakiet)
+Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	9
+Release:	10
 Copyright:	distributable
 Group:		Development/Languages
+Group(pl):      Programowanie/Jêzyki/Python
+URL:		http://www.python.org/
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
 Source2:	cursesmodule.c
 Patch0:		Python-pld.patch
 Patch1:		Python-sed.patch
-URL:		http://www.python.org/
+Patch2:		Python-dl_global.patch
+Patch3:		Python-wdb.patch
+Patch4:		Python-wuftpd.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	readline-devel
 BuildRequires:	tix
@@ -60,11 +64,11 @@ Ce paquetage Python contient la plupart des modules Python standards, ainsi
 que ceux permettant l'interfaçage avec les widgets Tix pour Tk et RPM.
 
 %description -l pl
-Python jest interpretowanym, interaktywnym i "zorientowanym obiektowo"
+Python jest interpretowanym, interaktywnym i zorientowanym obiektowo
 jêzykiem programowania. Jest modularny, obs³uguje wyj±tki, dynamiczne typy,
 zaawansowane dynamiczne struktury danych i klasy. Python ³±czy w sobie du¿e
 mo¿liwo¶ci i przejrzyst± sk³adniê. Posiada interfejsy do wielu wywo³añ
-systemowych i bibliotek, w tym rówie¿ do ró¿nych bibliotek okienkowych.
+systemowych i bibliotek, w tym równie¿ do ró¿nych bibliotek okienkowych.
 Mo¿liwo¶ci jego mo¿na jeszcze rozszerzaæ poprzez odpowiednie modu³y pisane w
 C lub C++. Python mo¿e byæ równie¿ u¿yty jako element aplikacji, którym
 potrzebny jest interpreter do skryptów. I wreszcie, Python jest
@@ -81,9 +85,10 @@ birimlerinin çoðunun yanýsýra Tk ve RPM için arayüz birimlerini de içerir.
 Summary:	Libraries and header files for building python code
 Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
 Summary(fr):	Bibliothèques et en-têtes pour construire du code python
-Summary(pl):	Pliki nag³ówkowe i biblioteki python
+Summary(pl):	Pliki nag³ówkowe i biblioteki Python'a
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages
+Group(pl):      Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
 %description devel
@@ -103,7 +108,7 @@ chargées dynamiquement et à insérer dans d'autres programmes. Ce paquetage
 contient les en-têtes et les bibliothèques nécessaires à ces deux tâches.
 
 %description -l pl devel
-Wszystko czego potrzeba aby napisaæ w C/C++ modu³ rozszerzaj±cy mo¿liwo¶ci
+Wszystko co potrzebne, aby napisaæ w C/C++ modu³ rozszerzaj±cy mo¿liwo¶ci
 Pythona.
 
 %description -l tr devel
@@ -117,6 +122,7 @@ Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Python'a 
 Summary(tr):	Python belgeleri
 Group:		Development/Languages
+Group(pl):      Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
 %description docs
@@ -132,8 +138,8 @@ Ce paquetage contient la documentation sur le langage python et sur son
 interpréteur sous forme de fichiers ASCII et LaTeX.
 
 %description -l pl docs
-Oficjalna dokumentacja do Pythona. Zawiera programy przyk³adowe, narzêdzia
-i dokumentacjê. Strony do manuala znajduj± sie w g³ównym pakiecie.
+Oficjalna dokumentacja do Pythona. Zawiera przyk³adowe programy, narzêdzia
+i dokumentacjê. Strony podrêcznika man znajduj± siê w g³ównym pakiecie.
 Ten pakiet nie zawiera ¼róde³ dokumentacji napisanych w LaTeX'u,
 tylko gotowe do wykorzystania pliki postscript'owe i HTML. 
 
@@ -145,14 +151,13 @@ kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 Summary:	Lowlevel Python -> Tk Interface
 Summary(de):	Grafischer Oberfläche für Python
 Summary(fr):	Interface graphique pour python.
-Summary(pl):	modu³y niskiego poziomu dla pakietu Python-tkinter
+Summary(pl):	Modu³y niskiego poziomu dla pakietu Python-tkinter
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 Requires:	tcl >= 8.0.3 
 Requires:	tk  >= 8.0.3
-#Requires:	blt >= 2.4c
 Requires:	tix >= 4.1.0.6
 
 %description -n tkinter
@@ -175,7 +180,6 @@ des outils de configuration.
 %description -l pl -n tkinter 
 Ten pakiet zawiera modu³y w C, które po¶rednicz± w wywo³aniach pomiêdzy
 samym Tk a modu³em Tkinter bêd±cym g³ownym interfejsem Tk dla Pythona.
-Tkinter jets dostêpny w pakiecie python-tkinter.rpm
 
 Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na PIL
 (Python Imaging Library).
@@ -236,57 +240,13 @@ Zawatre w pakiecie narzêdzia to:
 								a web tree.
 	world -- Print mappings between country names and DNS country codes
 
-%package gdbm
-Summary:	Python interface to the GDBM library
-Summary(pl):	Interfejs do biblioteki GDBM dla Pythona
-Group:		Development/Languages/Python
-Group(pl):	Programowanie/Jêzyki/Python
-#Icon:		linux-python-db-icon.gif
-Requires:	%{name} = %{version}
-
-%description gdbm
-An easy to use interface to GDBM databases. GDBM is the GNU implementation
-of the standard unix dbm databases.
-
-%description -l pl gdbm
-Interfejs do baz danych GDBM dla Pythona. GDBM to implementacja
-standarwowych unixowych baz danych DBM zrealizowana przez GNU.
-
-%package curses
-Summary:	Python interface to the (n)curses library
-Summary(pl):	Interfejs do biblioteki (n)curses dla Pythona
-Group:		Development/Languages/Python
-#Icon:		linux-python-curses-icon.gif
-Requires:	%{name} = %{version}
-
-%description curses
-An easy to use interface to (n)curses CUI library. CUI stands for console
-user interface.
-
-%description curses
-Interfejs do biblioteki (n)curses. curses to biblioteka umo¿liwiaj±ca tworzenie
-okienkowego interfejsu u¿ytkownika na terminalu tekstowym.
-
-%package zlib
-Summary:	Python interface to the zlib library
-Summary(pl):	Interfejs do biblioteki zlib  dla Pythona
-Group:		Development/Languages/Python
-Group(pl):	Programowanie/Jêzyki/Python
-#Icon:		linux-python-zlib-icon.gif
-Requires:	%{name} = %{version}
-
-%description zlib
-An interface to the zlib library. zlib offers the gzip algorithms for
-applications programmers.
-
-%description -l pl zlib
-Interfejs do biblioteki zlib dla Pythona. Zlib udostêpnia algorytmy
-kompresji u¿ywane przez gzip'a.
-
 %prep
 %setup -q -n Python-%{version} -a1
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 export POSIXLY_CORRECT=TRUE
@@ -296,7 +256,6 @@ echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
 
-#make install prefix=$RPM_BUILD_ROOT%{_prefix}
 cp Lib/lib-old/rand.py Lib
 
 LDFLAGS="-s"; export LDFLAGS
@@ -318,7 +277,6 @@ make install \
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
 
-
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/*.so \
 	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk*
 
@@ -326,15 +284,15 @@ strip $RPM_BUILD_ROOT%{_bindir}/python1.5
 rm -f $RPM_BUILD_ROOT%{_bindir}/python
 ln -s python1.5 $RPM_BUILD_ROOT%{_bindir}/python
 
-gzip -9fn README $RPM_BUILD_ROOT%{_mandir}/man1/* \
-	Misc/{NEWS,HYPE,README,HISTORY}
+gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man1/* \
+	Misc/{ACKS,BLURB.LUTZ,COPYRIGHT,NEWS,HYPE,README,HISTORY}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%doc README.gz
+%doc README.gz Misc/{ACKS,COPYRIGHT,NEWS,HISTORY}.gz
 
 %attr(755,root,root) %{_bindir}/*
 
@@ -366,13 +324,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(-,root,root) %{_libdir}/python1.5/test/*
 
 %files docs
-%defattr(645,root,root,755)
-%doc Misc/NEWS.gz Misc/HYPE.gz Misc/README.gz Misc/cheatsheet 
-%doc Misc/HISTORY.gz Doc Misc/BLURB* 
+%defattr(644,root,root,755)
+%doc Misc/HYPE.gz Misc/README.gz Misc/cheatsheet Misc/BLURB* Doc
 
 %files -n tkinter
 %defattr(644,root,root,755)
 
 %{_libdir}/python1.5/lib-tk
-
-#%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
