@@ -39,7 +39,7 @@ BuildRequires:	gdbm-devel >= 1.0.8-7
 BuildRequires:	expat-devel
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
-BuildRequires:	openssl-devel >= 0.9.6b
+BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tix-devel
