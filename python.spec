@@ -51,6 +51,7 @@ Patch6:		%{name}-lib64.patch
 Patch7:		%{name}-doc_path.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
+BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	expat-devel >= 1:1.95.7
