@@ -18,15 +18,15 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}b2
+Version:	%{py_ver}c1
 Release:	0.1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
 Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tgz
-# Source0-md5:	da16309c14caf585353686d5462fe9d7
+# Source0-md5:	167327b762b305d72b1cce3a5d78ccdf
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	e47bc4f6030ba50aadeec01629aec95f
+# Source1-md5:	e52227f258c2d7405f9ecf33175f8987
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
