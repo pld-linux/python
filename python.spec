@@ -33,7 +33,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	4
+Release:	5
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -59,7 +59,6 @@ BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 4.2
-BuildRequires:	bzip2-devel
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
@@ -520,10 +519,10 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py
-for script in timeit.py profile.py pdb.py pstats.py; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/$script
+for script in timeit profile pdb pstats; do
+    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}_py
 #!/bin/sh
-exec python %{py_scriptdir}/${script}c "\$@"
+exec python %{py_scriptdir}/${script}.pyc "\$@"
 END
 done
 
@@ -746,10 +745,10 @@ rm -rf $RPM_BUILD_ROOT
 %files devel-tools
 %defattr(644,root,root,755)
 %doc Lib/profile.doc Lib/pdb.doc
-%attr(755,root,root) %{_bindir}/timeit.py
-%attr(755,root,root) %{_bindir}/profile.py
-%attr(755,root,root) %{_bindir}/pdb.py
-%attr(755,root,root) %{_bindir}/pstats.py
+%attr(755,root,root) %{_bindir}/timeit_py
+%attr(755,root,root) %{_bindir}/profile_py
+%attr(755,root,root) %{_bindir}/pdb_py
+%attr(755,root,root) %{_bindir}/pstats_py
 %attr(755,root,root) %{_bindir}/pygettext.py
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
