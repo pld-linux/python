@@ -146,6 +146,7 @@ dosyalarýný ve kitaplýklarý içerir.
 
 %package static
 Summary:	Static python library
+Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
@@ -153,6 +154,9 @@ Requires:	%{name}-devel = %{version}
 
 %description static
 Static python library.
+
+%description static -l pl
+Statyczna biblioteka Pythona.
 
 %package doc
 Summary:	Documentation on Python
@@ -372,7 +376,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc *.gz Misc/*.gz
+%doc Misc/*.gz
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{_includedir}/python%{pver}
 %{_includedir}/python%{pver}/*.h
