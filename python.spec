@@ -1,8 +1,9 @@
 #
 # Conditional build:
-%bcond_without tkinter		# disables tkinter module building
-%bcond_without tests		# disables Python testing
-%bcond_with verbose_tests	# runs tests in verbose mode
+%bcond_without	tkinter			# disables tkinter module building
+%bcond_without	tests			# disables Python testing
+%bcond_with		verbose_tests	# runs tests in verbose mode
+%bcond_with		noautosys		# do not put sys.argv[0] directory in sys.path
 #
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
@@ -33,7 +34,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	5
+Release:	5.1
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -49,6 +50,7 @@ Patch4:		%{name}-ac_fixes.patch
 Patch5:		%{name}-noarch_to_datadir.patch
 Patch6:		%{name}-lib64.patch
 Patch7:		%{name}-doc_path.patch
+Patch8:		%{name}-noautosys.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -476,6 +478,7 @@ Przyk³adowe programy w Pythonie.
 %patch6 -p1
 %endif
 %patch7 -p1
+%{?with_noautosys:%patch8 -p1}
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -518,16 +521,22 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
+SCRIPT_EXT="_py"
+%if %{with noautosys}
+    SCRIPT_EXT=".py"
+%endif
+export SCRIPT_EXT
+
 # create several useful scripts, such as timeit.py, profile.py, pdb.py
 for script in timeit profile pdb pstats; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}_py
+    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
 exec python %{py_scriptdir}/${script}.pyc "\$@"
 END
 done
 
 # xgettext specific for Python code
-install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}
+install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -745,11 +754,11 @@ rm -rf $RPM_BUILD_ROOT
 %files devel-tools
 %defattr(644,root,root,755)
 %doc Lib/profile.doc Lib/pdb.doc
-%attr(755,root,root) %{_bindir}/timeit_py
-%attr(755,root,root) %{_bindir}/profile_py
-%attr(755,root,root) %{_bindir}/pdb_py
-%attr(755,root,root) %{_bindir}/pstats_py
-%attr(755,root,root) %{_bindir}/pygettext.py
+%attr(755,root,root) %{_bindir}/timeit*
+%attr(755,root,root) %{_bindir}/profile*
+%attr(755,root,root) %{_bindir}/pdb*
+%attr(755,root,root) %{_bindir}/pstats*
+%attr(755,root,root) %{_bindir}/pygettext*
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
