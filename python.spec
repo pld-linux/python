@@ -346,12 +346,6 @@ of use are unknown.
 Pyton bez w╠tkСw jest wЁa╤ciwie potrzebny tylko moduЁowi
 apache-mod_python, bo apache nie ich na razie nie wspiera.
 
-%description -n tkinter -l ru
-Графический интерфейс (GUI) для Python, построенный на Tcl/Tk.
-
-%description -n tkinter -l uk
-Граф╕чний ╕нтерфейс (GUI) для Python, побудований на Tcl/Tk.
-
 %package -n tkinter
 Summary:	Lowlevel Python -> Tk Interface
 Summary(de):	Grafischer OberflДche fЭr Python
@@ -399,9 +393,15 @@ PIL (Python Imaging Library).
 Uma interface grАfica para Python, baseada em Tcl/Tk, e usada por
 muitas ferramentas de configuraГЦo.
 
+%description -n tkinter -l ru
+Графический интерфейс (GUI) для Python, построенный на Tcl/Tk.
+
 %description -n tkinter -l tr
 Python iГin Tcl/Tk'ye dayalЩ ve pek Гok ayarlama aracЩ tarafЩndan
 kullanЩlan grafik bir arayЭzdЭr.
+
+%description -n tkinter -l uk
+Граф╕чний ╕нтерфейс (GUI) для Python, побудований на Tcl/Tk.
 
 %package old
 Summary:	Depreciated Python modules
