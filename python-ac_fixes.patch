@@ -6,12 +6,12 @@ diff -Nur Python-2.3a2.orig/configure.in Python-2.3a2/configure.in
  		OPT="-g -Wall -Wstrict-prototypes"
  	    else
 -		OPT="-g -O3 -Wall -Wstrict-prototypes"
-+		OPT="-g $CFLAGS -Wstrict-prototypes"
++		OPT="-g $CPPFLAGS $CFLAGS -Wstrict-prototypes"
  	    fi
  	    ;;
  	*)
 -	    OPT="-O3 -Wall -Wstrict-prototypes"
-+	    OPT="$CFLAGS -Wstrict-prototypes"
++	    OPT="$CPPFLAGS $CFLAGS -Wstrict-prototypes"
  	    ;;
  	esac
  	case $ac_sys_system in
