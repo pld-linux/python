@@ -1,4 +1,12 @@
-%define py_ver         2.2
+
+#
+# todo:
+# - curses module does not build
+# - update and review patches
+# - idle subpackage
+#
+
+%define py_ver         2.3
 %define py_prefix      %{_prefix}
 %define py_libdir      %{py_prefix}/lib/python%{py_ver}
 %define py_incdir      %{_includedir}/python%{py_ver}
@@ -17,15 +25,14 @@ Summary(ru):	ñÚÙË ÐÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏÞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
-Version:	%{py_ver}.2
-Release:	3
+Version:	%{py_ver}a2
+Release:	0.1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tgz
+Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-Source2:	%{name}-setup.dist
-Patch0:		%{name}-shared-lib.patch
+Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-readline.patch
 Patch2:		%{name}-%{name}path.patch
 Patch3:		%{name}-ac25x.patch
@@ -166,6 +173,7 @@ Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Provides:	%{name}-modules = %{py_ver}
 Requires:	%{name} = %{version}
+Obsoletes:	python-logging
 
 %description modules
 Python modules.
@@ -427,59 +435,42 @@ Przyk³adowe programy w Pythonie.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+#%patch3 -p1 - remove?
 %patch4 -p1
-%patch5 -p1
+#%patch5 -p1 - review
 %patch6 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
 
-install %{SOURCE2} Modules/Setup
-
 %build
-echo ': ${LDSHARED='gcc -shared'}' > config.cache
-echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
-echo ': ${CCSHARED='-fPIC'}' >> config.cache
-
 %{__autoconf}
 
 POSIXLY_CORRECT=TRUE; export POSIXLY_CORRECT
 
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
-	--with-threads
+	--with-threads \
+	--enable-shared
 
-%{__make} OPT="%{rpmcflags} -D_REENTRANT"
+%{__make} OPT="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} $RPM_BUILD_ROOT%{_mandir}/man1
 
-LD_LIBRARY_PATH=$(pwd)
-export LD_LIBRARY_PATH
-%{__make} install \
-	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
-	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
-	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
-	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
-	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
 install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
-
-%py_comp $RPM_BUILD_ROOT%{py_libdir}
-%py_ocomp $RPM_BUILD_ROOT%{py_libdir}
+ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython.so
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
-
-install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
 
 echo "%defattr(644,root,root,755)" > modules.filelist
 
@@ -505,7 +496,7 @@ find $RPM_BUILD_ROOT%{py_dyndir} \
 	| grep '\.so$' \
 	| grep -v -e 'codecsmodule\.so$' \
 	| grep -v -e 'readline\.so$' \
-	| grep -v -e 'structmodule\.so$' \
+	| grep -v -e 'struct\.so$' \
 	| grep -v -e '_tkinter\.so$' >> modules.filelist
 
 %clean
@@ -529,6 +520,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_libdir}/plat-*/regen
 %{py_libdir}/plat-*/*.py?
 
+%dir %{py_libdir}/bsddb
+%{py_libdir}/bsddb/*.py?
+
 %dir %{py_libdir}/compiler
 %{py_libdir}/compiler/*.py?
 
@@ -546,6 +540,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/hotshot
 %{py_libdir}/hotshot/*.py?
+
+%dir %{py_libdir}/logging
+%{py_libdir}/logging/*.py?
 
 %dir %{py_libdir}/xml
 %{py_libdir}/xml/*.py?
@@ -568,8 +565,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}
 
 # required shared modules by python library
-%attr(755,root,root) %{py_dyndir}/_codecsmodule.so
-%attr(755,root,root) %{py_dyndir}/structmodule.so
+%attr(755,root,root) %{py_dyndir}/_iconv_codec.so
+%attr(755,root,root) %{py_dyndir}/struct.so
 
 # required modules by python library
 %{py_libdir}/UserDict.py?
