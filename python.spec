@@ -314,7 +314,7 @@ O pacote python-doc contИm documentaГЦo para a linguagem de
 programaГЦo e para o interpretador Python. Fornecida em arquivos texto
 e Postcript.
 
-%description docs -l ru
+%description doc -l ru
 Этот пакет содержит документацию по собственно языку Python и по
 исполняющему его интерпретатору в виде набора текстовых файлов и
 исходных текстов в формате LaTeX.
@@ -323,7 +323,7 @@ e Postcript.
 Bu paket, Python dili ile ilgili belgeleri ve dЭz ASCII dosyalarЩ ve
 LaTeX kaynaklarЩnЩn bir karЩЧЩmЩ olan yorumlayЩcЩyЩ iГerir.
 
-%description docs -l uk
+%description doc -l uk
 Цей пакет м╕стить документац╕ю по власне мов╕ Python та по виконуючому
 ╖╖ ╕нтерпретатору у вигляд╕ набора текстових файл╕в та вих╕дних
 текст╕в у формат╕ LaTeX.
