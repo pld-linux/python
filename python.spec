@@ -26,6 +26,7 @@ Patch2:		%{name}-setup-install.patch
 Patch3:		%{name}-readline.patch
 Patch4:		%{name}-pythonpath.patch
 Patch5:		%{name}-notermcap.patch
+Patch6:		%{name}-ac25x.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
@@ -276,6 +277,7 @@ uruchomiæ.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
