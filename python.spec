@@ -217,13 +217,13 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads 
 
-make OPT="$RPM_OPT_FLAGS -D_REENTRANT"
+%{__make} OPT="$RPM_OPT_FLAGS -D_REENTRANT"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 
-make install \
+%{__make} install \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
 	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
