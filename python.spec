@@ -33,7 +33,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.3
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -525,6 +525,9 @@ exec python %{py_scriptdir}/${script}c "\$@"
 END
 done
 
+# xgettext specific for Python code
+install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -745,6 +748,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/profile.py
 %attr(755,root,root) %{_bindir}/pdb.py
 %attr(755,root,root) %{_bindir}/pstats.py
+%attr(755,root,root) %{_bindir}/pygettext.py
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
