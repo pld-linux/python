@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}.1
-Release:	1
+Release:	2
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -44,6 +44,7 @@ BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
 Obsoletes:	python-intl
 Obsoletes:	python-curses
@@ -136,6 +137,7 @@ arayüz birimlerini de içerir.
 Summary:	Python library
 Summary(pl):	Biblioteka jêzyka Python
 Group:		Libraries/Python
+Provides:	%{name}-libs = %{py_ver}
 
 %description libs
 Python library.
@@ -147,6 +149,7 @@ Biblioteka jêzyka Python.
 Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
+Provides:	%{name}-modules = %{py_ver}
 Requires:	%{name} = %{version}
 
 %description modules
@@ -233,6 +236,7 @@ Pliki ¼ród³owe modu³ów Pythona.
 Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
+Provides:	%{name}-static = %{py_ver}
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -288,6 +292,7 @@ LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 Summary:	Python without threads
 Summary(pl):	Pyton bez w±tków
 Group:		Libraries/Python
+Provides:	%{name}-without-thread = %{py_ver}
 Requires:	%{name} = %{version}
 Obsoletes:	python-without-thread
 
