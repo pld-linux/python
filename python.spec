@@ -308,6 +308,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/config/Makefile
 %{_libdir}/python%{pver}/config/Makefile.pre.in
 %{_libdir}/python%{pver}/config/Setup
+%{_libdir}/python%{pver}/config/Setup.config
 %{_libdir}/python%{pver}/config/Setup.local
 %{_libdir}/python%{pver}/config/config.c
 %{_libdir}/python%{pver}/config/config.c.in
