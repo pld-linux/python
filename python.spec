@@ -8,8 +8,8 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	2
-Copyright:	BeOpen Python License
+Release:	3
+License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
@@ -127,6 +127,16 @@ mo¿liwo¶ci Pythona.
 %description -l tr devel
 Bu paket, Python ile geliþtirme yapýlabilmesi için gerekli baþlýk
 dosyalarýný ve kitaplýklarý içerir.
+
+%package static
+Summary:	Static python library
+Group:		Development/Languages/Python
+Group(de):	Entwicklung/Sprachen/Python
+Group(pl):	Programowanie/Jêzyki/Python
+Requires:	%{name}-devel = %{version}
+
+%description static
+Static python library.
 
 %package doc
 Summary:	Documentation on Python
@@ -256,10 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%doc README.gz Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,README,unicode.txt}.gz
-
 %attr(755,root,root) %{_bindir}/*
-
 %attr(755,root,root) %{_libdir}/libpython*so.*
 
 %dir %{_libdir}/python%{pver}
@@ -269,7 +276,6 @@ rm -rf $RPM_BUILD_ROOT
  
 %dir %{_libdir}/python%{pver}/lib-dynload
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/*.so
-
 
 %dir %{_libdir}/python%{pver}/plat-*
 %attr(755,root,root) %{_libdir}/python%{pver}/plat-*/regen
@@ -315,10 +321,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-
+%doc README.gz Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,README,unicode.txt}.gz
+%attr(755,root,root) %{_libdir}/lib*.so
 %dir %{_includedir}/python%{pver}
 %{_includedir}/python%{pver}/*.h
-%{_libdir}/lib*.a
 
 %dir %{_libdir}/python%{pver}/config
 %attr(755,root,root) %{_libdir}/python%{pver}/config/makesetup
@@ -332,12 +338,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python%{pver}/config/config.c.in
 %{_libdir}/python%{pver}/config/python.o
 
-%dir %{_libdir}/python%{pver}/test
-%attr(-,root,root) %{_libdir}/python%{pver}/test/*
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
 
 %files doc
 %defattr(644,root,root,755)
 %doc html-doc/*
+%dir %{_libdir}/python%{pver}/test
+%attr(-,root,root) %{_libdir}/python%{pver}/test/*
 
 %files -n tkinter
 %defattr(644,root,root,755)
