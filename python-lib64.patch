@@ -30,9 +30,6 @@ diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutil
          else:
              libpython = os.path.join(prefix,
                                   "share", "python" + get_python_version())
-Only in Python-2.3.4/Lib/distutils: sysconfig.py.orig
-Only in Python-2.3.4/Lib/distutils: sysconfig.py.rej
-Only in Python-2.3.4/Lib/distutils: sysconfig.py~
 diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
 --- Python-2.3.4.orig/Lib/site.py	2004-09-10 11:20:47.576586553 +0200
 +++ Python-2.3.4/Lib/site.py	2004-09-10 11:24:51.995535725 +0200
@@ -91,7 +88,6 @@ diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
      bufsz = strlen(zip_path);	/* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
-Only in Python-2.3.4.orig: Python-Docs-2.3.4
 diff -dur Python-2.3.4.orig/setup.py Python-2.3.4/setup.py
 --- Python-2.3.4.orig/setup.py	2004-09-10 11:20:47.560590418 +0200
 +++ Python-2.3.4/setup.py	2004-09-10 11:24:51.997535242 +0200
