@@ -1,6 +1,6 @@
 diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
 --- Python-2.3.3.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
-+++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-15 15:25:43.968022601 +0100
++++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-15 19:07:38.331674199 +0100
 @@ -38,14 +38,14 @@
  
  INSTALL_SCHEMES = {
@@ -18,10 +18,9 @@ diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/di
          'platlib': '$base/lib/python',
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
-Only in Python-2.3.3/Lib/distutils/command: install.py~
 diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
---- Python-2.3.3.orig/Lib/site.py	2004-01-15 15:20:36.000000000 +0100
-+++ Python-2.3.3/Lib/site.py	2004-01-15 15:25:22.596052633 +0100
+--- Python-2.3.3.orig/Lib/site.py	2004-01-15 19:07:18.183541553 +0100
++++ Python-2.3.3/Lib/site.py	2004-01-15 19:07:38.331674199 +0100
 @@ -170,7 +170,12 @@
                                       "lib",
                                       "python" + sys.version[:3],
@@ -36,3 +35,28 @@ diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
          else:
              sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
          if sys.platform == 'darwin':
+diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
+--- Python-2.3.3.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
++++ Python-2.3.3/Makefile.pre.in	2004-01-15 19:07:38.332673958 +0100
+@@ -83,7 +83,7 @@
+ MANDIR=		@mandir@
+ INCLUDEDIR=	@includedir@
+ CONFINCLUDEDIR=	$(exec_prefix)/include
+-SCRIPTDIR=	$(prefix)/lib
++SCRIPTDIR=	$(prefix)/share
+ 
+ # Detailed destination directories
+ BINLIBDEST=	$(LIBDIR)/python$(VERSION)
+diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
+--- Python-2.3.3.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
++++ Python-2.3.3/Modules/getpath.c	2004-01-15 19:11:49.718931673 +0100
+@@ -112,7 +112,7 @@
+ #endif
+ 
+ #ifndef PYTHONPATH
+-#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
++#define PYTHONPATH PREFIX "/share/python" VERSION ":" \
+               EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
+ #endif
+ 
+Only in Python-2.3.3/Modules: getpath.c~

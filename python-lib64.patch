@@ -1,6 +1,6 @@
 diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
---- Python-2.3.3.orig/Lib/distutils/command/install.py	2004-01-15 15:26:16.000000000 +0100
-+++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-15 15:26:32.955489242 +0100
+--- Python-2.3.3.orig/Lib/distutils/command/install.py	2004-01-15 18:20:10.091035345 +0100
++++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-15 18:20:27.037955276 +0100
 @@ -39,14 +39,14 @@
  INSTALL_SCHEMES = {
      'unix_prefix': {
@@ -20,7 +20,7 @@ diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/di
          'data'   : '$base',
 diff -dur Python-2.3.3.orig/Lib/distutils/sysconfig.py Python-2.3.3/Lib/distutils/sysconfig.py
 --- Python-2.3.3.orig/Lib/distutils/sysconfig.py	2003-02-10 15:02:33.000000000 +0100
-+++ Python-2.3.3/Lib/distutils/sysconfig.py	2004-01-15 15:26:32.955489242 +0100
++++ Python-2.3.3/Lib/distutils/sysconfig.py	2004-01-15 18:20:27.038955035 +0100
 @@ -100,7 +100,7 @@
  
      if os.name == "posix":
@@ -31,8 +31,8 @@ diff -dur Python-2.3.3.orig/Lib/distutils/sysconfig.py Python-2.3.3/Lib/distutil
              return libpython
          else:
 diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
---- Python-2.3.3.orig/Lib/site.py	2004-01-15 15:26:16.000000000 +0100
-+++ Python-2.3.3/Lib/site.py	2004-01-15 15:27:46.269218759 +0100
+--- Python-2.3.3.orig/Lib/site.py	2004-01-15 18:20:10.091035345 +0100
++++ Python-2.3.3/Lib/site.py	2004-01-15 18:20:27.038955035 +0100
 @@ -167,10 +167,10 @@
              sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
          elif os.sep == '/':
@@ -46,11 +46,10 @@ diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
  	    		os.path.join(prefix,
                                       "share",
                                       "python" + sys.version[:3],
-Only in Python-2.3.3/Lib: site.py~
 diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
---- Python-2.3.3.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
-+++ Python-2.3.3/Makefile.pre.in	2004-01-15 15:26:32.956489007 +0100
-@@ -79,11 +79,11 @@
+--- Python-2.3.3.orig/Makefile.pre.in	2004-01-15 18:20:10.092035105 +0100
++++ Python-2.3.3/Makefile.pre.in	2004-01-15 18:20:54.525341800 +0100
+@@ -79,7 +79,7 @@
  
  # Expanded directories
  BINDIR=		$(exec_prefix)/bin
@@ -59,21 +58,19 @@ diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
--SCRIPTDIR=	$(prefix)/lib
-+SCRIPTDIR=	$(prefix)/lib64
- 
- # Detailed destination directories
- BINLIBDEST=	$(LIBDIR)/python$(VERSION)
+Only in Python-2.3.3: Makefile.pre.in.orig
+Only in Python-2.3.3: Makefile.pre.in.rej
+Only in Python-2.3.3: Makefile.pre.in~
 diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
 --- Python-2.3.3.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
-+++ Python-2.3.3/Modules/getpath.c	2004-01-15 15:26:32.956489007 +0100
++++ Python-2.3.3/Modules/getpath.c	2004-01-15 18:20:27.040954554 +0100
 @@ -112,8 +112,8 @@
  #endif
  
  #ifndef PYTHONPATH
--#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
+-#define PYTHONPATH PREFIX "/share/python" VERSION ":" \
 -              EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
-+#define PYTHONPATH PREFIX "/lib64/python" VERSION ":" \
++#define PYTHONPATH PREFIX "/share/python" VERSION ":" \
 +              EXEC_PREFIX "/lib64/python" VERSION "/lib-dynload"
  #endif
  
@@ -96,9 +93,10 @@ diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
      bufsz = strlen(zip_path);	/* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
+Only in Python-2.3.3.orig: Python-Docs-2.3.3
 diff -dur Python-2.3.3.orig/setup.py Python-2.3.3/setup.py
---- Python-2.3.3.orig/setup.py	2004-01-15 15:26:16.000000000 +0100
-+++ Python-2.3.3/setup.py	2004-01-15 15:26:32.957488771 +0100
+--- Python-2.3.3.orig/setup.py	2004-01-15 18:20:10.086036549 +0100
++++ Python-2.3.3/setup.py	2004-01-15 18:20:27.040954554 +0100
 @@ -264,7 +264,7 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
