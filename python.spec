@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}b2
-Release:	1
+Release:	2
 Copyright:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
