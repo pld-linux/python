@@ -6,7 +6,7 @@
 %define py_dyndir      %{py_libdir}/lib-dynload
 %define py_comp        ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
 %define py_ocomp       ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1], ddir=sys.argv[1][len('$RPM_BUILD_ROOT'):])"
- 
+
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
 Summary(es):	Lenguaje script de alto nivel con interface X
@@ -243,10 +243,10 @@ Statyczna biblioteka Pythona.
 
 %package doc
 Summary:	Documentation on Python
-Summary(de):	Dokumentation zu Python 
+Summary(de):	Dokumentation zu Python
 Summary(es):	Documentación para Python
 Summary(fr):	Documentation sur Python
-Summary(pl):	Dokumentacja do Pythona 
+Summary(pl):	Dokumentacja do Pythona
 Summary(pt_BR):	Documentação para a linguagem de programação Python.
 Summary(tr):	Python belgeleri
 Group:		Development/Languages
@@ -309,7 +309,7 @@ Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Development/Languages/Python
 Requires:	%{name}-modules = %{version}
-Requires:	tcl >= 8.0.3 
+Requires:	tcl >= 8.0.3
 Requires:	tk  >= 8.0.3
 Requires:	tix >= 4.1.0.6
 
@@ -406,7 +406,7 @@ autoconf
 
 CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 %configure \
-	--with-threads 
+	--with-threads
 
 %{__make} OPT="%{rpmcflags} -D_REENTRANT"
 
@@ -457,7 +457,7 @@ find $RPM_BUILD_ROOT%{py_libdir} \
 	| grep -v -e 'stat\.py[oc]$' \
 	| grep -v -e 'os\.py[oc]$' \
 	| grep -v -e 'encodings\/.*\.py[oc]$' >> modules.filelist
- 
+
 find $RPM_BUILD_ROOT%{py_dyndir} \
 	-type f \
 	-maxdepth 1 \
@@ -474,7 +474,7 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%files 
+%files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/python
 %{_mandir}/man1/*
