@@ -23,7 +23,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -280,6 +280,19 @@ Python module sources.
 %description devel-src -l pl
 Pliki ¼ród³owe modu³ów Pythona.
 
+%package devel-tools
+Summary:	Python development tools
+Summary(pl):	Narzêdzia programistyczne jêzyka Python
+Group:		Development/Languages/Python
+Requires:	%{name}-modules = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}
+
+%description devel-tools
+Python development tools such as profilers and debugger.
+
+%description devel-tools -l pl
+Narzêdzia programistyczne jêzyka Python takie jak profiler oraz debugger.
+
 %package static
 Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
@@ -469,6 +482,14 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
+# create several useful scripts, such as timeit.py, profile.py, pdb.py
+for script in timeit.py profile.py pdb.py; do
+    cat <<END > $RPM_BUILD_ROOT%{_bindir}/$script
+#!/bin/sh
+exec python %{py_libdir}/${script}c \$@
+END
+done
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -488,11 +509,16 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_libdir}/UserDict.py[co]
 %exclude %{py_libdir}/codecs.py[co]
 %exclude %{py_libdir}/copy_reg.py[co]
+%exclude %{py_libdir}/hotshot
 %exclude %{py_libdir}/locale.py[co]
 %exclude %{py_libdir}/posixpath.py[co]
+%exclude %{py_libdir}/pdb.py[co]
+%exclude %{py_libdir}/profile.py[co]
+%exclude %{py_libdir}/pstats.py[co]
 %exclude %{py_libdir}/pydoc.py[co]
 %exclude %{py_libdir}/site.py[co]
 %exclude %{py_libdir}/stat.py[co]
+%exclude %{py_libdir}/timeit.py[co]
 %exclude %{py_libdir}/os.py[co]
 %exclude %{py_libdir}/encodings/*.py[co]
 
@@ -517,7 +543,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_csv.so
 %attr(755,root,root) %{py_dyndir}/_curses.so
 %attr(755,root,root) %{py_dyndir}/_curses_panel.so
-%attr(755,root,root) %{py_dyndir}/_hotshot.so
 %attr(755,root,root) %{py_dyndir}/_locale.so
 %attr(755,root,root) %{py_dyndir}/_random.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
@@ -584,9 +609,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/email
 %{py_libdir}/email/*.py[co]
-
-%dir %{py_libdir}/hotshot
-%{py_libdir}/hotshot/*.py[co]
 
 %dir %{py_libdir}/logging
 %{py_libdir}/logging/*.py[co]
@@ -679,6 +701,21 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/xml/dom/*.py
 %{py_libdir}/encodings/*.py
 %{py_libdir}/idlelib/*.py
+
+%files devel-tools
+%doc Lib/profile.doc Lib/pdb.doc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/timeit.py
+%attr(755,root,root) %{_bindir}/profile.py
+%attr(755,root,root) %{_bindir}/pdb.py
+
+%attr(755,root,root) %{py_dyndir}/_hotshot.so
+%dir %{py_libdir}/hotshot
+%{py_libdir}/hotshot/*.py[co]
+%{py_libdir}/pdb.py[co]
+%{py_libdir}/profile.py[co]
+%{py_libdir}/pstats.py[co]
+%{py_libdir}/timeit.py[co]
 
 %files static
 %defattr(644,root,root,755)
