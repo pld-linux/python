@@ -5,7 +5,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	15
+Release:	16
 Copyright:	distributable
 Group:		Development/Languages
 Group(pl):      Programowanie/Jêzyki/Python
@@ -350,7 +350,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/python1.5
 %{_includedir}/python1.5/*.h
 
-%{_libdir}/python1.5/config
+%dir %{_libdir}/python1.5/config
 %attr(755,root,root) %{_libdir}/python1.5/config/makesetup
 %attr(755,root,root) %{_libdir}/python1.5/config/install-sh
 
