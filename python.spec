@@ -664,7 +664,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpython*so.*
+%attr(755,root,root) %{_libdir}/libpython*.so.*
 
 %dir %{py_dyndir}
 %dir %{py_scriptdir}
@@ -672,10 +672,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitescriptdir}
 %dir %{py_sitedir}
 
-# required shared modules by python library
+# shared modules required by python library
 %attr(755,root,root) %{py_dyndir}/struct.so
 
-# required modules by python library
+# modules required by python library
 %{py_scriptdir}/UserDict.py[co]
 %{py_scriptdir}/codecs.py[co]
 %{py_scriptdir}/copy_reg.py[co]
@@ -685,7 +685,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/stat.py[co]
 %{py_scriptdir}/os.py[co]
 
-# required encodings by python library
+# encodings required by python library
 %dir %{py_scriptdir}/encodings
 %{py_scriptdir}/encodings/*.py[co]
 
