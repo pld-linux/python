@@ -5,7 +5,7 @@ Summary(pl):	Python - obiektowy jezyk do tworzenia skryptów (g³ówny pakiet)
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	6
+Release:	7
 Copyright:	distributable
 Group:		Development/Languages
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
@@ -33,17 +33,21 @@ an extension language for applications that need a programmable interface.
 Finally, Python is portable: it runs on many brands of UNIX, on the Mac, and
 on PCs under MS-DOS, Windows, Windows NT, and OS/2.
 
-To find out more, the best thing to do is to start reading the tutorial from
-the documentation set at <http://www.python.org/doc/>."
-
 %description -l de
-Python ist eine interpretierte, objektorientierte Scriptsprache. Sie unterstützt
-dynamisches Laden von Objekten, Klassen, Modulen und Ausnahmen.
-Das Hinzufügen von Schnittstellen zu neuen System-Libraries in C-Code ist,
-einfach, wodurch sich Python mühelos in benutzerdefinierten Umgebungen
-einsetzen läßt.
-Dieses Python-Paket enthält die meisten standardmäßigen Python-Module
-sowie Module für Schnittstellen zum Tix widget set für Tk und RPM.
+Python ist eine interpretierte, interaktive, objektorientierte
+Programmiersprache, vergleichbar zu Tcl, Perl, Scheme oder Java. Python
+enthält Module, Klassen, Exceptions, High-Level dynamische Datentypen und
+dynamisches Typisieren. Python unterstützt Interfaces zu vielen
+Systemaufrufen und Libraries, sowie verschiedene Fenstersysteme (X11, Motif,
+Tk, Mac und MFC)
+
+Programmierer können neue built-in-Module für Python in C oder C++
+schreiben. Python kann auch als Erweiterungssprache für Applikationen
+benutzt werden, die ein programmierbares Interface brauchen. Dieses Paket
+enthält die meisten Standard-Python-Module, und Module zum Ansprechen von
+Tix (Tk-widget set) und RPM.
+
+Dokumentationen zu Python sind in python-docs enthalten.
 
 %description -l fr
 Python est un langage de script interprété et orienté objet. Il gère le
@@ -65,10 +69,6 @@ C lub C++. Python mo¿e byæ równie¿ u¿yty jako element aplikacji, którym
 potrzebny jest interpreter do skryptów. I wreszcie, Python jest
 wieloplatformowy, dzia³a na wielu odmianach UNIX'a, Mac'u oraz PC pod
 DOS'em, Windows, WindowsNT oraz OS/2.
-
-Aby lepiej poznaæ Pythona, najlepsz± rzecz± jest zapoznanie siê z
-wprowadzeniem (tutorial) wchodz±cym w sk³ad dokumentacji Pythona znajduj±cej
-siê na <http://www.python.org/doc/>.
 
 %description -l tr
 Python, nesneye yönelik bir kabuk yorumlayýcýdýr. Nesnelerin, sýnýflarýn,
@@ -288,12 +288,11 @@ kompresji u¿ywane przez gzip'a.
 %patch1 -p0
 
 %build
-find . -name "*.nosed" -exec rm -f {} \;
+export POSIXLY_CORRECT=TRUE
 
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
-
 
 #make install prefix=$RPM_BUILD_ROOT%{_prefix}
 cp Lib/lib-old/rand.py Lib
@@ -309,14 +308,14 @@ make OPT="$RPM_OPT_FLAGS -D_REENTRANT"
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 
-make \
-    BINDIR=$RPM_BUILD_ROOT%{_bindir} \
-    SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
-    LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-    MANDIR=$RPM_BUILD_ROOT%{_mandir} \
-    INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
-    CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
-    install
+make install \
+	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
+	SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
+	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
+	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
+
 
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/*.so \
 	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk*
