@@ -607,7 +607,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/crypt.so
 %attr(755,root,root) %{py_dyndir}/datetime.so
+%ifnarch sparc64
 %attr(755,root,root) %{py_dyndir}/dbm.so
+%attr(755,root,root) %{py_dyndir}/mpz.so
+%endif
 %attr(755,root,root) %{py_dyndir}/fcntl.so
 %attr(755,root,root) %{py_dyndir}/gdbm.so
 %attr(755,root,root) %{py_dyndir}/grp.so
@@ -616,7 +619,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/math.so
 %attr(755,root,root) %{py_dyndir}/md5.so
 %attr(755,root,root) %{py_dyndir}/mmap.so
-%attr(755,root,root) %{py_dyndir}/mpz.so
 %attr(755,root,root) %{py_dyndir}/nis.so
 %attr(755,root,root) %{py_dyndir}/operator.so
 %attr(755,root,root) %{py_dyndir}/ossaudiodev.so
