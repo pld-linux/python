@@ -489,6 +489,7 @@ tar -xf %{SOURCE1} --use=bzip2
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
+	--with-cxx=%{__cxx} \
 	--enable-unicode=ucs4 \
 	--enable-shared
 
@@ -735,7 +736,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/Setup.local
 %{py_libdir}/config/config.c
 %{py_libdir}/config/config.c.in
-%{py_libdir}/config/python.o
+%{py_libdir}/config/ccpython.o
 
 %files devel-src
 %defattr(644,root,root,755)
