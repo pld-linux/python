@@ -12,14 +12,14 @@ Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
 Patch:		Python-pld.patch
 URL:		http://www.python.org/
-BuildPrereq:	XFree86-devel
-BuildPrereq:	readline-devel
-BuildPrereq:	tix
-BuildPrereq:	tk-devel
-BuildPrereq:	tcl-devel
-BuildPrereq:	ncurses-devel
-BuildPrereq:	zlib-devel
-BuildPrereq:	gdbm-devel
+BuildRequires:	XFree86-devel
+BuildRequires:	readline-devel
+BuildRequires:	tix
+BuildRequires:	tk-devel
+BuildRequires:	tcl-devel
+BuildRequires:	ncurses-devel
+BuildRequires:	zlib-devel
+BuildRequires:	gdbm-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
