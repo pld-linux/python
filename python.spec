@@ -34,7 +34,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.4
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -498,8 +498,10 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
+binlibdir=`echo build/lib.*`
 %{__make} test \
-	TESTOPTS="%{test_flags} %{test_list}"
+	TESTOPTS="%{test_flags} %{test_list}" \
+	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:$binlibdir ./python -tt"
 %endif
 
 %install
