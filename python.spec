@@ -707,6 +707,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/timeit.py
 %attr(755,root,root) %{_bindir}/profile.py
 %attr(755,root,root) %{_bindir}/pdb.py
+%attr(755,root,root) %{_bindir}/pstats.py
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_libdir}/hotshot
