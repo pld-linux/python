@@ -5,7 +5,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	18
+Release:	19
 Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
@@ -230,15 +230,13 @@ make install \
 	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
-cp libpython1.5.a $RPM_BUILD_ROOT%{_libdir}
+
+install libpython1.5.a $RPM_BUILD_ROOT%{_libdir}
 
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/*.so \
-	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk* \
-	$RPM_BUILD_ROOT%{_libdir}/libpython1.5.a
+	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk*
 
-strip $RPM_BUILD_ROOT%{_bindir}/python1.5
-rm -f $RPM_BUILD_ROOT%{_bindir}/python
-ln -s python1.5 $RPM_BUILD_ROOT%{_bindir}/python
+rm -f $RPM_BUILD_ROOT%{_bindir}/python1.5
 ln -s libpython1.5.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man1/* \
@@ -306,8 +304,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_includedir}/python1.5
 %{_includedir}/python1.5/*.h
-%{_libdir}/libpython1.5.a
-%{_libdir}/libpython.a
+%{_libdir}/lib*.a
 
 %dir %{_libdir}/python1.5/config
 %attr(755,root,root) %{_libdir}/python1.5/config/makesetup
