@@ -1,12 +1,12 @@
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
-Summary(fr):	Langage de script de tés haut niveau avec interface X.
+Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	17
-Copyright:	Distributable
+Release:	18
+Copyright:	distributable
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.python.org/
@@ -18,6 +18,7 @@ Patch1:		python-sed.patch
 Patch2:		python-dl_global.patch
 Patch3:		python-wdb.patch
 Patch4:		python-wuftpd.patch
+Patch5:		python-_locale.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	readline-devel >= 4.1
 BuildRequires:	ncurses-devel >= 5.0
@@ -123,7 +124,7 @@ Summary(de):	Dokumentation zu Python
 Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Python'a 
 Summary(tr):	Python belgeleri
-Group:		Development/Languages/Python
+Group:		Development/Languages
 Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
@@ -197,6 +198,7 @@ kullanýlan grafik bir arayüzdür.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 rm -f Doc/{ref,}/.cvsignore
 
@@ -306,6 +308,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/python1.5/*.h
 %{_libdir}/libpython1.5.a
 %{_libdir}/libpython.a
+
+%dir %{_libdir}/python1.5/config
+%attr(755,root,root) %{_libdir}/python1.5/config/makesetup
+%attr(755,root,root) %{_libdir}/python1.5/config/install-sh
+%{_libdir}/python1.5/config/Makefile
+%{_libdir}/python1.5/config/Makefile.pre.in
+%{_libdir}/python1.5/config/Setup
+%{_libdir}/python1.5/config/Setup.local
+%{_libdir}/python1.5/config/Setup.thread
+%{_libdir}/python1.5/config/config.c
+%{_libdir}/python1.5/config/config.c.in
+%{_libdir}/python1.5/config/python.o
 
 %dir %{_libdir}/python1.5/test
 %attr(-,root,root) %{_libdir}/python1.5/test/*
