@@ -1,0 +1,315 @@
+--- python-1.999b1.orig/Makefile.in
++++ python-1.999b1/Makefile.in
+@@ -58,12 +58,14 @@
+ 
+ # Substitutions by configure
+ VERSION=	@VERSION@
++SOVERSION=	@SOVERSION@
+ srcdir=		@srcdir@
+ VPATH=		@srcdir@
+ CC=		@CC@
+ AR=		@AR@
+ RANLIB=		@RANLIB@
+ DEFS=		@DEFS@
++SOLIBS=		@LIBS@
+ 
+ # Machine-dependent subdirectories
+ MACHDEP=	@MACHDEP@
+@@ -179,6 +181,22 @@
+ 		for i in $(SUBDIRS); do \
+ 			(cd $$i; $(MAKE) VERSION="$(VERSION)" add2lib); done
+ 
++#
++# WARNING: The following is only tested for Debian GNU/Linux.
++# This rule is silly and needs to be cleaned up ASAP!
++#      Gregor Hoffleit <flight@debian.org>
++#
++# This rule is here for Linux shared libs
++# The PIC code will be built additionally to the static lib!
++libpython$(VERSION).so.$(SOVERSION):	$(SUBDIRS)
++		test -d shobjs || mkdir shobjs
++		rm -f shobjs/*
++		for i in $(SUBDIRS); do \
++			(cd $$i; rm -f add2shlib; \
++				$(MAKE) VERSION="$(VERSION)" add2shlib); done
++		$(CC) -shared -Wl,-soname,$(LDLIBRARY) \
++			$(SOLIBS) shobjs/* -o $(LDLIBRARY)
++
+ # This rule is only here for DG/UX!!!
+ libpython$(VERSION).so:	$(LIBRARY)
+ 		case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
+@@ -247,6 +265,12 @@
+ 			fi; \
+ 		done
+ 		$(INSTALL_PROGRAM) python$(EXE) $(BINDIR)/python$(VERSION)$(EXE)
++		if test -f libpython$(VERSION).so.$(SOVERSION); then \
++			mkdir $(LIBDIR); \
++			$(INSTALL_DATA) libpython$(VERSION).so.$(SOVERSION) $(LIBDIR); \
++			(cd $(LIBDIR) && $(LN) -sf libpython$(VERSION).so.$(SOVERSION) libpython$(VERSION).so); \
++		else	true; \
++		fi
+ 		if test -f libpython$(VERSION).so; then \
+ 			$(INSTALL_DATA) libpython$(VERSION).so $(LIBDIR); \
+ 		else	true; \
+@@ -492,10 +518,12 @@
+ 			 fi); \
+ 		    else true; fi; \
+ 		done
++		-rm -f shobjs/*.pic_o
+ 
+ localclobber:	localclean
+ 		-rm -f tags TAGS python$(EXE) $(LIBRARY) $(LDLIBRARY) *.o
+ 		-rm -f config.log config.cache config.h
++		-rm -rf shobjs/*.pic_o
+ 
+ clobber:	localclobber
+ 		-for i in $(SUBDIRS); do \
+--- python-1.999b1.orig/configure.in
++++ python-1.999b1/configure.in
+@@ -7,6 +7,8 @@
+ # Set VERSION so we only need to edit in one place (i.e., here)
+ AC_SUBST(VERSION)
+ VERSION=2.0
++AC_SUBST(SOVERSION)
++SOVERSION=0.0
+ 
+ # NEXTSTEP stuff
+ if test -f /usr/lib/NextStep/software_version -o -f /System/Library/CoreServices/software_version ; then
+@@ -220,6 +222,7 @@
+ # LINKCC is the command that links the python executable -- default is $(CC).
+ # This is altered for AIX and BeOS in order to build the export list before 
+ # linking.
++# For Linux, we now build a shared library, too.
+ AC_SUBST(LINKCC)
+ AC_MSG_CHECKING(LINKCC)
+ if test -z "$LINKCC" -a ! -z "$CXX"
+@@ -236,6 +239,9 @@
+ 	   LDLIBRARY='libpython$(VERSION).so';;
+ 	dgux*)
+ 	   LINKCC="LD_RUN_PATH=$libdir \$(PURIFY) \$(CC)";;
++	Linux*)
++           LDLIBRARY='libpython$(VERSION).so.$(SOVERSION)'
++	   LINKCC="\$(CC)";;
+ 	*) LINKCC="\$(PURIFY) \$(CC)";;
+ 	esac
+ fi
+@@ -526,7 +532,7 @@
+                 if test "$with_next_framework" ; then
+ 		    LDSHARED="$LDSHARED \$(LDLIBRARY)"
+ 		fi ;;
+-	Linux*) LDSHARED="gcc -shared";;
++	Linux*) LDSHARED="gcc -shared -lc";;
+ 	dgux*) LDSHARED="ld -G";;
+ 	BSD/OS*/4*) LDSHARED="gcc -shared";;
+ 	FreeBSD*/[[34]]*) LDSHARED="gcc -shared";;
+@@ -553,7 +559,7 @@
+ 		 then CCSHARED="-fpic";
+ 		 else CCSHARED="+z";
+ 		 fi;;
+-	Linux*) CCSHARED="-fpic";;
++	Linux*) CCSHARED="-fPIC";;
+ 	BSD/OS*/4*) CCSHARED="-fpic";;
+ 	FreeBSD*|OpenBSD*) CCSHARED="-fpic";;
+ 	NetBSD*) CCSHARED="-fPIC";;
+--- python-1.999b1.orig/Modules/Makefile.pre.in
++++ python-1.999b1/Modules/Makefile.pre.in
+@@ -14,6 +14,7 @@
+ # === Variables set by configure ===
+ 
+ VERSION=	@VERSION@
++SOVERSION=	@SOVERSION@
+ srcdir=		@srcdir@
+ VPATH=		@srcdir@
+ 
+@@ -95,6 +96,8 @@
+ FIXOBJS=	config.o getpath.o main.o getbuildinfo.o
+ OBJS=		$(MODOBJS) $(FIXOBJS)
+ 
++SHOBJS=		$(OBJS:%.o=%.pic_o)
++
+ #MAINOBJ=	python.o
+ MAINOBJ=	@MAINOBJ@
+ 
+@@ -118,6 +121,15 @@
+ 		$(AR) cr $(LIBRARY) $(OBJS)
+ 		touch add2lib
+ 
++add2shlib:	$(SHOBJS)
++		-if test -f hassignal; \
++		then echo removing sigcheck.pic_o intrcheck.pic_o; \
++		     rm ../shobjs/sigcheck.pic_o ../shobjs/intrcheck.pic_o \
++		         2>/dev/null; \
++		else echo leaving sigcheck.pic_o intrcheck.pic_o in; fi
++		cp -f $(SHOBJS) ../shobjs/.
++		touch add2shlib
++
+ # Use ``EXE=.exe'' for Unix emulations on DOS/Windows
+ EXE=
+ 
+@@ -130,6 +142,7 @@
+ clean:
+ 		-rm -f *.o python$(EXE) core *~ [@,#]* *.old *.orig *.rej
+ 		-rm -f add2lib hassignal
++		-rm -f add2shlib *.pic_o
+ 
+ clobber:	clean
+ 		-rm -f *.a tags TAGS config.c Makefile.pre
+@@ -143,6 +156,15 @@
+ 		      -DVPATH='"$(VPATH)"' \
+ 		      $(srcdir)/getpath.c
+ 
++getpath.pic_o:	getpath.c Makefile
++		$(CC) -c $(CFLAGS) -DPYTHONPATH='"$(PYTHONPATH)"' \
++		      -DPREFIX='"$(prefix)"' \
++		      -DEXEC_PREFIX='"$(exec_prefix)"' \
++		      -DVERSION='"$(VERSION)"' \
++		      -DVPATH='"$(VPATH)"' \
++		      -fPIC -o getpath.pic_o \
++		      $(srcdir)/getpath.c
++
+ # When the configuration changes, we remove the library, so that it
+ # gets remade from scratch; this ensures to remove modules that are no
+ # longer pertinent (but that were in a previous configuration).
+@@ -173,6 +195,11 @@
+ depend:
+ 		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
+ 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
++
++.SUFFIXES:	.pic_o
++
++%.pic_o:	%.c
++		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
+ 
+ .PRECIOUS:	../python$(EXE)
+ 
+--- python-1.999b1.orig/Objects/Makefile.in
++++ python-1.999b1/Objects/Makefile.in
+@@ -48,6 +48,8 @@
+ 		tupleobject.c typeobject.c \
+ 		unicodeobject.c unicodectype.c
+ 
++SHOBJS=		$(OBJS:%.o=%.pic_o)
++
+ LIBRARY=	../libpython$(VERSION).a
+ 
+ # === Rules ===
+@@ -59,8 +61,13 @@
+ 		$(AR) cr $(LIBRARY) $(OBJS)
+ 		touch add2lib
+ 
++add2shlib:	$(SHOBJS)
++		cp -f $(SHOBJS) ../shobjs/.
++		touch add2shlib
++
+ clean:
+-		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib
++		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib \
++			*.pic_o add2shlib
+ 
+ clobber:	clean
+ 		-rm -f *.a tags TAGS
+@@ -72,6 +79,12 @@
+ depend:
+ 		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
+ 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
++
++# Rules for building libpython as shared library
++.SUFFIXES:	.pic_o
++
++%.pic_o:	%.c
++		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
+ 
+ .PRECIOUS:	Makefile
+ 
+--- python-1.999b1.orig/Parser/Makefile.in
++++ python-1.999b1/Parser/Makefile.in
+@@ -37,6 +37,7 @@
+ AROBJS=		$(POBJS) myreadline.o
+ OBJS=		$(AROBJS) intrcheck.o
+ 
++SHOBJS=		$(OBJS:%.o=%.pic_o)
+ 
+ PGENMAIN=	pgenmain.o
+ 
+@@ -62,11 +63,16 @@
+ 		else echo leaving intrcheck.o out; fi
+ 		touch add2lib
+ 
++add2shlib:	$(SHOBJS)
++		cp -f $(SHOBJS) ../shobjs/.
++		touch add2shlib
++
+ $(PGEN):	$(PGENOBJS)
+ 		$(CC) $(OPT) $(PGENOBJS) $(LIBS) -o $(PGEN)
+ 
+ clean:
+-		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib
++		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib \
++			*.pic_o add2shlib
+ 
+ clobber:	clean
+ 		-rm -f $(PGEN) *.a tags TAGS
+@@ -78,6 +84,11 @@
+ depend:
+ 		$(MKDEP) $(CFLAGS) `echo $(DOBJS) | tr ' ' '\012' | \
+ 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
++
++.SUFFIXES:	.pic_o
++
++%.pic_o:	%.c
++		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
+ 
+ .PRECIOUS:	Makefile
+ 
+--- python-1.999b1.orig/Python/Makefile.in
++++ python-1.999b1/Python/Makefile.in
+@@ -51,6 +51,8 @@
+ 		$(LIBOBJS)
+ OBJS=		$(AROBJS) sigcheck.o
+ 
++SHOBJS=		$(OBJS:%.o=%.pic_o)
++
+ LIBRARY=	../libpython$(VERSION).a
+ 
+ 
+@@ -66,8 +68,13 @@
+ 		else echo leaving sigcheck.o out; fi
+ 		touch add2lib
+ 
++add2shlib:	$(SHOBJS)
++		cp -f $(SHOBJS) ../shobjs/.
++		touch add2shlib
++
+ clean:
+-		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib
++		-rm -f *.o core *~ [@,#]* *.old *.orig *.rej add2lib \
++			*.pic_o add2shlib
+ 
+ clobber:	clean
+ 		-rm -f *.a tags TAGS
+@@ -80,12 +87,25 @@
+ 		$(CC) -c $(CFLAGS) -DPLATFORM='"$(MACHDEP)"' \
+ 		      $(srcdir)/getplatform.c
+ 
++getplatform.pic_o:	getplatform.c Makefile
++		$(CC) -c $(CFLAGS) -DPLATFORM='"$(MACHDEP)"' \
++		      $(CPPFLAGS) -fPIC -o $@ \
++		      $(srcdir)/getplatform.c
++
+ importdl.o:	importdl.c
+ 		$(CC) -c $(CFLAGS) -I$(DLINCLDIR) $(srcdir)/importdl.c
+ 
++importdl.pic_o:	importdl.c
++		$(CC) -c $(CFLAGS) -I$(DLINCLDIR) -fPIC -o $@ $(srcdir)/importdl.c
++
+ depend:
+ 		$(MKDEP) $(CFLAGS) `echo $(OBJS) | tr ' ' '\012' | \
+ 					sed 's|\(.*\)\.o|$(srcdir)/\1.c|'`
++
++.SUFFIXES:	.pic_o
++
++%.pic_o:	%.c
++		$(CC) -c $(CFLAGS) $(CPPFLAGS) -fPIC -o $@ $<
+ 
+ .PRECIOUS:	Makefile
+ 
