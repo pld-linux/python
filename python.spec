@@ -54,6 +54,7 @@ BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	ncurses-ext-devel >= 5.2
+BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 4.2
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
