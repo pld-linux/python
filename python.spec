@@ -312,6 +312,7 @@ rm -rf $RPM_BUILD_ROOT
  
 %dir %{_libdir}/python%{pver}/lib-dynload
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/[a-z]*.so
+%attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_te*.so
 %attr(755,root,root) %{_libdir}/python%{pver}/lib-dynload/_[a-su-z]*.so
 
 %dir %{_libdir}/python%{pver}/plat-*
