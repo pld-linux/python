@@ -16,7 +16,7 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}.1
-Release:	0.4
+Release:	1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
