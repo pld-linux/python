@@ -481,8 +481,6 @@ cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
 install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
 
-gzip -9nf Misc/{ACKS,NEWS,README}
-
 echo "%defattr(644,root,root,755)" > modules.filelist
 
 find $RPM_BUILD_ROOT%{py_libdir} \
@@ -593,7 +591,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc Misc/*.gz
+%doc Misc/{ACKS,NEWS,README}
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
