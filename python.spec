@@ -1,8 +1,8 @@
 
 #
 # todo:
-# - update and review patches
-# - idle subpackage
+# - idle subpackage should contain .pyo files, too /maybe it will be fixed
+#   in beta release?/
 #
 
 %define py_ver         2.3
@@ -34,10 +34,9 @@ Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-readline.patch
 Patch2:		%{name}-%{name}path.patch
-Patch3:		%{name}-ac25x.patch
-Patch4:		%{name}-default_encoding.patch
-Patch5:		%{name}-no_ndbm.patch
-Patch6:		%{name}-ac_fixes.patch
+Patch3:		%{name}-default_encoding.patch
+Patch4:		%{name}-no_ndbm.patch
+Patch5:		%{name}-ac_fixes.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -191,6 +190,18 @@ Python interactive module documentation access support.
 
 %description pydoc -l pl
 Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
+
+%package idle
+Summary:	IDE for Python language
+Summary(pl):	IDE dla jêzyka Python
+Group:		Applications
+Requires:	%{name}-modules = %{version}
+
+%description idle
+IDE for Python language.
+
+%description idle -l pl
+IDE dla jêzyka Python.
 
 %package devel
 Summary:	Libraries and header files for building python code
@@ -434,10 +445,9 @@ Przyk³adowe programy w Pythonie.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-#%patch3 -p1 - remove?
+%patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
@@ -584,6 +594,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
 %{py_libdir}/pydoc.py?
+
+%files idle
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/idle
+%dir %{py_sitedir}/idlelib
+%dir %{py_sitedir}/idlelib/Icons
+%{py_sitedir}/idlelib/*.py?
+%{py_sitedir}/idlelib/Icons/*
 
 %files devel
 %defattr(644,root,root,755)
