@@ -18,7 +18,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	3.2
+Release:	3.3
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -32,6 +32,7 @@ Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
 Patch5:		%{name}-no_ndbm.patch
 Patch6:		%{name}-ac_fixes.patch
+Patch7:		%{name}-examples-bin.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -45,7 +46,6 @@ BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	zlib-devel
-BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
@@ -432,6 +432,7 @@ Przyk³adowe programy w Pythonie.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
@@ -453,10 +454,6 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 
 
 %{__make} OPT="%{rpmcflags} -D_REENTRANT"
-
-# workaround for examples package auto-require /usr/local/bin/python
-# make examples more usable =)
-sed -e 's/\/usr\/local\/bin\/python/\/usr\/bin\/python/g' Demo/*/*.py Demo/*/*/*.py Tools/*/*.py Tools/*/*/*.py
 
 %install
 rm -rf $RPM_BUILD_ROOT
