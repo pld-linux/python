@@ -8,13 +8,18 @@ Version:	1.5.2
 Release:	6
 Copyright:	distributable
 Group:		Development/Languages
-Source0:	ftp://ftp.python.org/pub/python/src/pyth152.tgz
+Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
-Patch0:		%{name}-%{version}-config.patch
-Patch1:		%{name}-1.4-gccbug.patch
-Patch2:		%{name}-1.5-localbin.patch
-Patch3:		Python-1.5.1-nosed.patch
+Patch:		Python-pld.patch
 URL:		http://www.python.org/
+BuildPrereq:	XFree86-devel
+BuildPrereq:	readline-devel
+BuildPrereq:	tix
+BuildPrereq:	tk-devel
+BuildPrereq:	tcl-devel
+BuildPrereq:	ncurses-devel
+BuildPrereq:	zlib-devel
+BuildPrereq:	gdbm-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -145,7 +150,7 @@ Group(pl):	Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 Requires:	tcl >= 8.0.3 
 Requires:	tk  >= 8.0.3
-Requires:	blt >= 2.4c
+#Requires:	blt >= 2.4c
 Requires:	tix >= 4.1.0.6
 
 %description -n tkinter
@@ -277,59 +282,74 @@ Interfejs do biblioteki zlib dla Pythona. Zlib udostêpnia algorytmy
 kompresji u¿ywane przez gzip'a.
 
 %prep
-%setup -q -n Python-1.5.1 -a1
-%patch0 -p1 
-%patch2 -p1
-%patch3 -p1 
+%setup -q -n Python-%{version} -a1
+%patch -p1
 
+%build
 find . -name "*.nosed" -exec rm -f {} \;
 
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
 
+
+#make install prefix=$RPM_BUILD_ROOT%{_prefix}
 cp Lib/lib-old/rand.py Lib
 
-%build
-LDFLAGS=-s MACHDEP=linux-$RPM_ARCH \
-./configure %{_target_platform} \
-	--prefix=/usr --with-threads
+LDFLAGS="-s"; export LDFLAGS
+CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
+%configure \
+	--with-threads 
 
 make OPT="$RPM_OPT_FLAGS -D_REENTRANT"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/{bin,lib}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_mandir}}
 
-make install prefix=$RPM_BUILD_ROOT/usr
+make \
+    BINDIR=$RPM_BUILD_ROOT%{_bindir} \
+    SCRIPTDIR=$RPM_BUILD_ROOT%{_libdir} \
+    LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
+    MANDIR=$RPM_BUILD_ROOT%{_mandir} \
+    INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
+    CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
+    install
+
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/*.so \
+	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk*
+
+strip $RPM_BUILD_ROOT%{_bindir}/python1.5
+rm -f $RPM_BUILD_ROOT%{_bindir}/python
+ln -s python1.5 $RPM_BUILD_ROOT%{_bindir}/python
+
+gzip -9fn README $RPM_BUILD_ROOT%{_mandir}/man1/* \
+	Misc/{NEWS,HYPE,README,HISTORY}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%doc README
+%doc README.gz
 
 %attr(755,root,root) %{_bindir}/*
 
 %dir %{_libdir}/python1.5
 %attr(-,root,root) %{_libdir}/python1.5/*.py
-%attr(-,root,root) %{_libdir}/python1.5/*.pyc
-%attr(-,root,root) %{_libdir}/python1.5/*.pyo
+%{_libdir}/python1.5/*.pyc
+%{_libdir}/python1.5/*.pyo
 
 %dir %{_libdir}/python1.5/lib-dynload
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/*.so
 
-%dir %{_libdir}/python1.5/lib-stdwin
-%attr(755,root,root) %{_libdir}/python1.5/lib-stdwin/*.py
-%{_libdir}/python1.5/lib-stdwin/*.pyc
-%{_libdir}/python1.5/lib-stdwin/*.pyo
+%{_libdir}/python1.5/lib-stdwin
 
-%dir %{_libdir}/python1.5/plat-linux-%{buildarch}
-%attr(755,root,root) %{_libdir}/python1.5/plat-linux-%{buildarch}/regen
-%{_libdir}/python1.5/plat-linux-%{buildarch}/*.py
-%{_libdir}/python1.5/plat-linux-%{buildarch}/*.pyc
-%{_libdir}/python1.5/plat-linux-%{buildarch}/*.pyo
+%dir %{_libdir}/python1.5/plat-*
+%attr(755,root,root) %{_libdir}/python1.5/plat-*/regen
+%{_libdir}/python1.5/plat-*/*.py
+%{_libdir}/python1.5/plat-*/*.pyc
+%{_libdir}/python1.5/plat-*/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
@@ -337,24 +357,22 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/python1.5
 %{_includedir}/python1.5/*.h
 
-%dir %{_libdir}/python1.5/config
-%attr(-,root,root) %{_libdir}/python1.5/config/*
+%{_libdir}/python1.5/config
 
 %dir %{_libdir}/python1.5/test
-%attr(-,root,root,755) %{_libdir}/python1.5/test/*
+%attr(-,root,root) %{_libdir}/python1.5/test/*
 
 %files docs
 %defattr(645,root,root,755)
-%doc Misc/COPYRIGHT Misc/NEWS Misc/HYPE Misc/README Misc/cheatsheet 
-%doc Misc/HISTORY Doc Misc/BLURB* 
+%doc Misc/NEWS.gz Misc/HYPE.gz Misc/README.gz Misc/cheatsheet 
+%doc Misc/HISTORY.gz Doc Misc/BLURB* 
 
 %files -n tkinter
 %defattr(644,root,root,755)
 
-%dir %{_libdir}/python1.5/lib-tk
-%attr(-,root,root) %{_libdir}/python1.5/lib-tk/*
+%{_libdir}/python1.5/lib-tk
 
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
+#%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
 
 %changelog
 * Sun Jun  6 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
