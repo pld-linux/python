@@ -30,7 +30,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	5
+Release:	6
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -530,14 +530,14 @@ export SCRIPT_EXT
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
 for script in timeit profile pdb pstats smtpd; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
+    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}
 #!/bin/sh
 exec python %{py_scriptdir}/${script}.pyc "\$@"
 END
 done
 
 # xgettext specific for Python code
-install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
+install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -764,12 +764,12 @@ rm -rf $RPM_BUILD_ROOT
 %files devel-tools
 %defattr(644,root,root,755)
 %doc Lib/profile.doc Lib/pdb.doc
-%attr(755,root,root) %{_bindir}/timeit*
-%attr(755,root,root) %{_bindir}/profile*
-%attr(755,root,root) %{_bindir}/pdb*
-%attr(755,root,root) %{_bindir}/pstats*
-%attr(755,root,root) %{_bindir}/pygettext*
-%attr(755,root,root) %{_bindir}/smtpd*
+%attr(755,root,root) %{_bindir}/timeit
+%attr(755,root,root) %{_bindir}/profile
+%attr(755,root,root) %{_bindir}/pdb
+%attr(755,root,root) %{_bindir}/pstats
+%attr(755,root,root) %{_bindir}/pygettext
+%attr(755,root,root) %{_bindir}/smtpd
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
