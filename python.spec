@@ -14,7 +14,7 @@ Summary(fr):	Langage de script de tés haut niveau avec interface X
 Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{py_ver}c1
+Version:	%{py_ver}
 Release:	1
 License:	PSF
 Group:		Development/Languages/Python
