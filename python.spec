@@ -507,7 +507,8 @@ export LC_ALL
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
-	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1}
+	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1} \
+	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -530,8 +531,8 @@ SCRIPT_EXT="_py"
 %endif
 export SCRIPT_EXT
 
-# create several useful scripts, such as timeit.py, profile.py, pdb.py
-for script in timeit profile pdb pstats; do
+# create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
+for script in timeit profile pdb pstats smtpd; do
     cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
 exec python %{py_libdir}/${script}.pyc "\$@"
@@ -567,6 +568,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_libdir}/pstats.py[co]
 %exclude %{py_libdir}/pydoc.py[co]
 %exclude %{py_libdir}/site.py[co]
+%exclude %{py_libdir}/smtpd.py[co]
 %exclude %{py_libdir}/stat.py[co]
 %exclude %{py_libdir}/timeit.py[co]
 %exclude %{py_libdir}/os.py[co]
@@ -589,11 +591,20 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/dl.so
 %endif
 
+%attr(755,root,root) %{py_dyndir}/_bisect.so
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
+%attr(755,root,root) %{py_dyndir}/_codecs_cn.so
+%attr(755,root,root) %{py_dyndir}/_codecs_hk.so
+%attr(755,root,root) %{py_dyndir}/_codecs_iso2022.so
+%attr(755,root,root) %{py_dyndir}/_codecs_jp.so
+%attr(755,root,root) %{py_dyndir}/_codecs_kr.so
+%attr(755,root,root) %{py_dyndir}/_codecs_tw.so
 %attr(755,root,root) %{py_dyndir}/_csv.so
 %attr(755,root,root) %{py_dyndir}/_curses.so
 %attr(755,root,root) %{py_dyndir}/_curses_panel.so
+%attr(755,root,root) %{py_dyndir}/_heapq.so
 %attr(755,root,root) %{py_dyndir}/_locale.so
+%attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
@@ -605,6 +616,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/cPickle.so
 %attr(755,root,root) %{py_dyndir}/cStringIO.so
 %attr(755,root,root) %{py_dyndir}/cmath.so
+%attr(755,root,root) %{py_dyndir}/collections.so
 %attr(755,root,root) %{py_dyndir}/crypt.so
 %attr(755,root,root) %{py_dyndir}/datetime.so
 %attr(755,root,root) %{py_dyndir}/dbm.so
@@ -732,6 +744,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/Setup.local
 %{py_libdir}/config/config.c
 %{py_libdir}/config/config.c.in
+%{py_libdir}/config/libpython2.4.a
 %{py_libdir}/config/python.o
 
 %files devel-src
@@ -761,6 +774,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pdb*
 %attr(755,root,root) %{_bindir}/pstats*
 %attr(755,root,root) %{_bindir}/pygettext*
+%attr(755,root,root) %{_bindir}/smtpd*
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_libdir}/hotshot
@@ -768,6 +782,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/pdb.py[co]
 %{py_libdir}/profile.py[co]
 %{py_libdir}/pstats.py[co]
+%{py_libdir}/smtpd.py[co]
 %{py_libdir}/timeit.py[co]
 
 %files static
