@@ -16,9 +16,9 @@ Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alt
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{py_ver}
-Release:	13
+Release:	14
 License:	PSF
-Group:		Development/Languages/Python
+Group:		Applications
 URL:		http://www.python.org/
 Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
@@ -135,7 +135,7 @@ arayüz birimlerini de içerir.
 %package libs
 Summary:	Python library
 Summary(pl):	Biblioteka jêzyka Python
-Group:		Development/Languages/Python
+Group:		Libraries/Python
 
 %description libs
 Python library.
@@ -146,7 +146,7 @@ Biblioteka jêzyka Python.
 %package modules
 Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
-Group:		Development/Languages/Python
+Group:		Libraries/Python
 Requires:	%{name} = %{version}
 
 %description modules
@@ -158,7 +158,7 @@ Modu³y jêzyka Python.
 %package pydoc
 Summary:	Python interactive module documentation access support
 Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
-Group:		Development/Languages/Python
+Group:		Applications
 Requires:	%{name}-modules = %{version}
 
 %description pydoc
@@ -249,7 +249,7 @@ Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Pythona
 Summary(pt_BR):	Documentação para a linguagem de programação Python.
 Summary(tr):	Python belgeleri
-Group:		Development/Languages
+Group:		Documentation
 Requires:	%{name} = %{version}
 Obsoletes:	python-docs
 
@@ -287,7 +287,7 @@ LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 %package without-thread
 Summary:	Python without threads
 Summary(pl):	Pyton bez w±tków
-Group:		Development/Languages
+Group:		Libraries/Python
 Requires:	%{name} = %{version}
 Obsoletes:	python-without-thread
 
@@ -307,7 +307,7 @@ Summary(fr):	Interface graphique pour python.
 Summary(pl):	Modu³y niskiego poziomu dla pakietu Python-tkinter
 Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
-Group:		Development/Languages/Python
+Group:		Libraries/Python
 Requires:	%{name}-modules = %{version}
 Requires:	tcl >= 8.0.3
 Requires:	tk  >= 8.0.3
@@ -353,7 +353,7 @@ kullanýlan grafik bir arayüzdür.
 %package old
 Summary:	Depreciated Python modules
 Summary(pl):	Nieaktualne modu³y jêzyka Python
-Group:		Development/Languages/Python
+Group:		Libraries/Python
 Requires:	%{name}-modules = %{version}
 
 %description old
