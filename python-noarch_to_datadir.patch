@@ -1,6 +1,6 @@
-diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
---- Python-2.3.3.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
-+++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-16 08:47:05.622089221 +0100
+diff -dur Python-2.3.4.orig/Lib/distutils/command/install.py Python-2.3.4/Lib/distutils/command/install.py
+--- Python-2.3.4.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
++++ Python-2.3.4/Lib/distutils/command/install.py	2004-09-10 08:41:12.836021548 +0200
 @@ -38,14 +38,14 @@
  
  INSTALL_SCHEMES = {
@@ -18,10 +18,27 @@ diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/di
          'platlib': '$base/lib/python',
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
-diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
---- Python-2.3.3.orig/Lib/site.py	2004-01-16 08:46:47.766402161 +0100
-+++ Python-2.3.3/Lib/site.py	2004-01-16 08:47:05.622089221 +0100
-@@ -170,7 +170,12 @@
+diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutils/sysconfig.py
+--- Python-2.3.4.orig/Lib/distutils/sysconfig.py	2003-02-10 15:02:33.000000000 +0100
++++ Python-2.3.4/Lib/distutils/sysconfig.py	2004-09-10 08:44:08.196435115 +0200
+@@ -99,8 +99,12 @@
+         prefix = plat_specific and EXEC_PREFIX or PREFIX
+ 
+     if os.name == "posix":
+-        libpython = os.path.join(prefix,
++	if plat_specific: 
++            libpython = os.path.join(prefix,
+                                  "lib", "python" + get_python_version())
++        else:
++            libpython = os.path.join(prefix,
++                                 "share", "python" + get_python_version())
+         if standard_lib:
+             return libpython
+         else:
+diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
+--- Python-2.3.4.orig/Lib/site.py	2004-09-10 08:26:38.221827272 +0200
++++ Python-2.3.4/Lib/site.py	2004-09-10 08:41:12.837021494 +0200
+@@ -169,7 +169,12 @@
                                       "lib",
                                       "python" + sys.version[:3],
                                       "site-packages"),
@@ -35,9 +52,9 @@ diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
          else:
              sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
          if sys.platform == 'darwin':
-diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
---- Python-2.3.3.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
-+++ Python-2.3.3/Makefile.pre.in	2004-01-16 08:47:05.622089221 +0100
+diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
+--- Python-2.3.4.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
++++ Python-2.3.4/Makefile.pre.in	2004-09-10 08:41:12.838021439 +0200
 @@ -83,7 +83,7 @@
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
@@ -47,9 +64,9 @@ diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
  
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
-diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
---- Python-2.3.3.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
-+++ Python-2.3.3/Modules/getpath.c	2004-01-16 08:49:12.992320728 +0100
+diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
+--- Python-2.3.4.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
++++ Python-2.3.4/Modules/getpath.c	2004-09-10 08:41:12.840021330 +0200
 @@ -112,7 +112,7 @@
  #endif
  
