@@ -1,6 +1,6 @@
-diff -Nur Python-2.0.orig/Makefile.in Python-2.0/Makefile.in
---- Python-2.0.orig/Makefile.in	Mon Oct 16 23:50:06 2000
-+++ Python-2.0/Makefile.in	Mon Oct 30 09:42:28 2000
+diff -Nru Python-2.0/Makefile.in Python-2.0.new/Makefile.in
+--- Python-2.0/Makefile.in	Thu Dec  7 21:39:52 2000
++++ Python-2.0.new/Makefile.in	Thu Dec  7 21:37:06 2000
 @@ -48,12 +48,14 @@
  
  # Substitutions by configure
@@ -65,9 +65,9 @@ diff -Nur Python-2.0.orig/Makefile.in Python-2.0/Makefile.in
  
  clobber:	localclobber
  		-for i in $(SUBDIRS); do \
-diff -Nur Python-2.0.orig/Modules/Makefile.pre.in Python-2.0/Modules/Makefile.pre.in
---- Python-2.0.orig/Modules/Makefile.pre.in	Mon Oct 16 23:49:33 2000
-+++ Python-2.0/Modules/Makefile.pre.in	Mon Oct 30 09:38:22 2000
+diff -Nru Python-2.0/Modules/Makefile.pre.in Python-2.0.new/Modules/Makefile.pre.in
+--- Python-2.0/Modules/Makefile.pre.in	Thu Dec  7 21:39:53 2000
++++ Python-2.0.new/Modules/Makefile.pre.in	Thu Dec  7 21:37:06 2000
 @@ -14,6 +14,7 @@
  # === Variables set by configure ===
  
@@ -137,9 +137,9 @@ diff -Nur Python-2.0.orig/Modules/Makefile.pre.in Python-2.0/Modules/Makefile.pr
  
  .PRECIOUS:	../python$(EXE)
  
-diff -Nur Python-2.0.orig/Objects/Makefile.in Python-2.0/Objects/Makefile.in
---- Python-2.0.orig/Objects/Makefile.in	Mon Oct 16 23:49:24 2000
-+++ Python-2.0/Objects/Makefile.in	Mon Oct 30 09:28:07 2000
+diff -Nru Python-2.0/Objects/Makefile.in Python-2.0.new/Objects/Makefile.in
+--- Python-2.0/Objects/Makefile.in	Thu Dec  7 21:39:53 2000
++++ Python-2.0.new/Objects/Makefile.in	Thu Dec  7 21:37:06 2000
 @@ -48,6 +48,8 @@
  		tupleobject.c typeobject.c \
  		unicodeobject.c unicodectype.c
@@ -177,9 +177,9 @@ diff -Nur Python-2.0.orig/Objects/Makefile.in Python-2.0/Objects/Makefile.in
  
  .PRECIOUS:	Makefile
  
-diff -Nur Python-2.0.orig/Parser/Makefile.in Python-2.0/Parser/Makefile.in
---- Python-2.0.orig/Parser/Makefile.in	Mon Oct 16 23:49:29 2000
-+++ Python-2.0/Parser/Makefile.in	Mon Oct 30 09:28:07 2000
+diff -Nru Python-2.0/Parser/Makefile.in Python-2.0.new/Parser/Makefile.in
+--- Python-2.0/Parser/Makefile.in	Thu Dec  7 21:39:53 2000
++++ Python-2.0.new/Parser/Makefile.in	Thu Dec  7 21:37:06 2000
 @@ -37,6 +37,7 @@
  AROBJS=		$(POBJS) myreadline.o
  OBJS=		$(AROBJS) intrcheck.o
@@ -218,9 +218,9 @@ diff -Nur Python-2.0.orig/Parser/Makefile.in Python-2.0/Parser/Makefile.in
  
  .PRECIOUS:	Makefile
  
-diff -Nur Python-2.0.orig/Python/Makefile.in Python-2.0/Python/Makefile.in
---- Python-2.0.orig/Python/Makefile.in	Mon Oct 16 23:49:29 2000
-+++ Python-2.0/Python/Makefile.in	Mon Oct 30 09:28:07 2000
+diff -Nru Python-2.0/Python/Makefile.in Python-2.0.new/Python/Makefile.in
+--- Python-2.0/Python/Makefile.in	Thu Dec  7 21:39:53 2000
++++ Python-2.0.new/Python/Makefile.in	Thu Dec  7 21:37:06 2000
 @@ -51,6 +51,8 @@
  		$(LIBOBJS)
  OBJS=		$(AROBJS) sigcheck.o
@@ -271,9 +271,9 @@ diff -Nur Python-2.0.orig/Python/Makefile.in Python-2.0/Python/Makefile.in
  
  .PRECIOUS:	Makefile
  
-diff -Nur Python-2.0.orig/configure.in Python-2.0/configure.in
---- Python-2.0.orig/configure.in	Mon Oct 16 23:50:06 2000
-+++ Python-2.0/configure.in	Mon Oct 30 09:30:29 2000
+diff -Nru Python-2.0/configure.in Python-2.0.new/configure.in
+--- Python-2.0/configure.in	Thu Dec  7 21:39:53 2000
++++ Python-2.0.new/configure.in	Thu Dec  7 21:41:46 2000
 @@ -7,6 +7,8 @@
  # Set VERSION so we only need to edit in one place (i.e., here)
  AC_SUBST(VERSION)
@@ -319,3 +319,11 @@ diff -Nur Python-2.0.orig/configure.in Python-2.0/configure.in
  	BSD/OS*/4*) CCSHARED="-fpic";;
  	OpenBSD*) CCSHARED="-fpic";;
  	FreeBSD*|NetBSD*) CCSHARED="-fPIC";;
+@@ -669,6 +675,7 @@
+ # checks for libraries
+ AC_CHECK_LIB(dl, dlopen)	# Dynamic linking for SunOS/Solaris and SYSV
+ AC_CHECK_LIB(dld, shl_load)	# Dynamic linking for HP-UX
++AC_CHECK_LIB(m, main)
+ 
+ # Check for --with-pydebug
+ AC_MSG_CHECKING(for --with-pydebug)
