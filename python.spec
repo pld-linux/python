@@ -40,7 +40,6 @@ URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
-BuildRequires:	glibc-localedb-all
 BuildRequires:	expat-devel
 BuildRequires:	gmp-devel => 4.0
 BuildRequires:	ncurses-devel >= 5.2
