@@ -210,8 +210,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 
-%dir /usr/include/python1.5
-/usr/include/python1.5/*.h
+%dir %{_includedir}/python1.5
+%{_includedir}/python1.5/*.h
 
 %dir %{_libdir}/python1.5/config
 %attr(-,root,root) %{_libdir}/python1.5/config/*
