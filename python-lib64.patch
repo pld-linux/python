@@ -1,6 +1,6 @@
-diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
---- Python-2.3.3.orig/Lib/distutils/command/install.py	2004-01-16 08:49:46.470232717 +0100
-+++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-16 08:49:58.350362485 +0100
+diff -dur Python-2.3.4.orig/Lib/distutils/command/install.py Python-2.3.4/Lib/distutils/command/install.py
+--- Python-2.3.4.orig/Lib/distutils/command/install.py	2004-09-10 08:50:27.601692800 +0200
++++ Python-2.3.4/Lib/distutils/command/install.py	2004-09-10 08:51:00.726881742 +0200
 @@ -39,14 +39,14 @@
  INSTALL_SCHEMES = {
      'unix_prefix': {
@@ -18,22 +18,22 @@ diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/di
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
          'data'   : '$base',
-diff -dur Python-2.3.3.orig/Lib/distutils/sysconfig.py Python-2.3.3/Lib/distutils/sysconfig.py
---- Python-2.3.3.orig/Lib/distutils/sysconfig.py	2003-02-10 15:02:33.000000000 +0100
-+++ Python-2.3.3/Lib/distutils/sysconfig.py	2004-01-16 08:49:58.350362485 +0100
-@@ -100,7 +100,7 @@
- 
+diff -dur Python-2.3.4.orig/Lib/distutils/sysconfig.py Python-2.3.4/Lib/distutils/sysconfig.py
+--- Python-2.3.4.orig/Lib/distutils/sysconfig.py	2004-09-10 08:50:27.602692745 +0200
++++ Python-2.3.4/Lib/distutils/sysconfig.py	2004-09-10 08:51:46.443382256 +0200
+@@ -101,7 +101,7 @@
      if os.name == "posix":
-         libpython = os.path.join(prefix,
+ 	if plat_specific: 
+             libpython = os.path.join(prefix,
 -                                 "lib", "python" + get_python_version())
 +                                 "lib64", "python" + get_python_version())
-         if standard_lib:
-             return libpython
          else:
-diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
---- Python-2.3.3.orig/Lib/site.py	2004-01-16 08:49:46.813149869 +0100
-+++ Python-2.3.3/Lib/site.py	2004-01-16 08:49:58.351362243 +0100
-@@ -167,10 +167,10 @@
+             libpython = os.path.join(prefix,
+                                  "share", "python" + get_python_version())
+diff -dur Python-2.3.4.orig/Lib/site.py Python-2.3.4/Lib/site.py
+--- Python-2.3.4.orig/Lib/site.py	2004-09-10 08:50:27.603692691 +0200
++++ Python-2.3.4/Lib/site.py	2004-09-10 08:51:00.729881578 +0200
+@@ -166,10 +166,10 @@
              sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
          elif os.sep == '/':
              sitedirs = [os.path.join(prefix,
@@ -46,9 +46,9 @@ diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
  	    		os.path.join(prefix,
                                       "share",
                                       "python" + sys.version[:3],
-diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
---- Python-2.3.3.orig/Makefile.pre.in	2004-01-16 08:49:46.813149869 +0100
-+++ Python-2.3.3/Makefile.pre.in	2004-01-16 08:49:58.351362243 +0100
+diff -dur Python-2.3.4.orig/Makefile.pre.in Python-2.3.4/Makefile.pre.in
+--- Python-2.3.4.orig/Makefile.pre.in	2004-09-10 08:50:27.604692636 +0200
++++ Python-2.3.4/Makefile.pre.in	2004-09-10 08:51:00.730881524 +0200
 @@ -79,7 +79,7 @@
  
  # Expanded directories
@@ -58,9 +58,9 @@ diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
-diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
---- Python-2.3.3.orig/Modules/getpath.c	2004-01-16 08:49:46.814149628 +0100
-+++ Python-2.3.3/Modules/getpath.c	2004-01-16 08:50:27.370351093 +0100
+diff -dur Python-2.3.4.orig/Modules/getpath.c Python-2.3.4/Modules/getpath.c
+--- Python-2.3.4.orig/Modules/getpath.c	2004-09-10 08:50:27.605692581 +0200
++++ Python-2.3.4/Modules/getpath.c	2004-09-10 08:51:00.731881469 +0200
 @@ -113,7 +113,7 @@
  
  #ifndef PYTHONPATH
@@ -88,9 +88,10 @@ diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
      bufsz = strlen(zip_path);	/* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
-diff -dur Python-2.3.3.orig/setup.py Python-2.3.3/setup.py
---- Python-2.3.3.orig/setup.py	2004-01-16 08:49:46.465233925 +0100
-+++ Python-2.3.3/setup.py	2004-01-16 08:49:58.353361760 +0100
+Only in Python-2.3.4.orig: Python-Docs-2.3.4
+diff -dur Python-2.3.4.orig/setup.py Python-2.3.4/setup.py
+--- Python-2.3.4.orig/setup.py	2004-09-10 08:50:27.562694932 +0200
++++ Python-2.3.4/setup.py	2004-09-10 08:51:00.733881359 +0200
 @@ -264,7 +264,7 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
