@@ -168,7 +168,7 @@ cp Lib/lib-old/rand.py Lib
 
 %build
 LDFLAGS=-s MACHDEP=linux-$RPM_ARCH \
-./configure %{_target} \
+./configure %{_target_platform} \
 	--prefix=/usr --with-threads
 
 make OPT="$RPM_OPT_FLAGS -D_REENTRANT"
