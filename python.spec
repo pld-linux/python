@@ -5,7 +5,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	10
+Release:	14
 Copyright:	distributable
 Group:		Development/Languages
 Group(pl):      Programowanie/Jêzyki/Python
@@ -13,11 +13,11 @@ URL:		http://www.python.org/
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
 Source1:	Python-Doc.tar.gz
 Source2:	cursesmodule.c
-Patch0:		Python-pld.patch
-Patch1:		Python-sed.patch
-Patch2:		Python-dl_global.patch
-Patch3:		Python-wdb.patch
-Patch4:		Python-wuftpd.patch
+Patch0:		python-pld.patch
+Patch1:		python-sed.patch
+Patch2:		python-dl_global.patch
+Patch3:		python-wdb.patch
+Patch4:		python-wuftpd.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	readline-devel
 BuildRequires:	tix
@@ -302,7 +302,39 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python1.5/*.pyo
 
 %dir %{_libdir}/python1.5/lib-dynload
-%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/*.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/arraymodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/binascii.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/bsddbmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cPickle.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cStringIO.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cmathmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cryptmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/cursesmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/dbmmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/errnomodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/fcntlmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/gdbmmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/grpmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/mathmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/md5module.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/newmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/nismodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/operator.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/parsermodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/pwdmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/readline.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/resource.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/rotormodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/selectmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/shamodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/socketmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/stropmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/structmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/syslogmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/termios.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/timemodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/timingmodule.so
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/zlibmodule.so
 
 %{_libdir}/python1.5/lib-stdwin
 
@@ -331,3 +363,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %{_libdir}/python1.5/lib-tk
+%attr(755,root,root) %{_libdir}/python1.5/lib-dynload/_tkinter.so
