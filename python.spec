@@ -29,15 +29,15 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}
-Release:	7
+Version:	%{py_ver}.1
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-# Source0-md5:	44c2226eff0f3fc1f2fedaa1ce596533
+# Source0-md5:	de3e9a8836fab6df7c7ce545331afeb3
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	10cca09fcdf1b5ad269bc9edb652d76f
+# Source1-md5:	00fb0aee372eae2d9cef649853dfc5d8
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-default_encoding.patch
@@ -46,7 +46,6 @@ Patch4:		%{name}-ac_fixes.patch
 Patch5:		%{name}-noarch_to_datadir.patch
 Patch6:		%{name}-lib64.patch
 Patch7:		%{name}-doc_path.patch
-Patch8:		%{name}-CAN-2005-0089.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -482,7 +481,6 @@ PrzykЁady te s╠ dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %endif
 %patch7 -p1
-%patch8 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
