@@ -18,7 +18,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	3.1
+Release:	3.2
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -45,6 +45,7 @@ BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	zlib-devel
+BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
@@ -455,7 +456,7 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 
 # workaround for examples package auto-require /usr/local/bin/python
 # make examples more usable =)
-%{__perl} -pi -e 's/\/usr\/local\/bin\/python/\/usr\/bin\/python/g' Demo/*/*.py Demo/*/*/*.py Tools/*/*.py Tools/*/*/*.py
+sed -e 's/\/usr\/local\/bin\/python/\/usr\/bin\/python/g' Demo/*/*.py Demo/*/*/*.py Tools/*/*.py Tools/*/*/*.py
 
 %install
 rm -rf $RPM_BUILD_ROOT
