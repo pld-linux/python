@@ -15,12 +15,12 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(pt_BR):	Linguagem de programação interpretada, orientada a objeto de alto nível
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
-Version:	%{py_ver}
-Release:	14
+Version:	%{py_ver}.1
+Release:	0.1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
-Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
+Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
