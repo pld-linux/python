@@ -1,6 +1,6 @@
-diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
---- Python-2.1.orig/Makefile.pre.in	Sat Apr 14 19:57:07 2001
-+++ Python-2.1/Makefile.pre.in	Thu May 24 17:57:09 2001
+diff -Nur Python-2.2c1.orig/Makefile.pre.in Python-2.2c1/Makefile.pre.in
+--- Python-2.2c1.orig/Makefile.pre.in	Thu Dec  6 22:47:20 2001
++++ Python-2.2c1/Makefile.pre.in	Mon Dec 17 14:24:28 2001
 @@ -25,6 +25,7 @@
  
  # === Variables set by configure
@@ -9,16 +9,16 @@ diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
  srcdir=		@srcdir@
  VPATH=		@srcdir@
  
-@@ -64,7 +65,7 @@
+@@ -65,7 +66,7 @@
  # Extra C flags added for building the interpreter object files.
  CFLAGSFORSHARED=@CFLAGSFORSHARED@
  # C flags used for building the interpreter object files
--PY_CFLAGS=	$(CFLAGS) $(CFLAGSFORSHARED)
-+PY_CFLAGS=	$(CFLAGS)
+-PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED)
++PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS)
  
  
  # Machine-dependent subdirectories
-@@ -96,6 +97,7 @@
+@@ -97,6 +98,7 @@
  LDSHARED=	@LDSHARED@
  BLDSHARED=	@BLDSHARED@
  DESTSHARED=	$(BINLIBDEST)/lib-dynload
@@ -26,31 +26,34 @@ diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
  
  # Executable suffix (.exe on Windows and Mac OS X)
  EXE=		@EXEEXT@
-@@ -268,7 +270,7 @@
+@@ -288,7 +290,7 @@
  # Rules
  
  # Default target
--all:		$(PYTHON) oldsharedmods sharedmods 
-+all:		$(PYTHON) $(LIBRARY) oldsharedmods sharedmods 
+-all:		$(BUILDPYTHON) oldsharedmods sharedmods
++all:		$(BUILDPYTHON) $(LIBRARY) oldsharedmods sharedmods
  
  # Build the interpreter
- $(PYTHON):	Modules/$(MAINOBJ) $(LDLIBRARY)
-@@ -277,12 +279,12 @@
- 			$(LDLIBRARY) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
+ $(BUILDPYTHON):	Modules/$(MAINOBJ) $(LDLIBRARY)
+@@ -297,14 +299,14 @@
+ 			$(BLDLIBRARY) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
  
- platform: $(PYTHON)
--	./$(PYTHON) -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
-+	$(RUNSHARED) ./$(PYTHON) -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
+ platform: $(BUILDPYTHON)
+-	./$(BUILDPYTHON) -E -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
++	$(RUNSHARED) ./$(BUILDPYTHON) -E -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
  
  
  # Build the shared modules
- sharedmods: $(PYTHON)
--	PYTHONPATH= ./$(PYTHON) $(srcdir)/setup.py build
-+	PYTHONPATH= $(RUNSHARED) ./$(PYTHON) $(srcdir)/setup.py build
+ sharedmods: $(BUILDPYTHON)
+ 	case $$MAKEFLAGS in \
+-	*-s*) CC='$(CC)' LDSHARED='$(LDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
+-	*) CC='$(CC)' LDSHARED='$(LDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
++	*-s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(LDSHARED)' ./$(PYTHON) -E $(srcdir)/setup.py -q build;; \
++	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(LDSHARED)' ./$(PYTHON) -E $(srcdir)/setup.py build;; \
+ 	esac
  
  # buildno should really depend on something like LIBRARY_SRC
- buildno: $(PARSER_OBJS) \
-@@ -309,6 +311,19 @@
+@@ -332,6 +334,20 @@
  	$(AR) cr $@ $(MODOBJS)
  	$(RANLIB) $@
  
@@ -62,15 +65,16 @@ diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
 +# The PIC code will be built additionally to the static lib!
 +libpython$(VERSION).so.$(SOVERSION): $(LIBRARY_OBJS:%.o=%.pic_o)
 +	case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
-+	*linux*) \
-+	    $(CC) -shared -Wl,-soname,$@ -o $@ $(LIBRARY_OBJS:%.o=%.pic_o) $(LIBS) $(LIBM) \
++	*linux*|*gnu*) \
++	    $(CC) -shared -Wl,-soname,$@ -o $@ $(LIBRARY_OBJS:%.o=%.pic_o) \
++		$(LIBS) $(LIBM) \
 +	    ;; \
 +	esac
 +
- # This rule is only here for DG/UX, UnixWare, and BeOS!!!
+ # This rule is only here for DG/UX and BeOS!!!
  libpython$(VERSION).so:	$(LIBRARY)
  	case `uname -s | tr -d '/ ' | tr '[A-Z]' '[a-z]'` in \
-@@ -370,6 +385,9 @@
+@@ -391,6 +407,9 @@
  Modules/getbuildinfo.o: $(srcdir)/Modules/getbuildinfo.c buildno
  	$(CC) -c $(PY_CFLAGS) -DBUILD=`cat buildno` -o $@ $(srcdir)/Modules/getbuildinfo.c
  
@@ -80,7 +84,7 @@ diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
  Modules/getpath.o: $(srcdir)/Modules/getpath.c Makefile
  	$(CC) -c $(PY_CFLAGS) -DPYTHONPATH='"$(PYTHONPATH)"' \
  		-DPREFIX='"$(prefix)"' \
-@@ -378,9 +396,20 @@
+@@ -399,9 +418,20 @@
  		-DVPATH='"$(VPATH)"' \
  		-o $@ $(srcdir)/Modules/getpath.c
  
@@ -101,82 +105,89 @@ diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
  
  $(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
  		-$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
-@@ -400,9 +429,15 @@
+@@ -420,9 +450,15 @@
  Python/getplatform.o: $(srcdir)/Python/getplatform.c
- 		$(CC) -c $(CFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
+ 		$(CC) -c $(CFLAGS) $(CPPFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
  
 +Python/getplatform.pic_o: $(srcdir)/Python/getplatform.c
-+		$(CC) -c $(CFLAGS) $(CCSHARED) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
++		$(CC) -c $(CFLAGS) $(CPPFLAGS) $(CCSHARED) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
 +
  Python/importdl.o: $(srcdir)/Python/importdl.c
- 		$(CC) -c $(CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
+ 		$(CC) -c $(CFLAGS) $(CPPFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
  
 +Python/importdl.pic_o: $(srcdir)/Python/importdl.c
-+		$(CC) -c $(CFLAGS) $(CCSHARED) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
++		$(CC) -c $(CFLAGS) $(CPPFLAGS) $(CCSHARED) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
 +
  Objects/object.o: $(srcdir)/Objects/object.c $(srcdir)/Objects/obmalloc.c
  
  Objects/unicodectype.o:	$(srcdir)/Objects/unicodectype.c \
-@@ -462,7 +497,7 @@
+@@ -486,7 +522,7 @@
  # Test the interpreter (twice, once without .pyc files, once with)
  TESTOPTS=	-l
  TESTPROG=	$(srcdir)/Lib/test/regrtest.py
--TESTPYTHON=	./$(PYTHON) -tt
-+TESTPYTHON=	$(RUNSHARED) ./$(PYTHON) -tt
+-TESTPYTHON=	./$(BUILDPYTHON) -E -tt
++TESTPYTHON=	$(RUNSHARED) ./$(BUILDPYTHON) -E -tt
  test:		all platform
  		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
- 		-PYTHONPATH= $(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
-@@ -532,6 +567,12 @@
+ 		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
+@@ -556,6 +592,12 @@
  		fi; \
  	done
- 	$(INSTALL_PROGRAM) $(PYTHON) $(BINDIR)/python$(VERSION)$(EXE)
+ 	$(INSTALL_PROGRAM) $(BUILDPYTHON) $(BINDIR)/python$(VERSION)$(EXE)
 +	if test -f libpython$(VERSION).so.$(SOVERSION); then \
-+		mkdir $(LIBDIR); \
-+		$(INSTALL_DATA) libpython$(VERSION).so.$(SOVERSION) $(LIBDIR); \
-+		(cd $(LIBDIR) && $(LN) -sf libpython$(VERSION).so.$(SOVERSION) libpython$(VERSION).so); \
-+	else	true; \
-+	fi
++ 		mkdir $(LIBDIR); \
++ 		$(INSTALL_DATA) libpython$(VERSION).so.$(SOVERSION) $(LIBDIR); \
++ 		(cd $(LIBDIR) && $(LN) -sf libpython$(VERSION).so.$(SOVERSION) libpython$(VERSION).so); \
++ 	else	true; \
++ 	fi
  	if test -f libpython$(VERSION).so; then \
  		$(INSTALL_DATA) libpython$(VERSION).so $(LIBDIR); \
  	else	true; \
-@@ -615,10 +656,10 @@
+@@ -640,11 +682,11 @@
  		done; \
  	done
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(LIBDEST)/LICENSE.txt
 -	PYTHONPATH=$(LIBDEST) \
--		./$(PYTHON) -tt $(LIBDEST)/compileall.py $(LIBDEST)
+-		./$(BUILDPYTHON) -tt $(LIBDEST)/compileall.py -x badsyntax \
+-	        $(LIBDEST)
 -	PYTHONPATH=$(LIBDEST) \
--		./$(PYTHON) -O $(LIBDEST)/compileall.py $(LIBDEST)
+-		./$(BUILDPYTHON) -O $(LIBDEST)/compileall.py -x badsyntax $(LIBDEST)
 +##	PYTHONPATH=$(LIBDEST) \
-+##		$(RUNSHARED) ./$(PYTHON) -tt $(LIBDEST)/compileall.py $(LIBDEST)
++##		./$(BUILDPYTHON) -tt $(LIBDEST)/compileall.py -x badsyntax \
++##	        $(LIBDEST)
 +##	PYTHONPATH=$(LIBDEST) \
-+##		$(RUNSHARED) ./$(PYTHON) -O $(LIBDEST)/compileall.py $(LIBDEST)
++##		./$(BUILDPYTHON) -O $(LIBDEST)/compileall.py -x badsyntax $(LIBDEST)
  
  # Create the PLATDIR source directory, if one wasn't distributed..
  $(srcdir)/Lib/$(PLATDIR):
-@@ -659,9 +700,9 @@
+@@ -686,12 +728,12 @@
  		else	true; \
  		fi; \
  	done
 -	@if test -d $(LDLIBRARY); then :; else \
--		$(INSTALL_DATA) $(LDLIBRARY) $(LIBPL)/$(LDLIBRARY) ; \
--		$(RANLIB) $(LIBPL)/$(LDLIBRARY) ; \
 +	@if test -d $(LIBRARY); then :; else \
-+		$(INSTALL_DATA) $(LIBRARY) $(LIBPL)/$(LIBRARY) ; \
-+		$(RANLIB) $(LIBPL)/$(LIBRARY) ; \
+ 		if test "$(PYTHONFRAMEWORKDIR)" = no-framework; then \
+-			$(INSTALL_DATA) $(LDLIBRARY) $(LIBPL)/$(LDLIBRARY) ; \
+-			$(RANLIB) $(LIBPL)/$(LDLIBRARY) ; \
++			$(INSTALL_DATA) $(LIBRARY) $(LIBPL)/$(LIBRARY) ; \
++			$(RANLIB) $(LIBPL)/$(LIBRARY) ; \
+ 		else \
+-			echo Skip install of $(LDLIBRARY) - use make frameworkinstall; \
++			echo Skip install of $(LIBRARY) - use make frameworkinstall; \
+ 		fi; \
  	fi
  	$(INSTALL_DATA) Modules/config.c $(LIBPL)/config.c
- 	$(INSTALL_DATA) Modules/$(MAINOBJ) $(LIBPL)/$(MAINOBJ)
-@@ -703,7 +744,7 @@
+@@ -733,7 +775,8 @@
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall:
--	PYTHONPATH= ./$(PYTHON) $(srcdir)/setup.py install \
-+	PYTHONPATH= $(RUNSHARED) ./$(PYTHON) $(srcdir)/setup.py install \
+-	./$(BUILDPYTHON) -E $(srcdir)/setup.py install \
++	$(RUNSHARED) ./$(BUILDPYTHON) -E $(srcdir)/setup.py install \
++		--prefix=$(prefix) \
+ 		--install-scripts=$(BINDIR) \
  		--install-platlib=$(DESTSHARED)
  
- # Build the toplevel Makefile
-@@ -721,6 +762,11 @@
+@@ -810,6 +853,11 @@
  .c.o:
  	$(CC) -c $(PY_CFLAGS) -o $@ $<
  
@@ -188,20 +199,12 @@ diff -Nur Python-2.1.orig/Makefile.pre.in Python-2.1/Makefile.pre.in
  # Rerun configure with the same options as it was run last time,
  # provided the config.status script exists
  recheck:
-@@ -751,6 +797,7 @@
- 
- clean:
- 	find . -name '*.o' -exec rm -f {} ';'
-+	find . -name '*.pic_o' -exec rm -f {} ';'
- 	find . -name '*.s[ol]' -exec rm -f {} ';'
- 	find $(srcdir) -name '*.py[co]' -exec rm -f {} ';'
- 
-diff -Nur Python-2.1.orig/configure.in Python-2.1/configure.in
---- Python-2.1.orig/configure.in	Wed Apr 11 22:56:19 2001
-+++ Python-2.1/configure.in	Thu May 24 17:57:09 2001
+diff -Nur Python-2.2c1.orig/configure.in Python-2.2c1/configure.in
+--- Python-2.2c1.orig/configure.in	Fri Dec  7 16:38:26 2001
++++ Python-2.2c1/configure.in	Mon Dec 17 14:12:45 2001
 @@ -8,6 +8,10 @@
  AC_SUBST(VERSION)
- VERSION=2.1
+ VERSION=2.2
  
 +# Set SOVERSION
 +AC_SUBST(SOVERSION)
@@ -210,30 +213,72 @@ diff -Nur Python-2.1.orig/configure.in Python-2.1/configure.in
  # Arguments passed to configure.
  AC_SUBST(CONFIG_ARGS)
  CONFIG_ARGS="$ac_configure_args"
-@@ -235,6 +239,7 @@
- # LINKCC is the command that links the python executable -- default is $(CC).
+@@ -272,6 +276,7 @@
+ # python might then depend on the C++ runtime
  # This is altered for AIX in order to build the export list before 
  # linking.
 +# For Linux, we now build a shared library, too.
  AC_SUBST(LINKCC)
  AC_MSG_CHECKING(LINKCC)
  if test -z "$LINKCC"
-@@ -246,6 +251,9 @@
- 	   LINKCC="LD_RUN_PATH=$libdir \$(PURIFY) \$(CC)";;
+@@ -297,6 +302,9 @@
+ 	   LINKCC="LD_RUN_PATH=$libdir $(LINKCC)";;
  	Monterey64*)
- 	   LINKCC="\$(PURIFY) \$(CC) -L/usr/lib/ia64l64";;
-+	Linux*)
+ 	   LINKCC="$(LINKCC) -L/usr/lib/ia64l64";;
++	Linux*|GNU*)
 +	   LDLIBRARY='libpython$(VERSION).so.$(SOVERSION)'
 +	   LINKCC="\$(CC)";;
- 	*) LINKCC="\$(PURIFY) \$(CC)";;
  	esac
  fi
-@@ -596,7 +604,7 @@
- 	if test "$with_next_framework" ; then
- 		    LDSHARED="$LDSHARED \$(LDLIBRARY)"
+ AC_MSG_RESULT($LINKCC)
+@@ -796,7 +804,7 @@
+ 			# No framework. Ignore undefined symbols, assuming they come from Python
+ 			LDSHARED="$LDSHARED -flat_namespace -undefined suppress"
  		fi ;;
 -	Linux*) LDSHARED="gcc -shared";;
-+	Linux*) LDSHARED="gcc -shared -lc";;
++	Linux*|GNU*) LDSHARED="gcc -shared";;
  	dgux*) LDSHARED="ld -G";;
  	BSD/OS*/4*) LDSHARED="gcc -shared";;
- 	OpenBSD*) LDSHARED="ld -Bshareable";;
+ 	OpenBSD*|NetBSD*|FreeBSD*)
+@@ -832,7 +840,7 @@
+ 		 then CCSHARED="-fPIC";
+ 		 else CCSHARED="+z";
+ 		 fi;;
+-	Linux*) CCSHARED="-fPIC";;
++	Linux*|GNU*) CCSHARED="-fPIC";;
+ 	BSD/OS*/4*) CCSHARED="-fpic";;
+ 	FreeBSD*|NetBSD*|OpenBSD*) CCSHARED="-fPIC";;
+ 	OpenUNIX*|UnixWare*)
+@@ -860,7 +868,7 @@
+ 	hp*|HP*)
+ 	    LINKFORSHARED="-Wl,-E -Wl,+s -Wl,+b\$(BINLIBDEST)/lib-dynload";;
+ 	BSD/OS/4*) LINKFORSHARED="-Xlinker -export-dynamic";;
+-	Linux*) LINKFORSHARED="-Xlinker -export-dynamic";;
++	Linux*|GNU*) LINKFORSHARED="-Xlinker -export-dynamic";;
+ 	# -u libsys_s pulls in all symbols in libsys
+ 	Darwin/*) 
+ 		# -u __dummy makes the linker aware of the objc runtime
+@@ -1033,8 +1041,14 @@
+     AC_MSG_RESULT($unistd_defines_pthreads)
+ 
+     AC_DEFINE(_REENTRANT)
++    AC_CHECK_HEADER(cthreads.h, [AC_DEFINE(WITH_THREAD)
++    AC_DEFINE(C_THREADS)
++    AC_DEFINE(HURD_C_THREADS)
++    LIBS="$LIBS -lthreads"
++    LIBOBJS="$LIBOBJS thread.o"],[
+     AC_CHECK_HEADER(mach/cthreads.h, [AC_DEFINE(WITH_THREAD)
+     AC_DEFINE(C_THREADS)
++    AC_DEFINE(MACH_C_THREADS)
+     LIBOBJS="$LIBOBJS thread.o"],[
+     AC_MSG_CHECKING(for --with-pth)
+     AC_ARG_WITH(pth,
+@@ -1088,7 +1102,7 @@
+     LIBS="$LIBS -lcma"
+     LIBOBJS="$LIBOBJS thread.o"],[
+     USE_THREAD_MODULE="#"])
+-    ])])])])])])])])])
++    ])])])])])])])])])])
+ 
+     if test "$posix_threads" = "yes"; then
+       if test "$unistd_defines_pthreads" = "no"; then

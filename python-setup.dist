@@ -98,6 +98,7 @@ PYTHONPATH=$(COREPYTHONPATH)
 
 posix posixmodule.c		# posix (UNIX) system calls
 _sre _sre.c			# Fredrik Lundh's new regular expressions
+new newmodule.c			# Tommy Burnette's 'new' module
 
 # The rest of the modules listed in this file are all commented out by
 # default.  Usually they can be detected and built as dynamically
@@ -108,6 +109,9 @@ _sre _sre.c			# Fredrik Lundh's new regular expressions
 # appropriate lines below.
 
 # ======================================================================
+
+# The Python symtable module depends on .h files that setup.py doesn't track
+_symtable symtablemodule.c
 
 # The SGI specific GL module:
 
@@ -141,8 +145,8 @@ readline readline.c -lreadline
 # Modules that should always be present (non UNIX dependent):
 
 array arraymodule.c	# array objects
-cmath cmathmodule.c  -lm # complex math library functions
-math mathmodule.c  -lm # math library functions, e.g. sin()
+cmath cmathmodule.c # -lm # complex math library functions
+math mathmodule.c # -lm # math library functions, e.g. sin()
 struct structmodule.c	# binary structure packing/unpacking
 time timemodule.c # -lm # time operations and variables
 operator operator.c	# operator.add() and similar goodies
@@ -176,7 +180,7 @@ _socket socketmodule.c
 
 # Socket module compiled with SSL support; you must comment out the other
 # socket line above, and possibly edit the SSL variable:
-SSL=/usr
+#SSL=/usr/local/ssl
 _socket socketmodule.c \
 	-DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
 	-L$(SSL)/lib -lssl -lcrypto
@@ -230,7 +234,8 @@ sha shamodule.c
 # FTP archive sites. One URL for it is:
 # ftp://gatekeeper.dec.com/.b/usenet/comp.sources.misc/volume40/fgmp/part01.Z
 
-mpz mpzmodule.c -lgmp
+#GMP=/ufs/guido/src/gmp
+mpz mpzmodule.c -lgmp -D__GNU_MP__=2
 
 
 # SGI IRIX specific modules -- off by default.
@@ -282,7 +287,7 @@ mpz mpzmodule.c -lgmp
 
 # George Neville-Neil's timing module:
 
-#timing timingmodule.c
+timing timingmodule.c
 
 
 # The _tkinter module.
@@ -305,8 +310,8 @@ _tkinter _tkinter.c tkappinit.c -DWITH_APPINIT \
 
 # Lance Ellinghaus's modules:
 
-#rotor rotormodule.c		# enigma-inspired encryption
-#syslog syslogmodule.c		# syslog daemon interface
+rotor rotormodule.c		# enigma-inspired encryption
+syslog syslogmodule.c		# syslog daemon interface
 
 
 # Curses support, requring the System V version of curses, often
@@ -319,11 +324,6 @@ _tkinter _tkinter.c tkappinit.c -DWITH_APPINIT \
 _curses _cursesmodule.c -I/usr/include/ncurses -lncurses
 # Wrapper for the panel library that's part of ncurses and SYSV curses.
 _curses_panel _curses_panel.c -I/usr/include/ncurses -lpanel -lncurses 
-
-
-# Tommy Burnette's 'new' module (creates new empty objects of certain kinds):
-
-new newmodule.c
 
 
 # Generic (SunOS / SVR4) dynamic loading module.
@@ -438,3 +438,5 @@ pyexpat pyexpat.c -lexpat -DHAVE_EXPAT_H
 # Example -- included for reference only:
 # xx xxmodule.c
 
+# Another example -- the 'xxsubtype' module shows C-level subtyping in action
+xxsubtype xxsubtype.c
