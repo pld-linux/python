@@ -28,7 +28,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	1
+Release:	1.1
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -42,6 +42,7 @@ Patch2:		%{name}-default_encoding.patch
 Patch3:		%{name}-no_ndbm.patch
 Patch4:		%{name}-ac_fixes.patch
 Patch5:		%{name}-lib64.patch
+Patch6:		%{name}-doc_path.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -455,6 +456,7 @@ Przyk³adowe programy w Pythonie.
 %ifarch amd64
 %patch5 -p1
 %endif
+%patch6 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
