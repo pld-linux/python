@@ -5,9 +5,9 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	16
-Copyright:	distributable
-Group:		Development/Languages
+Release:	17
+Copyright:	Distributable
+Group:		Development/Languages/Python
 Group(pl):      Programowanie/Jêzyki/Python
 URL:		http://www.python.org/
 Source0:	ftp://ftp.python.org/pub/python/src/py152.tgz
@@ -87,7 +87,7 @@ Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
 Summary(fr):	Bibliothèques et en-têtes pour construire du code python
 Summary(pl):	Pliki nag³ówkowe i biblioteki Python'a
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
-Group:		Development/Languages
+Group:		Development/Languages/Python
 Group(pl):      Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
@@ -121,7 +121,7 @@ Summary(de):	Dokumentation zu Python
 Summary(fr):	Documentation sur Python
 Summary(pl):	Dokumentacja do Python'a 
 Summary(tr):	Python belgeleri
-Group:		Development/Languages
+Group:		Development/Languages/Python
 Group(pl):      Programowanie/Jêzyki/Python
 Requires:	%{name} = %{version}
 
@@ -179,7 +179,7 @@ des outils de configuration.
 
 %description -l pl -n tkinter 
 Ten pakiet zawiera modu³y w C, które po¶rednicz± w wywo³aniach pomiêdzy
-samym Tk a modu³em Tkinter bêd±cym g³ownym interfejsem Tk dla Pythona.
+samym Tk a modu³em Tkinter bêd±cym g³ównym interfejsem Tk dla Pythona.
 
 Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na PIL
 (Python Imaging Library).
@@ -188,58 +188,6 @@ Jedynym powodem wydzielenia tego pakietu jest u³atwienie wymiany go na PIL
 Python için Tcl/Tk'ye dayalý ve pek çok ayarlama aracý tarafýndan kullanýlan
 grafik bir arayüzdür.
 
-%package demos
-Summary:	Demoscripts and tools for/in Python
-Summary:	Dema i skrypty narzêdziowe do/z Pythona
-Group:		Development/Languages/Python
-Group(pl):	Programowanie/Jêzyki/Python
-#Icon:		linux-python-doc-icon.gif
-Requires:	%{name} = %{version}
-
-%description demos
-The package contains the demos and tools distributed along with the Python
-source distribution.
-
-The demos cover nearly all aspects of Python and all fields Python can be
-used in.
-
-The tools are
-
-	audiopy - program struj±cy urz±dzeniem dzwiêkowym w Solarisie.  BGEN
-	-- Automatic Generation of Extension Modules.  FAQ Wizard -- skrypt
-	CGI do zarz±dzania baz± pytañ FAQ. THE FREEZE SCRIPT -- Freeze
-	umo¿liwia "wyeksportowanie" skryptów w Pythonie na maszyny na
-	których nie jest on zainstalowany.  programs to people who don't
-	have Python.
-
-	IDLE -- a Tkinter-based IDE for Python
-	modulator -- generuje kod w C do pisania nowych modu³ów dla Pythona.
-	Pynche -- The PYthonically Natural Color and Hue Editor
-	Webchecker -- Prosty program przeszukij±cy drzewo WWW w poszukiwaniu
-		      na przyk³ad nie istniej±cych linków.
-	world -- wy¶wietla nazwy pañstw i odpowiadaj±ce im domeny w DNS
-
-%description -l pl demos
-Ten pakiet zawiera przyk³adowe programy i narzêdzia znajduj±ce siê w 
-¼ród³owej dystrybucji Pythona.
-
-Dema obrazuj± prawie wszystkie cechy Pythona i zastosowania, w których mo¿e
-on byæ u¿yty.
-
-Zawatre w pakiecie narzêdzia to:
-
-	audiopy - program do sterowania urz±dzeniem dzwiêkowym w Solarisie.
-	BGEN -- Automatyczny generator modu³ów rozszerzaj±cych.
-	FAQ Wizard -- skrypt CGI do zarz±czania baz± pytañ (FAQ).
-	THE FREEZE SCRIPT -- Freeze make it possible to ship arbitrary Python
-			 programs to people who don't have Python.
-	IDLE -- napisane z Tkinter ¶rodowisko programistyczne (IDE) do Pythona
-	modulator -- a generator of boilerplate code for modules to be written in C.
-	Pynche -- The PYthonically Natural Color and Hue Editor
-	Webchecker -- This is a simple web tree checker, useful to find bad links in
-								a web tree.
-	world -- Print mappings between country names and DNS country codes
-
 %prep
 %setup -q -n Python-%{version} -a1
 %patch0 -p1
@@ -247,6 +195,8 @@ Zawatre w pakiecie narzêdzia to:
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+
+rm -f Doc/{ref,}/.cvsignore
 
 %build
 export POSIXLY_CORRECT=TRUE
@@ -276,13 +226,16 @@ make install \
 	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir} \
 	CONFINCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}
+cp libpython1.5.a $RPM_BUILD_ROOT%{_libdir}
 
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/*.so \
-	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk*
+	$RPM_BUILD_ROOT%{_libdir}/%{name}1.5/lib-dynload/_tk* \
+	$RPM_BUILD_ROOT%{_libdir}/libpython1.5.a
 
 strip $RPM_BUILD_ROOT%{_bindir}/python1.5
 rm -f $RPM_BUILD_ROOT%{_bindir}/python
 ln -s python1.5 $RPM_BUILD_ROOT%{_bindir}/python
+ln -s libpython1.5.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	Misc/{ACKS,BLURB.LUTZ,COPYRIGHT,NEWS,HYPE,README,HISTORY}
@@ -298,8 +251,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_libdir}/python1.5
 %attr(-,root,root) %{_libdir}/python1.5/*.py
-%{_libdir}/python1.5/*.pyc
-%{_libdir}/python1.5/*.pyo
 
 %dir %{_libdir}/python1.5/lib-dynload
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/arraymodule.so
@@ -336,26 +287,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/timingmodule.so
 %attr(755,root,root) %{_libdir}/python1.5/lib-dynload/zlibmodule.so
 
-%{_libdir}/python1.5/lib-stdwin
+%{_libdir}/python1.5/lib-stdwin/*.py
 
 %dir %{_libdir}/python1.5/plat-*
 %attr(755,root,root) %{_libdir}/python1.5/plat-*/regen
 %{_libdir}/python1.5/plat-*/*.py
-%{_libdir}/python1.5/plat-*/*.pyc
-%{_libdir}/python1.5/plat-*/*.pyo
 
 %files devel
 %defattr(644,root,root,755)
 
 %dir %{_includedir}/python1.5
 %{_includedir}/python1.5/*.h
-
-%dir %{_libdir}/python1.5/config
-%attr(755,root,root) %{_libdir}/python1.5/config/makesetup
-%attr(755,root,root) %{_libdir}/python1.5/config/install-sh
-
-%dir %{_libdir}/python1.5/test
-%attr(-,root,root) %{_libdir}/python1.5/test/*
+%{_libdir}/libpython1.5.a
+%{_libdir}/libpython.a
 
 %files docs
 %defattr(644,root,root,755)
