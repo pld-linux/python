@@ -689,6 +689,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_dyndir}
 %dir %{py_libdir}
 %dir %{py_sitedir}
+%dir %{py_scriptdir}
 
 # shared modules required by python library
 %attr(755,root,root) %{py_dyndir}/struct.so
