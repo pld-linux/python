@@ -26,7 +26,7 @@ BuildRequires:	tk-devel
 BuildRequires:	tcl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Python is an interpreted, interactive, object-oriented programming language. 
