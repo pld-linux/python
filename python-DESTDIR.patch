@@ -1,6 +1,7 @@
---- Python-2.3a2.orig/Makefile.pre.in	Tue Jan 21 16:05:02 2003
-+++ Python-2.3a2/Makefile.pre.in	Wed Apr  9 15:36:39 2003
-@@ -546,7 +546,7 @@
+diff -Nur Python-2.3b1.orig/Makefile.pre.in Python-2.3b1/Makefile.pre.in
+--- Python-2.3b1.orig/Makefile.pre.in	Thu Apr 17 16:55:39 2003
++++ Python-2.3b1/Makefile.pre.in	Mon Apr 28 13:13:05 2003
+@@ -551,7 +551,7 @@
  		@for i in X $(SHAREDMODS); do \
  		  if test $$i != X; then \
  		    echo $(INSTALL_SHARED) $$i $(DESTSHARED)/`basename $$i`; \
@@ -9,7 +10,7 @@
  		  fi; \
  		done
  
-@@ -555,7 +555,7 @@
+@@ -560,7 +560,7 @@
  		do \
  			if test ! -d $$i; then \
  				echo "Creating directory $$i"; \
@@ -18,13 +19,13 @@
  			else    true; \
  			fi; \
  		done
-@@ -563,11 +563,11 @@
+@@ -568,11 +568,11 @@
  
  # Install the interpreter (by creating a hard link to python$(VERSION))
  bininstall:	altbininstall
--	-if test -f $(BINDIR)/$(PYTHON) -o -L $(BINDIR)/$(PYTHON); \
+-	-if test -f $(BINDIR)/$(PYTHON) -o -h $(BINDIR)/$(PYTHON); \
 -	then rm -f $(BINDIR)/$(PYTHON); \
-+	-if test -f $(DESTDIR)$(BINDIR)/$(PYTHON) -o -L $(DESTDIR)$(BINDIR)/$(PYTHON); \
++	-if test -f $(DESTDIR)$(BINDIR)/$(PYTHON) -o -h $(DESTDIR)$(BINDIR)/$(PYTHON); \
 +	then rm -f $(DESTDIR)$(BINDIR)/$(PYTHON); \
  	else true; \
  	fi
@@ -33,7 +34,7 @@
  
  # Install the interpreter with $(VERSION) affixed
  # This goes into $(exec_prefix)
-@@ -582,16 +582,16 @@
+@@ -587,16 +587,16 @@
  	do \
  		if test ! -d $$i; then \
  			echo "Creating directory $$i"; \
@@ -54,7 +55,7 @@
  		fi; \
  	else	true; \
  	fi
-@@ -602,12 +602,12 @@
+@@ -607,12 +607,12 @@
  	do \
  		if test ! -d $$i; then \
  			echo "Creating directory $$i"; \
@@ -69,7 +70,7 @@
  
  # Install the library
  PLATDIR=	plat-$(MACHDEP)
-@@ -631,7 +631,7 @@
+@@ -639,7 +639,7 @@
  	do \
  		if test ! -d $$i; then \
  			echo "Creating directory $$i"; \
@@ -78,7 +79,7 @@
  		else	true; \
  		fi; \
  	done
-@@ -642,17 +642,17 @@
+@@ -650,17 +650,17 @@
  		b=$(LIBDEST)/$$d; \
  		if test ! -d $$b; then \
  			echo "Creating directory $$b"; \
@@ -99,7 +100,7 @@
  			echo $(INSTALL_DATA) $$i $(LIBDEST); \
  		fi; \
  	done
-@@ -672,27 +672,27 @@
+@@ -680,27 +680,27 @@
  				if test -d $$i; then continue; fi; \
  				if test -x $$i; then \
  				    echo $(INSTALL_SCRIPT) $$i $$b; \
@@ -138,7 +139,7 @@
  
  # Create the PLATDIR source directory, if one wasn't distributed..
  $(srcdir)/Lib/$(PLATDIR):
-@@ -711,16 +711,16 @@
+@@ -719,16 +719,16 @@
  	do \
  		if test ! -d $$i; then \
  			echo "Creating directory $$i"; \
@@ -158,7 +159,7 @@
  
  # Install the library and miscellaneous stuff needed for extending/embedding
  # This goes into $(exec_prefix)
-@@ -730,53 +730,53 @@
+@@ -738,53 +738,53 @@
  	do \
  		if test ! -d $$i; then \
  			echo "Creating directory $$i"; \
@@ -231,7 +232,7 @@
  		echo "$(LIBPL)/ld_so_beos";			\
  		echo; echo "See Misc/BeOS-NOTES for details.";	\
  		;; \
-@@ -788,7 +788,8 @@
+@@ -796,7 +796,8 @@
  	$(RUNSHARED) ./$(BUILDPYTHON) -E $(srcdir)/setup.py install \
  	   	--prefix=$(prefix) \
  		--install-scripts=$(BINDIR) \
@@ -241,7 +242,7 @@
  
  # Here are a couple of targets for MacOSX again, to install a full
  # framework-based Python. frameworkinstall installs everything, the
-@@ -852,14 +853,16 @@
+@@ -862,14 +863,16 @@
  	--check-tkinter \
  	--prefix=$(prefix) \
  	--install-scripts=$(BINDIR) \
