@@ -354,7 +354,7 @@ _curses_panel _curses_panel.c -I/usr/include/ncurses -lpanel -lncurses
 #
 # First, look at Setup.config; configure may have set this for you.
 
-gdbm gdbmmodule.c -lgdbm
+#gdbm gdbmmodule.c -lgdbm
 
 
 # Berkeley DB interface.
@@ -375,7 +375,7 @@ gdbm gdbmmodule.c -lgdbm
 
 #DB=/depot/sundry/src/berkeley-db/db.1.85
 #DBPORT=$(DB)/PORT/irix.5.3
-bsddb bsddbmodule.c -ldb3
+bsddb bsddbmodule.c -ldb
 
 
 
