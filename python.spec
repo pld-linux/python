@@ -19,11 +19,6 @@ Version:	%{py_ver}
 Release:	12
 License:	PSF
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 URL:		http://www.python.org/
 Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
@@ -141,11 +136,6 @@ arayüz birimlerini de içerir.
 Summary:	Python library
 Summary(pl):	Biblioteka jêzyka Python
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 
 %description libs
 Python library.
@@ -157,11 +147,6 @@ Biblioteka jêzyka Python.
 Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name} = %{version}
 
 %description modules
@@ -174,11 +159,6 @@ Modu³y jêzyka Python.
 Summary:	Python interactive module documentation access support
 Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-modules = %{version}
 
 %description pydoc
@@ -196,11 +176,6 @@ Summary(pl):	Pliki nag³ówkowe i biblioteki Pythona
 Summary(pt_BR):	Bibliotecas e arquivos de inclusão para o Python
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-libs = %{version}
 
 %description devel
@@ -246,11 +221,6 @@ dosyalarýný ve kitaplýklarý içerir.
 Summary:	Python module sources
 Summary(pl):	Pliki ¼ród³owe modu³ów Pythona
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-modules = %{version}
 
 %description devel-src
@@ -263,11 +233,6 @@ Pliki ¼ród³owe modu³ów Pythona.
 Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -285,12 +250,6 @@ Summary(pl):	Dokumentacja do Pythona
 Summary(pt_BR):	Documentação para a linguagem de programação Python.
 Summary(tr):	Python belgeleri
 Group:		Development/Languages
-Group(de):	Entwicklung/Sprachen
-Group(es):	Desarrollo/Lenguages
-Group(fr):	Development/Langues
-Group(pl):	Programowanie/Jêzyki
-Group(pt):	Desenvolvimento/Línguas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/ñÚÙËÉ
 Requires:	%{name} = %{version}
 Obsoletes:	python-docs
 
@@ -329,12 +288,6 @@ LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 Summary:	Python without threads
 Summary(pl):	Pyton bez w±tków
 Group:		Development/Languages
-Group(de):	Entwicklung/Sprachen
-Group(es):	Desarrollo/Lenguages
-Group(fr):	Development/Langues
-Group(pl):	Programowanie/Jêzyki
-Group(pt):	Desenvolvimento/Línguas
-Group(ru):	òÁÚÒÁÂÏÔËÁ/ñÚÙËÉ
 Requires:	%{name} = %{version}
 Obsoletes:	python-without-thread
 
@@ -355,11 +308,6 @@ Summary(pl):	Modu³y niskiego poziomu dla pakietu Python-tkinter
 Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-modules = %{version}
 Requires:	tcl >= 8.0.3 
 Requires:	tk  >= 8.0.3
@@ -406,11 +354,6 @@ kullanýlan grafik bir arayüzdür.
 Summary:	Depreciated Python modules
 Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-modules = %{version}
 
 %description old
@@ -428,11 +371,6 @@ uruchomiæ.
 Summary:	Example programs in Python
 Summary(pl):	Przyk³adowe programy w Pythonie
 Group:		Development/Languages/Python
-Group(de):	Entwicklung/Sprachen/Python
-Group(es):	Desarrollo/Lenguages/Python
-Group(fr):	Development/Langues/Python
-Group(pl):	Programowanie/Jêzyki/Python
-Group(pt):	Desenvolvimento/Línguas/Python
 Requires:	%{name}-devel = %{version}
 Obsoletes:	python-tools
 
