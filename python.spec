@@ -1,4 +1,3 @@
-# TODO: Check patch #5 - currenly commented out.
 
 %define py_ver         2.2
 %define py_prefix      %{_prefix}
