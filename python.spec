@@ -18,20 +18,20 @@ Summary(ru):	ñÚÙË ÐÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏÞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
-Version:	%{py_ver}b1
+Version:	%{py_ver}b2
 Release:	0.1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
 Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tgz
+# Source0-md5:	da16309c14caf585353686d5462fe9d7
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-readline.patch
-Patch2:		%{name}-%{name}path.patch
-Patch3:		%{name}-default_encoding.patch
-Patch4:		%{name}-no_ndbm.patch
-Patch5:		%{name}-ac_fixes.patch
-Patch6:		%{name}-idle.patch
+# Source1-md5:	e47bc4f6030ba50aadeec01629aec95f
+Patch0:		%{name}-readline.patch
+Patch1:		%{name}-%{name}path.patch
+Patch2:		%{name}-default_encoding.patch
+Patch3:		%{name}-no_ndbm.patch
+Patch4:		%{name}-ac_fixes.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
@@ -442,8 +442,6 @@ Przyk³adowe programy w Pythonie.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
@@ -596,10 +594,10 @@ rm -rf $RPM_BUILD_ROOT
 %files idle
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/idle
-%dir %{py_sitedir}/idlelib
-%dir %{py_sitedir}/idlelib/Icons
-%{py_sitedir}/idlelib/*.py[co]
-%{py_sitedir}/idlelib/Icons/*
+%dir %{py_libdir}/idlelib
+%dir %{py_libdir}/idlelib/Icons
+%{py_libdir}/idlelib/*.py[co]
+%{py_libdir}/idlelib/Icons/*
 
 %files devel
 %defattr(644,root,root,755)
@@ -637,7 +635,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/xml/sax/*.py
 %{py_libdir}/xml/dom/*.py
 %{py_libdir}/encodings/*.py
-%{py_sitedir}/idlelib/*.py
+%{py_libdir}/idlelib/*.py
 
 %files static
 %defattr(644,root,root,755)
