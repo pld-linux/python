@@ -2,8 +2,8 @@
 # Conditional build:
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
-%bcond_with		verbose_tests	# runs tests in verbose mode
-%bcond_with		noautosys		# do not put sys.argv[0] directory in sys.path
+%bcond_with	verbose_tests		# runs tests in verbose mode
+%bcond_with	noautosys		# do not put sys.argv[0] directory in sys.path
 #
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
@@ -55,8 +55,8 @@ URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
-BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	expat-devel >= 1:1.95.7
+BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
