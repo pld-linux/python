@@ -16,9 +16,9 @@ License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
-URL:		http://www.pythonlabs.com/
-Source0:	http://www.pythonlabs.com/tech/python2.0/Python-%{version}.tgz
-Source1:	http://www.pythonlabs.com/tech/python2.0/doc/html-%{version}.tar.bz2
+URL:		http://www.python.org/
+Source0:	http://prdownloads.sourceforge.net/python/Python-%{version}.tgz
+Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
 Patch1:		%{name}-dl_global.patch
