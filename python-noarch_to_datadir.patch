@@ -1,6 +1,6 @@
 diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/distutils/command/install.py
 --- Python-2.3.3.orig/Lib/distutils/command/install.py	2002-11-19 14:12:28.000000000 +0100
-+++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-15 19:07:38.331674199 +0100
++++ Python-2.3.3/Lib/distutils/command/install.py	2004-01-16 08:47:05.622089221 +0100
 @@ -38,14 +38,14 @@
  
  INSTALL_SCHEMES = {
@@ -19,8 +19,8 @@ diff -dur Python-2.3.3.orig/Lib/distutils/command/install.py Python-2.3.3/Lib/di
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
 diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
---- Python-2.3.3.orig/Lib/site.py	2004-01-15 19:07:18.183541553 +0100
-+++ Python-2.3.3/Lib/site.py	2004-01-15 19:07:38.331674199 +0100
+--- Python-2.3.3.orig/Lib/site.py	2004-01-16 08:46:47.766402161 +0100
++++ Python-2.3.3/Lib/site.py	2004-01-16 08:47:05.622089221 +0100
 @@ -170,7 +170,12 @@
                                       "lib",
                                       "python" + sys.version[:3],
@@ -37,7 +37,7 @@ diff -dur Python-2.3.3.orig/Lib/site.py Python-2.3.3/Lib/site.py
          if sys.platform == 'darwin':
 diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
 --- Python-2.3.3.orig/Makefile.pre.in	2003-11-18 20:54:00.000000000 +0100
-+++ Python-2.3.3/Makefile.pre.in	2004-01-15 19:07:38.332673958 +0100
++++ Python-2.3.3/Makefile.pre.in	2004-01-16 08:47:05.622089221 +0100
 @@ -83,7 +83,7 @@
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
@@ -49,7 +49,7 @@ diff -dur Python-2.3.3.orig/Makefile.pre.in Python-2.3.3/Makefile.pre.in
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
 diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
 --- Python-2.3.3.orig/Modules/getpath.c	2002-12-31 13:45:12.000000000 +0100
-+++ Python-2.3.3/Modules/getpath.c	2004-01-15 19:11:49.718931673 +0100
++++ Python-2.3.3/Modules/getpath.c	2004-01-16 08:49:12.992320728 +0100
 @@ -112,7 +112,7 @@
  #endif
  
@@ -59,4 +59,47 @@ diff -dur Python-2.3.3.orig/Modules/getpath.c Python-2.3.3/Modules/getpath.c
                EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
  #endif
  
-Only in Python-2.3.3/Modules: getpath.c~
+@@ -125,6 +125,7 @@
+ static char progpath[MAXPATHLEN+1];
+ static char *module_search_path = NULL;
+ static char lib_python[] = "lib/python" VERSION;
++static char share_python[] = "share/python" VERSION;
+ 
+ static void
+ reduce(char *dir)
+@@ -256,7 +257,7 @@
+         delim = strchr(prefix, DELIM);
+         if (delim)
+             *delim = '\0';
+-        joinpath(prefix, lib_python);
++        joinpath(prefix, share_python);
+         joinpath(prefix, LANDMARK);
+         return 1;
+     }
+@@ -279,7 +280,7 @@
+     copy_absolute(prefix, argv0_path);
+     do {
+         n = strlen(prefix);
+-        joinpath(prefix, lib_python);
++        joinpath(prefix, share_python);
+         joinpath(prefix, LANDMARK);
+         if (ismodule(prefix))
+             return 1;
+@@ -289,7 +290,7 @@
+ 
+     /* Look at configure's PREFIX */
+     strncpy(prefix, PREFIX, MAXPATHLEN);
+-    joinpath(prefix, lib_python);
++    joinpath(prefix, share_python);
+     joinpath(prefix, LANDMARK);
+     if (ismodule(prefix))
+         return 1;
+@@ -479,7 +480,7 @@
+             fprintf(stderr,
+                 "Could not find platform independent libraries <prefix>\n");
+         strncpy(prefix, PREFIX, MAXPATHLEN);
+-        joinpath(prefix, lib_python);
++        joinpath(prefix, share_python);
+     }
+     else
+         reduce(prefix);
