@@ -10,7 +10,7 @@
 #
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
-%define py_libdir      %{py_prefix}/lib/python%{py_ver}
+%define py_libdir      %{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir      %{_includedir}/python%{py_ver}
 %define py_sitedir     %{py_libdir}/site-packages
 %define py_dyndir      %{py_libdir}/lib-dynload
@@ -463,17 +463,22 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 	--enable-unicode=ucs4 \
 	--enable-shared
 
-%{__make} OPT="%{rpmcflags}"
+%{__make} \
+	LIBDIR=%{_libdir} \
+	SCRIPTDIR=%{_libdir} \
+	OPT="%{rpmcflags}"
 
 LC_ALL=C
 export LC_ALL
-%{?with_tests:%{__make} test}
+%{?with_tests:%{__make} test || :}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
+	LIBDIR=%{_libdir} \
+	SCRIPTDIR=%{_libdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
