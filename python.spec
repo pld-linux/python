@@ -24,7 +24,7 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}a2
+Version:	%{py_ver}b1
 Release:	0.1
 License:	PSF
 Group:		Applications
@@ -503,7 +503,7 @@ find $RPM_BUILD_ROOT%{py_dyndir} \
 	-maxdepth 1 \
 	-printf "%%%%attr(755,root,root) %{py_dyndir}/%f\\n" \
 	| grep '\.so$' \
-	| grep -v -e 'codecsmodule\.so$' \
+	| grep -v -e '_iconv_codec\.so$' \
 	| grep -v -e 'readline\.so$' \
 	| grep -v -e 'struct\.so$' \
 	| grep -v -e '_tkinter\.so$' >> modules.filelist
@@ -527,43 +527,43 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_libdir}/plat-*
 %attr(755,root,root) %{py_libdir}/plat-*/regen
-%{py_libdir}/plat-*/*.py?
+%{py_libdir}/plat-*/*.py[co]
 
 %dir %{py_libdir}/bsddb
-%{py_libdir}/bsddb/*.py?
+%{py_libdir}/bsddb/*.py[co]
 
 %dir %{py_libdir}/compiler
-%{py_libdir}/compiler/*.py?
+%{py_libdir}/compiler/*.py[co]
 
 %dir %{py_libdir}/curses
-%{py_libdir}/curses/*.py?
+%{py_libdir}/curses/*.py[co]
 
 %dir %{py_libdir}/distutils
-%{py_libdir}/distutils/*.py?
+%{py_libdir}/distutils/*.py[co]
 
 %dir %{py_libdir}/distutils/command
-%{py_libdir}/distutils/command/*.py?
+%{py_libdir}/distutils/command/*.py[co]
 
 %dir %{py_libdir}/email
-%{py_libdir}/email/*.py?
+%{py_libdir}/email/*.py[co]
 
 %dir %{py_libdir}/hotshot
-%{py_libdir}/hotshot/*.py?
+%{py_libdir}/hotshot/*.py[co]
 
 %dir %{py_libdir}/logging
-%{py_libdir}/logging/*.py?
+%{py_libdir}/logging/*.py[co]
 
 %dir %{py_libdir}/xml
-%{py_libdir}/xml/*.py?
+%{py_libdir}/xml/*.py[co]
 
 %dir %{py_libdir}/xml/parsers
-%{py_libdir}/xml/parsers/*.py?
+%{py_libdir}/xml/parsers/*.py[co]
 
 %dir %{py_libdir}/xml/sax
-%{py_libdir}/xml/sax/*.py?
+%{py_libdir}/xml/sax/*.py[co]
 
 %dir %{py_libdir}/xml/dom
-%{py_libdir}/xml/dom/*.py?
+%{py_libdir}/xml/dom/*.py[co]
 
 %files libs
 %defattr(644,root,root,755)
@@ -574,33 +574,33 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}
 
 # required shared modules by python library
-%attr(755,root,root) %{py_dyndir}/_iconv_codec.so
+#%attr(755,root,root) %{py_dyndir}/_iconv_codec.so
 %attr(755,root,root) %{py_dyndir}/struct.so
 
 # required modules by python library
-%{py_libdir}/UserDict.py?
-%{py_libdir}/codecs.py?
-%{py_libdir}/locale.py?
-%{py_libdir}/posixpath.py?
-%{py_libdir}/site.py?
-%{py_libdir}/stat.py?
-%{py_libdir}/os.py?
+%{py_libdir}/UserDict.py[co]
+%{py_libdir}/codecs.py[co]
+%{py_libdir}/locale.py[co]
+%{py_libdir}/posixpath.py[co]
+%{py_libdir}/site.py[co]
+%{py_libdir}/stat.py[co]
+%{py_libdir}/os.py[co]
 
 # required encodings by python library
 %dir %{py_libdir}/encodings
-%{py_libdir}/encodings/*.py?
+%{py_libdir}/encodings/*.py[co]
 
 %files pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
-%{py_libdir}/pydoc.py?
+%{py_libdir}/pydoc.py[co]
 
 %files idle
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/idle
 %dir %{py_sitedir}/idlelib
 %dir %{py_sitedir}/idlelib/Icons
-%{py_sitedir}/idlelib/*.py?
+%{py_sitedir}/idlelib/*.py[co]
 %{py_sitedir}/idlelib/Icons/*
 
 %files devel
@@ -626,17 +626,20 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(-,root,root) %{py_libdir}/*.py
 %{py_libdir}/plat-*/*.py
+%{py_libdir}/bsddb/*.py
 %{py_libdir}/compiler/*.py
 %{py_libdir}/curses/*.py
 %{py_libdir}/distutils/*.py
 %{py_libdir}/distutils/command/*.py
 %{py_libdir}/email/*.py
 %{py_libdir}/hotshot/*.py
+%{py_libdir}/logging/*.py
 %{py_libdir}/xml/*.py
 %{py_libdir}/xml/parsers/*.py
 %{py_libdir}/xml/sax/*.py
 %{py_libdir}/xml/dom/*.py
 %{py_libdir}/encodings/*.py
+%{py_sitedir}/idlelib/*.py
 
 %files static
 %defattr(644,root,root,755)
@@ -663,4 +666,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %dir %{py_libdir}/lib-old
-%{py_libdir}/lib-old/*.py?
+%{py_libdir}/lib-old/*.py[co]
