@@ -8,7 +8,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}b1
-Release:	1
+Release:	2
 Copyright:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(pl):	Programowanie/Jêzyki/Python
@@ -198,8 +198,7 @@ kullanýlan grafik bir arayüzdür.
 %patch0 -p1
 %patch2 -p1
 
-rm -f Doc/{ref,}/.cvsignore
-mkdir Doc && tar Ixf %{SOURCE1} -C Doc
+install -d html-doc && tar Ixf %{SOURCE1} -C html-doc
 
 %build
 export POSIXLY_CORRECT=TRUE
@@ -207,8 +206,6 @@ export POSIXLY_CORRECT=TRUE
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
-
-cp Lib/lib-old/rand.py Lib
 
 LDFLAGS="-s"; export LDFLAGS
 CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
@@ -238,14 +235,14 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{pver}
 ln -s libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 gzip -9nf README $RPM_BUILD_ROOT%{_mandir}/man1/* \
-	Misc/{ACKS,BLURB.LUTZ,NEWS,HYPE,README,HISTORY}
+	Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,HYPE,README,unicode.txt}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(644,root,root,755)
-%doc README.gz Misc/{ACKS,NEWS,HISTORY}.gz
+%doc README.gz Misc/{ACKS,BLURB,BLURB.LUTZ,NEWS,README,unicode.txt}.gz
 
 %attr(755,root,root) %{_bindir}/*
 
@@ -361,7 +358,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Misc/HYPE.gz Misc/README.gz Misc/cheatsheet Misc/BLURB* Doc/*
+%doc html-doc/*
 
 %files -n tkinter
 %defattr(644,root,root,755)
