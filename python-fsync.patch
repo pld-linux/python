@@ -1,0 +1,12 @@
+diff -urN Python-2.3.1.org/configure.in Python-2.3.1/configure.in
+--- Python-2.3.1.org/configure.in	2003-09-26 23:46:32.000000000 +0000
++++ Python-2.3.1/configure.in	2003-09-26 23:46:45.000000000 +0000
+@@ -2093,7 +2093,7 @@
+ )
+ AC_MSG_CHECKING(for fsync)
+ AC_TRY_COMPILE([#include <unistd.h>], void *x=fsync,
+-  AC_DEFINE(HAVE_SYNC, 1, Define if you have the 'fsync' function.)
++  AC_DEFINE(HAVE_FSYNC, 1, Define if you have the 'fsync' function.)
+   AC_MSG_RESULT(yes),
+   AC_MSG_RESULT(no)
+ )
