@@ -1,5 +1,8 @@
 
-%define pver 2.0
+%define python_compile_opt ./python -O -c "import compileall; import sys; compileall.compile_dir(sys.argv[1])"
+%define python_compile ./python -c "import compileall; import sys; compileall.compile_dir(sys.argv[1])"
+
+%define pver 2.1
  
 Summary:	Very high level scripting language with X interface
 Summary(de):	Very High-Level-Script-Sprache mit X-Oberfläche
@@ -8,24 +11,25 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	%{pver}
-Release:	14
+Release:	1
 License:	BeOpen Python License
 Group:		Development/Languages/Python
 Group(de):	Entwicklung/Sprachen/Python
 Group(pl):	Programowanie/Jêzyki/Python
 URL:		http://www.pythonlabs.com/
-Source0:	http://www.pythonlabs.com/tech/python2.0/BeOpen-Python-%{version}.tar.bz2
+Source0:	http://www.pythonlabs.com/tech/python2.0/Python-%{version}.tgz
 Source1:	http://www.pythonlabs.com/tech/python2.0/doc/html-%{version}.tar.bz2
+Source2:	%{name}-setup.dist
 Patch0:		%{name}-shared-lib.patch
-Patch1:		%{name}-pld.patch
-Patch2:		%{name}-dl_global.patch
-Patch3:		%{name}-shared.patch
-Patch4:		%{name}-tkinter.patch
-Patch5:		%{name}-readline.patch
+Patch1:		%{name}-dl_global.patch
+Patch2:		%{name}-setup-install.patch
+# don't know what to do with it, so it is only commented out, at now
+#Patch3:		%{name}-readline.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	gdbm-devel >= 1.0.8-7
 BuildRequires:	ncurses-devel >= 5.2
+BuildRequires:	openssl-devel
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tix-devel
 BuildRequires:	tk-devel >= 8.3.2
@@ -245,21 +249,21 @@ tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz uruchomiæ.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+#%patch3 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
 
+install %{SOURCE2} Modules/Setup
+
 %build
 export POSIXLY_CORRECT=TRUE
-
-autoconf
 
 echo ': ${LDSHARED='gcc -shared'}' > config.cache
 echo ': ${LINKFORSHARED='-rdynamic'}' >> config.cache
 echo ': ${CCSHARED='-fPIC'}' >> config.cache
+
+autoconf
 
 CPPFLAGS="-I%{_includedir}/ncurses -I%{_includedir}/db3"; export CPPFLAGS
 %configure \
@@ -282,6 +286,9 @@ export LD_LIBRARY_PATH=$(pwd)
 
 install libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}
 
+%python_compile $RPM_BUILD_ROOT%{_libdir}/python%{pver}
+%python_compile_opt $RPM_BUILD_ROOT%{_libdir}/python%{pver}
+
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{pver}
 ln -sf libpython%{pver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
@@ -297,6 +304,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/libpython*so.*
+%{_mandir}/man1/*
 
 %dir %{_libdir}/python%{pver}
 %{_libdir}/python%{pver}/*.pyc
