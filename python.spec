@@ -5,7 +5,7 @@ Summary(pl):	Python - jêzyk obiektowy wysokiego poziomu
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Name:		python
 Version:	1.5.2
-Release:	14
+Release:	15
 Copyright:	distributable
 Group:		Development/Languages
 Group(pl):      Programowanie/Jêzyki/Python
@@ -19,11 +19,11 @@ Patch2:		python-dl_global.patch
 Patch3:		python-wdb.patch
 Patch4:		python-wuftpd.patch
 BuildRequires:	XFree86-devel
-BuildRequires:	readline-devel
+BuildRequires:	readline-devel >= 4.1
+BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	tix
 BuildRequires:	tk-devel
 BuildRequires:	tcl-devel
-BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	zlib-devel
 BuildRequires:	gdbm-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
