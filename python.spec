@@ -17,8 +17,8 @@ Summary(ru):	ñÚÙË ÐÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏÞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
-Version:	%{py_ver}.1
-Release:	19
+Version:	%{py_ver}.2
+Release:	1
 License:	PSF
 Group:		Applications
 URL:		http://www.python.org/
@@ -32,7 +32,7 @@ Patch3:		%{name}-ac25x.patch
 Patch4:		%{name}-default_encoding.patch
 Patch5:		%{name}-no_ndbm.patch
 Patch6:		%{name}-ac_fixes.patch
-Patch7:		%{name}-sec-lib-os-execvpe.patch
+
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	db3-devel
@@ -432,7 +432,6 @@ Przyk³adowe programy w Pythonie.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
 
 install -d html-doc
 tar -xf %{SOURCE1} --use=bzip2 -C html-doc
@@ -471,19 +470,17 @@ export LD_LIBRARY_PATH
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
 install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
+ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 %py_comp $RPM_BUILD_ROOT%{py_libdir}
 %py_ocomp $RPM_BUILD_ROOT%{py_libdir}
 
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
-ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/python
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/python
 
 install Tools/scripts/pydoc $RPM_BUILD_ROOT%{_bindir}
-
-gzip -9nf Misc/{ACKS,NEWS,README}
 
 echo "%defattr(644,root,root,755)" > modules.filelist
 
@@ -595,7 +592,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc Misc/*.gz
+%doc Misc/{ACKS,NEWS,README}
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h

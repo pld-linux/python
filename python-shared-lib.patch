@@ -1,6 +1,6 @@
-diff -urN Python-2.2.1.org/Makefile.pre.in Python-2.2.1/Makefile.pre.in
---- Python-2.2.1.org/Makefile.pre.in	Thu Apr 11 09:24:54 2002
-+++ Python-2.2.1/Makefile.pre.in	Thu Apr 11 09:26:34 2002
+diff -Nur Python-2.2.2.orig/Makefile.pre.in Python-2.2.2/Makefile.pre.in
+--- Python-2.2.2.orig/Makefile.pre.in	Fri Aug 23 18:05:49 2002
++++ Python-2.2.2/Makefile.pre.in	Thu Oct 17 12:04:40 2002
 @@ -25,6 +25,7 @@
  
  # === Variables set by configure
@@ -199,9 +199,9 @@ diff -urN Python-2.2.1.org/Makefile.pre.in Python-2.2.1/Makefile.pre.in
  # Rerun configure with the same options as it was run last time,
  # provided the config.status script exists
  recheck:
-diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
---- Python-2.2.1.org/configure.in	Thu Apr 11 09:24:54 2002
-+++ Python-2.2.1/configure.in	Thu Apr 11 09:24:58 2002
+diff -Nur Python-2.2.2.orig/configure.in Python-2.2.2/configure.in
+--- Python-2.2.2.orig/configure.in	Thu Oct 10 17:26:46 2002
++++ Python-2.2.2/configure.in	Thu Oct 17 12:05:36 2002
 @@ -8,6 +8,10 @@
  AC_SUBST(VERSION)
  VERSION=2.2
@@ -213,7 +213,7 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
  # Arguments passed to configure.
  AC_SUBST(CONFIG_ARGS)
  CONFIG_ARGS="$ac_configure_args"
-@@ -272,6 +276,7 @@
+@@ -273,6 +277,7 @@
  # python might then depend on the C++ runtime
  # This is altered for AIX in order to build the export list before 
  # linking.
@@ -221,7 +221,7 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
  AC_SUBST(LINKCC)
  AC_MSG_CHECKING(LINKCC)
  if test -z "$LINKCC"
-@@ -297,6 +302,9 @@
+@@ -298,6 +303,9 @@
  	   LINKCC="LD_RUN_PATH=$libdir $(LINKCC)";;
  	Monterey64*)
  	   LINKCC="$(LINKCC) -L/usr/lib/ia64l64";;
@@ -231,16 +231,16 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
  	esac
  fi
  AC_MSG_RESULT($LINKCC)
-@@ -799,7 +807,7 @@
+@@ -824,7 +832,7 @@
  			BLDSHARED="$LDSHARED "'-bundle_loader $(BUILDPYTHON)'
  			LDSHARED="$LDSHARED "'-bundle_loader $(BINDIR)/$(PYTHON)'
  		fi ;;
--	Linux*) LDSHARED="gcc -shared";;
-+	Linux*|GNU*) LDSHARED="gcc -shared";;
+-	Linux*) LDSHARED='$(CC) -shared';;
++	Linux*|GNU*) LDSHARED='$(CC) -shared';;
  	dgux*) LDSHARED="ld -G";;
  	BSD/OS*/4*) LDSHARED="gcc -shared";;
- 	OpenBSD*|NetBSD*|FreeBSD*)
-@@ -835,7 +843,7 @@
+ 	OpenBSD*|FreeBSD*)
+@@ -861,7 +869,7 @@
  		 then CCSHARED="-fPIC";
  		 else CCSHARED="+z";
  		 fi;;
@@ -249,7 +249,7 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
  	BSD/OS*/4*) CCSHARED="-fpic";;
  	FreeBSD*|NetBSD*|OpenBSD*) CCSHARED="-fPIC";;
  	OpenUNIX*|UnixWare*)
-@@ -863,7 +871,7 @@
+@@ -893,7 +901,7 @@
  	hp*|HP*)
  	    LINKFORSHARED="-Wl,-E -Wl,+s -Wl,+b\$(BINLIBDEST)/lib-dynload";;
  	BSD/OS/4*) LINKFORSHARED="-Xlinker -export-dynamic";;
@@ -258,7 +258,7 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
  	# -u libsys_s pulls in all symbols in libsys
  	Darwin/*) 
  		# -u __dummy makes the linker aware of the objc runtime
-@@ -1036,8 +1044,14 @@
+@@ -1066,8 +1074,14 @@
      AC_MSG_RESULT($unistd_defines_pthreads)
  
      AC_DEFINE(_REENTRANT)
@@ -273,7 +273,7 @@ diff -urN Python-2.2.1.org/configure.in Python-2.2.1/configure.in
      LIBOBJS="$LIBOBJS thread.o"],[
      AC_MSG_CHECKING(for --with-pth)
      AC_ARG_WITH(pth,
-@@ -1091,7 +1105,7 @@
+@@ -1121,7 +1135,7 @@
      LIBS="$LIBS -lcma"
      LIBOBJS="$LIBOBJS thread.o"],[
      USE_THREAD_MODULE="#"])
