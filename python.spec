@@ -1,7 +1,7 @@
 
 # Conditional build:
 %bcond_without tkinter	# disables tkinter module building
-%bcond_without test	# disables Python testing
+%bcond_without tests	# disables Python testing
 
 %define py_ver         2.3
 %define py_prefix      %{_prefix}
