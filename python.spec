@@ -1,14 +1,14 @@
-
+#
 # Conditional build:
 %bcond_without tkinter		# disables tkinter module building
 %bcond_without tests		# disables Python testing
 %bcond_with verbose_tests	# runs tests in verbose mode
-
+#
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale
-# test which fail because of some unknown/unresolved reason (this list should be empty)
+# tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport
 
 %define py_ver         2.3
@@ -54,15 +54,14 @@ BuildRequires:	autoconf
 BuildRequires:	db-devel >= 4
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	expat-devel >= 1.95.7
-BuildRequires:	gmp-devel => 4.0
+BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	ncurses-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 4.2
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
-Requires:	python-libs = %{epoch}:%{version}
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires:	python-libs = %{epoch}:%{version}-%{release}
 Provides:	%{name} = %{py_ver}
 Obsoletes:	python-xml
 Obsoletes:	python-intl
@@ -71,6 +70,7 @@ Obsoletes:	python-gdbm
 Obsoletes:	python-zlib
 Obsoletes:	python2
 Obsoletes:	python2-devel
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with verbose_tests}
 %define test_flags -v -l -x 
@@ -193,8 +193,8 @@ Biblioteka jêzyka Python.
 Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-modules = %{py_ver}
-Requires:	%{name} = %{epoch}:%{version}
 Obsoletes:	python-logging
 Obsoletes:	python-xmlrpc <= 1.0.1
 
@@ -208,7 +208,7 @@ Modu³y jêzyka Python.
 Summary:	Python interactive module documentation access support
 Summary(pl):	Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python
 Group:		Applications
-Requires:	%{name}-modules = %{epoch}:%{version}
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Obsoletes:	python-pydoc
 
 %description -n pydoc
@@ -221,7 +221,7 @@ Interaktywne korzystanie z dokumentacji modu³ów jêzyka Python.
 Summary:	IDE for Python language
 Summary(pl):	IDE dla jêzyka Python
 Group:		Applications
-Requires:	%{name}-modules = %{epoch}:%{version}
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Obsoletes:	python-idle
 
 %description -n idle
@@ -241,7 +241,7 @@ Summary(ru):	âÉÂÌÉÏÔÅËÉ É ÈÅÄÅÒÙ ÄÌÑ ÐÏÓÔÒÏÅÎÉÑ ËÏÄÁ ÎÁ ÑÚÙËÅ Python
 Summary(tr):	Python ile geliþtirme yapmak için gerekli dosyalar
 Summary(uk):	â¦ÂÌ¦ÏÔÅËÉ ÔÁ ÈÅÄÅÒÉ ÄÌÑ ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÎÁ ÍÏ×¦ Python
 Group:		Development/Languages/Python
-Requires:	%{name}-libs = %{epoch}:%{version}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -298,7 +298,7 @@ dosyalarýný ve kitaplýklarý içerir.
 Summary:	Python module sources
 Summary(pl):	Pliki ¼ród³owe modu³ów Pythona
 Group:		Development/Languages/Python
-Requires:	%{name}-modules = %{epoch}:%{version}
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
 %description devel-src
 Python module sources.
@@ -310,8 +310,7 @@ Pliki ¼ród³owe modu³ów Pythona.
 Summary:	Python development tools
 Summary(pl):	Narzêdzia programistyczne jêzyka Python
 Group:		Development/Languages/Python
-Requires:	%{name}-modules = %{epoch}:%{version}
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
 %description devel-tools
 Python development tools such as profilers and debugger.
@@ -323,8 +322,8 @@ Narzêdzia programistyczne jêzyka Python takie jak profiler oraz debugger.
 Summary:	Static python library
 Summary(pl):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	%{name}-static = %{py_ver}
-Requires:	%{name}-devel = %{epoch}:%{version}
 
 %description static
 Static python library.
@@ -343,7 +342,7 @@ Summary(ru):	äÏËÕÍÅÎÔÁÃÉÑ ÐÏ ÑÚÙËÕ Python
 Summary(tr):	Python belgeleri
 Summary(uk):	äÏËÕÍÅÎÔÁÃ¦Ñ ÐÏ ÍÏ×¦ Python
 Group:		Documentation
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	python-docs
 
 %description doc
@@ -396,10 +395,10 @@ Summary(pl):	Standardowy interfejs Pythona do biblioteki Tk
 Summary(pt_BR):	Interface GUI para Phyton
 Summary(tr):	Python için grafik kullanýcý arayüzü
 Group:		Libraries/Python
-Requires:	%{name}-modules = %{epoch}:%{version}
-Requires:	tcl >= 8.0.3
-Requires:	tk  >= 8.0.3
-Requires:	tix >= 4.1.0.6
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
+Requires:	tcl >= 8.4.3
+Requires:	tix >= 1:8.1.4-4
+Requires:	tk  >= 8.4.3
 Obsoletes:	tkinter
 
 %description tkinter
@@ -438,7 +437,7 @@ kullanýlan grafik bir arayüzdür.
 Summary:	Depreciated Python modules
 Summary(pl):	Nieaktualne modu³y jêzyka Python
 Group:		Libraries/Python
-Requires:	%{name}-modules = %{epoch}:%{version}
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
 %description old
 Install this package when one of your program written in Python is old
@@ -455,7 +454,7 @@ uruchomiæ.
 Summary:	Example programs in Python
 Summary(pl):	Przyk³adowe programy w Pythonie
 Group:		Development/Languages/Python
-Requires:	%{name}-devel = %{epoch}:%{version}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	python-tools
 
 %description examples
@@ -494,7 +493,8 @@ CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
-%{__make} test TESTOPTS="%{test_flags} %{test_list}"
+%{__make} test \
+	TESTOPTS="%{test_flags} %{test_list}"
 %endif
 
 %install
