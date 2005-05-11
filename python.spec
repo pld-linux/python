@@ -30,7 +30,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -77,7 +77,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define test_flags -l -x 
 %endif
 
-%ifarch alpha amd64 ia64 ppc64 sparc64 ppc64
+%ifarch alpha ia64 ppc64 sparc64 ppc64 %{x8664}
 %define test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests}
 %else
 %define test_list %{nobuilder_tests} %{broken_tests}
@@ -581,7 +581,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # three modules below does not work on 64-bit architectures
 # see Python README file for explanation
-%ifnarch alpha amd64 ia64 ppc64 sparc64
+%ifnarch alpha ia64 ppc64 sparc64 %{x8664}
 %attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/rgbimg.so
 %attr(755,root,root) %{py_dyndir}/imageop.so
