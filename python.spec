@@ -553,9 +553,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/python
 %{_mandir}/man1/*
 
-# readline support for python binary
-%attr(755,root,root) %{py_dyndir}/readline.so
-
 %files modules
 %defattr(644,root,root,755)
 %exclude %{py_scriptdir}/UserDict.py[co]
@@ -635,6 +632,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/parser.so
 %attr(755,root,root) %{py_dyndir}/pwd.so
 %attr(755,root,root) %{py_dyndir}/pyexpat.so
+%attr(755,root,root) %{py_dyndir}/readline.so
 %attr(755,root,root) %{py_dyndir}/regex.so
 %attr(755,root,root) %{py_dyndir}/resource.so
 %attr(755,root,root) %{py_dyndir}/select.so
