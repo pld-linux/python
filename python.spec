@@ -46,6 +46,7 @@ Patch4:		%{name}-ac_fixes.patch
 Patch5:		%{name}-noarch_to_datadir.patch
 Patch6:		%{name}-lib64.patch
 Patch7:		%{name}-doc_path.patch
+Patch8:		%{name}-smtplib.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -481,6 +482,7 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %endif
 %patch7 -p1
+%patch8 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
