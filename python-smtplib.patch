@@ -1,0 +1,17 @@
+diff -urN Python-2.4.1.org/Lib/smtplib.py Python-2.4.1/Lib/smtplib.py
+--- Python-2.4.1.org/Lib/smtplib.py	2004-07-11 01:14:29.000000000 +0200
++++ Python-2.4.1/Lib/smtplib.py	2005-08-12 22:04:27.000000000 +0200
+@@ -252,8 +252,11 @@
+                 self.local_hostname = fqdn
+             else:
+                 # We can't find an fqdn hostname, so use a domain literal
+-                addr = socket.gethostbyname(socket.gethostname())
+-                self.local_hostname = '[%s]' % addr
++		addr = self.sock.getsockname()
++		addr = addr[0]
++		if addr == '0.0.0.0':
++		    addr = socket.gethostbyname(socket.gethostname())
++		self.local_hostname = '[%s]' % addr
+ 
+     def set_debuglevel(self, debuglevel):
+         """Set the debug output level.
