@@ -40,13 +40,12 @@ Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 # Source1-md5:	00fb0aee372eae2d9cef649853dfc5d8
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
-Patch2:		%{name}-default_encoding.patch
-Patch3:		%{name}-no_ndbm.patch
-Patch4:		%{name}-ac_fixes.patch
-Patch5:		%{name}-noarch_to_datadir.patch
-Patch6:		%{name}-lib64.patch
-Patch7:		%{name}-doc_path.patch
-Patch8:		%{name}-smtplib.patch
+Patch2:		%{name}-no_ndbm.patch
+Patch3:		%{name}-ac_fixes.patch
+Patch4:		%{name}-noarch_to_datadir.patch
+Patch5:		%{name}-lib64.patch
+Patch6:		%{name}-doc_path.patch
+Patch7:		%{name}-smtplib.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -473,16 +472,14 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %setup -q -n Python-%{version}
 %patch0 -p1
 %patch1 -p1
-# should be already fixed in the source but seems not to be:
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 %if "%{_lib}" == "lib64"
-%patch6 -p1
+%patch5 -p1
 %endif
+%patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
