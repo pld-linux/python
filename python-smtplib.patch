@@ -7,11 +7,11 @@ diff -urN Python-2.4.1.org/Lib/smtplib.py Python-2.4.1/Lib/smtplib.py
                  # We can't find an fqdn hostname, so use a domain literal
 -                addr = socket.gethostbyname(socket.gethostname())
 -                self.local_hostname = '[%s]' % addr
-+		addr = self.sock.getsockname()
-+		addr = addr[0]
-+		if addr == '0.0.0.0':
-+		    addr = socket.gethostbyname(socket.gethostname())
-+		self.local_hostname = '[%s]' % addr
++                addr = self.sock.getsockname()
++                addr = addr[0]
++                if addr == '0.0.0.0':
++                       addr = socket.gethostbyname(socket.gethostname())
++                self.local_hostname = '[%s]' % addr
  
      def set_debuglevel(self, debuglevel):
          """Set the debug output level.
