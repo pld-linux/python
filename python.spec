@@ -30,7 +30,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.1
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -56,7 +56,7 @@ BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.7d
-BuildRequires:	readline-devel >= 4.2
+BuildRequires:	readline-devel >= 5.0
 BuildRequires:	sed >= 4.0
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
