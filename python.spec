@@ -791,10 +791,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 # FIXME
 %doc Python-Docs-%{version}
-%dir %{py_scriptdir}/test
-%attr(-,root,root) %{py_scriptdir}/test/*
-%attr(-,root,root) %{py_scriptdir}/email/test/*
-%attr(-,root,root) %{py_scriptdir}/bsddb/test/*
+%attr(-,root,root) %{py_scriptdir}/test
+%attr(-,root,root) %{py_scriptdir}/email/test
+%attr(-,root,root) %{py_scriptdir}/bsddb/test
 
 %if %{with tkinter}
 %files tkinter
