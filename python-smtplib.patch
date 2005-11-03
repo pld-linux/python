@@ -5,7 +5,7 @@ diff -urbB Python-2.4.2.org/Lib/smtplib.py Python-2.4.2/Lib/smtplib.py
                  self.local_hostname = fqdn
              else:
                  # We can't find an fqdn hostname, so use a domain literal
-+                if self.sock:
++                if hasattr(self, 'sock'):
 +                        addr = self.sock.getsockname()
 +                        addr = addr[0]
 +                        if addr == '0.0.0.0':
