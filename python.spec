@@ -30,7 +30,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -45,7 +45,6 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-smtplib.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -479,7 +478,6 @@ PrzykЁady te s╠ dla Pythona 2.3.4, nie %{version}.
 %patch5 -p1
 %endif
 %patch6 -p1
-%patch7 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
