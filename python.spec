@@ -53,8 +53,8 @@ BuildRequires:	db-devel >= 4
 BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
-BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	libstdc++-devel
+BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	sed >= 4.0
@@ -318,7 +318,8 @@ Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Python development tools such as profilers and debugger.
 
 %description devel-tools -l pl
-Narzêdzia programistyczne jêzyka Python takie jak profiler oraz debugger.
+Narzêdzia programistyczne jêzyka Python takie jak profiler oraz
+debugger.
 
 %package static
 Summary:	Static python library
@@ -365,8 +366,8 @@ son interpréteur sous forme de fichiers ASCII et LaTeX.
 Oficjalna dokumentacja do Pythona. Zawiera przyk³adowe programy,
 narzêdzia i dokumentacjê. Strony podrêcznika man znajduj± siê w
 g³ównym pakiecie. Ten pakiet nie zawiera ¼róde³ dokumentacji
-napisanych w LaTeXu, tylko gotowe do wykorzystania pliki
-postscriptowe i HTML.
+napisanych w LaTeXu, tylko gotowe do wykorzystania pliki postscriptowe
+i HTML.
 
 %description doc -l pt_BR
 O pacote python-doc contém documentação para a linguagem de
@@ -410,8 +411,8 @@ Eine grafische Schnittstelle für Python, basierend auf Tcl/Tk, und von
 vielen Konfigurations-Tools genutzt.
 
 %description tkinter -l es
-Una interfaz gráfica para Python, basada en Tcl/Tk, y usada por
-muchas herramientas de configuración.
+Una interfaz gráfica para Python, basada en Tcl/Tk, y usada por muchas
+herramientas de configuración.
 
 %description tkinter -l fr
 Interface graphique pour Python, basée sur Tcl/Tk et utilisée par
@@ -486,7 +487,7 @@ tar -xf %{SOURCE1} --use=bzip2
 %build
 sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 %{__autoconf}
-CPPFLAGS="-I%{_includedir}/ncurses"; export CPPFLAGS
+CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
 	--with-cxx="%{__cxx}" \
