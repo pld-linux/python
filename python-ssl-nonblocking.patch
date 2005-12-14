@@ -1,0 +1,124 @@
+--- Python.org/Lib/test/test_socket_ssl.py.org	2005-12-14 23:04:19.000000000 +0100
++++ Python/Lib/test/test_socket_ssl.py	2005-12-14 23:06:07.000000000 +0100
+@@ -27,6 +27,19 @@
+     buf = f.read()
+     f.close()
+ 
++def test_timeout():
++    test_support.requires('network')
++
++    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
++    s.settimeout(30.0)
++    # connect to service which issues an welcome banner (without need to write anything)
++    s.connect(("gmail.org", 995))
++    ss = socket.ssl(s)
++    # read part of return welcome banner twice,# read part of return welcome banner twice
++    ss.read(1)
++    ss.read(1)
++    s.close()
++					    
+ def test_rude_shutdown():
+     try:
+         import thread
+@@ -63,6 +76,7 @@
+         raise test_support.TestSkipped("socket module has no ssl support")
+     test_rude_shutdown()
+     test_basic()
++    test_timeout()
+ 
+ if __name__ == "__main__":
+     test_main()
+--- Python.org/Modules/_ssl.c	2004-08-04 16:59:00.000000000 +0200
++++ Python/Modules/_ssl.c	2005-12-14 23:36:18.000000000 +0100
+@@ -65,6 +65,7 @@
+ static PyObject *PySSL_SSLwrite(PySSLObject *self, PyObject *args);
+ static PyObject *PySSL_SSLread(PySSLObject *self, PyObject *args);
+ static int check_socket_and_wait_for_timeout(PySocketSockObject *s, 
++					     SSL *ssl,
+ 					     int writing);
+ 
+ #define PySSLObject_Check(v)	((v)->ob_type == &PySSL_Type)
+@@ -260,9 +261,9 @@
+                         goto fail;
+ 		}
+ 		if (err == SSL_ERROR_WANT_READ) {
+-			sockstate = check_socket_and_wait_for_timeout(Sock, 0);
++			sockstate = check_socket_and_wait_for_timeout(Sock, NULL, 0);
+ 		} else if (err == SSL_ERROR_WANT_WRITE) {
+-			sockstate = check_socket_and_wait_for_timeout(Sock, 1);
++			sockstate = check_socket_and_wait_for_timeout(Sock, NULL, 1);
+ 		} else {
+ 			sockstate = SOCKET_OPERATION_OK;
+ 		}
+@@ -356,11 +357,11 @@
+  */
+ 
+ static int
+-check_socket_and_wait_for_timeout(PySocketSockObject *s, int writing)
++check_socket_and_wait_for_timeout(PySocketSockObject *s, SSL *ssl, int writing)
+ {
+ 	fd_set fds;
+ 	struct timeval tv;
+-	int rc;
++	int pending, rc;
+ 
+ 	/* Nothing to do unless we're in timeout mode (not non-blocking) */
+ 	if (s->sock_timeout < 0.0)
+@@ -372,6 +373,15 @@
+ 	if (s->sock_fd < 0)
+ 		return SOCKET_HAS_BEEN_CLOSED;
+ 
++	/* There is data to be read from SSL layer (even if there is no data on socket!) */
++	if (!writing && ssl) {
++		Py_BEGIN_ALLOW_THREADS
++		pending = SSL_pending(ssl);
++		Py_END_ALLOW_THREADS
++		if (pending)
++			return SOCKET_OPERATION_OK;
++	}
++
+ 	/* Construct the arguments to select */
+ 	tv.tv_sec = (int)s->sock_timeout;
+ 	tv.tv_usec = (int)((s->sock_timeout - tv.tv_sec) * 1e6);
+@@ -402,7 +412,7 @@
+ 	if (!PyArg_ParseTuple(args, "s#:write", &data, &count))
+ 		return NULL;
+ 
+-	sockstate = check_socket_and_wait_for_timeout(self->Socket, 1);
++	sockstate = check_socket_and_wait_for_timeout(self->Socket, NULL, 1);
+ 	if (sockstate == SOCKET_HAS_TIMED_OUT) {
+ 		PyErr_SetString(PySSLErrorObject, "The write operation timed out");
+ 		return NULL;
+@@ -420,9 +430,9 @@
+ 			return NULL;
+ 		}
+ 		if (err == SSL_ERROR_WANT_READ) {
+-			sockstate = check_socket_and_wait_for_timeout(self->Socket, 0);
++			sockstate = check_socket_and_wait_for_timeout(self->Socket, NULL, 0);
+ 		} else if (err == SSL_ERROR_WANT_WRITE) {
+-			sockstate = check_socket_and_wait_for_timeout(self->Socket, 1);
++			sockstate = check_socket_and_wait_for_timeout(self->Socket, NULL, 1);
+ 		} else {
+ 			sockstate = SOCKET_OPERATION_OK;
+ 		}
+@@ -462,7 +472,7 @@
+ 	if (!(buf = PyString_FromStringAndSize((char *) 0, len)))
+ 		return NULL;
+ 
+-	sockstate = check_socket_and_wait_for_timeout(self->Socket, 0);
++	sockstate = check_socket_and_wait_for_timeout(self->Socket, self->ssl, 0);
+ 	if (sockstate == SOCKET_HAS_TIMED_OUT) {
+ 		PyErr_SetString(PySSLErrorObject, "The read operation timed out");
+ 		Py_DECREF(buf);
+@@ -479,9 +489,9 @@
+ 			return NULL;
+ 		}
+ 		if (err == SSL_ERROR_WANT_READ) {
+-			sockstate = check_socket_and_wait_for_timeout(self->Socket, 0);
++			sockstate = check_socket_and_wait_for_timeout(self->Socket, NULL, 0);
+ 		} else if (err == SSL_ERROR_WANT_WRITE) {
+-			sockstate = check_socket_and_wait_for_timeout(self->Socket, 1);
++			sockstate = check_socket_and_wait_for_timeout(self->Socket, NULL, 1);
+ 		} else {
+ 			sockstate = SOCKET_OPERATION_OK;
+ 		}
