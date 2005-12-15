@@ -345,7 +345,6 @@ Summary(ru):	Документация по языку Python
 Summary(tr):	Python belgeleri
 Summary(uk):	Документац╕я по мов╕ Python
 Group:		Documentation
-Requires:	%{name} = %{epoch}:%{version}-%{release}
 Obsoletes:	python-docs
 
 %description doc
@@ -457,7 +456,6 @@ uruchomiФ.
 Summary:	Example programs in Python
 Summary(pl):	PrzykЁadowe programy w Pythonie
 Group:		Development/Languages/Python
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	python-tools
 
 %description examples
@@ -792,11 +790,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-# FIXME
 %doc Python-Docs-%{version}
-%attr(-,root,root) %{py_scriptdir}/test
-%attr(-,root,root) %{py_scriptdir}/email/test
-%attr(-,root,root) %{py_scriptdir}/bsddb/test
 
 %if %{with tkinter}
 %files tkinter
