@@ -1,0 +1,2 @@
+- %{_examplesdir}/%{name}-%{version}
+- rel. 0.4
