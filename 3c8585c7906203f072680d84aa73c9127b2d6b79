@@ -1,0 +1,2 @@
+- removed non-existing *.gz from %doc
+- added pl translations to static subpackage
