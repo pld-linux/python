@@ -1,0 +1,3 @@
+- added Makefile.pre.in to devel subpackage. It is needed for configure
+  scripts (for example for postgresql)
+- rel. 9,STB
