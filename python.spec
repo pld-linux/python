@@ -534,14 +534,17 @@ export SCRIPT_EXT
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
 for script in timeit profile pdb pstats smtpd; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
+    cat <<'END' > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
-exec python %{py_scriptdir}/${script}.pyc "\$@"
+exec python %{py_scriptdir}/${script}.pyc "$@"
 END
 done
 
 # xgettext specific for Python code
 install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
+
+# just to cut the noise, as they are not packaged (now)
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/test
 
 %clean
 rm -rf $RPM_BUILD_ROOT
