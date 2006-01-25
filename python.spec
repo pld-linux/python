@@ -58,6 +58,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
