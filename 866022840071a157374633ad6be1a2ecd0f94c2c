@@ -1,0 +1,1 @@
+- BuildRequires: autoconf; removed %requires_eq openssl
