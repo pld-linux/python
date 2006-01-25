@@ -1,0 +1,1 @@
+- added missing %{name} = %{py_ver} caps; rel 2
