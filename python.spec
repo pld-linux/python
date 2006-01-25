@@ -545,6 +545,7 @@ install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
 
 # just to cut the noise, as they are not packaged (now)
 rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/test
+rm -f $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -650,7 +651,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/zlib.so
 
 %dir %{py_scriptdir}/plat-*
-%attr(755,root,root) %{py_scriptdir}/plat-*/regen
 %{py_scriptdir}/plat-*/*.py[co]
 
 %dir %{py_scriptdir}/bsddb
