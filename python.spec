@@ -63,10 +63,10 @@ BuildRequires:	sed >= 4.0
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	python-xml
-Obsoletes:	python-intl
 Obsoletes:	python-curses
 Obsoletes:	python-gdbm
+Obsoletes:	python-intl
+Obsoletes:	python-xml
 Obsoletes:	python-zlib
 Obsoletes:	python2
 Obsoletes:	python2-devel
