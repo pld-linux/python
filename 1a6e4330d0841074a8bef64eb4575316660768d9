@@ -1,0 +1,3 @@
+- removed bogus requires from doc & examples subpkg (you don't need python
+  interpreter for reading docs or watching examples)
+- removed trash from %files doc
