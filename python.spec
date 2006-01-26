@@ -34,7 +34,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.2
-Release:	3.5
+Release:	3.6
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -539,7 +539,7 @@ export SCRIPT_EXT
 for script in timeit profile pdb pstats smtpd; do
     cat <<'END' > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
-exec python %{py_scriptdir}/${script}.pyc "$@"
+exec %{_bindir}/python %{py_scriptdir}/${script}.pyc \${1:+"\$@"}
 END
 done
 
