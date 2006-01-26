@@ -537,7 +537,7 @@ export SCRIPT_EXT
 
 # create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
 for script in timeit profile pdb pstats smtpd; do
-    cat <<'END' > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
+    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
 exec %{_bindir}/python %{py_scriptdir}/${script}.pyc \${1:+"\$@"}
 END
