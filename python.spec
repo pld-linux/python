@@ -1,3 +1,9 @@
+# TODO
+# - test_distutils fails for unknown reason: (does it still do with new lib64 patch?)
+#   AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
+# - change searchpath order so /usr/lib* is before /usr/share
+# - kill lib-tk from searchpath
+# - kill BR: file requirement from lib64 patch
 #
 # Conditional build:
 %bcond_without	tkinter			# disables tkinter module building
@@ -10,8 +16,6 @@
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils
-# test_distutils fails for unknown reason:
-# AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
 
 %define py_ver		2.4
 %define py_prefix	%{_prefix}
@@ -30,7 +34,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.2
-Release:	3
+Release:	3.5
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -52,6 +56,7 @@ BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
 BuildRequires:	expat-devel >= 1:1.95.7
+BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	libstdc++-devel
@@ -475,10 +480,8 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%if "%{_lib}" == "lib64"
 %patch5 -p1
-%endif
+%patch4 -p1
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
@@ -574,6 +577,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_scriptdir}/timeit.py[co]
 %exclude %{py_scriptdir}/os.py[co]
 %exclude %{py_scriptdir}/encodings/*.py[co]
+%exclude %{py_scriptdir}/types.py[co]
 
 %{py_scriptdir}/*.py[co]
 
@@ -708,6 +712,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/site.py[co]
 %{py_scriptdir}/stat.py[co]
 %{py_scriptdir}/os.py[co]
+# needed by the dynamic sys.lib patch
+%{py_scriptdir}/types.py[co]
 
 # encodings required by python library
 %dir %{py_scriptdir}/encodings
