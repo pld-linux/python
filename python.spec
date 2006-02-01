@@ -101,6 +101,8 @@ applications that need a programmable interface. Finally, Python is
 portable: it runs on many brands of UNIX, on the Mac, and on PCs under
 MS-DOS, Windows, Windows NT, and OS/2.
 
+This package contains the Python binary.
+
 %description -l de
 Python ist eine interpretierte, interaktive, objektorientierte
 Programmiersprache, vergleichbar zu Tcl, Perl, Scheme oder Java.
@@ -193,7 +195,7 @@ Provides:	python(abi) = %{py_ver}
 Provides:	python(bytecode) = %{py_ver}
 
 %description libs
-Python library.
+Python shared library and very essental modules for Python binary.
 
 %description libs -l pl
 Biblioteka jêzyka Python.
@@ -208,7 +210,7 @@ Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
 
 %description modules
-Python modules.
+Python officially distributed modules.
 
 %description modules -l pl
 Modu³y jêzyka Python.
