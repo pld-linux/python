@@ -152,6 +152,8 @@ skryptów. I wreszcie, Python jest wieloplatformowy, dzia³a na wielu
 odmianach UNIX-a, Macu oraz PC pod DOS-em, Windows, WindowsNT oraz
 OS/2.
 
+Ten pakiet zawiera binarkê Pythona.
+
 %description -l pt_BR
 Python é uma linguagem de scripts interpretada orientada a objetos.
 Contém suporte para carga dinâmica de objetos, classes, módulos e
@@ -198,7 +200,8 @@ Provides:	python(bytecode) = %{py_ver}
 Python shared library and very essental modules for Python binary.
 
 %description libs -l pl
-Biblioteka jêzyka Python.
+Biblioteka wspó³dzielona jêzyka Python oraz bardzo podstawowe modu³y
+dla Pythona.
 
 %package modules
 Summary:	Python modules
@@ -213,7 +216,7 @@ Obsoletes:	python-xmlrpc <= 1.0.1
 Python officially distributed modules.
 
 %description modules -l pl
-Modu³y jêzyka Python.
+Oficjalnie rozprowadzane modu³y jêzyka Python.
 
 %package -n pydoc
 Summary:	Python interactive module documentation access support
