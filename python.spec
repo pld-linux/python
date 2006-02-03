@@ -527,7 +527,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
-install libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}
+mv $RPM_BUILD_ROOT{%{py_libdir}/config,%{_libdir}}/libpython%{py_ver}.a
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython.so
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
@@ -756,7 +756,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/config.c
 %{py_libdir}/config/config.c.in
 %{py_libdir}/config/ccpython.o
-%{py_libdir}/config/libpython2.4.a
 
 %files devel-src
 %defattr(644,root,root,755)
