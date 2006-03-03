@@ -34,7 +34,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.2
-Release:	5
+Release:	6
 Epoch:		1
 License:	PSF
 Group:		Applications
