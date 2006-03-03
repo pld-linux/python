@@ -74,16 +74,6 @@
          if standard_lib:
              return libpython
          else:
-@@ -188,7 +188,8 @@
-     if python_build:
-         inc_dir = os.curdir
-     else:
--        inc_dir = get_python_inc(plat_specific=1)
-+        prefix = EXEC_PREFIX or PREFIX
-+        inc_dir = os.path.join(prefix, "include", "multiarch-" + sys.arch + "-linux", "python" + sys.version[:3])
-     if sys.version < '2.2':
-         config_h = 'config.h'
-     else:
 --- Python-2.4.1/Lib/site.py.lib64	2004-07-20 04:28:28.000000000 +0200
 +++ Python-2.4.1/Lib/site.py	2005-10-08 00:18:33.000000000 +0200
 @@ -179,12 +179,18 @@
