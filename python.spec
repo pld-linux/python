@@ -51,15 +51,18 @@ Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-db44.patch
 Patch8:		%{name}-ssl-nonblocking.patch
+Patch9:		%{name}-info.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
+BuildRequires:	emacs >= 21
 BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	libstdc++-devel
+BuildRequires:	tetex-makeindex
 BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
@@ -399,6 +402,17 @@ LaTeX kaynaklarýnýn bir karýþýmý olan yorumlayýcýyý içerir.
 §§ ¦ÎÔÅÒÐÒÅÔÁÔÏÒÕ Õ ×ÉÇÌÑÄ¦ ÎÁÂÏÒÁ ÔÅËÓÔÏ×ÉÈ ÆÁÊÌ¦× ÔÁ ×ÉÈ¦ÄÎÉÈ
 ÔÅËÓÔ¦× Õ ÆÏÒÍÁÔ¦ LaTeX.
 
+%package doc-info
+Summary:	Documentation on Python in texinfo format
+Summary(pl):	Dokumentacja do Pythona w formacie texinfo
+Group:		Documentation
+
+%description doc-info
+Documentation on Python in texinfo format.
+
+%description doc-info -l pl
+Dokumentacja do Pythona w formacie texinfo.
+
 %package tkinter
 Summary:	Standard Python interface to the Tk GUI toolkit
 Summary(de):	Grafische Tk-Schnittstelle für Python
@@ -490,6 +504,7 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -520,10 +535,14 @@ binlibdir=`echo build/lib.*`
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1} \
-	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
+	$RPM_BUILD_ROOT%{_infodir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} -C Doc/info
+install Doc/info/python*info* $RPM_BUILD_ROOT%{_infodir}
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
@@ -560,6 +579,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
+
+%post doc-info
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+
+%postun doc-info
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %files
 %defattr(644,root,root,755)
@@ -805,6 +830,10 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 %doc Python-Docs-%{version}/*
+
+%files doc-info
+%defattr(644,root,root,755)
+%{_infodir}/*
 
 %if %{with tkinter}
 %files tkinter
