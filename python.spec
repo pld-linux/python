@@ -62,12 +62,12 @@ BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	tetex-makeindex
 BuildRequires:	ncurses-ext-devel >= 5.2
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
+BuildRequires:	tetex-makeindex
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
