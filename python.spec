@@ -6,6 +6,7 @@
 # - kill BR: file requirement from lib64 patch
 #
 # Conditional build:
+%bcond_without	info			# don't build info pages (requires emacs)
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
 %bcond_with	verbose_tests		# runs tests in verbose mode
@@ -56,7 +57,7 @@ URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
-BuildRequires:	emacs >= 21
+%{?with_info:BuildRequires:	emacs >= 21}
 BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
@@ -67,7 +68,7 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
-BuildRequires:	tetex-makeindex
+%{?with_info:BuildRequires:	tetex-makeindex}
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
@@ -541,8 +542,10 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%if %{with info}
 %{__make} -C Doc/info
 install Doc/info/python*info* $RPM_BUILD_ROOT%{_infodir}
+%endif
 
 install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
@@ -831,9 +834,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Python-Docs-%{version}/*
 
+%if %{with info}
 %files doc-info
 %defattr(644,root,root,755)
 %{_infodir}/*
+%endif
 
 %if %{with tkinter}
 %files tkinter
