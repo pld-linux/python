@@ -18,7 +18,9 @@
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils
 
-%define py_ver		2.4
+%define	beta		a1
+
+%define py_ver		2.5
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir	%{_includedir}/python%{py_ver}
@@ -34,15 +36,16 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}.3
+Version:	%{py_ver}%{beta}
 Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-# Source0-md5:	141c683447d5e76be1d2bd4829574f02
-Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
+Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}.tar.bz2
+# Source0-md5:	6d1e2ea911b6d2833a26de834efd3954
+Source1:	http://www.python.org/ftp/python/doc/2.4.3/html-2.4.3.tar.bz2
 # Source1-md5:	86edf38b83fde1ff44d0725acf90c95c
+#Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
@@ -50,7 +53,6 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-ssl-nonblocking.patch
 Patch8:		%{name}-info.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
@@ -502,8 +504,7 @@ PrzykЁady te s╠ dla Pythona 2.3.4, nie %{version}.
 %patch5 -p1
 %patch4 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
+#%patch8 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
