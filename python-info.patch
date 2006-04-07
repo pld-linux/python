@@ -218,3 +218,46 @@
  option of type \code{string}, the command line
  \begin{verbatim}
  --names=foo,bar --names blah --names ding,dong
+--- Python-2.4.3/Doc/info/Makefile~	2006-04-07 23:02:34.000000000 +0200
++++ Python-2.4.3/Doc/info/Makefile	2006-04-07 23:24:24.000000000 +0200
+@@ -17,7 +17,7 @@
+ 
+ all:	check-emacs-version \
+ 	api dist ext mac ref tut whatsnew \
+-	lib
++	lib python
+ #	doc inst
+ 
+ api:	python$(VERSION)-api.info
+@@ -31,6 +31,7 @@
+ tut:	python$(VERSION)-tut.info
+ whatsnew:	$(WHATSNEW)
+ $(WHATSNEW):	python$(VERSION)-$(WHATSNEW).info
++python:	python$(VERSION).info
+ 
+ check-emacs-version:
+ 	@v="`$(EMACS) --version 2>&1 | egrep '^(GNU |X)Emacs [12]*'`"; \
+@@ -75,6 +76,9 @@
+ python$(VERSION)-$(WHATSNEW).info:  ../whatsnew/$(WHATSNEW).tex $(SCRIPTS)
+ 	EMACS=$(EMACS) $(MKINFO) $< $*.texi $@
+ 
++python$(VERSION).info: python.texi
++	makeinfo --footnote-style end --fill-column 72 --no-split --paragraph-indent 0 --output=$@ $<
++
+ clean:
+ 	rm -f *.texi~ *.texi
+ 
+--- /dev/null	2005-08-30 01:04:41.000000000 +0200
++++ Python-2.4.3/Doc/info/python.texi	2006-04-07 23:26:59.000000000 +0200
+@@ -0,0 +1,11 @@
++@dircategory Python Standard Documentation:
++@direntry
++* What's New: (python-whatsnew24).      What's New in Python 2.4?
++* Python Library: (python-lib).         Python Library Reference
++* Python Mac Modules: (python-mac).     Python Macintosh Modules
++* Python Reference: (python-ref).       Python Reference Manual
++* Python API: (python-api).             Python/C API Reference Manual
++* Python Extending: (python-ext).       Extending & Embedding Python
++* Python Tutorial: (python-tut).        Python Tutorial
++* Distributing Modules: (python-dist).  Distributing Python Modules
++@end direntry
