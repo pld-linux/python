@@ -248,16 +248,27 @@
  	rm -f *.texi~ *.texi
  
 --- /dev/null	2005-08-30 01:04:41.000000000 +0200
-+++ Python-2.4.3/Doc/info/python.texi	2006-04-07 23:26:59.000000000 +0200
-@@ -0,0 +1,11 @@
-+@dircategory Python Standard Documentation:
++++ Python-2.4.3/Doc/info/python.texi	2006-04-08 07:14:14.000000000 +0200
+@@ -0,0 +1,22 @@
++\input texinfo  @c -*-texinfo-*-
++@c %**start of header
++@setfilename python.info
++@settitle Python Standard Documentation
++@c %**end of header
++
++@dircategory Programming Languages:
 +@direntry
-+* What's New: (python-whatsnew24).      What's New in Python 2.4?
-+* Python Library: (python-lib).         Python Library Reference
-+* Python Mac Modules: (python-mac).     Python Macintosh Modules
-+* Python Reference: (python-ref).       Python Reference Manual
-+* Python API: (python-api).             Python/C API Reference Manual
-+* Python Extending: (python-ext).       Extending & Embedding Python
-+* Python Tutorial: (python-tut).        Python Tutorial
-+* Distributing Modules: (python-dist).  Distributing Python Modules
++* Python: (python).                    Python Standard Documentation
 +@end direntry
++@node Top
++@top Python Standard Documentation
++@menu
++* Python Library: (python-lib).        Python Library Reference
++* Python Tutorial: (python-tut).       Python Tutorial
++* Python Reference: (python-ref).      Python Reference Manual
++* Python API: (python-api).            Python/C API Reference Manual
++* Python Extending: (python-ext).      Extending & Embedding Python
++* Python - Distributing Modules: (python-dist).  Distributing Python Modules
++* Python Mac Modules: (python-mac).    Python Macintosh Modules
++@end menu
++@bye
