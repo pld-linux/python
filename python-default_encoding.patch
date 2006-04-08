@@ -1,0 +1,12 @@
+diff -durN Python-2.1.1.orig/Lib/site.py Python-2.1.1/Lib/site.py
+--- Python-2.1.1.orig/Lib/site.py	Fri Jul 20 16:58:33 2001
++++ Python-2.1.1/Lib/site.py	Thu Nov  8 14:42:11 2001
+@@ -244,7 +244,7 @@
+ 
+ encoding = "ascii" # Default value set by _PyUnicode_Init()
+ 
+-if 0:
++if 1:
+     # Enable to support locale aware default string encodings.
+     import locale
+     loc = locale.getdefaultlocale()
