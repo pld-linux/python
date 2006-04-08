@@ -258,17 +258,17 @@
 +
 +@dircategory Programming Languages:
 +@direntry
-+* Python: (python).                    Python Standard Documentation
++* Python: (python).			Python Standard Documentation
 +@end direntry
 +@node Top
 +@top Python Standard Documentation
 +@menu
-+* Python Library: (python-lib).        Python Library Reference
-+* Python Tutorial: (python-tut).       Python Tutorial
-+* Python Reference: (python-ref).      Python Reference Manual
-+* Python API: (python-api).            Python/C API Reference Manual
-+* Python Extending: (python-ext).      Extending & Embedding Python
-+* Python - Distributing Modules: (python-dist).  Distributing Python Modules
-+* Python Mac Modules: (python-mac).    Python Macintosh Modules
++* Python Library: (python-lib).			Python Library Reference
++* Python Tutorial: (python-tut).		Python Tutorial
++* Python Reference: (python-ref).		Python Reference Manual
++* Python API: (python-api).			Python/C API Reference Manual
++* Python Extending: (python-ext).		Extending & Embedding Python
++* Python - Distributing Modules: (python-dist).	Distributing Python Modules
++* Python Mac Modules: (python-mac).		Python Macintosh Modules
 +@end menu
 +@bye
