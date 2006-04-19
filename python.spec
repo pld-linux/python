@@ -52,6 +52,7 @@ Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-ssl-nonblocking.patch
 Patch8:		%{name}-info.patch
+Patch9:		%{name}-curses_panel.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -504,6 +505,7 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p0
 
 tar -xf %{SOURCE1} --use=bzip2
 
