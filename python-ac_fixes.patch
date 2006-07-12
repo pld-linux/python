@@ -1,17 +1,19 @@
-diff -Nur Python-2.3a2.orig/configure.in Python-2.3a2/configure.in
---- Python-2.3a2.orig/configure.in	Wed Feb 19 16:25:07 2003
-+++ Python-2.3a2/configure.in	Wed Apr  9 15:05:25 2003
-@@ -568,11 +568,11 @@
+--- Python-2.5b2/configure.in.orig	2006-07-06 11:13:35.000000000 +0100
++++ Python-2.5b2/configure.in	2006-07-12 16:30:30.000000000 +0100
+@@ -753,13 +753,13 @@
+ 	    if test "$Py_DEBUG" = 'true' ; then
+ 		# Optimization messes up debuggers, so turn it off for
  		# debug builds.
- 		OPT="-g -Wall -Wstrict-prototypes"
+-		OPT="-g -Wall $STRICT_PROTO"
++		OPT="-g $CPPFLAGS $CFLAGS -Wall $STRICT_PROTO"
  	    else
--		OPT="-g -O3 -Wall -Wstrict-prototypes"
-+		OPT="-g $CPPFLAGS $CFLAGS -Wstrict-prototypes"
+-		OPT="-g -O3 -Wall $STRICT_PROTO"
++		OPT="-g $CPPFLAGS $CFLAGS -Wall $STRICT_PROTO"
  	    fi
  	    ;;
  	*)
--	    OPT="-O3 -Wall -Wstrict-prototypes"
-+	    OPT="$CPPFLAGS $CFLAGS -Wstrict-prototypes"
+-	    OPT="-O3 -Wall $STRICT_PROTO"
++	    OPT="$CPPFLAGS $CFLAGS -Wall $STRICT_PROTO"
  	    ;;
  	esac
  	case $ac_sys_system in
