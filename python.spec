@@ -43,7 +43,7 @@ License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}%{beta}.tar.bz2
 # Source0-md5:	1f0840005c13f4a801a51eecbbb1d61a
-Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}%{beta}.tar.bz2
+Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
 # Source1-md5:	45f2cc9f7938621a1572cc32f1f49ed4
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
