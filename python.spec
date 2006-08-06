@@ -35,7 +35,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.3
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -84,9 +84,9 @@ Obsoletes:	python2-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with verbose_tests}
-%define test_flags -v -l -x 
+%define test_flags -v -l -x
 %else
-%define test_flags -l -x 
+%define test_flags -l -x
 %endif
 
 %ifarch alpha ia64 ppc64 sparc64 ppc64 %{x8664}
@@ -769,7 +769,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc Misc/{ACKS,NEWS,README}
+%doc Misc/{ACKS,NEWS,README,README.valgrind,valgrind-python.supp}
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
