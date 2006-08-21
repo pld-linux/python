@@ -245,19 +245,15 @@ diff -Nur Python-2.5b2.orig/Python/getplatform.c Python-2.5b2/Python/getplatform
 diff -Nur Python-2.5b2.orig/Python/sysmodule.c Python-2.5b2/Python/sysmodule.c
 --- Python-2.5b2.orig/Python/sysmodule.c	2006-07-10 22:08:24.000000000 +0100
 +++ Python-2.5b2/Python/sysmodule.c	2006-07-12 17:42:51.000000000 +0100
-@@ -1152,6 +1152,12 @@
+@@ -1152,4 +1152,8 @@
  	PyDict_SetItemString(sysdict, "platform",
- 			     v = PyString_FromString(Py_GetPlatform()));
- 	Py_XDECREF(v);
+ 			     PyString_FromString(Py_GetPlatform()));
 +	PyDict_SetItemString(sysdict, "arch",
-+			     v = PyString_FromString(Py_GetArch()));
-+	Py_XDECREF(v);
++			     PyString_FromString(Py_GetArch()));
 +	PyDict_SetItemString(sysdict, "lib",
-+			     v = PyString_FromString(Py_GetLib()));
-+	Py_XDECREF(v);
++			     PyString_FromString(Py_GetLib()));
  	PyDict_SetItemString(sysdict, "executable",
  			     v = PyString_FromString(Py_GetProgramFullPath()));
- 	Py_XDECREF(v);
 diff -Nur Python-2.5b2.orig/setup.py Python-2.5b2/setup.py
 --- Python-2.5b2.orig/setup.py	2006-06-30 07:18:39.000000000 +0100
 +++ Python-2.5b2/setup.py	2006-07-12 17:45:14.000000000 +0100
