@@ -18,7 +18,7 @@
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils
 
-%define	beta		b2
+%define	beta		c1
 
 %define py_ver		2.5
 %define py_prefix	%{_prefix}
@@ -42,9 +42,9 @@ Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	1f0840005c13f4a801a51eecbbb1d61a
+# Source0-md5:	1e8a7a7c6fe14003e325c14b335f3d6c
 Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
-# Source1-md5:	45f2cc9f7938621a1572cc32f1f49ed4
+# Source1-md5:	8e2f02780725c87957860354e611e4cf
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
@@ -727,16 +727,16 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/wsgiref
 %{py_scriptdir}/wsgiref/*.py[co]
 
-%dir %{py_scriptdir}/xmlcore
-%dir %{py_scriptdir}/xmlcore/dom
-%dir %{py_scriptdir}/xmlcore/etree
-%dir %{py_scriptdir}/xmlcore/parsers
-%dir %{py_scriptdir}/xmlcore/sax
-%{py_scriptdir}/xmlcore/*.py[co]
-%{py_scriptdir}/xmlcore/dom/*.py[co]
-%{py_scriptdir}/xmlcore/etree/*.py[co]
-%{py_scriptdir}/xmlcore/parsers/*.py[co]
-%{py_scriptdir}/xmlcore/sax/*.py[co]
+%dir %{py_scriptdir}/xml
+%dir %{py_scriptdir}/xml/dom
+%dir %{py_scriptdir}/xml/etree
+%dir %{py_scriptdir}/xml/parsers
+%dir %{py_scriptdir}/xml/sax
+%{py_scriptdir}/xml/*.py[co]
+%{py_scriptdir}/xml/dom/*.py[co]
+%{py_scriptdir}/xml/etree/*.py[co]
+%{py_scriptdir}/xml/parsers/*.py[co]
+%{py_scriptdir}/xml/sax/*.py[co]
 
 %files libs
 %defattr(644,root,root,755)
@@ -817,11 +817,11 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/logging/*.py
 %{py_scriptdir}/sqlite3/*.py
 %{py_scriptdir}/wsgiref/*.py
-%{py_scriptdir}/xmlcore/*.py
-%{py_scriptdir}/xmlcore/dom/*.py
-%{py_scriptdir}/xmlcore/etree/*.py
-%{py_scriptdir}/xmlcore/parsers/*.py
-%{py_scriptdir}/xmlcore/sax/*.py
+%{py_scriptdir}/xml/*.py
+%{py_scriptdir}/xml/dom/*.py
+%{py_scriptdir}/xml/etree/*.py
+%{py_scriptdir}/xml/parsers/*.py
+%{py_scriptdir}/xml/sax/*.py
 %{py_scriptdir}/encodings/*.py
 %{py_scriptdir}/idlelib/*.py
 
