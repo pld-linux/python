@@ -1,3 +1,4 @@
+#
 # TODO
 # - test_distutils fails for unknown reason: (does it still do with new lib64 patch?)
 #   AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
@@ -18,7 +19,9 @@
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils
 
-%define py_ver		2.4
+%define	beta		c1
+
+%define py_ver		2.5
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir	%{_includedir}/python%{py_ver}
@@ -34,26 +37,25 @@ Summary(ru):	ñÚÙË ÐÒÏÇÒÁÍÍÉÒÏ×ÁÎÉÑ ÏÞÅÎØ ×ÙÓÏËÏÇÏ ÕÒÏ×ÎÑ Ó X-ÉÎÔÅÒÆÅÊÓÏÍ
 Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
-Version:	%{py_ver}.3
-Release:	3
+Version:	%{py_ver}
+Release:	0.%{beta}.1
 Epoch:		1
 License:	PSF
 Group:		Applications
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-# Source0-md5:	141c683447d5e76be1d2bd4829574f02
-Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	86edf38b83fde1ff44d0725acf90c95c
-Patch0:		%{name}-readline.patch
-Patch1:		%{name}-%{name}path.patch
-Patch2:		%{name}-no_ndbm.patch
-Patch3:		%{name}-ac_fixes.patch
-Patch4:		%{name}-noarch_to_datadir.patch
-Patch5:		%{name}-lib64.patch
-Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-ssl-nonblocking.patch
-Patch8:		%{name}-info.patch
-Patch9:		%{name}-curses_panel.patch
-Patch10:	%{name}-sparc_fix.patch
+Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}%{beta}.tar.bz2
+# Source0-md5:	1e8a7a7c6fe14003e325c14b335f3d6c
+Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
+# Source1-md5:	8e2f02780725c87957860354e611e4cf
+Patch0:		%{name}-readline.patch                                                                                                  
+Patch1:		%{name}-%{name}path.patch                                                                                               
+Patch2:		%{name}-no_ndbm.patch                                                                                                   
+Patch3:		%{name}-ac_fixes.patch                                                                                                  
+Patch4:		%{name}-noarch_to_datadir.patch                                                                                         
+Patch5:		%{name}-lib64.patch                                                                                                     
+Patch6:		%{name}-doc_path.patch                                                                                                  
+Patch7:		%{name}-info.patch     
+# probably no longer required, can't verify
+Patch8:		%{name}-sparc_fix.patch     
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -69,6 +71,7 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
+BuildRequires:	sqlite3-devel >= 3.3.5
 %{?with_info:BuildRequires:	tetex-makeindex}
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
@@ -213,7 +216,9 @@ Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Obsoletes:	python-ctypes
 Obsoletes:	python-logging
+Obsoletes:	python-old
 Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
 
@@ -462,23 +467,6 @@ kullanýlan grafik bir arayüzdür.
 %description tkinter -l uk
 çÒÁÆ¦ÞÎÉÊ ¦ÎÔÅÒÆÅÊÓ (GUI) ÄÌÑ Python, ÐÏÂÕÄÏ×ÁÎÉÊ ÎÁ Tcl/Tk.
 
-%package old
-Summary:	Deprecated Python modules
-Summary(pl):	Nieaktualne modu³y jêzyka Python
-Group:		Libraries/Python
-Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
-
-%description old
-Install this package when one of your program written in Python is old
-as Miss Universum of 1918, who only you want to see... ooops, which
-only you want to run.
-
-%description old -l pl
-Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programów napisanych
-w jêzyku Python jest tak stary jak Miss Universum z roku 1918, któr±
-tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz
-uruchomiæ.
-
 %package examples
 Summary:	Example programs in Python
 Summary(pl):	Przyk³adowe programy w Pythonie
@@ -496,7 +484,7 @@ Przyk³adowe programy w Pythonie.
 Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 
 %prep
-%setup -q -n Python-%{version}
+%setup -q -n Python-%{version}%{beta}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -505,9 +493,6 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
-%patch9 -p0
-%patch10 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -539,7 +524,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1} \
 	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT%{_infodir}
+	$RPM_BUILD_ROOT%{_infodir} \
+	$RPM_BUILD_ROOT/etc/shrc.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -561,23 +547,53 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-SCRIPT_EXT=".py"
-export SCRIPT_EXT
+#
+# create several useful aliases, such as timeit.py, profile.py, pdb.py, smtpd.py
+#
 
-# create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
-for script in timeit profile pdb pstats smtpd; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
-#!/bin/sh
-exec %{_bindir}/python %{py_scriptdir}/${script}.pyc \${1:+"\$@"}
-END
-done
+# for python devel tools
+for script in timeit profile pdb pstats; do
+    echo alias $script.py=\"python -m ${script}\"
+done > $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
+
+echo alias pygettext.py='"pygettext"' \
+	>> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
+
+sed 's/=/ /' \
+	< $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh \
+	> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.csh
+
+# for python modules
+for script in smtpd webbrowser; do
+    echo alias $script.py=\"python -m ${script}\"
+done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
+
+sed 's/=/ /' \
+	< $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh \
+	> $RPM_BUILD_ROOT/etc/shrc.d/python-modules.csh
 
 # xgettext specific for Python code
-install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
+#
+# we will have two commands: pygettext.py (an alias) and pygettext;
+# this way there are no import (which is impossible now) conflicts and
+# pygettext.py is provided for compatibility
+install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext
 
 # just to cut the noise, as they are not packaged (now)
+# first tests
 rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/test
-rm -f $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/email/test
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
+
+# other files
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.egg-info -exec rm {} \;
+find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.bat -exec rm {} \;
+find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.txt -exec rm {} \;
+find $RPM_BUILD_ROOT%{py_scriptdir} -name README\* -exec rm {} \;
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -598,6 +614,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files modules
 %defattr(644,root,root,755)
+/etc/shrc.d/python-modules*
 %exclude %{py_scriptdir}/UserDict.py[co]
 %exclude %{py_scriptdir}/codecs.py[co]
 %exclude %{py_scriptdir}/copy_reg.py[co]
@@ -631,34 +648,40 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/dl.so
 %endif
 
+%attr(755,root,root) %{py_dyndir}/array.so
+%attr(755,root,root) %{py_dyndir}/binascii.so
 %attr(755,root,root) %{py_dyndir}/_bisect.so
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
+%attr(755,root,root) %{py_dyndir}/bz2.so
+%attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/_codecs_cn.so
 %attr(755,root,root) %{py_dyndir}/_codecs_hk.so
 %attr(755,root,root) %{py_dyndir}/_codecs_iso2022.so
 %attr(755,root,root) %{py_dyndir}/_codecs_jp.so
 %attr(755,root,root) %{py_dyndir}/_codecs_kr.so
 %attr(755,root,root) %{py_dyndir}/_codecs_tw.so
+%attr(755,root,root) %{py_dyndir}/collections.so
+%attr(755,root,root) %{py_dyndir}/cPickle.so
+%attr(755,root,root) %{py_dyndir}/crypt.so
+%attr(755,root,root) %{py_dyndir}/cStringIO.so
 %attr(755,root,root) %{py_dyndir}/_csv.so
-%attr(755,root,root) %{py_dyndir}/_curses.so
+%attr(755,root,root) %{py_dyndir}/_ctypes.so
 %attr(755,root,root) %{py_dyndir}/_curses_panel.so
+%attr(755,root,root) %{py_dyndir}/_curses.so
+%attr(755,root,root) %{py_dyndir}/datetime.so
+%attr(755,root,root) %{py_dyndir}/_elementtree.so
+%attr(755,root,root) %{py_dyndir}/_functools.so
+%attr(755,root,root) %{py_dyndir}/_hashlib.so
 %attr(755,root,root) %{py_dyndir}/_heapq.so
 %attr(755,root,root) %{py_dyndir}/_locale.so
+%attr(755,root,root) %{py_dyndir}/_lsprof.so
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
+%attr(755,root,root) %{py_dyndir}/_sqlite3.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
 %attr(755,root,root) %{py_dyndir}/_weakref.so
-%attr(755,root,root) %{py_dyndir}/array.so
-%attr(755,root,root) %{py_dyndir}/binascii.so
-%attr(755,root,root) %{py_dyndir}/bz2.so
-%attr(755,root,root) %{py_dyndir}/cPickle.so
-%attr(755,root,root) %{py_dyndir}/cStringIO.so
-%attr(755,root,root) %{py_dyndir}/cmath.so
-%attr(755,root,root) %{py_dyndir}/collections.so
-%attr(755,root,root) %{py_dyndir}/crypt.so
-%attr(755,root,root) %{py_dyndir}/datetime.so
 %ifnarch sparc64
 %attr(755,root,root) %{py_dyndir}/dbm.so
 %endif
@@ -668,7 +691,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/itertools.so
 %attr(755,root,root) %{py_dyndir}/linuxaudiodev.so
 %attr(755,root,root) %{py_dyndir}/math.so
-%attr(755,root,root) %{py_dyndir}/md5.so
 %attr(755,root,root) %{py_dyndir}/mmap.so
 %attr(755,root,root) %{py_dyndir}/nis.so
 %attr(755,root,root) %{py_dyndir}/operator.so
@@ -676,15 +698,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/parser.so
 %attr(755,root,root) %{py_dyndir}/pyexpat.so
 %attr(755,root,root) %{py_dyndir}/readline.so
-%attr(755,root,root) %{py_dyndir}/regex.so
 %attr(755,root,root) %{py_dyndir}/resource.so
 %attr(755,root,root) %{py_dyndir}/select.so
-%attr(755,root,root) %{py_dyndir}/sha.so
 %attr(755,root,root) %{py_dyndir}/strop.so
 %attr(755,root,root) %{py_dyndir}/syslog.so
 %attr(755,root,root) %{py_dyndir}/termios.so
 %attr(755,root,root) %{py_dyndir}/time.so
-%attr(755,root,root) %{py_dyndir}/timing.so
+%attr(755,root,root) %{py_dyndir}/spwd.so
 %attr(755,root,root) %{py_dyndir}/unicodedata.so
 %attr(755,root,root) %{py_dyndir}/zlib.so
 
@@ -697,32 +717,43 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/compiler
 %{py_scriptdir}/compiler/*.py[co]
 
+%dir %{py_scriptdir}/ctypes
+%dir %{py_scriptdir}/ctypes/macholib
+%{py_scriptdir}/ctypes/*.py[co]
+%{py_scriptdir}/ctypes/macholib/*.py[co]
+
 %dir %{py_scriptdir}/curses
 %{py_scriptdir}/curses/*.py[co]
 
 %dir %{py_scriptdir}/distutils
-%{py_scriptdir}/distutils/*.py[co]
-
 %dir %{py_scriptdir}/distutils/command
+%{py_scriptdir}/distutils/*.py[co]
 %{py_scriptdir}/distutils/command/*.py[co]
 
 %dir %{py_scriptdir}/email
+%dir %{py_scriptdir}/email/mime
 %{py_scriptdir}/email/*.py[co]
+%{py_scriptdir}/email/mime/*.py[co]
 
 %dir %{py_scriptdir}/logging
 %{py_scriptdir}/logging/*.py[co]
 
+%dir %{py_scriptdir}/sqlite3
+%{py_scriptdir}/sqlite3/*.py[co]
+
+%dir %{py_scriptdir}/wsgiref
+%{py_scriptdir}/wsgiref/*.py[co]
+
 %dir %{py_scriptdir}/xml
-%{py_scriptdir}/xml/*.py[co]
-
-%dir %{py_scriptdir}/xml/parsers
-%{py_scriptdir}/xml/parsers/*.py[co]
-
-%dir %{py_scriptdir}/xml/sax
-%{py_scriptdir}/xml/sax/*.py[co]
-
 %dir %{py_scriptdir}/xml/dom
+%dir %{py_scriptdir}/xml/etree
+%dir %{py_scriptdir}/xml/parsers
+%dir %{py_scriptdir}/xml/sax
+%{py_scriptdir}/xml/*.py[co]
 %{py_scriptdir}/xml/dom/*.py[co]
+%{py_scriptdir}/xml/etree/*.py[co]
+%{py_scriptdir}/xml/parsers/*.py[co]
+%{py_scriptdir}/xml/sax/*.py[co]
 
 %files libs
 %defattr(644,root,root,755)
@@ -735,7 +766,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}
 
 # shared modules required by python library
-%attr(755,root,root) %{py_dyndir}/struct.so
+%attr(755,root,root) %{py_dyndir}/_struct.so
 
 # modules required by python library
 %{py_scriptdir}/UserDict.py[co]
@@ -770,6 +801,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README,README.valgrind,valgrind-python.supp}
+%attr(755,root,root) %{_bindir}/python%{py_ver}-config
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
@@ -784,36 +816,39 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/config/Setup.local
 %{py_libdir}/config/config.c
 %{py_libdir}/config/config.c.in
-%{py_libdir}/config/ccpython.o
+%{py_libdir}/config/python.o
 
 %files devel-src
 %defattr(644,root,root,755)
 %attr(-,root,root) %{py_scriptdir}/*.py
 %{py_scriptdir}/plat-*/*.py
 %{py_scriptdir}/bsddb/*.py
+%{py_scriptdir}/ctypes/*.py
+%{py_scriptdir}/ctypes/macholib/*.py
 %{py_scriptdir}/compiler/*.py
 %{py_scriptdir}/curses/*.py
 %{py_scriptdir}/distutils/*.py
 %{py_scriptdir}/distutils/command/*.py
 %{py_scriptdir}/email/*.py
+%{py_scriptdir}/email/mime/*.py
 %{py_scriptdir}/hotshot/*.py
 %{py_scriptdir}/logging/*.py
+%{py_scriptdir}/sqlite3/*.py
+%{py_scriptdir}/wsgiref/*.py
 %{py_scriptdir}/xml/*.py
+%{py_scriptdir}/xml/dom/*.py
+%{py_scriptdir}/xml/etree/*.py
 %{py_scriptdir}/xml/parsers/*.py
 %{py_scriptdir}/xml/sax/*.py
-%{py_scriptdir}/xml/dom/*.py
 %{py_scriptdir}/encodings/*.py
 %{py_scriptdir}/idlelib/*.py
 
 %files devel-tools
 %defattr(644,root,root,755)
-%doc Lib/profile.doc Lib/pdb.doc
-%attr(755,root,root) %{_bindir}/timeit*
-%attr(755,root,root) %{_bindir}/profile*
-%attr(755,root,root) %{_bindir}/pdb*
-%attr(755,root,root) %{_bindir}/pstats*
-%attr(755,root,root) %{_bindir}/pygettext*
-%attr(755,root,root) %{_bindir}/smtpd*
+%doc Lib/pdb.doc
+/etc/shrc.d/python-devel*
+
+%attr(755,root,root) %{_bindir}/pygettext
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
@@ -833,7 +868,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Python-Docs-%{version}/*
+%doc Python-Docs-%{version}%{beta}/*
 
 %if %{with info}
 %files doc-info
@@ -847,8 +882,3 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/lib-tk
 %attr(755,root,root) %{py_dyndir}/_tkinter.so
 %endif
-
-%files old
-%defattr(644,root,root,755)
-%dir %{py_scriptdir}/lib-old
-%{py_scriptdir}/lib-old/*.py[co]
