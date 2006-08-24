@@ -1,178 +1,7 @@
---- Python-2.4.1/Include/pythonrun.h.lib64	2004-10-07 05:58:06.000000000 +0200
-+++ Python-2.4.1/Include/pythonrun.h	2005-10-08 00:18:33.000000000 +0200
-@@ -93,6 +93,8 @@
- /* In their own files */
- PyAPI_FUNC(const char *) Py_GetVersion(void);
- PyAPI_FUNC(const char *) Py_GetPlatform(void);
-+PyAPI_FUNC(const char *) Py_GetArch(void);
-+PyAPI_FUNC(const char *) Py_GetLib(void);
- PyAPI_FUNC(const char *) Py_GetCopyright(void);
- PyAPI_FUNC(const char *) Py_GetCompiler(void);
- PyAPI_FUNC(const char *) Py_GetBuildInfo(void);
---- Python-2.4.1/Lib/distutils/tests/test_install.py
-+++ Python-2.4.1/Lib/distutils/tests/test_install.py     2006-01-10 21:28:15.000000000 +0100
-@@ -1,6 +1,6 @@
- """Tests for distutils.command.install."""
-
--import os
-+import os,sys
- import unittest
-
- from distutils.command.install import install
-@@ -39,8 +39,9 @@
-             self.assertEqual(got, expected)
-
-         libdir = os.path.join(destination, "lib", "python")
-+        platlibdir =  os.path.join(destination, sys.lib, "python")
-         check_path(cmd.install_lib, libdir)
--        check_path(cmd.install_platlib, libdir)
-+        check_path(cmd.install_platlib, platlibdir)
-         check_path(cmd.install_purelib, libdir)
-         check_path(cmd.install_headers,
-         os.path.join(destination, "include", "python", "foopkg"))
---- Python-2.4.1/Lib/distutils/command/install.py.lib64	2005-01-20 20:15:39.000000000 +0100
-+++ Python-2.4.1/Lib/distutils/command/install.py	2005-10-08 00:18:33.000000000 +0200
-@@ -19,6 +19,8 @@
- from distutils.errors import DistutilsOptionError
- from glob import glob
- 
-+libname = sys.lib
-+
- if sys.version < "2.2":
-     WINDOWS_SCHEME = {
-         'purelib': '$base',
-@@ -39,14 +41,14 @@
- INSTALL_SCHEMES = {
-     'unix_prefix': {
-         'purelib': '$base/lib/python$py_version_short/site-packages',
--        'platlib': '$platbase/lib/python$py_version_short/site-packages',
-+        'platlib': '$platbase/'+libname+'/python$py_version_short/site-packages',
-         'headers': '$base/include/python$py_version_short/$dist_name',
-         'scripts': '$base/bin',
-         'data'   : '$base',
-         },
-     'unix_home': {
-         'purelib': '$base/lib/python',
--        'platlib': '$base/lib/python',
-+        'platlib': '$base/'+libname+'/python',
-         'headers': '$base/include/python/$dist_name',
-         'scripts': '$base/bin',
-         'data'   : '$base',
---- Python-2.4.1/Lib/distutils/sysconfig.py.lib64	2005-01-07 00:16:03.000000000 +0100
-+++ Python-2.4.1/Lib/distutils/sysconfig.py	2005-10-08 00:18:51.000000000 +0200
-@@ -99,8 +99,12 @@
-         prefix = plat_specific and EXEC_PREFIX or PREFIX
- 
-     if os.name == "posix":
-+        if plat_specific:
-+            lib = sys.lib
-+        else:
-+            lib = 'lib'
-         libpython = os.path.join(prefix,
--                                 "lib", "python" + get_python_version())
-+                                 lib, "python" + get_python_version())
-         if standard_lib:
-             return libpython
-         else:
---- Python-2.4.1/Lib/site.py.lib64	2004-07-20 04:28:28.000000000 +0200
-+++ Python-2.4.1/Lib/site.py	2005-10-08 00:18:33.000000000 +0200
-@@ -179,12 +179,18 @@
-                 sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
-             elif os.sep == '/':
-                 sitedirs = [os.path.join(prefix,
--                                         "lib",
-+                                         sys.lib,
-                                          "python" + sys.version[:3],
-                                          "site-packages"),
--                            os.path.join(prefix, "lib", "site-python")]
-+                            os.path.join(prefix, sys.lib, "site-python")]
-+                if sys.lib != 'lib':
-+                    sitedirs.append(os.path.join(prefix,
-+                                                 'lib',
-+                                                 "python" + sys.version[:3],
-+                                                 "site-packages"))
-+                    sitedirs.append(os.path.join(prefix, 'lib', "site-python"))
-             else:
--                sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
-+                sitedirs = [prefix, os.path.join(prefix, sys.lib, "site-packages")]
-             if sys.platform == 'darwin':
-                 # for framework builds *only* we add the standard Apple
-                 # locations. Currently only per-user, but /Library and
---- Python-2.4.1/Modules/getpath.c.lib64	2004-08-08 03:00:47.000000000 +0200
-+++ Python-2.4.1/Modules/getpath.c	2005-10-08 00:18:33.000000000 +0200
-@@ -111,9 +111,17 @@
- #define EXEC_PREFIX PREFIX
- #endif
- 
-+#ifndef LIB_PYTHON
-+#if defined(__x86_64__)
-+#define LIB_PYTHON "lib64/python" VERSION
-+#else
-+#define LIB_PYTHON "lib/python" VERSION
-+#endif
-+#endif
-+
- #ifndef PYTHONPATH
--#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
--              EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
-+#define PYTHONPATH PREFIX "/" LIB_PYTHON ":" \
-+              EXEC_PREFIX "/" LIB_PYTHON "/lib-dynload"
- #endif
- 
- #ifndef LANDMARK
-@@ -124,7 +132,7 @@
- static char exec_prefix[MAXPATHLEN+1];
- static char progpath[MAXPATHLEN+1];
- static char *module_search_path = NULL;
--static char lib_python[] = "lib/python" VERSION;
-+static char lib_python[] = LIB_PYTHON;
- 
- static void
- reduce(char *dir)
---- Python-2.4.1/Python/getplatform.c.lib64	2000-09-02 01:29:28.000000000 +0200
-+++ Python-2.4.1/Python/getplatform.c	2005-10-08 00:18:33.000000000 +0200
-@@ -10,3 +10,23 @@
- {
- 	return PLATFORM;
- }
-+
-+#ifndef ARCH
-+#define ARCH "unknown"
-+#endif
-+
-+const char *
-+Py_GetArch(void)
-+{
-+	return ARCH;
-+}
-+
-+#ifndef LIB
-+#define LIB "lib"
-+#endif
-+
-+const char *
-+Py_GetLib(void)
-+{
-+	return LIB;
-+}
---- Python-2.4.1/Python/sysmodule.c.lib64	2005-01-27 19:58:30.000000000 +0100
-+++ Python-2.4.1/Python/sysmodule.c	2005-10-08 00:18:33.000000000 +0200
-@@ -1022,6 +1022,12 @@
- 	PyDict_SetItemString(sysdict, "platform",
- 			     v = PyString_FromString(Py_GetPlatform()));
- 	Py_XDECREF(v);
-+	PyDict_SetItemString(sysdict, "arch",
-+			     v = PyString_FromString(Py_GetArch()));
-+	Py_XDECREF(v);
-+	PyDict_SetItemString(sysdict, "lib",
-+			     v = PyString_FromString(Py_GetLib()));
-+	Py_XDECREF(v);
- 	PyDict_SetItemString(sysdict, "executable",
- 			     v = PyString_FromString(Py_GetProgramFullPath()));
- 	Py_XDECREF(v);
---- Python-2.4.1/configure.in.lib64	2005-03-29 01:23:34.000000000 +0200
-+++ Python-2.4.1/configure.in	2005-10-08 00:18:33.000000000 +0200
-@@ -423,6 +423,41 @@
+diff -Nur Python-2.5b2.orig/configure.in Python-2.5b2/configure.in
+--- Python-2.5b2.orig/configure.in	2006-07-06 11:13:35.000000000 +0100
++++ Python-2.5b2/configure.in	2006-07-12 17:42:51.000000000 +0100
+@@ -503,6 +503,41 @@
      ;;
  esac
  
@@ -214,9 +43,115 @@
  
  AC_SUBST(LIBRARY)
  AC_MSG_CHECKING(LIBRARY)
---- Python-2.4.1/Makefile.pre.in.lib64	2005-03-29 01:23:01.000000000 +0200
-+++ Python-2.4.1/Makefile.pre.in	2005-10-08 00:18:33.000000000 +0200
-@@ -70,6 +70,8 @@
+diff -Nur Python-2.5b2.orig/Include/pythonrun.h Python-2.5b2/Include/pythonrun.h
+--- Python-2.5b2.orig/Include/pythonrun.h	2006-04-03 07:26:32.000000000 +0100
++++ Python-2.5b2/Include/pythonrun.h	2006-07-12 17:42:51.000000000 +0100
+@@ -107,6 +107,8 @@
+ /* In their own files */
+ PyAPI_FUNC(const char *) Py_GetVersion(void);
+ PyAPI_FUNC(const char *) Py_GetPlatform(void);
++PyAPI_FUNC(const char *) Py_GetArch(void);
++PyAPI_FUNC(const char *) Py_GetLib(void);
+ PyAPI_FUNC(const char *) Py_GetCopyright(void);
+ PyAPI_FUNC(const char *) Py_GetCompiler(void);
+ PyAPI_FUNC(const char *) Py_GetBuildInfo(void);
+diff -Nur Python-2.5b2.orig/Lib/distutils/command/install.py Python-2.5b2/Lib/distutils/command/install.py
+--- Python-2.5b2.orig/Lib/distutils/command/install.py	2006-03-27 22:55:21.000000000 +0100
++++ Python-2.5b2/Lib/distutils/command/install.py	2006-07-12 17:42:51.000000000 +0100
+@@ -19,6 +19,8 @@
+ from distutils.errors import DistutilsOptionError
+ from glob import glob
+ 
++libname = sys.lib
++
+ if sys.version < "2.2":
+     WINDOWS_SCHEME = {
+         'purelib': '$base',
+@@ -39,14 +41,14 @@
+ INSTALL_SCHEMES = {
+     'unix_prefix': {
+         'purelib': '$base/lib/python$py_version_short/site-packages',
+-        'platlib': '$platbase/lib/python$py_version_short/site-packages',
++        'platlib': '$platbase/'+libname+'/python$py_version_short/site-packages',
+         'headers': '$base/include/python$py_version_short/$dist_name',
+         'scripts': '$base/bin',
+         'data'   : '$base',
+         },
+     'unix_home': {
+         'purelib': '$base/lib/python',
+-        'platlib': '$base/lib/python',
++        'platlib': '$base/'+libname+'/python',
+         'headers': '$base/include/python/$dist_name',
+         'scripts': '$base/bin',
+         'data'   : '$base',
+diff -Nur Python-2.5b2.orig/Lib/distutils/sysconfig.py Python-2.5b2/Lib/distutils/sysconfig.py
+--- Python-2.5b2.orig/Lib/distutils/sysconfig.py	2006-06-27 11:08:25.000000000 +0100
++++ Python-2.5b2/Lib/distutils/sysconfig.py	2006-07-12 17:42:51.000000000 +0100
+@@ -99,8 +99,12 @@
+         prefix = plat_specific and EXEC_PREFIX or PREFIX
+ 
+     if os.name == "posix":
++        if plat_specific:
++            lib = sys.lib
++        else:
++            lib = 'lib'
+         libpython = os.path.join(prefix,
+-                                 "lib", "python" + get_python_version())
++                                 lib, "python" + get_python_version())
+         if standard_lib:
+             return libpython
+         else:
+diff -Nur Python-2.5b2.orig/Lib/distutils/tests/test_install.py Python-2.5b2/Lib/distutils/tests/test_install.py
+--- Python-2.5b2.orig/Lib/distutils/tests/test_install.py	2004-06-26 00:02:59.000000000 +0100
++++ Python-2.5b2/Lib/distutils/tests/test_install.py	2006-07-12 17:42:51.000000000 +0100
+@@ -1,6 +1,6 @@
+ """Tests for distutils.command.install."""
+ 
+-import os
++import os,sys
+ import unittest
+ 
+ from distutils.command.install import install
+@@ -39,8 +39,9 @@
+             self.assertEqual(got, expected)
+ 
+         libdir = os.path.join(destination, "lib", "python")
++        platlibdir =  os.path.join(destination, sys.lib, "python")
+         check_path(cmd.install_lib, libdir)
+-        check_path(cmd.install_platlib, libdir)
++        check_path(cmd.install_platlib, platlibdir)
+         check_path(cmd.install_purelib, libdir)
+         check_path(cmd.install_headers,
+                    os.path.join(destination, "include", "python", "foopkg"))
+diff -Nur Python-2.5b2.orig/Lib/site.py Python-2.5b2/Lib/site.py
+--- Python-2.5b2.orig/Lib/site.py	2006-06-12 09:23:02.000000000 +0100
++++ Python-2.5b2/Lib/site.py	2006-07-12 17:42:51.000000000 +0100
+@@ -182,12 +182,18 @@
+                 sitedirs = [os.path.join(prefix, "Lib", "site-packages")]
+             elif os.sep == '/':
+                 sitedirs = [os.path.join(prefix,
+-                                         "lib",
++                                         sys.lib,
+                                          "python" + sys.version[:3],
+                                          "site-packages"),
+-                            os.path.join(prefix, "lib", "site-python")]
++                            os.path.join(prefix, sys.lib, "site-python")]
++                if sys.lib != 'lib':
++                    sitedirs.append(os.path.join(prefix,
++                                                 'lib',
++                                                 "python" + sys.version[:3],
++                                                 "site-packages"))
++                    sitedirs.append(os.path.join(prefix, 'lib', "site-python"))
+             else:
+-                sitedirs = [prefix, os.path.join(prefix, "lib", "site-packages")]
++                sitedirs = [prefix, os.path.join(prefix, sys.lib, "site-packages")]
+             if sys.platform == 'darwin':
+                 # for framework builds *only* we add the standard Apple
+                 # locations. Currently only per-user, but /Library and
+diff -Nur Python-2.5b2.orig/Makefile.pre.in Python-2.5b2/Makefile.pre.in
+--- Python-2.5b2.orig/Makefile.pre.in	2006-06-27 16:45:32.000000000 +0100
++++ Python-2.5b2/Makefile.pre.in	2006-07-12 17:42:51.000000000 +0100
+@@ -75,6 +75,8 @@
  
  # Machine-dependent subdirectories
  MACHDEP=	@MACHDEP@
@@ -225,7 +160,7 @@
  
  # Install prefix for architecture-independent files
  prefix=		@prefix@
-@@ -79,11 +81,11 @@
+@@ -84,11 +86,11 @@
  
  # Expanded directories
  BINDIR=		$(exec_prefix)/bin
@@ -239,8 +174,8 @@
  
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
-@@ -458,7 +460,7 @@
- Python/compile.o Python/symtable.o: $(GRAMMAR_H)
+@@ -489,7 +491,7 @@
+ Python/compile.o Python/symtable.o: $(GRAMMAR_H) $(AST_H)
  
  Python/getplatform.o: $(srcdir)/Python/getplatform.c
 -		$(CC) -c $(PY_CFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
@@ -248,9 +183,81 @@
  
  Python/importdl.o: $(srcdir)/Python/importdl.c
  		$(CC) -c $(PY_CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
---- Python-2.4.1/setup.py.lib64	2005-10-08 00:18:33.000000000 +0200
-+++ Python-2.4.1/setup.py	2005-10-08 00:18:33.000000000 +0200
-@@ -259,12 +259,12 @@
+diff -Nur Python-2.5b2.orig/Modules/getpath.c Python-2.5b2/Modules/getpath.c
+--- Python-2.5b2.orig/Modules/getpath.c	2006-07-10 02:18:57.000000000 +0100
++++ Python-2.5b2/Modules/getpath.c	2006-07-12 17:42:51.000000000 +0100
+@@ -116,9 +116,17 @@
+ #define EXEC_PREFIX PREFIX
+ #endif
+ 
++#ifndef LIB_PYTHON
++#if defined(__x86_64__)
++#define LIB_PYTHON "lib64/python" VERSION
++#else
++#define LIB_PYTHON "lib/python" VERSION
++#endif
++#endif
++
+ #ifndef PYTHONPATH
+-#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
+-              EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
++#define PYTHONPATH PREFIX "/" LIB_PYTHON ":" \
++              EXEC_PREFIX "/" LIB_PYTHON "/lib-dynload"
+ #endif
+ 
+ #ifndef LANDMARK
+@@ -129,7 +137,7 @@
+ static char exec_prefix[MAXPATHLEN+1];
+ static char progpath[MAXPATHLEN+1];
+ static char *module_search_path = NULL;
+-static char lib_python[] = "lib/python" VERSION;
++static char lib_python[] = LIB_PYTHON;
+ 
+ static void
+ reduce(char *dir)
+diff -Nur Python-2.5b2.orig/Python/getplatform.c Python-2.5b2/Python/getplatform.c
+--- Python-2.5b2.orig/Python/getplatform.c	2000-09-02 00:29:29.000000000 +0100
++++ Python-2.5b2/Python/getplatform.c	2006-07-12 17:42:51.000000000 +0100
+@@ -10,3 +10,23 @@
+ {
+ 	return PLATFORM;
+ }
++
++#ifndef ARCH
++#define ARCH "unknown"
++#endif
++
++const char *
++Py_GetArch(void)
++{
++	return ARCH;
++}
++
++#ifndef LIB
++#define LIB "lib"
++#endif
++
++const char *
++Py_GetLib(void)
++{
++	return LIB;
++}
+diff -Nur Python-2.5b2.orig/Python/sysmodule.c Python-2.5b2/Python/sysmodule.c
+--- Python-2.5b2.orig/Python/sysmodule.c	2006-07-10 22:08:24.000000000 +0100
++++ Python-2.5b2/Python/sysmodule.c	2006-07-12 17:42:51.000000000 +0100
+@@ -1152,4 +1152,8 @@
+ 	PyDict_SetItemString(sysdict, "platform",
+ 			     PyString_FromString(Py_GetPlatform()));
++	PyDict_SetItemString(sysdict, "arch",
++			     PyString_FromString(Py_GetArch()));
++	PyDict_SetItemString(sysdict, "lib",
++			     PyString_FromString(Py_GetLib()));
+ 	PyDict_SetItemString(sysdict, "executable",
+ 			     v = PyString_FromString(Py_GetProgramFullPath()));
+diff -Nur Python-2.5b2.orig/setup.py Python-2.5b2/setup.py
+--- Python-2.5b2.orig/setup.py	2006-06-30 07:18:39.000000000 +0100
++++ Python-2.5b2/setup.py	2006-07-12 17:45:14.000000000 +0100
+@@ -290,12 +290,12 @@
          except NameError:
              have_unicode = 0
  
@@ -265,21 +272,21 @@
              ]
          inc_dirs = self.compiler.include_dirs + ['/usr/include']
          exts = []
-@@ -426,11 +426,11 @@
+@@ -496,11 +496,11 @@
              elif self.compiler.find_library_file(lib_dirs, 'curses'):
                  readline_libs.append('curses')
              elif self.compiler.find_library_file(lib_dirs +
 -                                               ['/usr/lib/termcap'],
-+                                               ['/usr/'+libname+'/termcap'],
++                                               ['/usr' + libname + '/termcap'],
                                                 'termcap'):
                  readline_libs.append('termcap')
              exts.append( Extension('readline', ['readline.c'],
 -                                   library_dirs=['/usr/lib/termcap'],
-+                                   library_dirs=['/usr/'+libname+'/termcap'],
++                                   library_dirs=['/usr' + libname + 'termcap'],
+                                    extra_link_args=readline_extra_link_args,
                                     libraries=readline_libs) )
          if platform not in ['mac']:
-             # crypt module.
-@@ -1017,8 +1017,8 @@
+@@ -1244,8 +1244,8 @@
              added_lib_dirs.append('/usr/openwin/lib')
          elif os.path.exists('/usr/X11R6/include'):
              include_dirs.append('/usr/X11R6/include')
