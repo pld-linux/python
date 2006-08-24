@@ -213,6 +213,7 @@ Summary:	Python modules
 Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Obsoletes:	python-ctypes
 Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
@@ -463,23 +464,6 @@ kullanýlan grafik bir arayüzdür.
 %description tkinter -l uk
 çÒÁÆ¦ÞÎÉÊ ¦ÎÔÅÒÆÅÊÓ (GUI) ÄÌÑ Python, ÐÏÂÕÄÏ×ÁÎÉÊ ÎÁ Tcl/Tk.
 
-%package old
-Summary:	Deprecated Python modules
-Summary(pl):	Nieaktualne modu³y jêzyka Python
-Group:		Libraries/Python
-Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
-
-%description old
-Install this package when one of your program written in Python is old
-as Miss Universum of 1918, who only you want to see... ooops, which
-only you want to run.
-
-%description old -l pl
-Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programów napisanych
-w jêzyku Python jest tak stary jak Miss Universum z roku 1918, któr±
-tylko ty chcesz zobaczyæ... przepraszam, który tylko ty chcesz
-uruchomiæ.
-
 %package examples
 Summary:	Example programs in Python
 Summary(pl):	Przyk³adowe programy w Pythonie
@@ -537,7 +521,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1} \
 	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
-	$RPM_BUILD_ROOT%{_infodir}
+	$RPM_BUILD_ROOT%{_infodir} \
+	$RPM_BUILD_ROOT/etc/shrc.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -559,23 +544,53 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-SCRIPT_EXT=".py"
-export SCRIPT_EXT
+#
+# create several useful aliases, such as timeit.py, profile.py, pdb.py, smtpd.py
+#
 
-# create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
-for script in timeit profile pdb pstats smtpd; do
-    cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
-#!/bin/sh
-exec %{_bindir}/python %{py_scriptdir}/${script}.pyc \${1:+"\$@"}
-END
-done
+# for python devel tools
+for script in timeit profile pdb pstats; do
+    echo alias $script.py=\"python -m ${script}\"
+done > $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
+
+echo alias pygettext.py='"pygettext"' \
+	>> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
+
+sed 's/=/ /' \
+	< $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh \
+	> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.csh
+
+# for python modules
+for script in smtpd webbrowser; do
+    echo alias $script.py=\"python -m ${script}\"
+done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
+
+sed 's/=/ /' \
+	< $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh \
+	> $RPM_BUILD_ROOT/etc/shrc.d/python-modules.csh
 
 # xgettext specific for Python code
-install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext$SCRIPT_EXT
+#
+# we will have two commands: pygettext.py (an alias) and pygettext;
+# this way there are no import (which is impossible now) conflicts and
+# pygettext.py is provided for compatibility
+install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext
 
 # just to cut the noise, as they are not packaged (now)
+# first tests
 rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/test
-rm -f $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/email/test
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
+
+# other files
+rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.egg-info -exec rm {} \;
+find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.bat -exec rm {} \;
+find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.txt -exec rm {} \;
+find $RPM_BUILD_ROOT%{py_scriptdir} -name README\* -exec rm {} \;
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -596,6 +611,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files modules
 %defattr(644,root,root,755)
+/etc/shrc.d/python-modules*
 %exclude %{py_scriptdir}/UserDict.py[co]
 %exclude %{py_scriptdir}/codecs.py[co]
 %exclude %{py_scriptdir}/copy_reg.py[co]
@@ -629,42 +645,40 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/dl.so
 %endif
 
+%attr(755,root,root) %{py_dyndir}/array.so
+%attr(755,root,root) %{py_dyndir}/binascii.so
 %attr(755,root,root) %{py_dyndir}/_bisect.so
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
+%attr(755,root,root) %{py_dyndir}/bz2.so
+%attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/_codecs_cn.so
 %attr(755,root,root) %{py_dyndir}/_codecs_hk.so
 %attr(755,root,root) %{py_dyndir}/_codecs_iso2022.so
 %attr(755,root,root) %{py_dyndir}/_codecs_jp.so
 %attr(755,root,root) %{py_dyndir}/_codecs_kr.so
 %attr(755,root,root) %{py_dyndir}/_codecs_tw.so
-%attr(755,root,root) %{py_dyndir}/_ctypes.so
+%attr(755,root,root) %{py_dyndir}/collections.so
+%attr(755,root,root) %{py_dyndir}/cPickle.so
+%attr(755,root,root) %{py_dyndir}/crypt.so
+%attr(755,root,root) %{py_dyndir}/cStringIO.so
 %attr(755,root,root) %{py_dyndir}/_csv.so
-%attr(755,root,root) %{py_dyndir}/_curses.so
+%attr(755,root,root) %{py_dyndir}/_ctypes.so
 %attr(755,root,root) %{py_dyndir}/_curses_panel.so
+%attr(755,root,root) %{py_dyndir}/_curses.so
+%attr(755,root,root) %{py_dyndir}/datetime.so
 %attr(755,root,root) %{py_dyndir}/_elementtree.so
 %attr(755,root,root) %{py_dyndir}/_functools.so
 %attr(755,root,root) %{py_dyndir}/_hashlib.so
 %attr(755,root,root) %{py_dyndir}/_heapq.so
 %attr(755,root,root) %{py_dyndir}/_locale.so
 %attr(755,root,root) %{py_dyndir}/_lsprof.so
-%attr(755,root,root) %{py_dyndir}/_sqlite3.so
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
-%attr(755,root,root) %{py_dyndir}/_sha256.so
-%attr(755,root,root) %{py_dyndir}/_sha512.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
+%attr(755,root,root) %{py_dyndir}/_sqlite3.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
 %attr(755,root,root) %{py_dyndir}/_weakref.so
-%attr(755,root,root) %{py_dyndir}/array.so
-%attr(755,root,root) %{py_dyndir}/binascii.so
-%attr(755,root,root) %{py_dyndir}/bz2.so
-%attr(755,root,root) %{py_dyndir}/cPickle.so
-%attr(755,root,root) %{py_dyndir}/cStringIO.so
-%attr(755,root,root) %{py_dyndir}/cmath.so
-%attr(755,root,root) %{py_dyndir}/collections.so
-%attr(755,root,root) %{py_dyndir}/crypt.so
-%attr(755,root,root) %{py_dyndir}/datetime.so
 %ifnarch sparc64
 %attr(755,root,root) %{py_dyndir}/dbm.so
 %endif
@@ -784,6 +798,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README}
+%attr(755,root,root) %{_bindir}/python%{py_ver}-config
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
@@ -828,12 +843,9 @@ rm -rf $RPM_BUILD_ROOT
 %files devel-tools
 %defattr(644,root,root,755)
 %doc Lib/pdb.doc
-%attr(755,root,root) %{_bindir}/timeit*
-%attr(755,root,root) %{_bindir}/profile*
-%attr(755,root,root) %{_bindir}/pdb*
-%attr(755,root,root) %{_bindir}/pstats*
-%attr(755,root,root) %{_bindir}/pygettext*
-%attr(755,root,root) %{_bindir}/smtpd*
+/etc/shrc.d/python-devel*
+
+%attr(755,root,root) %{_bindir}/pygettext
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
