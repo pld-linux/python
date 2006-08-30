@@ -38,7 +38,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	0.%{beta}.3
+Release:	0.%{beta}.2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -77,7 +77,6 @@ BuildRequires:	sqlite3-devel >= 3.3.5
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	python-ctypes
 Obsoletes:	python-curses
 Obsoletes:	python-gdbm
 Obsoletes:	python-intl
