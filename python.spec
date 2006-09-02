@@ -46,16 +46,16 @@ Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}%{beta}.tar
 # Source0-md5:	1e8a7a7c6fe14003e325c14b335f3d6c
 Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
 # Source1-md5:	8e2f02780725c87957860354e611e4cf
-Patch0:		%{name}-readline.patch                                                                                                  
-Patch1:		%{name}-%{name}path.patch                                                                                               
-Patch2:		%{name}-no_ndbm.patch                                                                                                   
-Patch3:		%{name}-ac_fixes.patch                                                                                                  
-Patch4:		%{name}-noarch_to_datadir.patch                                                                                         
-Patch5:		%{name}-lib64.patch                                                                                                     
-Patch6:		%{name}-doc_path.patch                                                                                                  
-Patch7:		%{name}-info.patch     
+Patch0:		%{name}-readline.patch
+Patch1:		%{name}-%{name}path.patch
+Patch2:		%{name}-no_ndbm.patch
+Patch3:		%{name}-ac_fixes.patch
+Patch4:		%{name}-noarch_to_datadir.patch
+Patch5:		%{name}-lib64.patch
+Patch6:		%{name}-doc_path.patch
+Patch7:		%{name}-info.patch
 # probably no longer required, can't verify
-Patch8:		%{name}-sparc_fix.patch     
+Patch8:		%{name}-sparc_fix.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -545,7 +545,7 @@ ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 #
 # create several useful aliases, such as timeit.py, profile.py, pdb.py, smtpd.py
