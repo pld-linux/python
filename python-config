@@ -1,4 +1,10 @@
 #!/usr/bin/python
-import distutils.sysconfig, string
-print "-lpython@VERSION@ -lm -L/usr/lib/python@VERSION@/config",string.join(string.split(distutils.sysconfig.get_config_var("MODLIBS")))
+import distutils.sysconfig
+import string
+import sys
+
+ver = sys.version[:3]
+modlibs = string.join(string.split(distutils.sysconfig.get_config_var("MODLIBS")))
+
+print "-lpython%s -lm -L/usr/lib/python%s/config %s" %(ver, ver, modlibs)
 
