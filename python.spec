@@ -35,7 +35,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.3
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -43,6 +43,7 @@ Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 # Source0-md5:	141c683447d5e76be1d2bd4829574f02
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
 # Source1-md5:	86edf38b83fde1ff44d0725acf90c95c
+Source2:	%{name}-config
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
@@ -84,9 +85,9 @@ Obsoletes:	python2-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with verbose_tests}
-%define test_flags -v -l -x 
+%define test_flags -v -l -x
 %else
-%define test_flags -l -x 
+%define test_flags -l -x
 %endif
 
 %ifarch alpha ia64 ppc64 sparc64 ppc64 %{x8664}
@@ -559,7 +560,8 @@ ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
 rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
 
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-cp -ar Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+install %{SOURCE2}  $RPM_BUILD_ROOT%{_bindir}/python-config
 
 SCRIPT_EXT=".py"
 export SCRIPT_EXT
@@ -568,7 +570,7 @@ export SCRIPT_EXT
 for script in timeit profile pdb pstats smtpd; do
     cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
-exec %{_bindir}/python %{py_scriptdir}/${script}.pyc \${1:+"\$@"}
+exec %{__python} %{py_scriptdir}/${script}.pyc \${1:+"\$@"}
 END
 done
 
@@ -771,6 +773,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README}
 %attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_bindir}/python-config
 %dir %{py_incdir}
 %{py_incdir}/*.h
 
