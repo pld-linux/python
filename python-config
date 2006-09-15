@@ -1,5 +1,4 @@
-#!/bin/env python
-
+#!/usr/bin/python
 import sys
 import os
 import getopt
@@ -23,8 +22,8 @@ if not opts:
 
 opt = opts[0][0]
 
-pyver = sysconfig.get_config_var('VERSION')
 getvar = sysconfig.get_config_var
+pyver = getvar('VERSION')
 
 if opt == '--help':
     exit_with_usage(0)
