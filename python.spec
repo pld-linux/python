@@ -38,7 +38,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}
-Release:	0.1
+Release:	0.6
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -227,6 +227,18 @@ Python officially distributed modules.
 
 %description modules -l pl
 Oficjalnie rozprowadzane modu³y jêzyka Python.
+
+%package modules-sqlite
+Summary:	Python SQLite modules
+Summary(pl):	Modu³y SQLite jêzyka Python
+Group:		Libraries/Python
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
+
+%description modules-sqlite
+Python officially distributed sqlite module.
+
+%description modules-sqlite -l pl
+Oficjalnie rozprowadzany modu³ sqlite jêzyka Python.
 
 %package -n pydoc
 Summary:	Python interactive module documentation access support
@@ -678,7 +690,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
-%attr(755,root,root) %{py_dyndir}/_sqlite3.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
 %attr(755,root,root) %{py_dyndir}/_weakref.so
@@ -754,6 +765,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/xml/etree/*.py[co]
 %{py_scriptdir}/xml/parsers/*.py[co]
 %{py_scriptdir}/xml/sax/*.py[co]
+
+%files modules-sqlite
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_dyndir}/_sqlite3.so
 
 %files libs
 %defattr(644,root,root,755)
@@ -865,6 +880,7 @@ rm -rf $RPM_BUILD_ROOT
 %files examples
 %defattr(644,root,root,755)
 %{_examplesdir}/%{name}-%{version}
+
 
 %files doc
 %defattr(644,root,root,755)
