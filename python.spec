@@ -19,7 +19,7 @@
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
 %define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils
 
-%define	beta		c1
+%define	beta		%{nil}
 
 %define py_ver		2.5
 %define py_prefix	%{_prefix}
@@ -38,14 +38,14 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	0.%{beta}.2
+Release:	0.1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	1e8a7a7c6fe14003e325c14b335f3d6c
+# Source0-md5:	ddb7401e711354ca83b7842b733825a3
 Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
-# Source1-md5:	8e2f02780725c87957860354e611e4cf
+# Source1-md5:	3badfa2d460f52b7f9face12abdb2e91
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
