@@ -519,6 +519,8 @@ CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 	--enable-shared \
 	LINKCC='$(PURIFY) $(CXX)'
 
+./Doc/tools/getversioninfo
+
 %{__make} \
 	OPT="%{rpmcflags}"
 
