@@ -7,7 +7,7 @@
 # - kill BR: file requirement from lib64 patch
 #
 # Conditional build:
-%bcond_without	info			# don't build info pages (requires emacs)
+%bcond_with	info			# don't build info pages (requires emacs, fails in python-2.5.0)
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
 %bcond_with	verbose_tests		# runs tests in verbose mode
@@ -203,6 +203,7 @@ Group:		Libraries/Python
 Provides:	python(abi) = %{py_ver}
 # for compatibility with existing Ac packages
 Provides:	python(bytecode) = %{py_ver}
+%{!?with_info:Obsoletes:	python-doc-info}
 
 %description libs
 Python shared library and very essental modules for Python binary.
