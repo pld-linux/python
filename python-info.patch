@@ -272,18 +272,6 @@
 +* Python Mac Modules: (python-mac).		Python Macintosh Modules
 +@end menu
 +@bye
-diff -urN Python-2.5.org/Doc/lib/libmsilib.tex Python-2.5/Doc/lib/libmsilib.tex
---- Python-2.5.org/Doc/lib/libmsilib.tex	2006-05-03 06:52:04.000000000 +0200
-+++ Python-2.5/Doc/lib/libmsilib.tex	2006-09-30 18:46:22.139908250 +0200
-@@ -344,7 +344,7 @@
- \subsection{Features\label{features}}
- 
- \begin{classdesc}{Feature}{database, id, title, desc, display\optional{,
--    level=1\optional{, parent\optional\{, directory\optional{, 
-+    level=1\optional{, parent\optional{, directory\optional{, 
-     attributes=0}}}}
- 
-   Add a new record to the \code{Feature} table, using the values
 diff -urN Python-2.5.org/Doc/lib/libctypes.tex Python-2.5/Doc/lib/libctypes.tex
 --- Python-2.5.org/Doc/lib/libctypes.tex	2006-08-16 20:02:11.000000000 +0200
 +++ Python-2.5/Doc/lib/libctypes.tex	2006-09-30 19:07:08.169780250 +0200
@@ -410,3 +398,18 @@ diff -urN Python-2.5.org/Doc/lib/liboptparse.tex Python-2.5/Doc/lib/liboptparse.
  
  As an example, let's define an OptionParser that resolves conflicts
  intelligently and add conflicting options to it:
+diff -urN Python-2.5.org/Doc/lib/libmsilib.tex Python-2.5/Doc/lib/libmsilib.tex
+--- Python-2.5.org/Doc/lib/libmsilib.tex	2006-05-03 06:52:04.000000000 +0200
++++ Python-2.5/Doc/lib/libmsilib.tex	2006-09-30 20:29:26.850428500 +0200
+@@ -344,8 +344,8 @@
+ \subsection{Features\label{features}}
+ 
+ \begin{classdesc}{Feature}{database, id, title, desc, display\optional{,
+-    level=1\optional{, parent\optional\{, directory\optional{, 
+-    attributes=0}}}}
++    level=1\optional{, parent\optional{, directory\optional{, 
++    attributes=0}}}}}
+ 
+   Add a new record to the \code{Feature} table, using the values
+   \var{id}, \var{parent.id}, \var{title}, \var{desc}, \var{display},
+
