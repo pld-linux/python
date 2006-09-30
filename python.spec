@@ -546,6 +546,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with info}
+./Doc/tools/getversioninfo
 %{__make} -C Doc/info
 install Doc/info/python*info* $RPM_BUILD_ROOT%{_infodir}
 %endif
