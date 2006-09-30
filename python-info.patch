@@ -284,3 +284,129 @@ diff -urN Python-2.5.org/Doc/lib/libmsilib.tex Python-2.5/Doc/lib/libmsilib.tex
      attributes=0}}}}
  
    Add a new record to the \code{Feature} table, using the values
+diff -urN Python-2.5.org/Doc/lib/libctypes.tex Python-2.5/Doc/lib/libctypes.tex
+--- Python-2.5.org/Doc/lib/libctypes.tex	2006-08-16 20:02:11.000000000 +0200
++++ Python-2.5/Doc/lib/libctypes.tex	2006-09-30 19:07:08.169780250 +0200
+@@ -214,7 +214,7 @@
+ \subsubsection{Fundamental data types\label{ctypes-fundamental-data-types}}
+ 
+ \code{ctypes} defines a number of primitive C compatible data types :
+-\begin{quote}
++\begin{quotation}
+ \begin{tableiii}{l|l|l}{textrm}
+ {
+ ctypes type
+@@ -388,7 +388,7 @@
+ or \code{None}
+ }
+ \end{tableiii}
+-\end{quote}
++\end{quotation}
+ 
+ All these types can be created by calling them with an optional
+ initializer of the correct type and value:
+@@ -1818,14 +1818,14 @@
+ \end{verbatim}
+ 
+ Here is the wrapping with \code{ctypes}:
+-\begin{quote}
++\begin{quotation}
+ \begin{verbatim}>>> from ctypes import c_int, WINFUNCTYPE, windll
+ >>> from ctypes.wintypes import HWND, LPCSTR, UINT
+ >>> prototype = WINFUNCTYPE(c_int, HWND, LPCSTR, LPCSTR, c_uint)
+ >>> paramflags = (1, "hwnd", 0), (1, "text", "Hi"), (1, "caption", None), (1, "flags", 0)
+ >>> MessageBox = prototype(("MessageBoxA", windll.user32), paramflags)
+ >>>\end{verbatim}
+-\end{quote}
++\end{quotation}
+ 
+ The MessageBox foreign function can now be called in these ways:
+ \begin{verbatim}
+@@ -1847,14 +1847,14 @@
+ \end{verbatim}
+ 
+ Here is the wrapping with \code{ctypes}:
+-\begin{quote}
++\begin{quotation}
+ \begin{verbatim}>>> from ctypes import POINTER, WINFUNCTYPE, windll
+ >>> from ctypes.wintypes import BOOL, HWND, RECT
+ >>> prototype = WINFUNCTYPE(BOOL, HWND, POINTER(RECT))
+ >>> paramflags = (1, "hwnd"), (2, "lprect")
+ >>> GetWindowRect = prototype(("GetWindowRect", windll.user32), paramflags)
+ >>>\end{verbatim}
+-\end{quote}
++\end{quotation}
+ 
+ Functions with output parameters will automatically return the output
+ parameter value if there is a single one, or a tuple containing the
+@@ -2300,11 +2300,11 @@
+ \end{classdesc*}
+ 
+ \code{py{\_}object} : classdesc*
+-\begin{quote}
++\begin{quotation}
+ 
+ Represents the C \code{PyObject *} datatype.  Calling this with an
+ without an argument creates a \code{NULL} \code{PyObject *} pointer.
+-\end{quote}
++\end{quotation}
+ 
+ The \code{ctypes.wintypes} module provides quite some other Windows
+ specific data types, for example \code{HWND}, \code{WPARAM}, or \code{DWORD}.
+diff -urN Python-2.5.org/Doc/lib/liboptparse.tex Python-2.5/Doc/lib/liboptparse.tex
+--- Python-2.5.org/Doc/lib/liboptparse.tex	2006-07-23 18:05:51.000000000 +0200
++++ Python-2.5/Doc/lib/liboptparse.tex	2006-09-30 19:07:08.349791500 +0200
+@@ -678,7 +678,7 @@
+ optional keyword arguments.  You should always pass them as keyword
+ arguments, i.e. do not rely on the order in which the arguments are
+ declared.
+-\begin{quote}
++\begin{quotation}
+ \begin{description}
+ \item[\code{usage} (default: \code{"{\%}prog {[}options]"})]
+ The usage summary to print when your program is run incorrectly or
+@@ -718,7 +718,7 @@
+ The string to use when expanding \code{"{\%}prog"} in \code{usage} and
+ \code{version} instead of \code{os.path.basename(sys.argv{[}0])}.
+ \end{description}
+-\end{quote}
++\end{quotation}
+ 
+ 
+ \subsubsection{Populating the parser\label{optparse-populating-parser}}
+@@ -1155,7 +1155,7 @@
+ callback) as-is.
+ 
+ Integer arguments (type \code{int} or \code{long}) are parsed as follows:
+-\begin{quote}
++\begin{quotation}
+ \begin{itemize}
+ \item {} 
+ if the number starts with \code{0x}, it is parsed as a hexadecimal number
+@@ -1170,7 +1170,7 @@
+ otherwise, the number is parsed as a decimal number
+ 
+ \end{itemize}
+-\end{quote}
++\end{quotation}
+ 
+ The conversion is done by calling either \code{int()} or \code{long()} with
+ the appropriate base (2, 8, 10, or 16).  If this fails, so will \module{optparse},
+@@ -1271,7 +1271,7 @@
+ \end{verbatim}
+ 
+ The available conflict handlers are:
+-\begin{quote}
++\begin{quotation}
+ \begin{description}
+ \item[\code{error} (default)]
+ assume option conflicts are a programming error and raise 
+@@ -1279,7 +1279,7 @@
+ \item[\code{resolve}]
+ resolve option conflicts intelligently (see below)
+ \end{description}
+-\end{quote}
++\end{quotation}
+ 
+ As an example, let's define an OptionParser that resolves conflicts
+ intelligently and add conflicting options to it:
