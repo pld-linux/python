@@ -272,3 +272,15 @@
 +* Python Mac Modules: (python-mac).		Python Macintosh Modules
 +@end menu
 +@bye
+diff -urN Python-2.5.org/Doc/lib/libmsilib.tex Python-2.5/Doc/lib/libmsilib.tex
+--- Python-2.5.org/Doc/lib/libmsilib.tex	2006-05-03 06:52:04.000000000 +0200
++++ Python-2.5/Doc/lib/libmsilib.tex	2006-09-30 18:46:22.139908250 +0200
+@@ -344,7 +344,7 @@
+ \subsection{Features\label{features}}
+ 
+ \begin{classdesc}{Feature}{database, id, title, desc, display\optional{,
+-    level=1\optional{, parent\optional\{, directory\optional{, 
++    level=1\optional{, parent\optional{, directory\optional{, 
+     attributes=0}}}}
+ 
+   Add a new record to the \code{Feature} table, using the values
