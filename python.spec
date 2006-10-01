@@ -38,7 +38,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -56,6 +56,7 @@ Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-info.patch
 # probably no longer required, can't verify
 Patch8:		%{name}-sparc_fix.patch
+Patch9:		%{name}-db.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -506,6 +507,7 @@ PrzykЁady te s╠ dla Pythona 2.3.4, nie %{version}.
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
@@ -648,6 +650,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_scriptdir}/*.py[co]
 
+%{py_dyndir}/*.egg-info
+
 #
 # list .so modules to be sure that all of them are built
 #
@@ -680,7 +684,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/crypt.so
 %attr(755,root,root) %{py_dyndir}/cStringIO.so
 %attr(755,root,root) %{py_dyndir}/_csv.so
-%attr(755,root,root) %{py_dyndir}/_ctypes.so
+%attr(755,root,root) %{py_dyndir}/_ctypes*.so
 %attr(755,root,root) %{py_dyndir}/_curses_panel.so
 %attr(755,root,root) %{py_dyndir}/_curses.so
 %attr(755,root,root) %{py_dyndir}/datetime.so
@@ -692,6 +696,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_lsprof.so
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
+%attr(755,root,root) %{py_dyndir}/_sha*.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
