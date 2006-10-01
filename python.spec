@@ -507,7 +507,8 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
+#%patch8 -p1
+%patch9 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
