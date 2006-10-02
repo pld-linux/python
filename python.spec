@@ -697,7 +697,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_lsprof.so
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
-%attr(755,root,root) %{py_dyndir}/_sha*.so
+# other sha modules built only for openssl < 0.9.8
+%attr(755,root,root) %{py_dyndir}/_sha.so
 %attr(755,root,root) %{py_dyndir}/_socket.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
