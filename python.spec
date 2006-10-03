@@ -7,7 +7,7 @@
 # - kill BR: file requirement from lib64 patch
 #
 # Conditional build:
-%bcond_with	info			# don't build info pages (requires emacs, fails in python-2.5.0)
+%bcond_with	info			# build info pages (requires emacs, fails in python-2.5.0)
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
 %bcond_with	verbose_tests		# runs tests in verbose mode
