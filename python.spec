@@ -35,7 +35,7 @@ Summary(tr):	X arayüzlü, yüksek düzeyli, kabuk yorumlayýcý dili
 Summary(uk):	íÏ×Á ÐÒÏÇÒÁÍÕ×ÁÎÎÑ ÄÕÖÅ ×ÉÓÏËÏÇÏ Ò¦×ÎÑ Ú X-¦ÎÔÅÒÆÅÊÓÏÍ
 Name:		python
 Version:	%{py_ver}.3
-Release:	4
+Release:	4.99
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -55,6 +55,7 @@ Patch7:		%{name}-ssl-nonblocking.patch
 Patch8:		%{name}-info.patch
 Patch9:		%{name}-curses_panel.patch
 Patch10:	%{name}-sparc_fix.patch
+Patch11:	%{name}-poll-instead-of-select-fix.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -70,6 +71,7 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
+BuildRequires:	texinfo
 %{?with_info:BuildRequires:	tetex-makeindex}
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
@@ -509,6 +511,7 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch8 -p1
 %patch9 -p0
 %patch10 -p1
+%patch11 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
