@@ -34,15 +34,15 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}.3
-Release:	6
+Version:	%{py_ver}.4
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-# Source0-md5:	141c683447d5e76be1d2bd4829574f02
+# Source0-md5:	0ba90c79175c017101100ebf5978e906
 Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
-# Source1-md5:	86edf38b83fde1ff44d0725acf90c95c
+# Source1-md5:	21259033b5663533ed64b4592c6925e2
 Source2:	%{name}-config
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
@@ -51,11 +51,7 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-ssl-nonblocking.patch
-Patch8:		%{name}-info.patch
-Patch9:		%{name}-curses_panel.patch
-Patch10:	%{name}-sparc_fix.patch
-Patch11:	%{name}-poll-instead-of-select-fix.patch
+Patch7:		%{name}-info.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -508,10 +504,6 @@ PrzykЁady te s╠ dla Pythona 2.3.4, nie %{version}.
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
-%patch9 -p0
-%patch10 -p1
-%patch11 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
