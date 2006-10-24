@@ -157,19 +157,17 @@
 +}
 --- Python-2.4.1/Python/sysmodule.c.lib64	2005-01-27 19:58:30.000000000 +0100
 +++ Python-2.4.1/Python/sysmodule.c	2005-10-08 00:18:33.000000000 +0200
-@@ -1022,6 +1022,12 @@
- 	PyDict_SetItemString(sysdict, "platform",
- 			     v = PyString_FromString(Py_GetPlatform()));
- 	Py_XDECREF(v);
-+	PyDict_SetItemString(sysdict, "arch",
-+			     v = PyString_FromString(Py_GetArch()));
-+	Py_XDECREF(v);
-+	PyDict_SetItemString(sysdict, "lib",
-+			     v = PyString_FromString(Py_GetLib()));
-+	Py_XDECREF(v);
- 	PyDict_SetItemString(sysdict, "executable",
- 			     v = PyString_FromString(Py_GetProgramFullPath()));
- 	Py_XDECREF(v);
+@@ -1035,6 +1035,10 @@
+ 			    PyString_FromString(Py_GetCopyright()));
+ 	SET_SYS_FROM_STRING("platform",
+ 			    PyString_FromString(Py_GetPlatform()));
++	SET_SYS_FROM_STRING("arch",
++			    PyString_FromString(Py_GetArch()));
++	SET_SYS_FROM_STRING("lib",
++			    PyString_FromString(Py_GetLib()));
+ 	SET_SYS_FROM_STRING("executable",
+ 			    PyString_FromString(Py_GetProgramFullPath()));
+ 	SET_SYS_FROM_STRING("prefix",
 --- Python-2.4.1/configure.in.lib64	2005-03-29 01:23:34.000000000 +0200
 +++ Python-2.4.1/configure.in	2005-10-08 00:18:33.000000000 +0200
 @@ -423,6 +423,41 @@
@@ -265,20 +263,24 @@
              ]
          inc_dirs = self.compiler.include_dirs + ['/usr/include']
          exts = []
-@@ -426,11 +426,11 @@
+@@ -450,7 +450,7 @@
              elif self.compiler.find_library_file(lib_dirs, 'curses'):
                  readline_libs.append('curses')
              elif self.compiler.find_library_file(lib_dirs +
 -                                               ['/usr/lib/termcap'],
-+                                               ['/usr/'+libname+'/termcap'],
++                                               ['/usr/' + libname + '/termcap'],
                                                 'termcap'):
                  readline_libs.append('termcap')
+ 
+@@ -465,7 +465,7 @@
+                 readline_extra_link_args = ()
+ 
              exts.append( Extension('readline', ['readline.c'],
 -                                   library_dirs=['/usr/lib/termcap'],
-+                                   library_dirs=['/usr/'+libname+'/termcap'],
++                                   library_dirs=['/usr/' + libname + '/termcap'],
+                                    extra_link_args=readline_extra_link_args,
                                     libraries=readline_libs) )
          if platform not in ['mac']:
-             # crypt module.
 @@ -1017,8 +1017,8 @@
              added_lib_dirs.append('/usr/openwin/lib')
          elif os.path.exists('/usr/X11R6/include'):
