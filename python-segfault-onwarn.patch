@@ -1,0 +1,15 @@
+Index: Python/errors.c
+===================================================================
+--- Python/errors.c	(wersja 53255)
++++ Python/errors.c	(wersja 53256)
+@@ -640,7 +640,8 @@
+ 
+ 	if (warnings_module != NULL) {
+ 		dict = PyModule_GetDict(warnings_module);
+-		func = PyDict_GetItemString(dict, "warn");
++		if (dict != NULL)
++			func = PyDict_GetItemString(dict, "warn");
+ 	}
+ 	if (func == NULL) {
+ 		PySys_WriteStderr("warning: %s\n", message);
+
