@@ -221,6 +221,9 @@ Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-ctypes
+# ?
+#Obsoletes:	python-cElementTree
+Obsoletes:	python-elementtree
 Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
@@ -662,7 +665,7 @@ rm -rf $RPM_BUILD_ROOT
 # list .so modules to be sure that all of them are built
 #
 
-# three modules below does not work on 64-bit architectures
+# three modules below do not work on 64-bit architectures
 # see Python README file for explanation
 %ifnarch alpha ia64 ppc64 sparc64 %{x8664}
 %attr(755,root,root) %{py_dyndir}/audioop.so
@@ -902,7 +905,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with info}
 %files doc-info
 %defattr(644,root,root,755)
-%{_infodir}/*
+%{_infodir}/*.info*
 %endif
 
 %if %{with tkinter}
