@@ -221,8 +221,7 @@ Summary(pl):	Modu³y jêzyka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-ctypes
-# ?
-#Obsoletes:	python-cElementTree
+Obsoletes:	python-cElementTree
 Obsoletes:	python-elementtree
 Obsoletes:	python-logging
 Obsoletes:	python-old
