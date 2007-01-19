@@ -1,6 +1,6 @@
 --- Python-2.4.4/Include/pyport.h~	2006-10-02 18:24:15.000000000 +0300
 +++ Python-2.4.4/Include/pyport.h	2007-01-19 18:12:49.008837334 +0200
-@@ -89,6 +89,18 @@
+@@ -89,6 +89,12 @@
  #   error "Python needs a typedef for Py_uintptr_t in pyport.h."
  #endif /* HAVE_UINTPTR_T */
  
@@ -8,13 +8,7 @@
 + * sizeof(size_t).  C99 doesn't define such a thing directly (size_t is an
 + * unsigned integral type).  See PEP 353 for details.
 + */
-+#ifdef HAVE_SSIZE_T
 +typedef int		Py_ssize_t;
-+#elif SIZEOF_VOID_P == SIZEOF_SIZE_T
-+typedef Py_intptr_t	Py_ssize_t;
-+#else
-+#   error "Python needs a typedef for Py_ssize_t in pyport.h."
-+#endif
 +
  #include <stdlib.h>
  
