@@ -1,13 +1,9 @@
 --- Python-2.4.4/Include/pyport.h~	2006-10-02 18:24:15.000000000 +0300
 +++ Python-2.4.4/Include/pyport.h	2007-01-19 18:12:49.008837334 +0200
-@@ -89,6 +89,12 @@
+@@ -89,6 +89,8 @@
  #   error "Python needs a typedef for Py_uintptr_t in pyport.h."
  #endif /* HAVE_UINTPTR_T */
  
-+/* Py_ssize_t is a signed integral type such that sizeof(Py_ssize_t) ==
-+ * sizeof(size_t).  C99 doesn't define such a thing directly (size_t is an
-+ * unsigned integral type).  See PEP 353 for details.
-+ */
 +typedef int		Py_ssize_t;
 +
  #include <stdlib.h>
