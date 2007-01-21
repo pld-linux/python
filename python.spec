@@ -538,9 +538,16 @@ CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 ./Doc/tools/getversioninfo
 
 %{__make} \
-	OPT="%{rpmcflags}"
-
-find . -name '*failed*'
+	OPT="%{rpmcflags}" 2>&1 | awk '
+BEGIN { fail = 0; logmsg = ""; }
+{
+        if ($0 ~ /\*\*\* WARNING:/) {
+                fail = 1;
+                logmsg = logmsg $0;
+        }
+        print $0;
+}
+END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 
 LC_ALL=C
 export LC_ALL
