@@ -11,6 +11,7 @@
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
 %bcond_with	verbose_tests		# runs tests in verbose mode
+%bcond_with	openssl097
 #
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
@@ -70,7 +71,11 @@ BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-ext-devel >= 5.2
+%if %{with openssl097}
+BuildRequires:	openssl-devel < 0.9.8
+%else
 BuildRequires:	openssl-devel >= 0.9.8
+%endif
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
@@ -535,6 +540,8 @@ CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 %{__make} \
 	OPT="%{rpmcflags}"
 
+find . -name '*failed*'
+
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
@@ -704,6 +711,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_lsprof.so
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
 %attr(755,root,root) %{py_dyndir}/_random.so
+%{?with_openssl097:%attr(755,root,root) %{py_dyndir}/_sha*.so}
 %attr(755,root,root) %{py_dyndir}/_socket.so
 %attr(755,root,root) %{py_dyndir}/_ssl.so
 %attr(755,root,root) %{py_dyndir}/_testcapi.so
