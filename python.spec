@@ -39,7 +39,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	6
+Release:	7
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -232,6 +232,8 @@ Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
+Provides:	python-cElementTree
+Provides:	python-elementtree
 
 %description modules
 Python officially distributed modules.
