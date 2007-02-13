@@ -30,13 +30,13 @@
 %define py_dyndir	%{py_libdir}/lib-dynload
 
 Summary:	Very high level scripting language with X interface
-Summary(es.UTF-8):   Lenguaje script de alto nivel con interfaz X
-Summary(fr.UTF-8):   Langage de script de très haut niveau avec interface X
-Summary(pl.UTF-8):   Python - język obiektowy wysokiego poziomu
-Summary(pt_BR.UTF-8):   Linguagem de programação interpretada de alto nível
-Summary(ru.UTF-8):   Язык программирования очень высокого уровня с X-интерфейсом
-Summary(tr.UTF-8):   X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
-Summary(uk.UTF-8):   Мова програмування дуже високого рівня з X-інтерфейсом
+Summary(es.UTF-8):	Lenguaje script de alto nivel con interfaz X
+Summary(fr.UTF-8):	Langage de script de très haut niveau avec interface X
+Summary(pl.UTF-8):	Python - język obiektowy wysokiego poziomu
+Summary(pt_BR.UTF-8):	Linguagem de programação interpretada de alto nível
+Summary(ru.UTF-8):	Язык программирования очень высокого уровня с X-интерфейсом
+Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
+Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
 Release:	8
@@ -205,7 +205,7 @@ Python - це інтерпретована, об'єктно-орієнтован
 
 %package libs
 Summary:	Python library
-Summary(pl.UTF-8):   Biblioteka języka Python
+Summary(pl.UTF-8):	Biblioteka języka Python
 Group:		Libraries/Python
 # broken detection in rpm/pythondeps.sh
 Provides:	python(abi) = %{py_ver}
@@ -222,7 +222,7 @@ dla Pythona.
 
 %package modules
 Summary:	Python modules
-Summary(pl.UTF-8):   Moduły języka Python
+Summary(pl.UTF-8):	Moduły języka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-ctypes
@@ -243,7 +243,7 @@ Oficjalnie rozprowadzane moduły języka Python.
 
 %package modules-sqlite
 Summary:	Python SQLite modules
-Summary(pl.UTF-8):   Moduły SQLite języka Python
+Summary(pl.UTF-8):	Moduły SQLite języka Python
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
@@ -255,7 +255,7 @@ Oficjalnie rozprowadzany moduł sqlite języka Python.
 
 %package -n pydoc
 Summary:	Python interactive module documentation access support
-Summary(pl.UTF-8):   Interaktywne korzystanie z dokumentacji modułów języka Python
+Summary(pl.UTF-8):	Interaktywne korzystanie z dokumentacji modułów języka Python
 Group:		Applications
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Obsoletes:	python-pydoc
@@ -268,7 +268,7 @@ Interaktywne korzystanie z dokumentacji modułów języka Python.
 
 %package -n idle
 Summary:	IDE for Python language
-Summary(pl.UTF-8):   IDE dla języka Python
+Summary(pl.UTF-8):	IDE dla języka Python
 Group:		Applications
 Requires:	%{name}-tkinter = %{epoch}:%{version}-%{release}
 Obsoletes:	python-idle
@@ -281,14 +281,14 @@ IDE dla języka Python.
 
 %package devel
 Summary:	Libraries and header files for building python code
-Summary(de.UTF-8):   Libraries und Header-Dateien zum Erstellen von Python-Code
-Summary(es.UTF-8):   Bibliotecas y archivos de inclusión para construir programas en python
-Summary(fr.UTF-8):   Bibliothèques et en-têtes pour construire du code python
-Summary(pl.UTF-8):   Pliki nagłówkowe i biblioteki Pythona
-Summary(pt_BR.UTF-8):   Bibliotecas e arquivos de inclusão para o Python
-Summary(ru.UTF-8):   Библиотеки и хедеры для построения кода на языке Python
-Summary(tr.UTF-8):   Python ile geliştirme yapmak için gerekli dosyalar
-Summary(uk.UTF-8):   Бібліотеки та хедери для програмування на мові Python
+Summary(de.UTF-8):	Libraries und Header-Dateien zum Erstellen von Python-Code
+Summary(es.UTF-8):	Bibliotecas y archivos de inclusión para construir programas en python
+Summary(fr.UTF-8):	Bibliothèques et en-têtes pour construire du code python
+Summary(pl.UTF-8):	Pliki nagłówkowe i biblioteki Pythona
+Summary(pt_BR.UTF-8):	Bibliotecas e arquivos de inclusão para o Python
+Summary(ru.UTF-8):	Библиотеки и хедеры для построения кода на языке Python
+Summary(tr.UTF-8):	Python ile geliştirme yapmak için gerekli dosyalar
+Summary(uk.UTF-8):	Бібліотеки та хедери для програмування на мові Python
 Group:		Development/Languages/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
@@ -345,7 +345,7 @@ dosyalarını ve kitaplıkları içerir.
 
 %package devel-src
 Summary:	Python module sources
-Summary(pl.UTF-8):   Pliki źródłowe modułów Pythona
+Summary(pl.UTF-8):	Pliki źródłowe modułów Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
@@ -357,7 +357,7 @@ Pliki źródłowe modułów Pythona.
 
 %package devel-tools
 Summary:	Python development tools
-Summary(pl.UTF-8):   Narzędzia programistyczne języka Python
+Summary(pl.UTF-8):	Narzędzia programistyczne języka Python
 Group:		Development/Languages/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
@@ -370,7 +370,7 @@ debugger.
 
 %package static
 Summary:	Static python library
-Summary(pl.UTF-8):   Statyczna biblioteka Pythona
+Summary(pl.UTF-8):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
@@ -382,14 +382,14 @@ Statyczna biblioteka Pythona.
 
 %package doc
 Summary:	Documentation on Python
-Summary(de.UTF-8):   Dokumentation zu Python
-Summary(es.UTF-8):   Documentación para Python
-Summary(fr.UTF-8):   Documentation sur Python
-Summary(pl.UTF-8):   Dokumentacja do Pythona
-Summary(pt_BR.UTF-8):   Documentação para a linguagem de programação Python
-Summary(ru.UTF-8):   Документация по языку Python
-Summary(tr.UTF-8):   Python belgeleri
-Summary(uk.UTF-8):   Документація по мові Python
+Summary(de.UTF-8):	Dokumentation zu Python
+Summary(es.UTF-8):	Documentación para Python
+Summary(fr.UTF-8):	Documentation sur Python
+Summary(pl.UTF-8):	Dokumentacja do Pythona
+Summary(pt_BR.UTF-8):	Documentação para a linguagem de programação Python
+Summary(ru.UTF-8):	Документация по языку Python
+Summary(tr.UTF-8):	Python belgeleri
+Summary(uk.UTF-8):	Документація по мові Python
 Group:		Documentation
 Obsoletes:	python-docs
 
@@ -436,7 +436,7 @@ LaTeX kaynaklarının bir karışımı olan yorumlayıcıyı içerir.
 
 %package doc-info
 Summary:	Documentation on Python in texinfo format
-Summary(pl.UTF-8):   Dokumentacja do Pythona w formacie texinfo
+Summary(pl.UTF-8):	Dokumentacja do Pythona w formacie texinfo
 Group:		Documentation
 
 %description doc-info
@@ -447,12 +447,12 @@ Dokumentacja do Pythona w formacie texinfo.
 
 %package tkinter
 Summary:	Standard Python interface to the Tk GUI toolkit
-Summary(de.UTF-8):   Grafische Tk-Schnittstelle für Python
-Summary(es.UTF-8):   Interfaz de GUI Tk para Python
-Summary(fr.UTF-8):   Interface graphique Tk pour Python
-Summary(pl.UTF-8):   Standardowy interfejs Pythona do biblioteki Tk
-Summary(pt_BR.UTF-8):   Interface GUI Tk para Phyton
-Summary(tr.UTF-8):   Python için grafik kullanıcı arayüzü
+Summary(de.UTF-8):	Grafische Tk-Schnittstelle für Python
+Summary(es.UTF-8):	Interfaz de GUI Tk para Python
+Summary(fr.UTF-8):	Interface graphique Tk pour Python
+Summary(pl.UTF-8):	Standardowy interfejs Pythona do biblioteki Tk
+Summary(pt_BR.UTF-8):	Interface GUI Tk para Phyton
+Summary(tr.UTF-8):	Python için grafik kullanıcı arayüzü
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Requires:	tcl >= 8.4.3
@@ -494,7 +494,7 @@ kullanılan grafik bir arayüzdür.
 
 %package examples
 Summary:	Example programs in Python
-Summary(pl.UTF-8):   Przykładowe programy w Pythonie
+Summary(pl.UTF-8):	Przykładowe programy w Pythonie
 Group:		Development/Languages/Python
 Obsoletes:	python-tools
 
