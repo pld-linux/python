@@ -540,7 +540,7 @@ CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 	BLDSHARED='$(CC) $(CFLAGS) -shared' \
 	LDFLAGS="%{rpmcflags} %{rpmldflags}"
 
-#./Doc/tools/getversioninfo
+./Doc/tools/getversioninfo
 
 %{__make} \
 	OPT="%{rpmcflags}" 2>&1 | awk '
