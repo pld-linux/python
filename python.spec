@@ -535,9 +535,12 @@ CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 	--with-cxx="%{__cxx}" \
 	--enable-unicode=ucs4 \
 	--enable-shared \
-	LINKCC='$(PURIFY) $(CXX)'
+	LINKCC='$(PURIFY) $(CXX)' \
+	LDSHARED='$(CC) $(CFLAGS) -shared' \
+	BLDSHARED='$(CC) $(CFLAGS) -shared' \
+	LDFLAGS="%{rpmcflags} %{rpmldflags}"
 
-./Doc/tools/getversioninfo
+#./Doc/tools/getversioninfo
 
 %{__make} \
 	OPT="%{rpmcflags}" 2>&1 | awk '
