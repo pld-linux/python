@@ -191,7 +191,7 @@ diff -Nur Python-2.5b2.orig/Modules/getpath.c Python-2.5b2/Modules/getpath.c
  #endif
  
 +#ifndef LIB_PYTHON
-+#if defined(__x86_64__) || (defined(__sparc__) && defined(__arch64__))
++#if defined(__x86_64__) || (defined(__sparc__) && defined(__arch64__)) || defined(__powerpc64__) || defined(__s390x__)
 +#define LIB_PYTHON "lib64/python"
 +#else
 +#define LIB_PYTHON "lib/python"
