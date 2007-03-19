@@ -77,22 +77,11 @@ diff -Nur Python-2.5.orig/Makefile.pre.in Python-2.5/Makefile.pre.in
 diff -Nur Python-2.5.orig/Modules/getpath.c Python-2.5/Modules/getpath.c
 --- Python-2.5.orig/Modules/getpath.c	2007-03-17 16:26:13.807358000 +0000
 +++ Python-2.5/Modules/getpath.c	2007-03-17 16:26:50.825671500 +0000
-@@ -118,15 +118,16 @@
- 
- #ifndef LIB_PYTHON
- #if defined(__x86_64__)
--#define LIB_PYTHON "lib64/python" VERSION
-+#define LIB_PYTHON "lib64/python"
- #else
--#define LIB_PYTHON "lib/python" VERSION
-+#define LIB_PYTHON "lib/python"
- #endif
- #endif
+@@ -126,7 +126,8 @@
  
  #ifndef PYTHONPATH
--#define PYTHONPATH PREFIX "/" LIB_PYTHON ":" \
--              EXEC_PREFIX "/" LIB_PYTHON "/lib-dynload"
-+#define PYTHONPATH PREFIX "/" LIB_PYTHON VERSION ":" \
+ #define PYTHONPATH PREFIX "/" LIB_PYTHON VERSION ":" \
+-              EXEC_PREFIX "/" LIB_PYTHON VERSION "/lib-dynload:"
 +              EXEC_PREFIX "/" LIB_PYTHON VERSION "/lib-dynload:" \
 +              PREFIX "/share/python" VERSION
  #endif
@@ -102,8 +91,7 @@ diff -Nur Python-2.5.orig/Modules/getpath.c Python-2.5/Modules/getpath.c
  static char exec_prefix[MAXPATHLEN+1];
  static char progpath[MAXPATHLEN+1];
  static char *module_search_path = NULL;
--static char lib_python[] = LIB_PYTHON;
-+static char lib_python[] = LIB_PYTHON VERSION;
+ static char lib_python[] = LIB_PYTHON VERSION;
 +static char share_python[] = "share/python" VERSION;
  
  static void

@@ -192,17 +192,17 @@ diff -Nur Python-2.5b2.orig/Modules/getpath.c Python-2.5b2/Modules/getpath.c
  
 +#ifndef LIB_PYTHON
 +#if defined(__x86_64__)
-+#define LIB_PYTHON "lib64/python" VERSION
++#define LIB_PYTHON "lib64/python"
 +#else
-+#define LIB_PYTHON "lib/python" VERSION
++#define LIB_PYTHON "lib/python"
 +#endif
 +#endif
 +
  #ifndef PYTHONPATH
 -#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
 -              EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
-+#define PYTHONPATH PREFIX "/" LIB_PYTHON ":" \
-+              EXEC_PREFIX "/" LIB_PYTHON "/lib-dynload"
++#define PYTHONPATH PREFIX "/" LIB_PYTHON VERSION ":" \
++              EXEC_PREFIX "/" LIB_PYTHON VERSION "/lib-dynload:"
  #endif
  
  #ifndef LANDMARK
@@ -211,7 +211,7 @@ diff -Nur Python-2.5b2.orig/Modules/getpath.c Python-2.5b2/Modules/getpath.c
  static char progpath[MAXPATHLEN+1];
  static char *module_search_path = NULL;
 -static char lib_python[] = "lib/python" VERSION;
-+static char lib_python[] = LIB_PYTHON;
++static char lib_python[] = LIB_PYTHON VERSION;
  
  static void
  reduce(char *dir)
