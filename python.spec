@@ -38,15 +38,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}
-Release:	8
+Version:	%{py_ver}.1
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
-Source0:	http://www.python.org/ftp/python/%{py_ver}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	ddb7401e711354ca83b7842b733825a3
+Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
+# Source0-md5:	70084ffa561660f07de466c2c8c4842d
 Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
-# Source1-md5:	3badfa2d460f52b7f9face12abdb2e91
+# Source1-md5:	74e14b4713a1a43adebdcfe0191c20c8
 Patch0:		%{name}-readline.patch
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
@@ -54,12 +54,6 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-info.patch
-Patch8:		%{name}-db.patch
-Patch9:		%{name}-bug-1588287.patch
-Patch10:	%{name}-segfault-onwarn.patch
-Patch11:	%{name}-bug-1557232.patch
-Patch12:	%{name}-bug-1572832.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -517,12 +511,6 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch5 -p1
 %patch4 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p0
-%patch10 -p0
-%patch11 -p0
-%patch12 -p0
 
 tar -xf %{SOURCE1} --use=bzip2
 
