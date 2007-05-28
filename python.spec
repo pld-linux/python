@@ -39,7 +39,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -772,9 +772,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/logging
 %{py_scriptdir}/logging/*.py[co]
 
-%dir %{py_scriptdir}/sqlite3
-%{py_scriptdir}/sqlite3/*.py[co]
-
 %dir %{py_scriptdir}/wsgiref
 %{py_scriptdir}/wsgiref/*.py[co]
 
@@ -792,6 +789,8 @@ rm -rf $RPM_BUILD_ROOT
 %files modules-sqlite
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_dyndir}/_sqlite3.so
+%dir %{py_scriptdir}/sqlite3
+%{py_scriptdir}/sqlite3/*.py[co]
 
 %files libs
 %defattr(644,root,root,755)
