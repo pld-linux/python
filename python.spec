@@ -35,7 +35,7 @@ Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
 Version:	%{py_ver}.4
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -559,10 +559,14 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 install %{SOURCE2}  $RPM_BUILD_ROOT%{_bindir}/python-config
 
-SCRIPT_EXT=".py"
+# NOTE: Do *not* use .py extension for python programs in dirs where other python programs are present
+# This will make those programs import local programs instead of global modules
+# Example:  bzr sftp://foo/bar (importing pdb )
+SCRIPT_EXT=".sh"
 export SCRIPT_EXT
 
-# create several useful scripts, such as timeit.py, profile.py, pdb.py, smtpd.py
+# create several useful scripts, such as timeit.sh, profile.sh, pdb.sh, smtpd.sh
+
 for script in timeit profile pdb pstats smtpd; do
     cat <<END > $RPM_BUILD_ROOT%{_bindir}/${script}$SCRIPT_EXT
 #!/bin/sh
