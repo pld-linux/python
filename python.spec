@@ -100,6 +100,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define test_list %{nobuilder_tests} %{broken_tests}
 %endif
 
+%ifarch sparc
+%define test_list %{nobuilder_tests} %{broken_tests} test_fcntl test_ioctl
+%endif
+
 %description
 Python is an interpreted, interactive, object-oriented programming
 language. It incorporates modules, exceptions, dynamic typing, very
