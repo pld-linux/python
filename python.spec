@@ -54,6 +54,7 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
+Patch7:		%{name}-db4.6.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -515,6 +516,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch5 -p1
 %patch4 -p1
 %patch6 -p1
+%patch7 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
