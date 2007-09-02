@@ -252,27 +252,25 @@ Python officially distributed sqlite module.
 %description modules-sqlite -l pl.UTF-8
 Oficjalnie rozprowadzany moduł sqlite języka Python.
 
-%package -n pydoc
+%package -n pydoc30
 Summary:	Python interactive module documentation access support
 Summary(pl.UTF-8):	Interaktywne korzystanie z dokumentacji modułów języka Python
 Group:		Applications
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
-Obsoletes:	python-pydoc
 
-%description -n pydoc
+%description -n pydoc30
 Python interactive module documentation access support.
 
-%description -n pydoc -l pl.UTF-8
+%description -n pydoc30 -l pl.UTF-8
 Interaktywne korzystanie z dokumentacji modułów języka Python.
 
-%package -n idle
+%package -n idle30
 Summary:	IDE for Python language
 Summary(pl.UTF-8):	IDE dla języka Python
 Group:		Applications
 Requires:	%{name}-tkinter = %{epoch}:%{version}-%{release}
-Obsoletes:	python-idle
 
-%description -n idle
+%description -n idle30
 IDE for Python language.
 
 %description -n idle -l pl.UTF-8
@@ -580,8 +578,6 @@ ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython.so
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
 
-rm -f $RPM_BUILD_ROOT%{_bindir}/python%{py_ver}
-
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
@@ -591,31 +587,36 @@ cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # for python devel tools
 for script in timeit profile pdb pstats; do
-    echo alias $script.py=\"python -m ${script}\"
-done > $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
+    echo alias ${script}%{py_ver}.py=\"python%{py_ver} -m ${script}\"
+done > $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-devel.sh
 
-echo alias pygettext.py='"pygettext"' \
-	>> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
+echo alias pygettext%{py_ver}.py='"pygettext%{py_ver}"' \
+	>> $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-devel.sh
 
 sed 's/=/ /' \
-	< $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh \
-	> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.csh
+	< $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-devel.sh \
+	> $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-devel.csh
 
 # for python modules
 for script in smtpd webbrowser; do
-    echo alias $script.py=\"python -m ${script}\"
-done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
+    echo alias ${script}%{py_ver}.py=\"python%{py_ver} -m ${script}\"
+done > $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-modules.sh
 
 sed 's/=/ /' \
-	< $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh \
-	> $RPM_BUILD_ROOT/etc/shrc.d/python-modules.csh
+	< $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-modules.sh \
+	> $RPM_BUILD_ROOT/etc/shrc.d/python%{py_ver}-modules.csh
 
 # xgettext specific for Python code
 #
 # we will have two commands: pygettext.py (an alias) and pygettext;
 # this way there are no import (which is impossible now) conflicts and
 # pygettext.py is provided for compatibility
-install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext
+install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext%{py_ver}
+
+# add py_ver
+for script in idle pydoc; do
+	mv $RPM_BUILD_ROOT%{_bindir}/${script} $RPM_BUILD_ROOT%{_bindir}/${script}%{py_ver}
+done
 
 # just to cut the noise, as they are not packaged (now)
 # first tests
@@ -827,14 +828,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/encodings
 %{py_scriptdir}/encodings/*.py[co]
 
-%files -n pydoc
+%files -n pydoc30
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
 %{py_scriptdir}/pydoc.py[co]
 
-%files -n idle
+%files -n idle30
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/idle
+%attr(755,root,root) %{_bindir}/idle%{py_ver}
 %dir %{py_scriptdir}/idlelib
 %dir %{py_scriptdir}/idlelib/Icons
 %{py_scriptdir}/idlelib/*.py[co]
@@ -892,7 +893,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc Lib/pdb.doc
 /etc/shrc.d/python-devel*
 
-%attr(755,root,root) %{_bindir}/pygettext
+%attr(755,root,root) %{_bindir}/pygettext%{py_ver}
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
