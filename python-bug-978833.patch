@@ -1,0 +1,30 @@
+Index: Lib/socket.py
+===================================================================
+--- Lib/socket.py	(revision 54542)
++++ Lib/socket.py	(working copy)
+@@ -145,6 +145,10 @@
+     send = recv = recv_into = sendto = recvfrom = recvfrom_into = _dummy
+     __getattr__ = _dummy
+ 
++# Wrapper around platform socket objects. This implements
++# a platform-independent dup() functionality. The 
++# implementation currently relies on reference counting
++# to close the underlying socket object.
+ class _socketobject(object):
+ 
+     __doc__ = _realsocket.__doc__
+Index: Lib/httplib.py
+===================================================================
+--- Lib/httplib.py	(revision 54542)
++++ Lib/httplib.py	(working copy)
+@@ -1133,6 +1133,9 @@
+     def __getattr__(self, attr):
+         return getattr(self._sock, attr)
+ 
++    def close(self):
++        SharedSocketClient.close(self)
++        self._ssl = None
+ 
+ class HTTPSConnection(HTTPConnection):
+     "This class allows communication via SSL."
+
