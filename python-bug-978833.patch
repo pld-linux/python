@@ -28,3 +28,16 @@ Index: Lib/httplib.py
  class HTTPSConnection(HTTPConnection):
      "This class allows communication via SSL."
 
+--- python/trunk/Lib/httplib.py	2006/05/03 18:03:22	45890
++++ python/trunk/Lib/httplib.py	2006/07/26 12:12:56	50844
+@@ -926,8 +926,8 @@
+         self.__state = _CS_IDLE
+ 
+         if response.will_close:
+-            # this effectively passes the connection to the response
+-            self.close()
++            # Pass the socket to the response
++            self.sock = None
+         else:
+             # remember this, so we can tell when it is complete
+             self.__response = response
