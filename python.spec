@@ -52,6 +52,7 @@ Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-info.patch
+Patch8:		%{name}-bug-978833.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -504,6 +505,7 @@ Przyk³ady te s± dla Pythona 2.3.4, nie %{version}.
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p0
 
 tar -xf %{SOURCE1} --use=bzip2
 
