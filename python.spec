@@ -95,7 +95,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define test_flags -l -x
 %endif
 
-%ifarch alpha ia64 ppc64 sparc64 ppc64 %{x8664}
+%ifarch alpha ia64 ppc64 ppc64 %{x8664}
 %define test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests}
 %else
 %define test_list %{nobuilder_tests} %{broken_tests}
@@ -103,6 +103,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %ifarch sparc
 %define test_list %{nobuilder_tests} %{broken_tests} test_fcntl test_ioctl
+%endif
+
+%ifarch sparc64
+%define test_list test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests} test_fcntl test_ioctl
 %endif
 
 %description
