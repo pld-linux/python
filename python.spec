@@ -598,9 +598,6 @@ for script in timeit profile pdb pstats; do
     echo alias $script.py=\"python -m ${script}\"
 done > $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
 
-echo alias pygettext.py='"pygettext"' \
-	>> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
-
 sed 's/=/ /' \
 	< $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh \
 	> $RPM_BUILD_ROOT/etc/shrc.d/python-devel.csh
@@ -613,13 +610,6 @@ done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
 sed 's/=/ /' \
 	< $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh \
 	> $RPM_BUILD_ROOT/etc/shrc.d/python-modules.csh
-
-# xgettext specific for Python code
-#
-# we will have two commands: pygettext.py (an alias) and pygettext;
-# this way there are no import (which is impossible now) conflicts and
-# pygettext.py is provided for compatibility
-install Tools/i18n/pygettext.py $RPM_BUILD_ROOT%{_bindir}/pygettext
 
 # just to cut the noise, as they are not packaged (now)
 # first tests
@@ -895,8 +885,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Lib/pdb.doc
 /etc/shrc.d/python-devel*
-
-%attr(755,root,root) %{_bindir}/pygettext
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
