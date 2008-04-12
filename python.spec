@@ -25,6 +25,7 @@
 %define py_sitedir	%{py_libdir}/site-packages
 %define py_dyndir	%{py_libdir}/lib-dynload
 
+%define doc_version	%{py_ver}.4
 Summary:	Very high level scripting language with X interface
 Summary(es):	Lenguaje script de alto nivel con interfaz X
 Summary(fr):	Langage de script de trХs haut niveau avec interface X
@@ -34,14 +35,14 @@ Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
 Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
 Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
 Name:		python
-Version:	%{py_ver}.4
-Release:	3
+Version:	%{py_ver}.5
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-# Source0-md5:	0ba90c79175c017101100ebf5978e906
-Source1:	http://www.python.org/ftp/python/doc/%{version}/html-%{version}.tar.bz2
+# Source0-md5:	aade3958cb097cc1c69ae0074297d359
+Source1:	http://www.python.org/ftp/python/doc/%{doc_version}/html-%{doc_version}.tar.bz2
 # Source1-md5:	21259033b5663533ed64b4592c6925e2
 Source2:	%{name}-config
 Patch0:		%{name}-readline.patch
