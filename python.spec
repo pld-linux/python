@@ -27,13 +27,13 @@
 
 %define doc_version	%{py_ver}.4
 Summary:	Very high level scripting language with X interface
-Summary(es):	Lenguaje script de alto nivel con interfaz X
-Summary(fr):	Langage de script de trХs haut niveau avec interface X
-Summary(pl):	Python - jЙzyk obiektowy wysokiego poziomu
-Summary(pt_BR):	Linguagem de programaГЦo interpretada de alto nМvel
-Summary(ru):	Язык программирования очень высокого уровня с X-интерфейсом
-Summary(tr):	X arayЭzlЭ, yЭksek dЭzeyli, kabuk yorumlayЩcЩ dili
-Summary(uk):	Мова програмування дуже високого р╕вня з X-╕нтерфейсом
+Summary(es.UTF-8):	Lenguaje script de alto nivel con interfaz X
+Summary(fr.UTF-8):	Langage de script de trц╗s haut niveau avec interface X
+Summary(pl.UTF-8):	Python - jд≥zyk obiektowy wysokiego poziomu
+Summary(pt_BR.UTF-8):	Linguagem de programaц╖цёo interpretada de alto nц╜vel
+Summary(ru.UTF-8):	п╞п╥я▀п╨ п©я─п╬пЁя─п╟п╪п╪п╦я─п╬п╡п╟п╫п╦я▐ п╬я┤п╣п╫я▄ п╡я▀я│п╬п╨п╬пЁп╬ я┐я─п╬п╡п╫я▐ я│ X-п╦п╫я┌п╣я─я└п╣п╧я│п╬п╪
+Summary(tr.UTF-8):	X arayц╪zlц╪, yц╪ksek dц╪zeyli, kabuk yorumlayд╠cд╠ dili
+Summary(uk.UTF-8):	п°п╬п╡п╟ п©я─п╬пЁя─п╟п╪я┐п╡п╟п╫п╫я▐ п╢я┐п╤п╣ п╡п╦я│п╬п╨п╬пЁп╬ я─я√п╡п╫я▐ п╥ X-я√п╫я┌п╣я─я└п╣п╧я│п╬п╪
 Name:		python
 Version:	%{py_ver}.5
 Release:	1
@@ -109,93 +109,93 @@ MS-DOS, Windows, Windows NT, and OS/2.
 
 This package contains the Python binary.
 
-%description -l de
+%description -l de.UTF-8
 Python ist eine interpretierte, interaktive, objektorientierte
 Programmiersprache, vergleichbar zu Tcl, Perl, Scheme oder Java.
-Python enthДlt Module, Klassen, Exceptions, High-Level dynamische
-Datentypen und dynamisches Typisieren. Python unterstЭtzt Interfaces
+Python enthц╓lt Module, Klassen, Exceptions, High-Level dynamische
+Datentypen und dynamisches Typisieren. Python unterstц╪tzt Interfaces
 zu vielen Systemaufrufen und Libraries, sowie verschiedene
 Fenstersysteme (X11, Motif, Tk, Mac und MFC)
 
-Programmierer kЖnnen neue built-in-Module fЭr Python in C oder C++
-schreiben. Python kann auch als Erweiterungssprache fЭr Applikationen
+Programmierer kц╤nnen neue built-in-Module fц╪r Python in C oder C++
+schreiben. Python kann auch als Erweiterungssprache fц╪r Applikationen
 benutzt werden, die ein programmierbares Interface brauchen. Dieses
-Paket enthДlt die meisten Standard-Python-Module, und Module zum
+Paket enthц╓lt die meisten Standard-Python-Module, und Module zum
 Ansprechen von Tix (Tk-widget set) und RPM.
 
-%description -l es
+%description -l es.UTF-8
 Python es un lenguaje de scripts interpretado orientado a objetos.
-Contiene soporte para carga dinАmica de objetos, clases, mСdulos y
+Contiene soporte para carga dinц║mica de objetos, clases, mцЁdulos y
 excepciones.
 
 Es sencillo adicionar interfaces para nuevos sistemas de biblioteca a
-travИs de cСdigo C, tornando Python fАcil de usar en ambientes
-particulares/personalizados. Este paquete Python incluye la mayorМa de
-los mСdulos padrСn Python, junto con mСdulos para crear interfaces
+travц╘s de cцЁdigo C, tornando Python fц║cil de usar en ambientes
+particulares/personalizados. Este paquete Python incluye la mayorц╜a de
+los mцЁdulos padrцЁn Python, junto con mцЁdulos para crear interfaces
 para el conjunto de componentes Tix para Tk y RPM.
 
-%description -l fr
-Python est un langage de script interprИtИ et orientИ objet. Il gХre
+%description -l fr.UTF-8
+Python est un langage de script interprц╘tц╘ et orientц╘ objet. Il gц╗re
 le chargement dynamique des objets, les classes, les modules et les
-exceptions. L'ajout d'interfaces aux nouvelles bibliothХques systХmes
-avec du code C est simple, ce qui rend Python facile Ю utiliser dans
-des configs personnalisИes.
+exceptions. L'ajout d'interfaces aux nouvelles bibliothц╗ques systц╗mes
+avec du code C est simple, ce qui rend Python facile ц═ utiliser dans
+des configs personnalisц╘es.
 
 Ce paquetage Python contient la plupart des modules Python standards,
-ainsi que ceux permettant l'interfaГage avec les widgets Tix pour Tk
+ainsi que ceux permettant l'interfaц╖age avec les widgets Tix pour Tk
 et RPM.
 
-%description -l pl
+%description -l pl.UTF-8
 Python jest interpretowanym, interaktywnym i zorientowanym obiektowo
-jЙzykiem programowania. Jest modularny, obsЁuguje wyj╠tki, dynamiczne
-typy, zaawansowane dynamiczne struktury danych i klasy. Python Ё╠czy w
-sobie du©e mo©liwo╤ci i przejrzyst╠ skЁadniЙ. Posiada interfejsy do
-wielu wywoЁaЯ systemowych i bibliotek, w tym rСwnie© do rС©nych
-bibliotek okienkowych. Mo©liwo╤ci jego mo©na jeszcze rozszerzaФ
-poprzez odpowiednie moduЁy pisane w C lub C++. Python mo©e byФ rСwnie©
-u©yty jako element aplikacji, ktСrym potrzebny jest interpreter do
-skryptСw. I wreszcie, Python jest wieloplatformowy, dziaЁa na wielu
+jд≥zykiem programowania. Jest modularny, obsе┌uguje wyjд┘tki, dynamiczne
+typy, zaawansowane dynamiczne struktury danych i klasy. Python е┌д┘czy w
+sobie duе╪e moе╪liwoе⌡ci i przejrzystд┘ skе┌adniд≥. Posiada interfejsy do
+wielu wywoе┌aе└ systemowych i bibliotek, w tym rцЁwnieе╪ do rцЁе╪nych
+bibliotek okienkowych. Moе╪liwoе⌡ci jego moе╪na jeszcze rozszerzaд┤
+poprzez odpowiednie moduе┌y pisane w C lub C++. Python moе╪e byд┤ rцЁwnieе╪
+uе╪yty jako element aplikacji, ktцЁrym potrzebny jest interpreter do
+skryptцЁw. I wreszcie, Python jest wieloplatformowy, dziaе┌a na wielu
 odmianach UNIX-a, Macu oraz PC pod DOS-em, Windows, WindowsNT oraz
 OS/2.
 
-Ten pakiet zawiera binarkЙ Pythona.
+Ten pakiet zawiera binarkд≥ Pythona.
 
-%description -l pt_BR
-Python И uma linguagem de scripts interpretada orientada a objetos.
-ContИm suporte para carga dinБmica de objetos, classes, mСdulos e
-exceГУes. Adicionar interfaces para novos sistemas de biblioteca
-atravИs de cСdigo C И simples, tornando Python fАcil de usar em
+%description -l pt_BR.UTF-8
+Python ц╘ uma linguagem de scripts interpretada orientada a objetos.
+Contц╘m suporte para carga dinц╒mica de objetos, classes, mцЁdulos e
+exceц╖ц╣es. Adicionar interfaces para novos sistemas de biblioteca
+atravц╘s de cцЁdigo C ц╘ simples, tornando Python fц║cil de usar em
 ambientes particulares/personalizados.
 
-Este pacote Python inclui a maioria do mСdulos padrЦo Python, junto
-com mСdulos para interfaceamento para o conjunto de componentes Tix
+Este pacote Python inclui a maioria do mцЁdulos padrцёo Python, junto
+com mцЁdulos para interfaceamento para o conjunto de componentes Tix
 para Tk e RPM.
 
-%description -l ru
-Python - это интерпретируемый, объектно-ориентированный язык
-программирования. Он поддерживает динамическую загрузку объектов,
-классы, модули и обработку исключительных ситуаций (exceptions).
-Простота добавления интерфейсов к новым системным библиотекам через
-код на языке C делает Python хорошим выбором для использования в
-специальных конфигурациях.
+%description -l ru.UTF-8
+Python - я█я┌п╬ п╦п╫я┌п╣я─п©я─п╣я┌п╦я─я┐п╣п╪я▀п╧, п╬п╠я┼п╣п╨я┌п╫п╬-п╬я─п╦п╣п╫я┌п╦я─п╬п╡п╟п╫п╫я▀п╧ я▐п╥я▀п╨
+п©я─п╬пЁя─п╟п╪п╪п╦я─п╬п╡п╟п╫п╦я▐. п·п╫ п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌ п╢п╦п╫п╟п╪п╦я┤п╣я│п╨я┐я▌ п╥п╟пЁя─я┐п╥п╨я┐ п╬п╠я┼п╣п╨я┌п╬п╡,
+п╨п╩п╟я│я│я▀, п╪п╬п╢я┐п╩п╦ п╦ п╬п╠я─п╟п╠п╬я┌п╨я┐ п╦я│п╨п╩я▌я┤п╦я┌п╣п╩я▄п╫я▀я┘ я│п╦я┌я┐п╟я├п╦п╧ (exceptions).
+п÷я─п╬я│я┌п╬я┌п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ п╦п╫я┌п╣я─я└п╣п╧я│п╬п╡ п╨ п╫п╬п╡я▀п╪ я│п╦я│я┌п╣п╪п╫я▀п╪ п╠п╦п╠п╩п╦п╬я┌п╣п╨п╟п╪ я┤п╣я─п╣п╥
+п╨п╬п╢ п╫п╟ я▐п╥я▀п╨п╣ C п╢п╣п╩п╟п╣я┌ Python я┘п╬я─п╬я┬п╦п╪ п╡я▀п╠п╬я─п╬п╪ п╢п╩я▐ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦я▐ п╡
+я│п©п╣я├п╦п╟п╩я▄п╫я▀я┘ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦я▐я┘.
 
-%description -l tr
-Python, nesneye yЖnelik bir kabuk yorumlayЩcЩdЩr. Nesnelerin,
-sЩnЩflarЩn, modЭllerin ve aykЩrЩ durumlarЩn dinamik yЭklenmelerine
-destek verir. C koduyla birlikte kullanЩmЩ son derece kolaydЩr. Bu
-paket, standart Python birimlerinin ГoПunun yanЩsЩra Tk ve RPM iГin
-arayЭz birimlerini de iГerir.
+%description -l tr.UTF-8
+Python, nesneye yц╤nelik bir kabuk yorumlayд╠cд╠dд╠r. Nesnelerin,
+sд╠nд╠flarд╠n, modц╪llerin ve aykд╠rд╠ durumlarд╠n dinamik yц╪klenmelerine
+destek verir. C koduyla birlikte kullanд╠mд╠ son derece kolaydд╠r. Bu
+paket, standart Python birimlerinin ц╖oд÷unun yanд╠sд╠ra Tk ve RPM iц╖in
+arayц╪z birimlerini de iц╖erir.
 
-%description -l uk
-Python - це ╕нтерпретована, об'╓ктно-ор╕╓нтована мова програмування.
-В╕н п╕дтриму╓ динам╕чну загрузку об'╓кт╕в, класи, модул╕ та обробку
-виключних ситуац╕й (exceptions). Простота додавання ╕нтерфейс╕в для
-нових системних б╕бл╕отек через код на мов╕ C робить Python добрим
-вибором для використання в спец╕альних конф╕гурац╕ях.
+%description -l uk.UTF-8
+Python - я├п╣ я√п╫я┌п╣я─п©я─п╣я┌п╬п╡п╟п╫п╟, п╬п╠'я■п╨я┌п╫п╬-п╬я─я√я■п╫я┌п╬п╡п╟п╫п╟ п╪п╬п╡п╟ п©я─п╬пЁя─п╟п╪я┐п╡п╟п╫п╫я▐.
+п▓я√п╫ п©я√п╢я┌я─п╦п╪я┐я■ п╢п╦п╫п╟п╪я√я┤п╫я┐ п╥п╟пЁя─я┐п╥п╨я┐ п╬п╠'я■п╨я┌я√п╡, п╨п╩п╟я│п╦, п╪п╬п╢я┐п╩я√ я┌п╟ п╬п╠я─п╬п╠п╨я┐
+п╡п╦п╨п╩я▌я┤п╫п╦я┘ я│п╦я┌я┐п╟я├я√п╧ (exceptions). п÷я─п╬я│я┌п╬я┌п╟ п╢п╬п╢п╟п╡п╟п╫п╫я▐ я√п╫я┌п╣я─я└п╣п╧я│я√п╡ п╢п╩я▐
+п╫п╬п╡п╦я┘ я│п╦я│я┌п╣п╪п╫п╦я┘ п╠я√п╠п╩я√п╬я┌п╣п╨ я┤п╣я─п╣п╥ п╨п╬п╢ п╫п╟ п╪п╬п╡я√ C я─п╬п╠п╦я┌я▄ Python п╢п╬п╠я─п╦п╪
+п╡п╦п╠п╬я─п╬п╪ п╢п╩я▐ п╡п╦п╨п╬я─п╦я│я┌п╟п╫п╫я▐ п╡ я│п©п╣я├я√п╟п╩я▄п╫п╦я┘ п╨п╬п╫я└я√пЁя┐я─п╟я├я√я▐я┘.
 
 %package libs
 Summary:	Python library
-Summary(pl):	Biblioteka jЙzyka Python
+Summary(pl.UTF-8):	Biblioteka jд≥zyka Python
 Group:		Libraries/Python
 # broken detection in rpm/pythondeps.sh
 Provides:	python(abi) = %{py_ver}
@@ -205,13 +205,13 @@ Provides:	python(bytecode) = %{py_ver}
 %description libs
 Python shared library and very essental modules for Python binary.
 
-%description libs -l pl
-Biblioteka wspСЁdzielona jЙzyka Python oraz bardzo podstawowe moduЁy
+%description libs -l pl.UTF-8
+Biblioteka wspцЁе┌dzielona jд≥zyka Python oraz bardzo podstawowe moduе┌y
 dla Pythona.
 
 %package modules
 Summary:	Python modules
-Summary(pl):	ModuЁy jЙzyka Python
+Summary(pl.UTF-8):	Moduе┌y jд≥zyka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-logging
@@ -221,12 +221,12 @@ Obsoletes:	python-xmlrpc <= 1.0.1
 %description modules
 Python officially distributed modules.
 
-%description modules -l pl
-Oficjalnie rozprowadzane moduЁy jЙzyka Python.
+%description modules -l pl.UTF-8
+Oficjalnie rozprowadzane moduе┌y jд≥zyka Python.
 
 %package -n pydoc
 Summary:	Python interactive module documentation access support
-Summary(pl):	Interaktywne korzystanie z dokumentacji moduЁСw jЙzyka Python
+Summary(pl.UTF-8):	Interaktywne korzystanie z dokumentacji moduе┌цЁw jд≥zyka Python
 Group:		Applications
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Obsoletes:	python-pydoc
@@ -234,12 +234,12 @@ Obsoletes:	python-pydoc
 %description -n pydoc
 Python interactive module documentation access support.
 
-%description -n pydoc -l pl
-Interaktywne korzystanie z dokumentacji moduЁСw jЙzyka Python.
+%description -n pydoc -l pl.UTF-8
+Interaktywne korzystanie z dokumentacji moduе┌цЁw jд≥zyka Python.
 
 %package -n idle
 Summary:	IDE for Python language
-Summary(pl):	IDE dla jЙzyka Python
+Summary(pl.UTF-8):	IDE dla jд≥zyka Python
 Group:		Applications
 Requires:	%{name}-tkinter = %{epoch}:%{version}-%{release}
 Obsoletes:	python-idle
@@ -247,19 +247,19 @@ Obsoletes:	python-idle
 %description -n idle
 IDE for Python language.
 
-%description -n idle -l pl
-IDE dla jЙzyka Python.
+%description -n idle -l pl.UTF-8
+IDE dla jд≥zyka Python.
 
 %package devel
 Summary:	Libraries and header files for building python code
-Summary(de):	Libraries und Header-Dateien zum Erstellen von Python-Code
-Summary(es):	Bibliotecas y archivos de inclusiСn para construir programas en python
-Summary(fr):	BibliothХques et en-tЙtes pour construire du code python
-Summary(pl):	Pliki nagЁСwkowe i biblioteki Pythona
-Summary(pt_BR):	Bibliotecas e arquivos de inclusЦo para o Python
-Summary(ru):	Библиотеки и хедеры для построения кода на языке Python
-Summary(tr):	Python ile geliЧtirme yapmak iГin gerekli dosyalar
-Summary(uk):	Б╕бл╕отеки та хедери для програмування на мов╕ Python
+Summary(de.UTF-8):	Libraries und Header-Dateien zum Erstellen von Python-Code
+Summary(es.UTF-8):	Bibliotecas y archivos de inclusiцЁn para construir programas en python
+Summary(fr.UTF-8):	Bibliothц╗ques et en-tц╙tes pour construire du code python
+Summary(pl.UTF-8):	Pliki nagе┌цЁwkowe i biblioteki Pythona
+Summary(pt_BR.UTF-8):	Bibliotecas e arquivos de inclusцёo para o Python
+Summary(ru.UTF-8):	п▒п╦п╠п╩п╦п╬я┌п╣п╨п╦ п╦ я┘п╣п╢п╣я─я▀ п╢п╩я▐ п©п╬я│я┌я─п╬п╣п╫п╦я▐ п╨п╬п╢п╟ п╫п╟ я▐п╥я▀п╨п╣ Python
+Summary(tr.UTF-8):	Python ile geliе÷tirme yapmak iц╖in gerekli dosyalar
+Summary(uk.UTF-8):	п▒я√п╠п╩я√п╬я┌п╣п╨п╦ я┌п╟ я┘п╣п╢п╣я─п╦ п╢п╩я▐ п©я─п╬пЁя─п╟п╪я┐п╡п╟п╫п╫я▐ п╫п╟ п╪п╬п╡я√ Python
 Group:		Development/Languages/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
@@ -269,98 +269,98 @@ loaded extensions and to embed in other programs. This package
 contains the header files and libraries which are needed to do both of
 these tasks.
 
-%description devel -l de
+%description devel -l de.UTF-8
 Der Python-Interpretierer ist relativ einfach anhand von dynamisch
-ladbaren Erweiterungen auszubauen und lДъt sich in andere Programme
-integrieren. Dieses Paket enthДlt die Header-Dateien und Libraries,
-die fЭr beide Aufgaben erforderlich sind.
+ladbaren Erweiterungen auszubauen und lц╓ц÷t sich in andere Programme
+integrieren. Dieses Paket enthц╓lt die Header-Dateien und Libraries,
+die fц╪r beide Aufgaben erforderlich sind.
 
-%description devel -l es
+%description devel -l es.UTF-8
 El interpretador Python permite incluir con facilidad extensiones
-cargadas dinАmicamente. Python es tambiИn fАcil de ser empotrado en
-otros programas. Este paquete contiene los archivos de inclusiСn y
+cargadas dinц║micamente. Python es tambiц╘n fц║cil de ser empotrado en
+otros programas. Este paquete contiene los archivos de inclusiцЁn y
 bibliotecas necesarios para estas dos tareas.
 
-%description devel -l fr
-L'interprИteur Python est relativement facile Ю Иtendre avec des
-extensions chargИes dynamiquement et Ю insИrer dans d'autres
-programmes. Ce paquetage contient les en-tЙtes et les bibliothХques
-nИcessaires Ю ces deux tБches.
+%description devel -l fr.UTF-8
+L'interprц╘teur Python est relativement facile ц═ ц╘tendre avec des
+extensions chargц╘es dynamiquement et ц═ insц╘rer dans d'autres
+programmes. Ce paquetage contient les en-tц╙tes et les bibliothц╗ques
+nц╘cessaires ц═ ces deux tц╒ches.
 
-%description devel -l pl
-Interpreter Pythona jest w miarЙ Ёatwy do rozszerzania przy pomocy
-dynamicznie Ёadowanych rozszerzeЯ napisanych w C lub C++ oraz
-osadzania w innych programach. Ten pakiet zawiera pliki nagЁСwkowe i
-wszystko inne co potrzebne do tych celСw.
+%description devel -l pl.UTF-8
+Interpreter Pythona jest w miarд≥ е┌atwy do rozszerzania przy pomocy
+dynamicznie е┌adowanych rozszerzeе└ napisanych w C lub C++ oraz
+osadzania w innych programach. Ten pakiet zawiera pliki nagе┌цЁwkowe i
+wszystko inne co potrzebne do tych celцЁw.
 
-%description devel -l pt_BR
-O interpretador Python permite incluir com facilidade extensУes
-carregadas dinamicamente. Python И tambИm fАcil de ser embutido em
-outros programas. Este pacote contИm os arquivos de inclusЦo e
-bibliotecas necessАrios para estas duas tarefas.
+%description devel -l pt_BR.UTF-8
+O interpretador Python permite incluir com facilidade extensц╣es
+carregadas dinamicamente. Python ц╘ tambц╘m fц║cil de ser embutido em
+outros programas. Este pacote contц╘m os arquivos de inclusцёo e
+bibliotecas necessц║rios para estas duas tarefas.
 
-%description devel -l ru
-Интерпретатор Python относительно легко расширяется при помощи
-динамически загружаемых расширений и встраивается в другие программы.
-Этот пакет содержит хедеры и библиотеки, необходимые для обеих этих
-задач.
+%description devel -l ru.UTF-8
+п≤п╫я┌п╣я─п©я─п╣я┌п╟я┌п╬я─ Python п╬я┌п╫п╬я│п╦я┌п╣п╩я▄п╫п╬ п╩п╣пЁп╨п╬ я─п╟я│я┬п╦я─я▐п╣я┌я│я▐ п©я─п╦ п©п╬п╪п╬я┴п╦
+п╢п╦п╫п╟п╪п╦я┤п╣я│п╨п╦ п╥п╟пЁя─я┐п╤п╟п╣п╪я▀я┘ я─п╟я│я┬п╦я─п╣п╫п╦п╧ п╦ п╡я│я┌я─п╟п╦п╡п╟п╣я┌я│я▐ п╡ п╢я─я┐пЁп╦п╣ п©я─п╬пЁя─п╟п╪п╪я▀.
+п╜я┌п╬я┌ п©п╟п╨п╣я┌ я│п╬п╢п╣я─п╤п╦я┌ я┘п╣п╢п╣я─я▀ п╦ п╠п╦п╠п╩п╦п╬я┌п╣п╨п╦, п╫п╣п╬п╠я┘п╬п╢п╦п╪я▀п╣ п╢п╩я▐ п╬п╠п╣п╦я┘ я█я┌п╦я┘
+п╥п╟п╢п╟я┤.
 
-%description devel -l tr
-Bu paket, Python ile geliЧtirme yapЩlabilmesi iГin gerekli baЧlЩk
-dosyalarЩnЩ ve kitaplЩklarЩ iГerir.
+%description devel -l tr.UTF-8
+Bu paket, Python ile geliе÷tirme yapд╠labilmesi iц╖in gerekli baе÷lд╠k
+dosyalarд╠nд╠ ve kitaplд╠klarд╠ iц╖erir.
 
-%description devel -l uk
-╤нтерпретатор Python в╕дносно легко розширю╓ться за допомогою
-розширень з динам╕чною загрузкою та вбудову╓ться в ╕нш╕ програми. Цей
-пакет м╕стить хедери та б╕бл╕отеки, необх╕дн╕ для обох цих задач.
+%description devel -l uk.UTF-8
+п├п╫я┌п╣я─п©я─п╣я┌п╟я┌п╬я─ Python п╡я√п╢п╫п╬я│п╫п╬ п╩п╣пЁп╨п╬ я─п╬п╥я┬п╦я─я▌я■я┌я▄я│я▐ п╥п╟ п╢п╬п©п╬п╪п╬пЁп╬я▌
+я─п╬п╥я┬п╦я─п╣п╫я▄ п╥ п╢п╦п╫п╟п╪я√я┤п╫п╬я▌ п╥п╟пЁя─я┐п╥п╨п╬я▌ я┌п╟ п╡п╠я┐п╢п╬п╡я┐я■я┌я▄я│я▐ п╡ я√п╫я┬я√ п©я─п╬пЁя─п╟п╪п╦. п╕п╣п╧
+п©п╟п╨п╣я┌ п╪я√я│я┌п╦я┌я▄ я┘п╣п╢п╣я─п╦ я┌п╟ п╠я√п╠п╩я√п╬я┌п╣п╨п╦, п╫п╣п╬п╠я┘я√п╢п╫я√ п╢п╩я▐ п╬п╠п╬я┘ я├п╦я┘ п╥п╟п╢п╟я┤.
 
 %package devel-src
 Summary:	Python module sources
-Summary(pl):	Pliki ╪rСdЁowe moduЁСw Pythona
+Summary(pl.UTF-8):	Pliki е╨rцЁdе┌owe moduе┌цЁw Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
 %description devel-src
 Python module sources.
 
-%description devel-src -l pl
-Pliki ╪rСdЁowe moduЁСw Pythona.
+%description devel-src -l pl.UTF-8
+Pliki е╨rцЁdе┌owe moduе┌цЁw Pythona.
 
 %package devel-tools
 Summary:	Python development tools
-Summary(pl):	NarzЙdzia programistyczne jЙzyka Python
+Summary(pl.UTF-8):	Narzд≥dzia programistyczne jд≥zyka Python
 Group:		Development/Languages/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
 %description devel-tools
 Python development tools such as profilers and debugger.
 
-%description devel-tools -l pl
-NarzЙdzia programistyczne jЙzyka Python takie jak profiler oraz
+%description devel-tools -l pl.UTF-8
+Narzд≥dzia programistyczne jд≥zyka Python takie jak profiler oraz
 debugger.
 
 %package static
 Summary:	Static python library
-Summary(pl):	Statyczna biblioteka Pythona
+Summary(pl.UTF-8):	Statyczna biblioteka Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static python library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka Pythona.
 
 %package doc
 Summary:	Documentation on Python
-Summary(de):	Dokumentation zu Python
-Summary(es):	DocumentaciСn para Python
-Summary(fr):	Documentation sur Python
-Summary(pl):	Dokumentacja do Pythona
-Summary(pt_BR):	DocumentaГЦo para a linguagem de programaГЦo Python
-Summary(ru):	Документация по языку Python
-Summary(tr):	Python belgeleri
-Summary(uk):	Документац╕я по мов╕ Python
+Summary(de.UTF-8):	Dokumentation zu Python
+Summary(es.UTF-8):	DocumentaciцЁn para Python
+Summary(fr.UTF-8):	Documentation sur Python
+Summary(pl.UTF-8):	Dokumentacja do Pythona
+Summary(pt_BR.UTF-8):	Documentaц╖цёo para a linguagem de programaц╖цёo Python
+Summary(ru.UTF-8):	п■п╬п╨я┐п╪п╣п╫я┌п╟я├п╦я▐ п©п╬ я▐п╥я▀п╨я┐ Python
+Summary(tr.UTF-8):	Python belgeleri
+Summary(uk.UTF-8):	п■п╬п╨я┐п╪п╣п╫я┌п╟я├я√я▐ п©п╬ п╪п╬п╡я√ Python
 Group:		Documentation
 Obsoletes:	python-docs
 
@@ -368,62 +368,62 @@ Obsoletes:	python-docs
 This package contains documentation on the Python language and
 interpretor as a mix of plain ASCII files and LaTeX sources.
 
-%description doc -l de
-Dieses Paket enthДlt Dokumentationen zu Python (Sprache und
+%description doc -l de.UTF-8
+Dieses Paket enthц╓lt Dokumentationen zu Python (Sprache und
 Interpreter) in Form von einfachen ASCII-Dateien und LaTeX-Quellen.
 
-%description doc -l es
-DocumentaciСn para Python. Contiene archivos en texto y PostScript.
+%description doc -l es.UTF-8
+DocumentaciцЁn para Python. Contiene archivos en texto y PostScript.
 
-%description doc -l fr
+%description doc -l fr.UTF-8
 Ce paquetage contient la documentation sur le langage python et sur
-son interprИteur sous forme de fichiers ASCII et LaTeX.
+son interprц╘teur sous forme de fichiers ASCII et LaTeX.
 
-%description doc -l pl
-Oficjalna dokumentacja do Pythona. Zawiera przykЁadowe programy,
-narzЙdzia i dokumentacjЙ. Strony podrЙcznika man znajduj╠ siЙ w
-gЁСwnym pakiecie. Ten pakiet nie zawiera ╪rСdeЁ dokumentacji
+%description doc -l pl.UTF-8
+Oficjalna dokumentacja do Pythona. Zawiera przykе┌adowe programy,
+narzд≥dzia i dokumentacjд≥. Strony podrд≥cznika man znajdujд┘ siд≥ w
+gе┌цЁwnym pakiecie. Ten pakiet nie zawiera е╨rцЁdeе┌ dokumentacji
 napisanych w LaTeXu, tylko gotowe do wykorzystania pliki postscriptowe
 i HTML.
 
-%description doc -l pt_BR
-O pacote python-doc contИm documentaГЦo para a linguagem de
-programaГЦo e para o interpretador Python. Fornecida em arquivos texto
+%description doc -l pt_BR.UTF-8
+O pacote python-doc contц╘m documentaц╖цёo para a linguagem de
+programaц╖цёo e para o interpretador Python. Fornecida em arquivos texto
 e Postcript.
 
-%description doc -l ru
-Этот пакет содержит документацию по собственно языку Python и по
-исполняющему его интерпретатору в виде набора текстовых файлов и
-исходных текстов в формате LaTeX.
+%description doc -l ru.UTF-8
+п╜я┌п╬я┌ п©п╟п╨п╣я┌ я│п╬п╢п╣я─п╤п╦я┌ п╢п╬п╨я┐п╪п╣п╫я┌п╟я├п╦я▌ п©п╬ я│п╬п╠я│я┌п╡п╣п╫п╫п╬ я▐п╥я▀п╨я┐ Python п╦ п©п╬
+п╦я│п©п╬п╩п╫я▐я▌я┴п╣п╪я┐ п╣пЁп╬ п╦п╫я┌п╣я─п©я─п╣я┌п╟я┌п╬я─я┐ п╡ п╡п╦п╢п╣ п╫п╟п╠п╬я─п╟ я┌п╣п╨я│я┌п╬п╡я▀я┘ я└п╟п╧п╩п╬п╡ п╦
+п╦я│я┘п╬п╢п╫я▀я┘ я┌п╣п╨я│я┌п╬п╡ п╡ я└п╬я─п╪п╟я┌п╣ LaTeX.
 
-%description doc -l tr
-Bu paket, Python dili ile ilgili belgeleri ve dЭz ASCII dosyalarЩ ve
-LaTeX kaynaklarЩnЩn bir karЩЧЩmЩ olan yorumlayЩcЩyЩ iГerir.
+%description doc -l tr.UTF-8
+Bu paket, Python dili ile ilgili belgeleri ve dц╪z ASCII dosyalarд╠ ve
+LaTeX kaynaklarд╠nд╠n bir karд╠е÷д╠mд╠ olan yorumlayд╠cд╠yд╠ iц╖erir.
 
-%description doc -l uk
-Цей пакет м╕стить документац╕ю по власне мов╕ Python та по виконуючому
-╖╖ ╕нтерпретатору у вигляд╕ набора текстових файл╕в та вих╕дних
-текст╕в у формат╕ LaTeX.
+%description doc -l uk.UTF-8
+п╕п╣п╧ п©п╟п╨п╣я┌ п╪я√я│я┌п╦я┌я▄ п╢п╬п╨я┐п╪п╣п╫я┌п╟я├я√я▌ п©п╬ п╡п╩п╟я│п╫п╣ п╪п╬п╡я√ Python я┌п╟ п©п╬ п╡п╦п╨п╬п╫я┐я▌я┤п╬п╪я┐
+я≈я≈ я√п╫я┌п╣я─п©я─п╣я┌п╟я┌п╬я─я┐ я┐ п╡п╦пЁп╩я▐п╢я√ п╫п╟п╠п╬я─п╟ я┌п╣п╨я│я┌п╬п╡п╦я┘ я└п╟п╧п╩я√п╡ я┌п╟ п╡п╦я┘я√п╢п╫п╦я┘
+я┌п╣п╨я│я┌я√п╡ я┐ я└п╬я─п╪п╟я┌я√ LaTeX.
 
 %package doc-info
 Summary:	Documentation on Python in texinfo format
-Summary(pl):	Dokumentacja do Pythona w formacie texinfo
+Summary(pl.UTF-8):	Dokumentacja do Pythona w formacie texinfo
 Group:		Documentation
 
 %description doc-info
 Documentation on Python in texinfo format.
 
-%description doc-info -l pl
+%description doc-info -l pl.UTF-8
 Dokumentacja do Pythona w formacie texinfo.
 
 %package tkinter
 Summary:	Standard Python interface to the Tk GUI toolkit
-Summary(de):	Grafische Tk-Schnittstelle fЭr Python
-Summary(es):	Interfaz de GUI Tk para Python
-Summary(fr):	Interface graphique Tk pour Python
-Summary(pl):	Standardowy interfejs Pythona do biblioteki Tk
-Summary(pt_BR):	Interface GUI Tk para Phyton
-Summary(tr):	Python iГin grafik kullanЩcЩ arayЭzЭ
+Summary(de.UTF-8):	Grafische Tk-Schnittstelle fц╪r Python
+Summary(es.UTF-8):	Interfaz de GUI Tk para Python
+Summary(fr.UTF-8):	Interface graphique Tk pour Python
+Summary(pl.UTF-8):	Standardowy interfejs Pythona do biblioteki Tk
+Summary(pt_BR.UTF-8):	Interface GUI Tk para Phyton
+Summary(tr.UTF-8):	Python iц╖in grafik kullanд╠cд╠ arayц╪zц╪
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Requires:	tcl >= 8.4.3
@@ -434,38 +434,38 @@ Obsoletes:	tkinter
 %description tkinter
 Standard Python interface to the Tk GUI toolkit.
 
-%description tkinter -l de
-Eine grafische Schnittstelle fЭr Python, basierend auf Tcl/Tk, und von
+%description tkinter -l de.UTF-8
+Eine grafische Schnittstelle fц╪r Python, basierend auf Tcl/Tk, und von
 vielen Konfigurations-Tools genutzt.
 
-%description tkinter -l es
-Una interfaz grАfica para Python, basada en Tcl/Tk, y usada por muchas
-herramientas de configuraciСn.
+%description tkinter -l es.UTF-8
+Una interfaz grц║fica para Python, basada en Tcl/Tk, y usada por muchas
+herramientas de configuraciцЁn.
 
-%description tkinter -l fr
-Interface graphique pour Python, basИe sur Tcl/Tk et utilisИe par
+%description tkinter -l fr.UTF-8
+Interface graphique pour Python, basц╘e sur Tcl/Tk et utilisц╘e par
 beaucoup des outils de configuration.
 
-%description tkinter -l pl
+%description tkinter -l pl.UTF-8
 Standardowy interfejs Pythona do biblioteki Tk.
 
-%description tkinter -l pt_BR
-Uma interface grАfica para Python, baseada em Tcl/Tk, e usada por
-muitas ferramentas de configuraГЦo.
+%description tkinter -l pt_BR.UTF-8
+Uma interface grц║fica para Python, baseada em Tcl/Tk, e usada por
+muitas ferramentas de configuraц╖цёo.
 
-%description tkinter -l ru
-Графический интерфейс (GUI) для Python, построенный на Tcl/Tk.
+%description tkinter -l ru.UTF-8
+п⌠я─п╟я└п╦я┤п╣я│п╨п╦п╧ п╦п╫я┌п╣я─я└п╣п╧я│ (GUI) п╢п╩я▐ Python, п©п╬я│я┌я─п╬п╣п╫п╫я▀п╧ п╫п╟ Tcl/Tk.
 
-%description tkinter -l tr
-Python iГin Tcl/Tk'ye dayalЩ ve pek Гok ayarlama aracЩ tarafЩndan
-kullanЩlan grafik bir arayЭzdЭr.
+%description tkinter -l tr.UTF-8
+Python iц╖in Tcl/Tk'ye dayalд╠ ve pek ц╖ok ayarlama aracд╠ tarafд╠ndan
+kullanд╠lan grafik bir arayц╪zdц╪r.
 
-%description tkinter -l uk
-Граф╕чний ╕нтерфейс (GUI) для Python, побудований на Tcl/Tk.
+%description tkinter -l uk.UTF-8
+п⌠я─п╟я└я√я┤п╫п╦п╧ я√п╫я┌п╣я─я└п╣п╧я│ (GUI) п╢п╩я▐ Python, п©п╬п╠я┐п╢п╬п╡п╟п╫п╦п╧ п╫п╟ Tcl/Tk.
 
 %package old
 Summary:	Deprecated Python modules
-Summary(pl):	Nieaktualne moduЁy jЙzyka Python
+Summary(pl.UTF-8):	Nieaktualne moduе┌y jд≥zyka Python
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 
@@ -474,15 +474,15 @@ Install this package when one of your program written in Python is old
 as Miss Universum of 1918, who only you want to see... ooops, which
 only you want to run.
 
-%description old -l pl
-Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programСw napisanych
-w jЙzyku Python jest tak stary jak Miss Universum z roku 1918, ktСr╠
-tylko ty chcesz zobaczyФ... przepraszam, ktСry tylko ty chcesz
-uruchomiФ.
+%description old -l pl.UTF-8
+Zainstaluj ten pakiet, wtedy kiedy jeden z Twoich programцЁw napisanych
+w jд≥zyku Python jest tak stary jak Miss Universum z roku 1918, ktцЁrд┘
+tylko ty chcesz zobaczyд┤... przepraszam, ktцЁry tylko ty chcesz
+uruchomiд┤.
 
 %package examples
 Summary:	Example programs in Python
-Summary(pl):	PrzykЁadowe programy w Pythonie
+Summary(pl.UTF-8):	Przykе┌adowe programy w Pythonie
 Group:		Development/Languages/Python
 Obsoletes:	python-tools
 
@@ -491,10 +491,10 @@ Example programs in Python.
 
 These are for Python 2.3.4, not %{version}.
 
-%description examples -l pl
-PrzykЁadowe programy w Pythonie.
+%description examples -l pl.UTF-8
+Przykе┌adowe programy w Pythonie.
 
-PrzykЁady te s╠ dla Pythona 2.3.4, nie %{version}.
+Przykе┌ady te sд┘ dla Pythona 2.3.4, nie %{version}.
 
 %prep
 %setup -q -n Python-%{version}
