@@ -39,7 +39,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.2
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -55,6 +55,7 @@ Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-db4.6.patch
+Patch8:		%{name}-bug-216503.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -228,15 +229,15 @@ Summary:	Python modules
 Summary(pl.UTF-8):	Moduły języka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	python-ctypes
+Provides:	python-cElementTree
+Provides:	python-elementtree
 Obsoletes:	python-cElementTree
+Obsoletes:	python-ctypes
 Obsoletes:	python-elementtree
 Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
-Provides:	python-cElementTree
-Provides:	python-elementtree
 
 %description modules
 Python officially distributed modules.
@@ -521,8 +522,9 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p2
 
-tar -xf %{SOURCE1} --use=bzip2
+tar xjf %{SOURCE1}
 
 %build
 sed -i -e 's#-ltermcap#-ltinfo#g' configure*
@@ -544,11 +546,11 @@ CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 	OPT="%{rpmcflags}" 2>&1 | awk '
 BEGIN { fail = 0; logmsg = ""; }
 {
-        if ($0 ~ /\*\*\* WARNING:/) {
-                fail = 1;
-                logmsg = logmsg $0;
-        }
-        print $0;
+		if ($0 ~ /\*\*\* WARNING:/) {
+				fail = 1;
+				logmsg = logmsg $0;
+		}
+		print $0;
 }
 END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 
