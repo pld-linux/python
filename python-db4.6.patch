@@ -1,11 +1,11 @@
---- Python-2.5.2/setup.py.orig	2008-02-04 23:41:02.000000000 +0000
-+++ Python-2.5.2/setup.py	2008-02-26 21:04:48.000000000 +0000
-@@ -608,7 +608,7 @@
-         # a release.  Most open source OSes come with one or more
-         # versions of BerkeleyDB already installed.
+--- Python-2.4.5/setup.py~	2008-04-13 12:57:59.000000000 +0300
++++ Python-2.4.5/setup.py	2008-04-13 12:58:31.337662194 +0300
+@@ -522,7 +522,7 @@
+         #
+         # http://www.sleepycat.com/update/index.html
  
--        max_db_ver = (4, 5)
+-        max_db_ver = (4, 4)
 +        max_db_ver = (4, 6)
-         # NOTE: while the _bsddb.c code links against BerkeleyDB 4.6.x
-         # we leave that version disabled by default as it has proven to be
-         # quite a buggy library release on many platforms.
+         min_db_ver = (3, 2)
+         db_setup_debug = False   # verbose debug prints from this script?
+ 
