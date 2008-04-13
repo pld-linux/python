@@ -36,7 +36,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.5
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -54,6 +54,7 @@ Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-info.patch
 Patch8:		%{name}-bug-978833.patch
+Patch9:		%{name}-db4.6.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -507,6 +508,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p0
+%patch9 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 
