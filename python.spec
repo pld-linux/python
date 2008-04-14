@@ -842,7 +842,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Python-Docs-%{version}/*
+%doc Python-Docs-%{doc_version}/*
 
 %if %{with info}
 %files doc-info
