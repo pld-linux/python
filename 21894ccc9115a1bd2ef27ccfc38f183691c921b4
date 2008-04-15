@@ -1,0 +1,2 @@
+- fix launchpad bug #216503: zlib module buffer overflow; rel 3
+- CVE-2008-1721
