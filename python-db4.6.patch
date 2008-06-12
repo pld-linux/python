@@ -5,7 +5,7 @@
          # versions of BerkeleyDB already installed.
  
 -        max_db_ver = (4, 5)
-+        max_db_ver = (4, 6)
++        max_db_ver = (4, 7)
          # NOTE: while the _bsddb.c code links against BerkeleyDB 4.6.x
          # we leave that version disabled by default as it has proven to be
          # quite a buggy library release on many platforms.
