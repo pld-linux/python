@@ -39,7 +39,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.2
-Release:	4
+Release:	5
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -54,7 +54,7 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-db4.6.patch
+Patch7:		%{name}-db.patch
 Patch8:		%{name}-bug-216503.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
