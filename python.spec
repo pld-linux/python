@@ -5,6 +5,8 @@
 # - change searchpath order so /usr/lib* is before /usr/share
 # - kill lib-tk from searchpath
 # - kill BR: file requirement from lib64 patch
+# - security(CVE-2008-4108)
+#   http://securitytracker.com/alerts/2008/Sep/1020904.html
 #
 # Conditional build:
 %bcond_with	info			# build info pages (requires emacs, fails in python-2.5.0)
