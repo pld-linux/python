@@ -673,7 +673,6 @@ rm -rf $RPM_BUILD_ROOT
 # see Python README file for explanation
 %ifnarch alpha ia64 ppc64 sparc64 %{x8664}
 %attr(755,root,root) %{py_dyndir}/audioop.so
-%attr(755,root,root) %{py_dyndir}/rgbimg.so
 %attr(755,root,root) %{py_dyndir}/imageop.so
 # sizeof(long) != sizeof(int), so dl module will not be built on 64-bit
 # platforms
