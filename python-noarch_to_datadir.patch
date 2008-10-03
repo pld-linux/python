@@ -42,26 +42,24 @@ diff -Nur Python-2.5.orig/Lib/distutils/sysconfig.py Python-2.5/Lib/distutils/sy
 diff -Nur Python-2.5.orig/Lib/site.py Python-2.5/Lib/site.py
 --- Python-2.5.orig/Lib/site.py	2007-03-17 16:26:13.803357750 +0000
 +++ Python-2.5/Lib/site.py	2007-03-17 16:26:50.825671500 +0000
-@@ -185,13 +185,12 @@
-                                          sys.lib,
-                                          "python" + sys.version[:3],
-                                          "site-packages"),
--                            os.path.join(prefix, sys.lib, "site-python")]
--                if sys.lib != 'lib':
--                    sitedirs.append(os.path.join(prefix,
--                                                 'lib',
--                                                 "python" + sys.version[:3],
--                                                 "site-packages"))
--                    sitedirs.append(os.path.join(prefix, 'lib', "site-python"))
-+                            os.path.join(prefix, sys.lib, "site-python"),
-+                            os.path.join(prefix,
-+                                         "share",
-+                                         "python" + sys.version[:3],
-+                                         "site-packages"),
-+                            os.path.join(prefix, "share", "site-python")]
-             else:
-                 sitedirs = [prefix, os.path.join(prefix, sys.lib, "site-packages")]
-             if sys.platform == 'darwin':
+@@ -269,13 +269,10 @@
+                                         "python" + sys.version[:3],
+                                         "site-packages"))
+             sitedirs.append(os.path.join(prefix, sys.lib, "site-python"))
+-            if sys.lib != 'lib':
+-                sitedirs.append(os.path.join(prefix,
+-                    'lib',
+-                    "python" + sys.version[:3],
+-                    "site-packages"))
+-                sitedirs.append(os.path.join(prefix, 'lib', "site-python"))
+-
++            sitedirs.append(os.path.join(prefix, "share",
++                "python" + sys.version[:3],
++                "site-packages"))
++            sitedirs.append(os.path.join(prefix, "share", "site-python"))
+         else:
+             sitedirs.append(prefix)
+             sitedirs.append(os.path.join(prefix, sys.lib, "site-packages"))
 diff -Nur Python-2.5.orig/Makefile.pre.in Python-2.5/Makefile.pre.in
 --- Python-2.5.orig/Makefile.pre.in	2007-03-17 16:26:13.807358000 +0000
 +++ Python-2.5/Makefile.pre.in	2007-03-17 16:26:50.821671250 +0000

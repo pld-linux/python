@@ -24,7 +24,7 @@
 
 %define	beta		%{nil}
 
-%define py_ver		2.5
+%define py_ver		2.6
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir	%{_includedir}/python%{py_ver}
@@ -40,26 +40,23 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.2
-Release:	5
+Version:	%{py_ver}
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	afb5451049eda91fbde10bd5a4b7fadc
-Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/html-%{version}%{beta}.tar.bz2
-# Source1-md5:	b264d979f7b3e4c0243bec3a039a6464
-Patch0:		%{name}-readline.patch
+# Source0-md5:	837476958702cb386c657b5dba61cdc5
+Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/python-docs-html.tar.bz2
+# Source1-md5:	cfcd4b9b00ba1e7496b5d823692370a4
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
 Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
-Patch6:		%{name}-doc_path.patch
-Patch7:		%{name}-db.patch
-Patch8:		%{name}-bug-216503.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
+BuildRequires:	bluez-libs-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
 %{?with_info:BuildRequires:	emacs >= 21}
@@ -516,15 +513,11 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 
 %prep
 %setup -q -n Python-%{version}%{beta}
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch5 -p1
 %patch4 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p2
 
 tar xjf %{SOURCE1}
 
@@ -534,15 +527,14 @@ sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
 %configure \
 	--with-threads \
-	--with-cxx="%{__cxx}" \
+	--with-cxx-main="%{__cxx}" \
+	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
 	LINKCC='$(PURIFY) $(CXX)' \
 	LDSHARED='$(CC) $(CFLAGS) -shared' \
 	BLDSHARED='$(CC) $(CFLAGS) -shared' \
 	LDFLAGS="%{rpmcflags} %{rpmldflags}"
-
-./Doc/tools/getversioninfo
 
 %{__make} \
 	OPT="%{rpmcflags}" 2>&1 | awk '
@@ -617,15 +609,17 @@ sed 's/=/ /' \
 
 # just to cut the noise, as they are not packaged (now)
 # first tests
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/test
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/email/test
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/test
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/email/test
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/json/tests
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/lib2to3/tests
 
 # other files
-rm -rf $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+rm -r $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.egg-info -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.bat -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.txt -exec rm {} \;
@@ -690,6 +684,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/binascii.so
 %attr(755,root,root) %{py_dyndir}/_bisect.so
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
+%attr(755,root,root) %{py_dyndir}/_bytesio.so
 %attr(755,root,root) %{py_dyndir}/bz2.so
 %attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/_codecs_cn.so
@@ -698,7 +693,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_codecs_jp.so
 %attr(755,root,root) %{py_dyndir}/_codecs_kr.so
 %attr(755,root,root) %{py_dyndir}/_codecs_tw.so
-%attr(755,root,root) %{py_dyndir}/collections.so
+%attr(755,root,root) %{py_dyndir}/_collections.so
 %attr(755,root,root) %{py_dyndir}/cPickle.so
 %attr(755,root,root) %{py_dyndir}/crypt.so
 %attr(755,root,root) %{py_dyndir}/cStringIO.so
@@ -709,11 +704,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/datetime.so
 %attr(755,root,root) %{py_dyndir}/_elementtree.so
 %attr(755,root,root) %{py_dyndir}/_functools.so
+%attr(755,root,root) %{py_dyndir}/_fileio.so
 %attr(755,root,root) %{py_dyndir}/_hashlib.so
 %attr(755,root,root) %{py_dyndir}/_heapq.so
+%attr(755,root,root) %{py_dyndir}/_json.so
 %attr(755,root,root) %{py_dyndir}/_locale.so
 %attr(755,root,root) %{py_dyndir}/_lsprof.so
 %attr(755,root,root) %{py_dyndir}/_multibytecodec.so
+%attr(755,root,root) %{py_dyndir}/_multiprocessing.so
 %attr(755,root,root) %{py_dyndir}/_random.so
 %{?with_openssl097:%attr(755,root,root) %{py_dyndir}/_sha*.so}
 %attr(755,root,root) %{py_dyndir}/_socket.so
@@ -724,6 +722,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/dbm.so
 %endif
 %attr(755,root,root) %{py_dyndir}/fcntl.so
+%attr(755,root,root) %{py_dyndir}/future_builtins.so
 %attr(755,root,root) %{py_dyndir}/gdbm.so
 %attr(755,root,root) %{py_dyndir}/grp.so
 %attr(755,root,root) %{py_dyndir}/itertools.so
@@ -773,8 +772,14 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/*.py[co]
 %{py_scriptdir}/email/mime/*.py[co]
 
+%dir %{py_scriptdir}/json
+%{py_scriptdir}/json/*.py[co]
+
 %dir %{py_scriptdir}/logging
 %{py_scriptdir}/logging/*.py[co]
+
+%dir %{py_scriptdir}/multiprocessing
+%{py_scriptdir}/multiprocessing/*.py[co]
 
 %dir %{py_scriptdir}/wsgiref
 %{py_scriptdir}/wsgiref/*.py[co]
@@ -890,6 +895,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc Lib/pdb.doc
 /etc/shrc.d/python-devel*
 
+%attr(755,root,root) %{_bindir}/2to3
+%dir %{py_scriptdir}/lib2to3
+%{py_scriptdir}/lib2to3/*.py[co]
+%{py_scriptdir}/lib2to3/*.pickle
+%dir %{py_scriptdir}/lib2to3/fixes
+%{py_scriptdir}/lib2to3/fixes/*.py[co]
+
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
 %{py_scriptdir}/hotshot/*.py[co]
@@ -909,7 +921,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc Python-Docs-%{version}%{beta}/*
+%doc python-docs-html/*
 
 %if %{with info}
 %files doc-info
