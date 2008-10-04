@@ -83,6 +83,7 @@ Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-curses
 Obsoletes:	python-gdbm
 Obsoletes:	python-intl
+Obsoletes:	python-ssl
 Obsoletes:	python-xml
 Obsoletes:	python-zlib
 Obsoletes:	python2
