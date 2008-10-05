@@ -41,7 +41,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	4
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -231,7 +231,6 @@ Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Provides:	python-cElementTree
 Provides:	python-elementtree
-Provides:	python-ssl = %{epoch}:%{version}
 Obsoletes:	python-cElementTree
 Obsoletes:	python-ctypes
 Obsoletes:	python-elementtree
@@ -239,7 +238,6 @@ Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
 Obsoletes:	python-xmlrpc <= 1.0.1
-Obsoletes:	python-ssl < 1:2.6
 
 %description modules
 Python officially distributed modules.
