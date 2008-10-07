@@ -552,7 +552,7 @@ END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
-binlibdir=`echo build/lib.*`
+binlibdir="`pwd`/`echo build/lib.*`"
 %{__make} test \
 	TESTOPTS="%{test_flags} %{test_list}" \
 	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:$binlibdir ./python -tt"
@@ -630,10 +630,10 @@ rm -rf $RPM_BUILD_ROOT
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 
-%post doc-info	-p	/sbin/postshell
+%post	doc-info -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun doc-info	-p	/sbin/postshell
+%postun	doc-info -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
