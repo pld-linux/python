@@ -80,14 +80,7 @@ BuildRequires:	sqlite3-devel >= 3.3.5
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	python-curses
-Obsoletes:	python-gdbm
-Obsoletes:	python-intl
-Obsoletes:	python-ssl
-Obsoletes:	python-xml
-Obsoletes:	python-zlib
 Obsoletes:	python2
-Obsoletes:	python2-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %if %{with verbose_tests}
@@ -216,6 +209,7 @@ Provides:	python(abi) = %{py_ver}
 # for compatibility with existing Ac packages
 Provides:	python(bytecode) = %{py_ver}
 %{!?with_info:Obsoletes:	python-doc-info}
+Obsoletes:	python-intl
 
 %description libs
 Python shared library and very essental modules for Python binary.
@@ -233,11 +227,16 @@ Provides:	python-cElementTree
 Provides:	python-elementtree
 Obsoletes:	python-cElementTree
 Obsoletes:	python-ctypes
+Obsoletes:	python-curses
 Obsoletes:	python-elementtree
+Obsoletes:	python-gdbm
 Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
+Obsoletes:	python-ssl
+Obsoletes:	python-xml
 Obsoletes:	python-xmlrpc <= 1.0.1
+Obsoletes:	python-zlib
 
 %description modules
 Python officially distributed modules.
@@ -295,6 +294,7 @@ Summary(tr.UTF-8):	Python ile geliştirme yapmak için gerekli dosyalar
 Summary(uk.UTF-8):	Бібліотеки та хедери для програмування на мові Python
 Group:		Development/Languages/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Obsoletes:	python2-devel
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -640,7 +640,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/python
 %attr(755,root,root) %{_bindir}/python%{py_ver}
-%{_mandir}/man1/*
+%{_mandir}/man1/python.1*
 
 %files modules
 %defattr(644,root,root,755)
