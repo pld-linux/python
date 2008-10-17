@@ -230,6 +230,7 @@ Obsoletes:	python-ctypes
 Obsoletes:	python-curses
 Obsoletes:	python-elementtree
 Obsoletes:	python-gdbm
+Obsoletes:	python-hashlib
 Obsoletes:	python-logging
 Obsoletes:	python-old
 Obsoletes:	python-optik
