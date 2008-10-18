@@ -41,7 +41,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -79,6 +79,7 @@ BuildRequires:	sqlite3-devel >= 3.3.5
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
+Conflicts:	bzr < 1.8
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
