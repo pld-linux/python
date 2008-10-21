@@ -224,7 +224,6 @@ Summary:	Python modules
 Summary(pl.UTF-8):	Moduły języka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-Requires:       %{name} = %{epoch}:%{version}-%{release}
 Provides:	python-cElementTree
 Provides:	python-elementtree
 Obsoletes:	python-cElementTree
