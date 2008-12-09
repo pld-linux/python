@@ -1,6 +1,5 @@
 #
 # TODO
-# - before rel. 1: lib2to3, multiprocessing.dummy files
 # - test_distutils fails for unknown reason: (does it still do with new lib64 patch?)
 #   AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
 # - change searchpath order so /usr/lib* is before /usr/share
@@ -42,7 +41,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -781,7 +780,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/logging/*.py[co]
 
 %dir %{py_scriptdir}/multiprocessing
+%dir %{py_scriptdir}/multiprocessing/dummy
 %{py_scriptdir}/multiprocessing/*.py[co]
+%{py_scriptdir}/multiprocessing/dummy/*.py[co]
 
 %dir %{py_scriptdir}/wsgiref
 %{py_scriptdir}/wsgiref/*.py[co]
@@ -882,8 +883,12 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/mime/*.py
 %{py_scriptdir}/hotshot/*.py
 %{py_scriptdir}/json/*.py
+%{py_scriptdir}/lib2to3/*.py
+%{py_scriptdir}/lib2to3/fixes/*.py
+%{py_scriptdir}/lib2to3/pgen2/*.py
 %{py_scriptdir}/logging/*.py
 %{py_scriptdir}/multiprocessing/*.py
+%{py_scriptdir}/multiprocessing/dummy/*.py
 %{py_scriptdir}/sqlite3/*.py
 %{py_scriptdir}/wsgiref/*.py
 %{py_scriptdir}/xml/*.py
@@ -901,10 +906,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(755,root,root) %{_bindir}/2to3
 %dir %{py_scriptdir}/lib2to3
+%dir %{py_scriptdir}/lib2to3/fixes
+%dir %{py_scriptdir}/lib2to3/pgen2
 %{py_scriptdir}/lib2to3/*.py[co]
 %{py_scriptdir}/lib2to3/*.pickle
-%dir %{py_scriptdir}/lib2to3/fixes
 %{py_scriptdir}/lib2to3/fixes/*.py[co]
+%{py_scriptdir}/lib2to3/pgen2/*.py[co]
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
