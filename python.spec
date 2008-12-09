@@ -1,5 +1,6 @@
 #
 # TODO
+# - before rel. 1: lib2to3, multiprocessing.dummy files
 # - test_distutils fails for unknown reason: (does it still do with new lib64 patch?)
 #   AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
 # - change searchpath order so /usr/lib* is before /usr/share
@@ -40,14 +41,14 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}
-Release:	4
+Version:	%{py_ver}.1
+Release:	0.1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	837476958702cb386c657b5dba61cdc5
-Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/python-docs-html.tar.bz2
+# Source0-md5:	e81c2f0953aa60f8062c05a4673f2be0
+Source1:	http://www.python.org/ftp/python/doc/%{py_ver}%{beta}/python-docs-html.tar.bz2
 # Source1-md5:	cfcd4b9b00ba1e7496b5d823692370a4
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
@@ -880,7 +881,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/*.py
 %{py_scriptdir}/email/mime/*.py
 %{py_scriptdir}/hotshot/*.py
+%{py_scriptdir}/json/*.py
 %{py_scriptdir}/logging/*.py
+%{py_scriptdir}/multiprocessing/*.py
 %{py_scriptdir}/sqlite3/*.py
 %{py_scriptdir}/wsgiref/*.py
 %{py_scriptdir}/xml/*.py
