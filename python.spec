@@ -41,7 +41,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -527,7 +527,7 @@ tar xjf %{SOURCE1}
 %build
 sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 %{__autoconf}
-CPPFLAGS="-I/usr/include/ncurses"; export CPPFLAGS
+CPPFLAGS="-I/usr/include/ncursesw"; export CPPFLAGS
 %configure \
 	--with-threads \
 	--with-cxx-main="%{__cxx}" \
