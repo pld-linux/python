@@ -41,7 +41,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Applications
