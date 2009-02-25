@@ -47,7 +47,7 @@ License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
 # Source0-md5:	e81c2f0953aa60f8062c05a4673f2be0
-Source1:	http://www.python.org/ftp/python/doc/%{py_ver}%{beta}/python-docs-html.tar.bz2
+Source1:	http://www.python.org/ftp/python/doc/%{py_ver}%{beta}/%{name}-docs-html.tar.bz2
 # Source1-md5:	cfcd4b9b00ba1e7496b5d823692370a4
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
@@ -377,15 +377,16 @@ debugger.
 %package 2to3
 Summary:	Automated Python 2 to 3 code translation
 Summary(pl.UTF-8):	Automatyczne tłumaczenie kody Pythona 2 do 3
-Group:		Development/Languages/Pythona
+Group:		Development/Languages/Python
 
 %description 2to3
-2to3 is a Python program that reads Python 2.x source code and applies a series
-of fixers to transform it into valid Python 3.x code. The standard library
-contains a rich set of fixers that will handle almost all code. 2to3 supporting
-library lib2to3 is, however, a flexible and generic library, so it is possible
-to write your own fixers for 2to3. lib2to3 could also be adapted to custom
-applications in which Python code needs to be edited automatically.
+2to3 is a Python program that reads Python 2.x source code and applies
+a series of fixers to transform it into valid Python 3.x code. The
+standard library contains a rich set of fixers that will handle almost
+all code. 2to3 supporting library lib2to3 is, however, a flexible and
+generic library, so it is possible to write your own fixers for 2to3.
+lib2to3 could also be adapted to custom applications in which Python
+code needs to be edited automatically.
 
 %package static
 Summary:	Static python library
@@ -926,6 +927,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/timeit.py[co]
 
 %files 2to3
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/2to3
 %dir %{py_scriptdir}/lib2to3
 %dir %{py_scriptdir}/lib2to3/fixes
