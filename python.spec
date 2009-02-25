@@ -374,6 +374,19 @@ Python development tools such as profilers and debugger.
 Narzędzia programistyczne języka Python takie jak profiler oraz
 debugger.
 
+%package 2to3
+Summary:	Automated Python 2 to 3 code translation
+Summary(pl.UTF-8):	Automatyczne tłumaczenie kody Pythona 2 do 3
+Group:		Development/Languages/Pythona
+
+%description 2to3
+2to3 is a Python program that reads Python 2.x source code and applies a series
+of fixers to transform it into valid Python 3.x code. The standard library
+contains a rich set of fixers that will handle almost all code. 2to3 supporting
+library lib2to3 is, however, a flexible and generic library, so it is possible
+to write your own fixers for 2to3. lib2to3 could also be adapted to custom
+applications in which Python code needs to be edited automatically.
+
 %package static
 Summary:	Static python library
 Summary(pl.UTF-8):	Statyczna biblioteka Pythona
@@ -904,6 +917,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc Lib/pdb.doc
 /etc/shrc.d/python-devel*
 
+%attr(755,root,root) %{py_dyndir}/_hotshot.so
+%dir %{py_scriptdir}/hotshot
+%{py_scriptdir}/hotshot/*.py[co]
+%{py_scriptdir}/pdb.py[co]
+%{py_scriptdir}/profile.py[co]
+%{py_scriptdir}/pstats.py[co]
+%{py_scriptdir}/timeit.py[co]
+
+%files 2to3
 %attr(755,root,root) %{_bindir}/2to3
 %dir %{py_scriptdir}/lib2to3
 %dir %{py_scriptdir}/lib2to3/fixes
@@ -912,14 +934,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/lib2to3/*.pickle
 %{py_scriptdir}/lib2to3/fixes/*.py[co]
 %{py_scriptdir}/lib2to3/pgen2/*.py[co]
-
-%attr(755,root,root) %{py_dyndir}/_hotshot.so
-%dir %{py_scriptdir}/hotshot
-%{py_scriptdir}/hotshot/*.py[co]
-%{py_scriptdir}/pdb.py[co]
-%{py_scriptdir}/profile.py[co]
-%{py_scriptdir}/pstats.py[co]
-%{py_scriptdir}/timeit.py[co]
 
 %files static
 %defattr(644,root,root,755)
