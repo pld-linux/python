@@ -251,6 +251,7 @@ Summary:	Python SQLite modules
 Summary(pl.UTF-8):	Moduły SQLite języka Python
 Group:		Libraries/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
+Provides:	python(sqlite)
 
 %description modules-sqlite
 Python officially distributed sqlite module.
