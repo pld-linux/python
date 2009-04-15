@@ -40,15 +40,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.1
-Release:	5
+Version:	%{py_ver}.2
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Applications
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	e81c2f0953aa60f8062c05a4673f2be0
-Source1:	http://www.python.org/ftp/python/doc/%{py_ver}%{beta}/%{name}-docs-html.tar.bz2
-# Source1-md5:	cfcd4b9b00ba1e7496b5d823692370a4
+# Source0-md5:	245db9f1e0f09ab7e0faaa0cf7301011
+Source1:	http://www.python.org/ftp/python/doc/%{version}%{beta}/%{name}-%{version}-docs-html.tar.bz2
+# Source1-md5:	15a2dac727692e4ff8fe92958d4e633c
 Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-no_ndbm.patch
 Patch3:		%{name}-ac_fixes.patch
@@ -949,7 +949,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc python-docs-html/*
+%doc python-%{version}-docs-html/*
 
 %if %{with info}
 %files doc-info
