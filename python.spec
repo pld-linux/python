@@ -96,7 +96,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define test_list %{nobuilder_tests} %{broken_tests}
 %endif
 
-%ifarch sparc
+%ifarch sparc sparcv9
 %define test_list %{nobuilder_tests} %{broken_tests} test_fcntl test_ioctl
 %endif
 
