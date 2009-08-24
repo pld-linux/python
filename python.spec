@@ -542,7 +542,7 @@ tar xjf %{SOURCE1}
 %build
 sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 %{__autoconf}
-CPPFLAGS="-I/usr/include/ncursesw"; export CPPFLAGS
+CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 %configure \
 	--with-threads \
 	--with-cxx-main="%{__cxx}" \
