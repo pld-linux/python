@@ -42,7 +42,7 @@ Summary(uk.UTF-8):	Мова програмування дуже високого
 Name:		python
 Version:	%{py_ver}.5
 %define dver %{version}
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Applications
@@ -582,10 +582,14 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1} \
 	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT%{_infodir} \
+	$RPM_BUILD_ROOT%{_docdir} \
 	$RPM_BUILD_ROOT/etc/shrc.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# docs in constant location
+ln -sf python-doc-%{version} $RPM_BUILD_ROOT%{_docdir}/python-doc
 
 %if %{with info}
 %{__make} -C Doc/info
@@ -951,6 +955,7 @@ rm -rf $RPM_BUILD_ROOT
 %files doc
 %defattr(644,root,root,755)
 %doc python-%{dver}-docs-html/*
+%{_docdir}/python-doc
 
 %if %{with info}
 %files doc-info
