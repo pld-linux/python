@@ -65,6 +65,7 @@ BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
+BuildRequires:	libffi-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-ext-devel >= 5.2
 %if %{with openssl097}
@@ -547,6 +548,7 @@ CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 %configure \
 	--with-threads \
 	--with-cxx-main="%{__cxx}" \
+	--with-system-ffi \
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
