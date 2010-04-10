@@ -42,7 +42,7 @@ Summary(uk.UTF-8):	Мова програмування дуже високого
 Name:		python
 Version:	%{py_ver}.5
 %define dver %{version}
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Applications
