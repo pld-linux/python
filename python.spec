@@ -56,7 +56,7 @@ Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
 URL:		http://www.python.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.61
 BuildRequires:	bluez-libs-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
