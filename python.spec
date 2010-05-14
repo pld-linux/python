@@ -382,7 +382,7 @@ debugger.
 
 %package 2to3
 Summary:	Automated Python 2 to 3 code translation
-Summary(pl.UTF-8):	Automatyczne tłumaczenie kody Pythona 2 do 3
+Summary(pl.UTF-8):	Automatyczne tłumaczenie kodu Pythona 2 na 3
 Group:		Development/Languages/Python
 
 %description 2to3
@@ -393,6 +393,16 @@ all code. 2to3 supporting library lib2to3 is, however, a flexible and
 generic library, so it is possible to write your own fixers for 2to3.
 lib2to3 could also be adapted to custom applications in which Python
 code needs to be edited automatically.
+
+%description 2to3 -l pl.UTF-8
+2to3 to program w Pythonie czytający od źródłowy w Pythonie 2.x i
+aplikujący serię poprawek przekształcających go w poprawny kod w
+Pythonie 3.x. Biblioteka standardowa zawiera duży zbiór poprawek
+obsługujących większość kodu. Biblioteka wspierająca 2to3 (lib2to3)
+jest jednak elastyczną i ogólną biblioteką, więc można pisać własne
+poprawki dla 2to3. lib2to3 można także zaadaptować na potrzeby
+własnych zastosowań, w których kod w Pythonie musi być modyfikowany
+automatycznie.
 
 %package static
 Summary:	Static python library
@@ -951,12 +961,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libpython*.a
 
 %files examples
 %defattr(644,root,root,755)
 %{_examplesdir}/%{name}-%{version}
-
 
 %files doc
 %defattr(644,root,root,755)
