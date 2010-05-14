@@ -2,6 +2,8 @@
 # TODO
 # - test_distutils fails for unknown reason: (does it still do with new lib64 patch?)
 #   AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
+# - test_pydoc fails because of PYTHONPATH override
+# - test_zlib fails with zlib 1.2.4 - recheck with newer python
 # - change searchpath order so /usr/lib* is before /usr/share
 # - kill lib-tk from searchpath
 # - kill BR: file requirement from lib64 patch
@@ -20,7 +22,7 @@
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
-%define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils
+%define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils test_pydoc test_zlib
 
 %define	beta		%{nil}
 
@@ -55,6 +57,7 @@ Patch2:		%{name}-no_ndbm.patch
 Patch3:		%{name}-ac_fixes.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-lib64.patch
+Patch6:		%{name}-db.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	bluez-libs-devel
@@ -538,6 +541,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch3 -p1
 %patch5 -p1
 %patch4 -p1
+%patch6 -p1
 
 tar xjf %{SOURCE1}
 
