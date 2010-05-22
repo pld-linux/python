@@ -47,7 +47,7 @@ Version:	%{py_ver}.5
 Release:	3
 Epoch:		1
 License:	PSF
-Group:		Applications
+Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
 # Source0-md5:	6bef0417e71a1a1737ccf5750420fdb3
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
@@ -280,7 +280,7 @@ Interaktywne korzystanie z dokumentacji modułów języka Python.
 %package -n idle
 Summary:	IDE for Python language
 Summary(pl.UTF-8):	IDE dla języka Python
-Group:		Applications
+Group:		Applications/Editors
 Requires:	%{name}-tkinter = %{epoch}:%{version}-%{release}
 Obsoletes:	python-idle
 
