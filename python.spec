@@ -44,7 +44,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -551,6 +551,8 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 
 tar xjf %{SOURCE1}
 
+sed -i -e 's#db_setup_debug = False#db_setup_debug = True#g' setup.py
+
 %build
 sed -i -e 's#-ltermcap#-ltinfo#g' configure*
 %{__autoconf}
@@ -562,7 +564,7 @@ CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
-	--with-dbmliborder=gdbm \
+	--with-dbmliborder=gdbm:bdb \
 	LINKCC='$(PURIFY) $(CXX)' \
 	LDSHARED='$(CC) $(CFLAGS) -shared' \
 	BLDSHARED='$(CC) $(CFLAGS) -shared' \
@@ -718,7 +720,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/binascii.so
 %attr(755,root,root) %{py_dyndir}/_bisect.so
 %attr(755,root,root) %{py_dyndir}/_bsddb.so
-%attr(755,root,root) %{py_dyndir}/_bytesio.so
 %attr(755,root,root) %{py_dyndir}/bz2.so
 %attr(755,root,root) %{py_dyndir}/cmath.so
 %attr(755,root,root) %{py_dyndir}/_codecs_cn.so
@@ -738,9 +739,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/datetime.so
 %attr(755,root,root) %{py_dyndir}/_elementtree.so
 %attr(755,root,root) %{py_dyndir}/_functools.so
-%attr(755,root,root) %{py_dyndir}/_fileio.so
 %attr(755,root,root) %{py_dyndir}/_hashlib.so
 %attr(755,root,root) %{py_dyndir}/_heapq.so
+%attr(755,root,root) %{py_dyndir}/_io.so
 %attr(755,root,root) %{py_dyndir}/_json.so
 %attr(755,root,root) %{py_dyndir}/_locale.so
 %attr(755,root,root) %{py_dyndir}/_lsprof.so
@@ -806,6 +807,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/*.py[co]
 %{py_scriptdir}/email/mime/*.py[co]
 
+%dir %{py_scriptdir}/importlib
+%{py_scriptdir}/importlib/*.py[co]
+
 %dir %{py_scriptdir}/json
 %{py_scriptdir}/json/*.py[co]
 
@@ -816,6 +820,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/multiprocessing/dummy
 %{py_scriptdir}/multiprocessing/*.py[co]
 %{py_scriptdir}/multiprocessing/dummy/*.py[co]
+
+%dir %{py_scriptdir}/unittest
+%{py_scriptdir}/unittest/*.py[co]
+%dir %{py_scriptdir}/unittest/test
+%{py_scriptdir}/unittest/test/*.py[co]
 
 %dir %{py_scriptdir}/wsgiref
 %{py_scriptdir}/wsgiref/*.py[co]
@@ -870,6 +879,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
 %{py_scriptdir}/pydoc.py[co]
+%dir %{py_scriptdir}/pydoc_data
+%{py_scriptdir}/pydoc_data/*.py[co]
 
 %files -n idle
 %defattr(644,root,root,755)
@@ -888,6 +899,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h
+%{_pkgconfigdir}/*.pc
 
 %dir %{py_libdir}/config
 %attr(755,root,root) %{py_libdir}/config/makesetup

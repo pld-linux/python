@@ -20,6 +20,15 @@ diff -Nur Python-2.5.2.orig/configure.in Python-2.5.2/configure.in
  	case $ac_sys_system in
 --- Python-2.7/Makefile.pre.in~	2010-04-12 02:10:46.000000000 +0200
 +++ Python-2.7/Makefile.pre.in	2010-07-05 20:04:00.942224202 +0200
+@@ -831,7 +831,7 @@
+ 		fi; \
+ 	done
+ 	$(INSTALL_DATA) $(srcdir)/Misc/python.man \
+-		$(DESTDIR)$(MANDIR)/man1/python$(VERSION).1
++		$(DESTDIR)$(MANDIR)/man1/python.1
+ 
+ # Install the library
+ PLATDIR=	plat-$(MACHDEP)
 @@ -953,7 +953,7 @@
  python-config: $(srcdir)/Misc/python-config.in
  	# Substitution happens here, as the completely-expanded BINDIR
@@ -29,4 +38,3 @@ diff -Nur Python-2.5.2.orig/configure.in Python-2.5.2/configure.in
  
  # Install the include files
  INCLDIRSTOMAKE=$(INCLUDEDIR) $(CONFINCLUDEDIR) $(INCLUDEPY) $(CONFINCLUDEPY)
-
