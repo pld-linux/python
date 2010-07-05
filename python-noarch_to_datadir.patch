@@ -45,21 +45,21 @@ diff -Nur Python-2.5.orig/Lib/site.py Python-2.5/Lib/site.py
 @@ -269,13 +269,10 @@
                                          "python" + sys.version[:3],
                                          "site-packages"))
-             sitedirs.append(os.path.join(prefix, sys.lib, "site-python"))
+             sitepackages.append(os.path.join(prefix, sys.lib, "site-python"))
 -            if sys.lib != 'lib':
--                sitedirs.append(os.path.join(prefix,
+-                sitepackages.append(os.path.join(prefix,
 -                    'lib',
 -                    "python" + sys.version[:3],
 -                    "site-packages"))
--                sitedirs.append(os.path.join(prefix, 'lib', "site-python"))
+-                sitepackages.append(os.path.join(prefix, 'lib', "site-python"))
 -
-+            sitedirs.append(os.path.join(prefix, "share",
++            sitepackages.append(os.path.join(prefix, "share",
 +                "python" + sys.version[:3],
 +                "site-packages"))
-+            sitedirs.append(os.path.join(prefix, "share", "site-python"))
++            sitepackages.append(os.path.join(prefix, "share", "site-python"))
          else:
-             sitedirs.append(prefix)
-             sitedirs.append(os.path.join(prefix, sys.lib, "site-packages"))
+             sitepackages.append(prefix)
+             sitepackages.append(os.path.join(prefix, sys.lib, "site-packages"))
 diff -Nur Python-2.5.orig/Makefile.pre.in Python-2.5/Makefile.pre.in
 --- Python-2.5.orig/Makefile.pre.in	2007-03-17 16:26:13.807358000 +0000
 +++ Python-2.5/Makefile.pre.in	2007-03-17 16:26:50.821671250 +0000
@@ -136,6 +136,6 @@ diff -Nur Python-2.5.orig/Modules/getpath.c Python-2.5/Modules/getpath.c
          strncpy(zip_path, PREFIX, MAXPATHLEN);
 -    joinpath(zip_path, "lib/python00.zip");
 +    joinpath(zip_path, LIB_PYTHON "00.zip");
-     bufsz = strlen(zip_path);	/* Replace "00" with version */
+     bufsz = strlen(zip_path);   /* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];

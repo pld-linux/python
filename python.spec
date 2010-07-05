@@ -26,13 +26,14 @@
 
 %define	beta		%{nil}
 
-%define py_ver		2.6
+%define py_ver		2.7
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
 %define py_incdir	%{_includedir}/python%{py_ver}
 %define py_sitedir	%{py_libdir}/site-packages
 %define py_dyndir	%{py_libdir}/lib-dynload
 
+%define dver %{version}
 Summary:	Very high level scripting language with X interface
 Summary(es.UTF-8):	Lenguaje script de alto nivel con interfaz X
 Summary(fr.UTF-8):	Langage de script de très haut niveau avec interface X
@@ -42,22 +43,19 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.5
-%define dver %{version}
-Release:	3
+Version:	%{py_ver}
+Release:	0.1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	6bef0417e71a1a1737ccf5750420fdb3
+# Source0-md5:	0e8c9ec32abf5b732bea7d91b38c3339
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	4becde65eb92d8d24b503a44f6d01c62
+# Source1-md5:	16b736789e923bbefe74e7a2219031c6
 Patch1:		%{name}-%{name}path.patch
-Patch2:		%{name}-no_ndbm.patch
-Patch3:		%{name}-ac_fixes.patch
+Patch2:		%{name}-ac_fixes.patch
+Patch3:		%{name}-lib64.patch
 Patch4:		%{name}-noarch_to_datadir.patch
-Patch5:		%{name}-lib64.patch
-Patch6:		%{name}-db.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	bluez-libs-devel
@@ -549,9 +547,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch5 -p1
 %patch4 -p1
-%patch6 -p1
 
 tar xjf %{SOURCE1}
 
@@ -566,6 +562,7 @@ CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
+	--with-dbmliborder=gdbm \
 	LINKCC='$(PURIFY) $(CXX)' \
 	LDSHARED='$(CC) $(CFLAGS) -shared' \
 	BLDSHARED='$(CC) $(CFLAGS) -shared' \
@@ -676,8 +673,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/python
-%attr(755,root,root) %{_bindir}/python%{py_ver}
+%attr(755,root,root) %{__python}
+%attr(755,root,root) %{__python}%{py_ver}
 %{_mandir}/man1/python.1*
 
 %files modules
@@ -886,8 +883,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README,README.valgrind,valgrind-python.supp}
-%attr(755,root,root) %{_bindir}/python-config
-%attr(755,root,root) %{_bindir}/python%{py_ver}-config
+%attr(755,root,root) %{__python}-config
+%attr(755,root,root) %{__python}%{py_ver}-config
 %attr(755,root,root) %{_libdir}/lib*.so
 %dir %{py_incdir}
 %{py_incdir}/*.h

@@ -5,7 +5,7 @@ diff -Nur Python-2.5.2.orig/configure.in Python-2.5.2/configure.in
  	    if test "$Py_DEBUG" = 'true' ; then
  		# Optimization messes up debuggers, so turn it off for
  		# debug builds.
--		OPT="-g -Wall $STRICT_PROTO"
+-		OPT="-g -O0 -Wall $STRICT_PROTO"
 +		OPT="-g $CPPFLAGS $CFLAGS -Wall $STRICT_PROTO"
  	    else
 -		OPT="-g $WRAP -O3 -Wall $STRICT_PROTO"
@@ -18,15 +18,15 @@ diff -Nur Python-2.5.2.orig/configure.in Python-2.5.2/configure.in
  	    ;;
  	esac
  	case $ac_sys_system in
-diff -Nur Python-2.5.2.orig/Makefile.pre.in Python-2.5.2/Makefile.pre.in
---- Python-2.5.2.orig/Makefile.pre.in	2007-12-05 20:43:57.000000000 +0000
-+++ Python-2.5.2/Makefile.pre.in	2008-02-26 09:41:02.000000000 +0000
-@@ -861,7 +861,7 @@
- 	$(INSTALL_SCRIPT) $(srcdir)/install-sh $(DESTDIR)$(LIBPL)/install-sh
+--- Python-2.7/Makefile.pre.in~	2010-04-12 02:10:46.000000000 +0200
++++ Python-2.7/Makefile.pre.in	2010-07-05 20:04:00.942224202 +0200
+@@ -953,7 +953,7 @@
+ python-config: $(srcdir)/Misc/python-config.in
  	# Substitution happens here, as the completely-expanded BINDIR
  	# is not available in configure
 -	sed -e "s,@EXENAME@,$(BINDIR)/python$(VERSION)$(EXE)," < $(srcdir)/Misc/python-config.in >python-config
 +	sed -e "s,@EXENAME@,$(BINDIR)/python$(EXE)," < $(srcdir)/Misc/python-config.in >python-config
- 	$(INSTALL_SCRIPT) python-config $(DESTDIR)$(BINDIR)/python$(VERSION)-config
- 	rm python-config
- 	@if [ -s Modules/python.exp -a \
+ 
+ # Install the include files
+ INCLDIRSTOMAKE=$(INCLUDEDIR) $(CONFINCLUDEDIR) $(INCLUDEPY) $(CONFINCLUDEPY)
+
