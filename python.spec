@@ -44,7 +44,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	1.3
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -891,6 +891,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/encodings
 %{py_scriptdir}/encodings/*.py[co]
 
+# required by sysconfig.py
+%dir %{py_libdir}/config
+%{py_libdir}/config/Makefile
+%dir %{py_incdir}
+%{py_incdir}/pyconfig.h
+
 %files -n pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
@@ -913,14 +919,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{__python}-config
 %attr(755,root,root) %{__python}%{py_ver}-config
 %attr(755,root,root) %{_libdir}/lib*.so
-%dir %{py_incdir}
 %{py_incdir}/*.h
+%exclude %{py_incdir}/pyconfig.h
 %{_pkgconfigdir}/*.pc
 
-%dir %{py_libdir}/config
 %attr(755,root,root) %{py_libdir}/config/makesetup
 %attr(755,root,root) %{py_libdir}/config/install-sh
-%{py_libdir}/config/Makefile
 %{py_libdir}/config/Makefile.pre.in
 %{py_libdir}/config/Setup
 %{py_libdir}/config/Setup.config
