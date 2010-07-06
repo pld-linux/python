@@ -717,13 +717,13 @@ rm -rf $RPM_BUILD_ROOT
 # three modules below do not work on 64-bit architectures
 # see Python README file for explanation
 %ifnarch alpha ia64 ppc64 sparc64 %{x8664}
-%attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/imageop.so
 # sizeof(long) != sizeof(int), so dl module will not be built on 64-bit
 # platforms
 %attr(755,root,root) %{py_dyndir}/dl.so
 %endif
 
+%attr(755,root,root) %{py_dyndir}/audioop.so
 %attr(755,root,root) %{py_dyndir}/array.so
 %attr(755,root,root) %{py_dyndir}/binascii.so
 %attr(755,root,root) %{py_dyndir}/_bisect.so
