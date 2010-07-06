@@ -44,7 +44,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	1
+Release:	1.3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -682,21 +682,29 @@ rm -rf $RPM_BUILD_ROOT
 %files modules
 %defattr(644,root,root,755)
 /etc/shrc.d/python-modules*
+%exclude %{py_scriptdir}/_abcoll.py[co]
+%exclude %{py_scriptdir}/abc.py[co]
 %exclude %{py_scriptdir}/UserDict.py[co]
 %exclude %{py_scriptdir}/codecs.py[co]
 %exclude %{py_scriptdir}/copy_reg.py[co]
+%exclude %{py_scriptdir}/genericpath.py[co]
+%exclude %{py_scriptdir}/linecache.py[co]
 %exclude %{py_scriptdir}/locale.py[co]
 %exclude %{py_scriptdir}/posixpath.py[co]
 %exclude %{py_scriptdir}/pdb.py[co]
 %exclude %{py_scriptdir}/profile.py[co]
 %exclude %{py_scriptdir}/pstats.py[co]
 %exclude %{py_scriptdir}/pydoc.py[co]
+%exclude %{py_scriptdir}/re.py[co]
 %exclude %{py_scriptdir}/site.py[co]
+%exclude %{py_scriptdir}/sre_*.py[co]
 %exclude %{py_scriptdir}/stat.py[co]
+%exclude %{py_scriptdir}/sysconfig.py[co]
 %exclude %{py_scriptdir}/timeit.py[co]
 %exclude %{py_scriptdir}/os.py[co]
 %exclude %{py_scriptdir}/encodings/*.py[co]
 %exclude %{py_scriptdir}/types.py[co]
+%exclude %{py_scriptdir}/warnings.py[co]
 
 %{py_scriptdir}/*.py[co]
 
@@ -860,16 +868,24 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_struct.so
 
 # modules required by python library
+%{py_scriptdir}/_abcoll.py[co]
+%{py_scriptdir}/abc.py[co]
 %{py_scriptdir}/UserDict.py[co]
 %{py_scriptdir}/codecs.py[co]
 %{py_scriptdir}/copy_reg.py[co]
+%{py_scriptdir}/genericpath.py[co]
+%{py_scriptdir}/linecache.py[co]
 %{py_scriptdir}/locale.py[co]
 %{py_scriptdir}/posixpath.py[co]
+%{py_scriptdir}/re.py[co]
 %{py_scriptdir}/site.py[co]
+%{py_scriptdir}/sre_*.py[co]
 %{py_scriptdir}/stat.py[co]
+%{py_scriptdir}/sysconfig.py[co]
 %{py_scriptdir}/os.py[co]
 # needed by the dynamic sys.lib patch
 %{py_scriptdir}/types.py[co]
+%{py_scriptdir}/warnings.py[co]
 
 # encodings required by python library
 %dir %{py_scriptdir}/encodings
