@@ -586,7 +586,7 @@ LC_ALL=C
 export LC_ALL
 %if %{with tests}
 binlibdir="`pwd`/`echo build/lib.*`"
-%{__make} test \
+%{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
 	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:$binlibdir ./python -tt"
 %endif
