@@ -56,6 +56,7 @@ Patch1:		%{name}-%{name}path.patch
 Patch2:		%{name}-ac_fixes.patch
 Patch3:		%{name}-lib64.patch
 Patch4:		%{name}-noarch_to_datadir.patch
+Patch5:		%{name}-verbose.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.61
 BuildRequires:	bluez-libs-devel
@@ -548,6 +549,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 tar xjf %{SOURCE1}
 
@@ -564,6 +566,7 @@ CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
+	--with-system-ffi \
 	--with-dbmliborder=gdbm:bdb \
 	LINKCC='$(PURIFY) $(CXX)' \
 	LDSHARED='$(CC) $(CFLAGS) -shared' \
@@ -588,7 +591,7 @@ export LC_ALL
 binlibdir="`pwd`/`echo build/lib.*`"
 %{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
-	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:$binlibdir ./python -tt"
+	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:$binlibdir ./python -tt"
 %endif
 
 %install
