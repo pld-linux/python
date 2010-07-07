@@ -91,7 +91,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %if %{with verbose_tests}
 %define test_flags -v -l -x
 %else
-%define test_flags -l -x
+%define test_flags -w -l -x
 %endif
 
 %ifarch alpha ia64 ppc64 ppc64 %{x8664}
