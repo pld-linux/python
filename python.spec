@@ -556,7 +556,7 @@ tar xjf %{SOURCE1}
 sed -i -e 's#db_setup_debug = False#db_setup_debug = True#g' setup.py
 
 %build
-sed -i -e 's#-ltermcap#-ltinfo#g' configure*
+%{__aclocal}
 %{__autoconf}
 CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 %configure \
