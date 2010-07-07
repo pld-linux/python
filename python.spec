@@ -590,7 +590,7 @@ export LC_ALL
 %if %{with tests}
 %{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
-	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:`pwd`/build/lib.linux-%{_target_cpu}-%{py_ver} ./python -tt"
+	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:`pwd`/build/lib.linux-`uname -m`-%{py_ver} ./python -tt"
 %endif
 
 %install
