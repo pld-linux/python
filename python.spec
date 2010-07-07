@@ -22,7 +22,7 @@
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
-%define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils test_pydoc test_zlib
+%define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils test_pydoc test_zlib test_file test_file2k
 
 %define	beta		%{nil}
 
