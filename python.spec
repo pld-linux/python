@@ -588,7 +588,9 @@ END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
+echo "BUILD CONTENT"
 ls -l build/lib.*
+echo "AFTER BUILD CONTENT"
 %{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
 	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:`pwd`/build/lib.linux-`uname -m`-%{py_ver} ./python -tt"
