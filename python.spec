@@ -58,7 +58,7 @@ Patch3:		%{name}-lib64.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-verbose.patch
 URL:		http://www.python.org/
-BuildRequires:	autoconf >= 2.61
+BuildRequires:	autoconf >= 2.65
 BuildRequires:	bluez-libs-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
