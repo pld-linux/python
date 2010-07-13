@@ -51,7 +51,8 @@ Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.ta
 # Source0-md5:	0e8c9ec32abf5b732bea7d91b38c3339
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
 # Source1-md5:	16b736789e923bbefe74e7a2219031c6
-Patch1:		%{name}-%{name}path.patch
+Patch0:		%{name}-db.patch
+Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
 Patch3:		%{name}-lib64.patch
 Patch4:		%{name}-noarch_to_datadir.patch
@@ -544,6 +545,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 
 %prep
 %setup -q -n Python-%{version}%{beta}
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1

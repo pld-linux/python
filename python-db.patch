@@ -1,0 +1,39 @@
+--- Python-2.7/setup.py.orig	2010-07-11 20:29:09.142656610 +0200
++++ Python-2.7/setup.py	2010-07-12 08:43:42.578657448 +0200
+@@ -765,7 +765,7 @@
+         # a release.  Most open source OSes come with one or more
+         # versions of BerkeleyDB already installed.
+ 
+-        max_db_ver = (4, 8)
++        max_db_ver = (5, 0)
+         min_db_ver = (4, 1)
+         db_setup_debug = True   # verbose debug prints from this script?
+ 
+@@ -787,8 +787,12 @@
+             return True
+ 
+         def gen_db_minor_ver_nums(major):
+-            if major == 4:
++            if major == 5:
+                 for x in range(max_db_ver[1]+1):
++		    if allow_db_ver((5, x)):
++                        yield x
++            elif major == 4:
++                for x in range(0, 9):
+                     if allow_db_ver((4, x)):
+                         yield x
+             elif major == 3:
+--- Python-2.7/Modules/_bsddb.c.orig	2010-05-09 16:46:46.000000000 +0200
++++ Python-2.7/Modules/_bsddb.c	2010-07-13 19:30:54.530654934 +0200
+@@ -9765,8 +9765,10 @@
+ 
+     ADD_INT(d, DB_REP_PERMANENT);
+ 
+-#if (DBVER >= 44)
++#if (DBVER >= 44) && (DBVER < 50)
+     ADD_INT(d, DB_REP_CONF_NOAUTOINIT);
++#endif
++#if (DBVER >= 44)
+     ADD_INT(d, DB_REP_CONF_DELAYCLIENT);
+     ADD_INT(d, DB_REP_CONF_BULK);
+     ADD_INT(d, DB_REP_CONF_NOWAIT);
