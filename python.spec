@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -561,6 +561,8 @@ sed -i -e 's#db_setup_debug = False#db_setup_debug = True#g' setup.py
 %{__autoconf}
 CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 %configure \
+	ac_cv_posix_semaphores_enabled=yes \
+	ac_cv_broken_sem_getvalue=no \
 	--with-threads \
 	--with-cxx-main="%{__cxx}" \
 	--with-system-ffi \
