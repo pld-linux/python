@@ -308,22 +308,22 @@ diff -Nur Python-2.5b2.orig/setup.py Python-2.5b2/setup.py
              self.assertEqual(len(dirs), 1)
 -            wanted = os.path.join('xoxo', 'Lib', 'site-packages')
 +            wanted = os.path.join('xoxo', sys.lib, 'site-packages')
-             self.assertEquals(dirs[0], wanted)
+             self.assertEqual(dirs[0], wanted)
          elif os.sep == '/':
-             self.assertTrue(len(dirs), 2)
+             self.assertEqual(len(dirs), 2)
 -            wanted = os.path.join('xoxo', 'lib', 'python' + sys.version[:3],
 +            wanted = os.path.join('xoxo', sys.lib, 'python' + sys.version[:3],
                                    'site-packages')
-             self.assertEquals(dirs[0], wanted)
+             self.assertEqual(dirs[0], wanted)
 -            wanted = os.path.join('xoxo', 'lib', 'site-python')
 +            wanted = os.path.join('xoxo', sys.lib, 'site-python')
-             self.assertEquals(dirs[1], wanted)
+             self.assertEqual(dirs[1], wanted)
          else:
-             self.assertTrue(len(dirs), 2)
-             self.assertEquals(dirs[0], 'xoxo')
+             self.assertEqual(len(dirs), 2)
+             self.assertEqual(dirs[0], 'xoxo')
 -            wanted = os.path.join('xoxo', 'lib', 'site-packages')
 +            wanted = os.path.join('xoxo', sys.lib, 'site-packages')
-             self.assertEquals(dirs[1], wanted)
+             self.assertEqual(dirs[1], wanted)
  
          # let's try the specific Apple location
 --- Python-2.7/Lib/sysconfig.py.org	2010-05-20 00:20:14.000000000 +0200
