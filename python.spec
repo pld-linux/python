@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.1
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -59,6 +59,7 @@ Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-verbose.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
+BuildRequires:	automake
 BuildRequires:	bluez-libs-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	db-devel >= 4
@@ -67,9 +68,9 @@ BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
-BuildRequires:	libffi-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-ext-devel >= 5.2
+BuildRequires:	pkgconfig
 %if %{with openssl097}
 BuildRequires:	openssl-devel < 0.9.8
 %else
@@ -80,7 +81,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3.3.5
 %{?with_info:BuildRequires:	tetex-makeindex}
-%{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
+#%{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
@@ -707,6 +708,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_scriptdir}/sysconfig.py[co]
 %exclude %{py_scriptdir}/timeit.py[co]
 %exclude %{py_scriptdir}/os.py[co]
+%exclude %{py_scriptdir}/_weakrefset.py[co]
 %exclude %{py_scriptdir}/encodings/*.py[co]
 %exclude %{py_scriptdir}/types.py[co]
 %exclude %{py_scriptdir}/warnings.py[co]
@@ -887,6 +889,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/stat.py[co]
 %{py_scriptdir}/sysconfig.py[co]
 %{py_scriptdir}/os.py[co]
+%{py_scriptdir}/_weakrefset.py[co]
 # needed by the dynamic sys.lib patch
 %{py_scriptdir}/types.py[co]
 %{py_scriptdir}/warnings.py[co]
