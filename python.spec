@@ -42,15 +42,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.1
-Release:	2
+Version:	%{py_ver}.2
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	aa27bc25725137ba155910bd8e5ddc4f
+# Source0-md5:	ba7b2f11ffdbf195ee0d111b9455a5bd
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	312d4da0c1d8adbfb27f4f0e09f2cffe
+# Source1-md5:	40f0bd51b221662cae14fb0c6b6f622b
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
@@ -778,7 +778,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/linuxaudiodev.so
 %attr(755,root,root) %{py_dyndir}/math.so
 %attr(755,root,root) %{py_dyndir}/mmap.so
-%attr(755,root,root) %{py_dyndir}/nis.so
+#%attr(755,root,root) %{py_dyndir}/nis.so
 %attr(755,root,root) %{py_dyndir}/operator.so
 %attr(755,root,root) %{py_dyndir}/ossaudiodev.so
 %attr(755,root,root) %{py_dyndir}/parser.so
