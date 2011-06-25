@@ -778,7 +778,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/linuxaudiodev.so
 %attr(755,root,root) %{py_dyndir}/math.so
 %attr(755,root,root) %{py_dyndir}/mmap.so
-#%attr(755,root,root) %{py_dyndir}/nis.so
+%attr(755,root,root) %{py_dyndir}/nis.so
 %attr(755,root,root) %{py_dyndir}/operator.so
 %attr(755,root,root) %{py_dyndir}/ossaudiodev.so
 %attr(755,root,root) %{py_dyndir}/parser.so
