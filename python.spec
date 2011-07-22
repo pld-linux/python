@@ -557,6 +557,10 @@ tar xjf %{SOURCE1}
 
 sed -i -e 's#db_setup_debug = False#db_setup_debug = True#g' setup.py
 
+# remove if Lib/plat-linux3 exists
+[ -d Lib/plat-linux3 ] && exit 1
+cp -a Lib/plat-linux2 Lib/plat-linux3
+
 %build
 %{__aclocal}
 %{__autoconf}
