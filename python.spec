@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.3
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -686,6 +686,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{__python}
+%attr(755,root,root) %{__python}[0-9]
 %attr(755,root,root) %{__python}%{py_ver}
 %{_mandir}/man1/python.1*
 
@@ -928,6 +929,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README,README.valgrind,valgrind-python.supp}
 %attr(755,root,root) %{__python}-config
+%attr(755,root,root) %{__python}[0-9]-config
 %attr(755,root,root) %{__python}%{py_ver}-config
 %attr(755,root,root) %{_libdir}/lib*.so
 %{py_incdir}/*.h
