@@ -139,12 +139,13 @@ diff -Nur Python-2.5.orig/Modules/getpath.c Python-2.5/Modules/getpath.c
      bufsz = strlen(zip_path);   /* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
---- Python-2.7.1/Lib/test/test_site.py~	2011-01-23 16:20:12.113474892 +0100
-+++ Python-2.7.1/Lib/test/test_site.py	2011-01-23 16:49:33.930141557 +0100
-@@ -169,7 +169,7 @@
-             wanted = os.path.join('xoxo', sys.lib, 'site-packages')
-             self.assertEqual(dirs[0], wanted)
+
+--- p/Lib/test/test_site.py~	2012-05-10 18:02:09.000000000 +0200
++++ p/Lib/test/test_site.py	2012-05-10 18:09:38.776569290 +0200
+@@ -241,7 +241,7 @@
+             self.assertEqual(dirs[2], wanted)
          elif os.sep == '/':
+             # OS X non-framwework builds, Linux, FreeBSD, etc
 -            self.assertEqual(len(dirs), 2)
 +            self.assertEqual(len(dirs), 4)
              wanted = os.path.join('xoxo', sys.lib, 'python' + sys.version[:3],

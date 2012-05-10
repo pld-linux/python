@@ -19,27 +19,26 @@ diff -urN Python-2.7.org/Demo/tix/INSTALL.txt Python-2.7/Demo/tix/INSTALL.txt
  
  
  If you find any bugs or have suggestions for improvement, please report them
-diff -urN Python-2.7.org/Doc/c-api/init.rst Python-2.7/Doc/c-api/init.rst
---- Python-2.7.org/Doc/c-api/init.rst	2010-06-14 17:58:39.000000000 +0200
-+++ Python-2.7/Doc/c-api/init.rst	2010-07-05 20:00:03.475503986 +0200
-@@ -196,7 +196,7 @@
+--- p/Doc/c-api/init.rst~	2012-04-10 01:07:28.000000000 +0200
++++ p/Doc/c-api/init.rst	2012-05-10 17:41:58.815998870 +0200
+@@ -123,7 +123,7 @@
     Return the *prefix* for installed platform-independent files. This is derived
     through a number of complicated rules from the program name set with
-    :cfunc:`Py_SetProgramName` and some environment variables; for example, if the
+    :c:func:`Py_SetProgramName` and some environment variables; for example, if the
 -   program name is ``'/usr/local/bin/python'``, the prefix is ``'/usr/local'``. The
 +   program name is ``'/usr/bin/python'``, the prefix is ``'/usr/local'``. The
     returned string points into static storage; the caller should not modify its
     value.  This corresponds to the :makevar:`prefix` variable in the top-level
-    :file:`Makefile` and the :option:`--prefix` argument to the :program:`configure`
-@@ -209,7 +209,7 @@
+    :file:`Makefile` and the ``--prefix`` argument to the :program:`configure`
+@@ -136,7 +136,7 @@
     Return the *exec-prefix* for installed platform-*dependent* files.  This is
     derived through a number of complicated rules from the program name set with
-    :cfunc:`Py_SetProgramName` and some environment variables; for example, if the
+    :c:func:`Py_SetProgramName` and some environment variables; for example, if the
 -   program name is ``'/usr/local/bin/python'``, the exec-prefix is
 +   program name is ``'/usr/bin/python'``, the exec-prefix is
     ``'/usr/local'``.  The returned string points into static storage; the caller
     should not modify its value.  This corresponds to the :makevar:`exec_prefix`
-    variable in the top-level :file:`Makefile` and the :option:`--exec-prefix`
+    variable in the top-level :file:`Makefile` and the ``--exec-prefix``
 diff -urN Python-2.7.org/Doc/c-api/intro.rst Python-2.7/Doc/c-api/intro.rst
 --- Python-2.7.org/Doc/c-api/intro.rst	2010-06-11 02:23:01.000000000 +0200
 +++ Python-2.7/Doc/c-api/intro.rst	2010-07-05 20:00:03.482863587 +0200

@@ -42,15 +42,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.2
-Release:	3
+Version:	%{py_ver}.3
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	ba7b2f11ffdbf195ee0d111b9455a5bd
+# Source0-md5:	c57477edd6d18bd9eeca2f21add73919
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	40f0bd51b221662cae14fb0c6b6f622b
+# Source1-md5:	101c13d39f76fd6706aac3a9196b2f01
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
@@ -692,32 +692,32 @@ rm -rf $RPM_BUILD_ROOT
 %files modules
 %defattr(644,root,root,755)
 /etc/shrc.d/python-modules*
-%exclude %{py_scriptdir}/_abcoll.py[co]
-%exclude %{py_scriptdir}/abc.py[co]
-%exclude %{py_scriptdir}/UserDict.py[co]
-%exclude %{py_scriptdir}/codecs.py[co]
-%exclude %{py_scriptdir}/copy_reg.py[co]
-%exclude %{py_scriptdir}/genericpath.py[co]
-%exclude %{py_scriptdir}/linecache.py[co]
-%exclude %{py_scriptdir}/locale.py[co]
-%exclude %{py_scriptdir}/posixpath.py[co]
-%exclude %{py_scriptdir}/pdb.py[co]
-%exclude %{py_scriptdir}/profile.py[co]
-%exclude %{py_scriptdir}/pstats.py[co]
-%exclude %{py_scriptdir}/pydoc.py[co]
-%exclude %{py_scriptdir}/re.py[co]
-%exclude %{py_scriptdir}/site.py[co]
-%exclude %{py_scriptdir}/sre_*.py[co]
-%exclude %{py_scriptdir}/stat.py[co]
-%exclude %{py_scriptdir}/sysconfig.py[co]
-%exclude %{py_scriptdir}/timeit.py[co]
-%exclude %{py_scriptdir}/os.py[co]
-%exclude %{py_scriptdir}/_weakrefset.py[co]
-%exclude %{py_scriptdir}/encodings/*.py[co]
-%exclude %{py_scriptdir}/types.py[co]
-%exclude %{py_scriptdir}/warnings.py[co]
+%exclude %{py_scriptdir}/_abcoll.py*
+%exclude %{py_scriptdir}/abc.py*
+%exclude %{py_scriptdir}/UserDict.py*
+%exclude %{py_scriptdir}/codecs.py*
+%exclude %{py_scriptdir}/copy_reg.py*
+%exclude %{py_scriptdir}/genericpath.py*
+%exclude %{py_scriptdir}/linecache.py*
+%exclude %{py_scriptdir}/locale.py*
+%exclude %{py_scriptdir}/posixpath.py*
+%exclude %{py_scriptdir}/pdb.py*
+%exclude %{py_scriptdir}/profile.py*
+%exclude %{py_scriptdir}/pstats.py*
+%exclude %{py_scriptdir}/pydoc.py*
+%exclude %{py_scriptdir}/re.py*
+%exclude %{py_scriptdir}/site.py*
+%exclude %{py_scriptdir}/sre_*.py*
+%exclude %{py_scriptdir}/stat.py*
+%exclude %{py_scriptdir}/sysconfig.py*
+%exclude %{py_scriptdir}/timeit.py*
+%exclude %{py_scriptdir}/os.py*
+%exclude %{py_scriptdir}/_weakrefset.py*
+%exclude %{py_scriptdir}/encodings/*.py*
+%exclude %{py_scriptdir}/types.py*
+%exclude %{py_scriptdir}/warnings.py*
 
-%{py_scriptdir}/*.py[co]
+%{py_scriptdir}/*.py*
 
 %{py_dyndir}/*.egg-info
 
@@ -799,70 +799,70 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/zlib.so
 
 %dir %{py_scriptdir}/plat-*
-%{py_scriptdir}/plat-*/*.py[co]
+%{py_scriptdir}/plat-*/*.py*
 
 %dir %{py_scriptdir}/bsddb
-%{py_scriptdir}/bsddb/*.py[co]
+%{py_scriptdir}/bsddb/*.py*
 
 %dir %{py_scriptdir}/compiler
-%{py_scriptdir}/compiler/*.py[co]
+%{py_scriptdir}/compiler/*.py*
 
 %dir %{py_scriptdir}/ctypes
 %dir %{py_scriptdir}/ctypes/macholib
-%{py_scriptdir}/ctypes/*.py[co]
-%{py_scriptdir}/ctypes/macholib/*.py[co]
+%{py_scriptdir}/ctypes/*.py*
+%{py_scriptdir}/ctypes/macholib/*.py*
 
 %dir %{py_scriptdir}/curses
-%{py_scriptdir}/curses/*.py[co]
+%{py_scriptdir}/curses/*.py*
 
 %dir %{py_scriptdir}/distutils
 %dir %{py_scriptdir}/distutils/command
-%{py_scriptdir}/distutils/*.py[co]
-%{py_scriptdir}/distutils/command/*.py[co]
+%{py_scriptdir}/distutils/*.py*
+%{py_scriptdir}/distutils/command/*.py*
 
 %dir %{py_scriptdir}/email
 %dir %{py_scriptdir}/email/mime
-%{py_scriptdir}/email/*.py[co]
-%{py_scriptdir}/email/mime/*.py[co]
+%{py_scriptdir}/email/*.py*
+%{py_scriptdir}/email/mime/*.py*
 
 %dir %{py_scriptdir}/importlib
-%{py_scriptdir}/importlib/*.py[co]
+%{py_scriptdir}/importlib/*.py*
 
 %dir %{py_scriptdir}/json
-%{py_scriptdir}/json/*.py[co]
+%{py_scriptdir}/json/*.py*
 
 %dir %{py_scriptdir}/logging
-%{py_scriptdir}/logging/*.py[co]
+%{py_scriptdir}/logging/*.py*
 
 %dir %{py_scriptdir}/multiprocessing
 %dir %{py_scriptdir}/multiprocessing/dummy
-%{py_scriptdir}/multiprocessing/*.py[co]
-%{py_scriptdir}/multiprocessing/dummy/*.py[co]
+%{py_scriptdir}/multiprocessing/*.py*
+%{py_scriptdir}/multiprocessing/dummy/*.py*
 
 %dir %{py_scriptdir}/unittest
-%{py_scriptdir}/unittest/*.py[co]
+%{py_scriptdir}/unittest/*.py*
 %dir %{py_scriptdir}/unittest/test
-%{py_scriptdir}/unittest/test/*.py[co]
+%{py_scriptdir}/unittest/test/*.py*
 
 %dir %{py_scriptdir}/wsgiref
-%{py_scriptdir}/wsgiref/*.py[co]
+%{py_scriptdir}/wsgiref/*.py*
 
 %dir %{py_scriptdir}/xml
 %dir %{py_scriptdir}/xml/dom
 %dir %{py_scriptdir}/xml/etree
 %dir %{py_scriptdir}/xml/parsers
 %dir %{py_scriptdir}/xml/sax
-%{py_scriptdir}/xml/*.py[co]
-%{py_scriptdir}/xml/dom/*.py[co]
-%{py_scriptdir}/xml/etree/*.py[co]
-%{py_scriptdir}/xml/parsers/*.py[co]
-%{py_scriptdir}/xml/sax/*.py[co]
+%{py_scriptdir}/xml/*.py*
+%{py_scriptdir}/xml/dom/*.py*
+%{py_scriptdir}/xml/etree/*.py*
+%{py_scriptdir}/xml/parsers/*.py*
+%{py_scriptdir}/xml/sax/*.py*
 
 %files modules-sqlite
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_dyndir}/_sqlite3.so
 %dir %{py_scriptdir}/sqlite3
-%{py_scriptdir}/sqlite3/*.py[co]
+%{py_scriptdir}/sqlite3/*.py*
 
 %files libs
 %defattr(644,root,root,755)
@@ -878,29 +878,29 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_struct.so
 
 # modules required by python library
-%{py_scriptdir}/_abcoll.py[co]
-%{py_scriptdir}/abc.py[co]
-%{py_scriptdir}/UserDict.py[co]
-%{py_scriptdir}/codecs.py[co]
-%{py_scriptdir}/copy_reg.py[co]
-%{py_scriptdir}/genericpath.py[co]
-%{py_scriptdir}/linecache.py[co]
-%{py_scriptdir}/locale.py[co]
-%{py_scriptdir}/posixpath.py[co]
-%{py_scriptdir}/re.py[co]
-%{py_scriptdir}/site.py[co]
-%{py_scriptdir}/sre_*.py[co]
-%{py_scriptdir}/stat.py[co]
-%{py_scriptdir}/sysconfig.py[co]
-%{py_scriptdir}/os.py[co]
-%{py_scriptdir}/_weakrefset.py[co]
+%{py_scriptdir}/_abcoll.py*
+%{py_scriptdir}/abc.py*
+%{py_scriptdir}/UserDict.py*
+%{py_scriptdir}/codecs.py*
+%{py_scriptdir}/copy_reg.py*
+%{py_scriptdir}/genericpath.py*
+%{py_scriptdir}/linecache.py*
+%{py_scriptdir}/locale.py*
+%{py_scriptdir}/posixpath.py*
+%{py_scriptdir}/re.py*
+%{py_scriptdir}/site.py*
+%{py_scriptdir}/sre_*.py*
+%{py_scriptdir}/stat.py*
+%{py_scriptdir}/sysconfig.py*
+%{py_scriptdir}/os.py*
+%{py_scriptdir}/_weakrefset.py*
 # needed by the dynamic sys.lib patch
-%{py_scriptdir}/types.py[co]
-%{py_scriptdir}/warnings.py[co]
+%{py_scriptdir}/types.py*
+%{py_scriptdir}/warnings.py*
 
 # encodings required by python library
 %dir %{py_scriptdir}/encodings
-%{py_scriptdir}/encodings/*.py[co]
+%{py_scriptdir}/encodings/*.py*
 
 # required by sysconfig.py
 %dir %{py_libdir}/config
@@ -911,16 +911,16 @@ rm -rf $RPM_BUILD_ROOT
 %files -n pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
-%{py_scriptdir}/pydoc.py[co]
+%{py_scriptdir}/pydoc.py*
 %dir %{py_scriptdir}/pydoc_data
-%{py_scriptdir}/pydoc_data/*.py[co]
+%{py_scriptdir}/pydoc_data/*.py*
 
 %files -n idle
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/idle
 %dir %{py_scriptdir}/idlelib
 %dir %{py_scriptdir}/idlelib/Icons
-%{py_scriptdir}/idlelib/*.py[co]
+%{py_scriptdir}/idlelib/*.py*
 %{py_scriptdir}/idlelib/Icons/*
 %{py_scriptdir}/idlelib/*.def
 
@@ -982,11 +982,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
-%{py_scriptdir}/hotshot/*.py[co]
-%{py_scriptdir}/pdb.py[co]
-%{py_scriptdir}/profile.py[co]
-%{py_scriptdir}/pstats.py[co]
-%{py_scriptdir}/timeit.py[co]
+%{py_scriptdir}/hotshot/*.py*
+%{py_scriptdir}/pdb.py*
+%{py_scriptdir}/profile.py*
+%{py_scriptdir}/pstats.py*
+%{py_scriptdir}/timeit.py*
 
 %files 2to3
 %defattr(644,root,root,755)
@@ -994,10 +994,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/lib2to3
 %dir %{py_scriptdir}/lib2to3/fixes
 %dir %{py_scriptdir}/lib2to3/pgen2
-%{py_scriptdir}/lib2to3/*.py[co]
+%{py_scriptdir}/lib2to3/*.py*
 %{py_scriptdir}/lib2to3/*.pickle
-%{py_scriptdir}/lib2to3/fixes/*.py[co]
-%{py_scriptdir}/lib2to3/pgen2/*.py[co]
+%{py_scriptdir}/lib2to3/fixes/*.py*
+%{py_scriptdir}/lib2to3/pgen2/*.py*
 
 %files static
 %defattr(644,root,root,755)
