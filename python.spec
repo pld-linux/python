@@ -693,32 +693,32 @@ rm -rf $RPM_BUILD_ROOT
 %files modules
 %defattr(644,root,root,755)
 /etc/shrc.d/python-modules*
-%exclude %{py_scriptdir}/_abcoll.py*
-%exclude %{py_scriptdir}/abc.py*
-%exclude %{py_scriptdir}/UserDict.py*
-%exclude %{py_scriptdir}/codecs.py*
-%exclude %{py_scriptdir}/copy_reg.py*
-%exclude %{py_scriptdir}/genericpath.py*
-%exclude %{py_scriptdir}/linecache.py*
-%exclude %{py_scriptdir}/locale.py*
-%exclude %{py_scriptdir}/posixpath.py*
-%exclude %{py_scriptdir}/pdb.py*
-%exclude %{py_scriptdir}/profile.py*
-%exclude %{py_scriptdir}/pstats.py*
-%exclude %{py_scriptdir}/pydoc.py*
-%exclude %{py_scriptdir}/re.py*
-%exclude %{py_scriptdir}/site.py*
-%exclude %{py_scriptdir}/sre_*.py*
-%exclude %{py_scriptdir}/stat.py*
-%exclude %{py_scriptdir}/sysconfig.py*
-%exclude %{py_scriptdir}/timeit.py*
-%exclude %{py_scriptdir}/os.py*
-%exclude %{py_scriptdir}/_weakrefset.py*
-%exclude %{py_scriptdir}/encodings/*.py*
-%exclude %{py_scriptdir}/types.py*
-%exclude %{py_scriptdir}/warnings.py*
+%exclude %{py_scriptdir}/_abcoll.py[co]
+%exclude %{py_scriptdir}/abc.py[co]
+%exclude %{py_scriptdir}/UserDict.py[co]
+%exclude %{py_scriptdir}/codecs.py[co]
+%exclude %{py_scriptdir}/copy_reg.py[co]
+%exclude %{py_scriptdir}/genericpath.py[co]
+%exclude %{py_scriptdir}/linecache.py[co]
+%exclude %{py_scriptdir}/locale.py[co]
+%exclude %{py_scriptdir}/posixpath.py[co]
+%exclude %{py_scriptdir}/pdb.py[co]
+%exclude %{py_scriptdir}/profile.py[co]
+%exclude %{py_scriptdir}/pstats.py[co]
+%exclude %{py_scriptdir}/pydoc.py[co]
+%exclude %{py_scriptdir}/re.py[co]
+%exclude %{py_scriptdir}/site.py[co]
+%exclude %{py_scriptdir}/sre_*.py[co]
+%exclude %{py_scriptdir}/stat.py[co]
+%exclude %{py_scriptdir}/sysconfig.py[co]
+%exclude %{py_scriptdir}/timeit.py[co]
+%exclude %{py_scriptdir}/os.py[co]
+%exclude %{py_scriptdir}/_weakrefset.py[co]
+%exclude %{py_scriptdir}/encodings/*.py[co]
+%exclude %{py_scriptdir}/types.py[co]
+%exclude %{py_scriptdir}/warnings.py[co]
 
-%{py_scriptdir}/*.py*
+%{py_scriptdir}/*.py[co]
 
 %{py_dyndir}/*.egg-info
 
@@ -800,70 +800,70 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/zlib.so
 
 %dir %{py_scriptdir}/plat-*
-%{py_scriptdir}/plat-*/*.py*
+%{py_scriptdir}/plat-*/*.py[co]
 
 %dir %{py_scriptdir}/bsddb
-%{py_scriptdir}/bsddb/*.py*
+%{py_scriptdir}/bsddb/*.py[co]
 
 %dir %{py_scriptdir}/compiler
-%{py_scriptdir}/compiler/*.py*
+%{py_scriptdir}/compiler/*.py[co]
 
 %dir %{py_scriptdir}/ctypes
 %dir %{py_scriptdir}/ctypes/macholib
-%{py_scriptdir}/ctypes/*.py*
-%{py_scriptdir}/ctypes/macholib/*.py*
+%{py_scriptdir}/ctypes/*.py[co]
+%{py_scriptdir}/ctypes/macholib/*.py[co]
 
 %dir %{py_scriptdir}/curses
-%{py_scriptdir}/curses/*.py*
+%{py_scriptdir}/curses/*.py[co]
 
 %dir %{py_scriptdir}/distutils
 %dir %{py_scriptdir}/distutils/command
-%{py_scriptdir}/distutils/*.py*
-%{py_scriptdir}/distutils/command/*.py*
+%{py_scriptdir}/distutils/*.py[co]
+%{py_scriptdir}/distutils/command/*.py[co]
 
 %dir %{py_scriptdir}/email
 %dir %{py_scriptdir}/email/mime
-%{py_scriptdir}/email/*.py*
-%{py_scriptdir}/email/mime/*.py*
+%{py_scriptdir}/email/*.py[co]
+%{py_scriptdir}/email/mime/*.py[co]
 
 %dir %{py_scriptdir}/importlib
-%{py_scriptdir}/importlib/*.py*
+%{py_scriptdir}/importlib/*.py[co]
 
 %dir %{py_scriptdir}/json
-%{py_scriptdir}/json/*.py*
+%{py_scriptdir}/json/*.py[co]
 
 %dir %{py_scriptdir}/logging
-%{py_scriptdir}/logging/*.py*
+%{py_scriptdir}/logging/*.py[co]
 
 %dir %{py_scriptdir}/multiprocessing
 %dir %{py_scriptdir}/multiprocessing/dummy
-%{py_scriptdir}/multiprocessing/*.py*
-%{py_scriptdir}/multiprocessing/dummy/*.py*
+%{py_scriptdir}/multiprocessing/*.py[co]
+%{py_scriptdir}/multiprocessing/dummy/*.py[co]
 
 %dir %{py_scriptdir}/unittest
-%{py_scriptdir}/unittest/*.py*
+%{py_scriptdir}/unittest/*.py[co]
 %dir %{py_scriptdir}/unittest/test
-%{py_scriptdir}/unittest/test/*.py*
+%{py_scriptdir}/unittest/test/*.py[co]
 
 %dir %{py_scriptdir}/wsgiref
-%{py_scriptdir}/wsgiref/*.py*
+%{py_scriptdir}/wsgiref/*.py[co]
 
 %dir %{py_scriptdir}/xml
 %dir %{py_scriptdir}/xml/dom
 %dir %{py_scriptdir}/xml/etree
 %dir %{py_scriptdir}/xml/parsers
 %dir %{py_scriptdir}/xml/sax
-%{py_scriptdir}/xml/*.py*
-%{py_scriptdir}/xml/dom/*.py*
-%{py_scriptdir}/xml/etree/*.py*
-%{py_scriptdir}/xml/parsers/*.py*
-%{py_scriptdir}/xml/sax/*.py*
+%{py_scriptdir}/xml/*.py[co]
+%{py_scriptdir}/xml/dom/*.py[co]
+%{py_scriptdir}/xml/etree/*.py[co]
+%{py_scriptdir}/xml/parsers/*.py[co]
+%{py_scriptdir}/xml/sax/*.py[co]
 
 %files modules-sqlite
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_dyndir}/_sqlite3.so
 %dir %{py_scriptdir}/sqlite3
-%{py_scriptdir}/sqlite3/*.py*
+%{py_scriptdir}/sqlite3/*.py[co]
 
 %files libs
 %defattr(644,root,root,755)
@@ -879,29 +879,29 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_dyndir}/_struct.so
 
 # modules required by python library
-%{py_scriptdir}/_abcoll.py*
-%{py_scriptdir}/abc.py*
-%{py_scriptdir}/UserDict.py*
-%{py_scriptdir}/codecs.py*
-%{py_scriptdir}/copy_reg.py*
-%{py_scriptdir}/genericpath.py*
-%{py_scriptdir}/linecache.py*
-%{py_scriptdir}/locale.py*
-%{py_scriptdir}/posixpath.py*
-%{py_scriptdir}/re.py*
-%{py_scriptdir}/site.py*
-%{py_scriptdir}/sre_*.py*
-%{py_scriptdir}/stat.py*
-%{py_scriptdir}/sysconfig.py*
-%{py_scriptdir}/os.py*
-%{py_scriptdir}/_weakrefset.py*
+%{py_scriptdir}/_abcoll.py[co]
+%{py_scriptdir}/abc.py[co]
+%{py_scriptdir}/UserDict.py[co]
+%{py_scriptdir}/codecs.py[co]
+%{py_scriptdir}/copy_reg.py[co]
+%{py_scriptdir}/genericpath.py[co]
+%{py_scriptdir}/linecache.py[co]
+%{py_scriptdir}/locale.py[co]
+%{py_scriptdir}/posixpath.py[co]
+%{py_scriptdir}/re.py[co]
+%{py_scriptdir}/site.py[co]
+%{py_scriptdir}/sre_*.py[co]
+%{py_scriptdir}/stat.py[co]
+%{py_scriptdir}/sysconfig.py[co]
+%{py_scriptdir}/os.py[co]
+%{py_scriptdir}/_weakrefset.py[co]
 # needed by the dynamic sys.lib patch
-%{py_scriptdir}/types.py*
-%{py_scriptdir}/warnings.py*
+%{py_scriptdir}/types.py[co]
+%{py_scriptdir}/warnings.py[co]
 
 # encodings required by python library
 %dir %{py_scriptdir}/encodings
-%{py_scriptdir}/encodings/*.py*
+%{py_scriptdir}/encodings/*.py[co]
 
 # required by sysconfig.py
 %dir %{py_libdir}/config
@@ -912,16 +912,16 @@ rm -rf $RPM_BUILD_ROOT
 %files -n pydoc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/pydoc
-%{py_scriptdir}/pydoc.py*
+%{py_scriptdir}/pydoc.py[co]
 %dir %{py_scriptdir}/pydoc_data
-%{py_scriptdir}/pydoc_data/*.py*
+%{py_scriptdir}/pydoc_data/*.py[co]
 
 %files -n idle
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/idle
 %dir %{py_scriptdir}/idlelib
 %dir %{py_scriptdir}/idlelib/Icons
-%{py_scriptdir}/idlelib/*.py*
+%{py_scriptdir}/idlelib/*.py[co]
 %{py_scriptdir}/idlelib/Icons/*
 %{py_scriptdir}/idlelib/*.def
 
@@ -984,11 +984,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
-%{py_scriptdir}/hotshot/*.py*
-%{py_scriptdir}/pdb.py*
-%{py_scriptdir}/profile.py*
-%{py_scriptdir}/pstats.py*
-%{py_scriptdir}/timeit.py*
+%{py_scriptdir}/hotshot/*.py[co]
+%{py_scriptdir}/pdb.py[co]
+%{py_scriptdir}/profile.py[co]
+%{py_scriptdir}/pstats.py[co]
+%{py_scriptdir}/timeit.py[co]
 
 %files 2to3
 %defattr(644,root,root,755)
@@ -996,10 +996,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_scriptdir}/lib2to3
 %dir %{py_scriptdir}/lib2to3/fixes
 %dir %{py_scriptdir}/lib2to3/pgen2
-%{py_scriptdir}/lib2to3/*.py*
+%{py_scriptdir}/lib2to3/*.py[co]
 %{py_scriptdir}/lib2to3/*.pickle
-%{py_scriptdir}/lib2to3/fixes/*.py*
-%{py_scriptdir}/lib2to3/pgen2/*.py*
+%{py_scriptdir}/lib2to3/fixes/*.py[co]
+%{py_scriptdir}/lib2to3/pgen2/*.py[co]
 
 %files static
 %defattr(644,root,root,755)
