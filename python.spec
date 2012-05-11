@@ -685,9 +685,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{__python}
-%attr(755,root,root) %{__python}[0-9]
-%attr(755,root,root) %{__python}%{py_ver}
+%attr(755,root,root) %{_bindir}/python
+%attr(755,root,root) %{_bindir}/python2
+%attr(755,root,root) %{_bindir}/python%{py_ver}
 %{_mandir}/man1/python.1*
 
 %files modules
@@ -720,7 +720,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{py_scriptdir}/*.py[co]
 
-%{py_dyndir}/*.egg-info
+%{py_dyndir}/Python-%{version}-py%{py_ver}.egg-info
 
 #
 # list .so modules to be sure that all of them are built
@@ -867,7 +867,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpython*.so.*
+%attr(755,root,root) %{_libdir}/libpython%{py_ver}.so.*
 
 %dir %{py_dyndir}
 %dir %{py_scriptdir}
@@ -928,13 +928,16 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README,README.valgrind,valgrind-python.supp}
-%attr(755,root,root) %{__python}-config
-%attr(755,root,root) %{__python}[0-9]-config
-%attr(755,root,root) %{__python}%{py_ver}-config
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_bindir}/python-config
+%attr(755,root,root) %{_bindir}/python2-config
+%attr(755,root,root) %{_bindir}/python%{py_ver}-config
+%attr(755,root,root) %{_libdir}/libpython%{py_ver}.so
+%attr(755,root,root) %{_libdir}/libpython.so
 %{py_incdir}/*.h
 %exclude %{py_incdir}/pyconfig.h
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/python.pc
+%{_pkgconfigdir}/python2.pc
+%{_pkgconfigdir}/python-%{py_ver}.pc
 
 %attr(755,root,root) %{py_libdir}/config/makesetup
 %attr(755,root,root) %{py_libdir}/config/install-sh
@@ -1003,7 +1006,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libpython*.a
+%{_libdir}/libpython%{py_ver}.a
+%{_libdir}/libpython.a
 
 %files examples
 %defattr(644,root,root,755)
