@@ -655,17 +655,17 @@ sed 's/=/ /' \
 
 # just to cut the noise, as they are not packaged (now)
 # first tests
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/test
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/email/test
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/json/tests
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/lib2to3/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/test
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/email/test
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/json/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/lib2to3/tests
 
 # other files
-rm -r $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.egg-info -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.bat -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.txt -exec rm {} \;
@@ -962,7 +962,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/distutils/command/*.py
 %{py_scriptdir}/email/*.py
 %{py_scriptdir}/email/mime/*.py
+%{py_scriptdir}/encodings/*.py
 %{py_scriptdir}/hotshot/*.py
+%{py_scriptdir}/idlelib/*.py
+%{py_scriptdir}/importlib/*.py
 %{py_scriptdir}/json/*.py
 %{py_scriptdir}/lib2to3/*.py
 %{py_scriptdir}/lib2to3/fixes/*.py
@@ -970,15 +973,16 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/logging/*.py
 %{py_scriptdir}/multiprocessing/*.py
 %{py_scriptdir}/multiprocessing/dummy/*.py
+%{py_scriptdir}/pydoc_data/*.py
 %{py_scriptdir}/sqlite3/*.py
+%{py_scriptdir}/unittest/*.py
+%{py_scriptdir}/unittest/test/*.py
 %{py_scriptdir}/wsgiref/*.py
 %{py_scriptdir}/xml/*.py
 %{py_scriptdir}/xml/dom/*.py
 %{py_scriptdir}/xml/etree/*.py
 %{py_scriptdir}/xml/parsers/*.py
 %{py_scriptdir}/xml/sax/*.py
-%{py_scriptdir}/encodings/*.py
-%{py_scriptdir}/idlelib/*.py
 
 %files devel-tools
 %defattr(644,root,root,755)
