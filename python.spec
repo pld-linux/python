@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.3
-Release:	6
+Release:	7
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -229,8 +229,11 @@ Summary:	Python modules
 Summary(pl.UTF-8):	Moduły języka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Provides:	python-argparse = 1.1
 Provides:	python-cElementTree
 Provides:	python-elementtree
+Provides:	pythonegg(argparse) = 1.1
+Obsoletes:	python-argparse < 1.1.99
 Obsoletes:	python-cElementTree
 Obsoletes:	python-ctypes
 Obsoletes:	python-curses
