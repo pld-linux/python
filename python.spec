@@ -692,6 +692,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/python2
 %attr(755,root,root) %{_bindir}/python%{py_ver}
 %{_mandir}/man1/python.1*
+%{_mandir}/man1/python2.1*
 
 %files modules
 %defattr(644,root,root,755)
