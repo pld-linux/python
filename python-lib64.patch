@@ -1,6 +1,6 @@
-diff -Nur Python-2.5b2.orig/configure.in Python-2.5b2/configure.in
---- Python-2.5b2.orig/configure.in	2006-07-06 11:13:35.000000000 +0100
-+++ Python-2.5b2/configure.in	2006-07-12 17:42:51.000000000 +0100
+diff -Nur Python-2.5b2.orig/configure.ac Python-2.5b2/configure.ac
+--- Python-2.5b2.orig/configure.ac	2006-07-06 11:13:35.000000000 +0100
++++ Python-2.5b2/configure.ac	2006-07-12 17:42:51.000000000 +0100
 @@ -503,6 +503,41 @@
      ;;
  esac
@@ -252,7 +252,7 @@ diff -Nur Python-2.5b2.orig/Python/sysmodule.c Python-2.5b2/Python/sysmodule.c
 diff -Nur Python-2.5b2.orig/setup.py Python-2.5b2/setup.py
 --- Python-2.5b2.orig/setup.py	2006-06-30 07:18:39.000000000 +0100
 +++ Python-2.5b2/setup.py	2006-07-12 17:45:14.000000000 +0100
-@@ -290,12 +290,12 @@
+@@ -491,6 +491,7 @@
          except NameError:
              have_unicode = 0
  
@@ -260,12 +260,15 @@ diff -Nur Python-2.5b2.orig/setup.py Python-2.5b2/setup.py
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
          # be assumed that no additional -I,-L directives are needed.
-         lib_dirs = self.compiler.library_dirs + [
--            '/lib64', '/usr/lib64',
--            '/lib', '/usr/lib',
-+            libname, '/usr/'+libname
-             ]
-         inc_dirs = self.compiler.include_dirs + ['/usr/include']
+@@ -502,8 +503,7 @@
+                 ):
+                 add_dir_to_list(inc_dirs, d)
+             for d in (
+-                '/lib64', '/usr/lib64',
+-                '/lib', '/usr/lib',
++                libname, '/usr/'+libname
+                 ):
+                 add_dir_to_list(lib_dirs, d)
          exts = []
 @@ -496,11 +496,11 @@
              elif curses_library:

@@ -1,14 +1,11 @@
---- Python-2.7/Makefile.pre.in~	2010-07-07 20:08:20.064007110 +0200
-+++ Python-2.7/Makefile.pre.in	2010-07-07 20:57:44.012878634 +0200
-@@ -406,8 +406,8 @@
- # Build the shared modules
+--- Python-2.7.4/Makefile.pre.in~	2013-04-23 18:32:25.000000000 +0200
++++ Python-2.7.4/Makefile.pre.in	2013-04-23 18:34:24.626857195 +0200
+@@ -450,7 +450,7 @@
  sharedmods: $(BUILDPYTHON)
- 	@case $$MAKEFLAGS in \
--	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
--	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
-+	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -vvv build;; \
-+	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -vvv build;; \
- 	esac
- 
- # Build static library
-
+ 	@case "$$MAKEFLAGS" in \
+ 	    *\ -s*|s*) quiet="-q";; \
+-	    *) quiet="";; \
++	    *) quiet="-vvv";; \
+ 	esac; \
+ 	$(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' \
+ 		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
