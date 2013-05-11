@@ -1,0 +1,11 @@
+--- Python-2.7.4.org/Lib/platform.py	2013-04-06 16:02:28.000000000 +0200
++++ Python-2.7.4/Lib/platform.py	2013-05-11 16:08:46.726078936 +0200
+@@ -259,7 +259,7 @@
+ _supported_dists = (
+     'SuSE', 'debian', 'fedora', 'redhat', 'centos',
+     'mandrake', 'mandriva', 'rocks', 'slackware', 'yellowdog', 'gentoo',
+-    'UnitedLinux', 'turbolinux')
++    'pld', 'UnitedLinux', 'turbolinux')
+ 
+ def _parse_release_file(firstline):
+ 
