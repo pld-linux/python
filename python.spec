@@ -59,6 +59,7 @@ Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-verbose.patch
 Patch6:		%{name}-distro.patch
 Patch7:		%{name}-sysloghandler.patch
+Patch8:		%{name}-DNStests.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -559,6 +560,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 tar xjf %{SOURCE1}
 

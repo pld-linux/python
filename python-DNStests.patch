@@ -1,0 +1,122 @@
+From 9a583b9665c50dfe27b0965128649ae1a7cd2ac6 Mon Sep 17 00:00:00 2001
+From: Kacper Kornet <draenog@pld-linux.org>
+Date: Mon, 20 May 2013 01:08:50 +0100
+Subject: [PATCH] Mark tests that require access to resolver
+
+---
+ Lib/test/checkDNS.py       | 3 +++
+ Lib/test/test_mimetools.py | 2 ++
+ Lib/test/test_smtplib.py   | 7 +++++++
+ Lib/test/test_urllib.py    | 2 ++
+ 4 files changed, 14 insertions(+)
+ create mode 100644 Lib/test/checkDNS.py
+
+diff --git a/Lib/test/checkDNS.py b/Lib/test/checkDNS.py
+new file mode 100644
+index 0000000..f77cbe7
+--- /dev/null
++++ b/Lib/test/checkDNS.py
+@@ -0,0 +1,3 @@
++import os
++
++canresolve = os.access("/etc/resolv.conf", os.R_OK)
+diff --git a/Lib/test/test_mimetools.py b/Lib/test/test_mimetools.py
+index 86a26dc..8f07ada 100644
+--- a/Lib/test/test_mimetools.py
++++ b/Lib/test/test_mimetools.py
+@@ -1,5 +1,6 @@
+ import unittest
+ from test import test_support
++from test import checkDNS
+ 
+ import string
+ import StringIO
+@@ -27,6 +28,7 @@ class MimeToolsTest(unittest.TestCase):
+             mimetools.decode(i, o, enc)
+             self.assertEqual(o.getvalue(), start)
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def test_boundary(self):
+         s = set([""])
+         for i in xrange(100):
+diff --git a/Lib/test/test_smtplib.py b/Lib/test/test_smtplib.py
+index 81806c9..d88fd97 100644
+--- a/Lib/test/test_smtplib.py
++++ b/Lib/test/test_smtplib.py
+@@ -10,6 +10,7 @@ import select
+ 
+ import unittest
+ from test import test_support
++from test import checkDNS
+ 
+ try:
+     import threading
+@@ -60,11 +61,13 @@ class GeneralTests(unittest.TestCase):
+         self.thread.join()
+         test_support.threading_cleanup(*self._threads)
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def testBasic1(self):
+         # connects
+         smtp = smtplib.SMTP(HOST, self.port)
+         smtp.close()
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def testBasic2(self):
+         # connects, include port in host name
+         smtp = smtplib.SMTP("%s:%s" % (HOST, self.port))
+@@ -76,6 +79,7 @@ class GeneralTests(unittest.TestCase):
+         self.assertEqual(smtp.local_hostname, "testhost")
+         smtp.close()
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def testTimeoutDefault(self):
+         self.assertTrue(socket.getdefaulttimeout() is None)
+         socket.setdefaulttimeout(30)
+@@ -86,6 +90,7 @@ class GeneralTests(unittest.TestCase):
+         self.assertEqual(smtp.sock.gettimeout(), 30)
+         smtp.close()
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def testTimeoutNone(self):
+         self.assertTrue(socket.getdefaulttimeout() is None)
+         socket.setdefaulttimeout(30)
+@@ -96,6 +101,7 @@ class GeneralTests(unittest.TestCase):
+         self.assertTrue(smtp.sock.gettimeout() is None)
+         smtp.close()
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def testTimeoutValue(self):
+         smtp = smtplib.SMTP(HOST, self.port, timeout=30)
+         self.assertEqual(smtp.sock.gettimeout(), 30)
+@@ -243,6 +249,7 @@ class DebuggingServerTests(unittest.TestCase):
+ 
+ class NonConnectingTests(unittest.TestCase):
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def testNotConnected(self):
+         # Test various operations on an unconnected SMTP object that
+         # should raise exceptions (at present the attempt in SMTP.send
+diff --git a/Lib/test/test_urllib.py b/Lib/test/test_urllib.py
+index 3a273f8..e6a4c73 100644
+--- a/Lib/test/test_urllib.py
++++ b/Lib/test/test_urllib.py
+@@ -11,6 +11,7 @@ import StringIO
+ 
+ from test import test_support
+ from base64 import b64encode
++from test import checkDNS
+ 
+ 
+ def hexescape(char):
+@@ -222,6 +223,7 @@ Content-Type: text/html; charset=iso-8859-1
+         finally:
+             self.unfakehttp()
+ 
++    @unittest.skipUnless(checkDNS.canresolve, 'test requires name resolution')
+     def test_missing_localfile(self):
+         self.assertRaises(IOError, urllib.urlopen,
+                 'file://localhost/a/missing/file.py')
+-- 
+1.8.3.rc2
+
