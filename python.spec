@@ -42,15 +42,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.4
-Release:	3
+Version:	%{py_ver}.5
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.bz2
-# Source0-md5:	62704ea0f125923208d84ff0568f7d50
+# Source0-md5:	6334b666b7ff2038c761d7b27ba699c1
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	45be073ad81e1b2f6ad1fa25132f60c6
+# Source1-md5:	77ae8fd6b456c6339a1a62d57425335b
 
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
@@ -58,8 +58,7 @@ Patch3:		%{name}-lib64.patch
 Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-verbose.patch
 Patch6:		%{name}-distro.patch
-Patch7:		%{name}-sysloghandler.patch
-Patch8:		%{name}-DNStests.patch
+Patch7:		%{name}-DNStests.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -560,7 +559,6 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 tar xjf %{SOURCE1}
 
