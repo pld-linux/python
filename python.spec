@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.5
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -59,7 +59,8 @@ Patch4:		%{name}-noarch_to_datadir.patch
 Patch5:		%{name}-verbose.patch
 Patch6:		%{name}-distro.patch
 Patch7:		%{name}-DNStests.patch
-Patch8:		%{name}-CVE-2013-4238.patch
+Patch8:		%{name}-ENOPROTOOPT-test.patch
+Patch9:		%{name}-CVE-2013-4238.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -561,6 +562,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 tar xjf %{SOURCE1}
 
@@ -605,7 +607,7 @@ END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 LC_ALL=C
 export LC_ALL
 %if %{with tests}
-%{__make} -j1 test \
+WITHIN_PYTHON_RPM_BUILD=1 %{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
 	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:`pwd`/build/lib.linux-`uname -m`-%{py_ver} ./python -tt"
 %endif

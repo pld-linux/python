@@ -1,0 +1,22 @@
+From d542bae2c2089f4a13f6aca59f0ea962997db1cf Mon Sep 17 00:00:00 2001
+From: David Malcolm <dmalcolm@redhat.com>
+Date: Mon, 04 Mar 2013 21:18:16 +0000
+Subject: 2.7.3-32: add workaround for ENOPROTOOPT seen running selftests in Koji (rhbz#913732)
+
+* Mon Mar  4 2013 David Malcolm <dmalcolm@redhat.com> - 2.7.3-32
+- add workaround for ENOPROTOOPT seen running selftests in Koji
+(rhbz#913732)
+---
+diff -up Python-2.7.3/Lib/test/test_support.py.rhbz913732 Python-2.7.3/Lib/test/test_support.py
+--- Python-2.7.3/Lib/test/test_support.py.rhbz913732	2013-03-04 16:11:53.757315921 -0500
++++ Python-2.7.3/Lib/test/test_support.py	2013-03-04 16:12:11.331314722 -0500
+@@ -371,7 +371,8 @@ def bind_port(sock, host=HOST):
+             if sock.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR) == 1:
+                 raise TestFailed("tests should never set the SO_REUSEADDR "   \
+                                  "socket option on TCP/IP sockets!")
+-        if hasattr(socket, 'SO_REUSEPORT'):
++        if hasattr(socket, 'SO_REUSEPORT') \
++                and 'WITHIN_PYTHON_RPM_BUILD' not in os.environ: # rhbz#913732
+             if sock.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT) == 1:
+                 raise TestFailed("tests should never set the SO_REUSEPORT "   \
+                                  "socket option on TCP/IP sockets!")
