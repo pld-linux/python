@@ -51,7 +51,7 @@ Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.ta
 # Source0-md5:	bcf93efa8eaf383c98ed3ce40b763497
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
 # Source1-md5:	7613314d1aaa7dcc522ca9d3fd43dace
-
+Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
 Patch3:		%{name}-lib64.patch
@@ -552,7 +552,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 
 %prep
 %setup -q -n Python-%{version}%{beta}
-
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
