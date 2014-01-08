@@ -1,0 +1,22 @@
+--- Python-2.7.6/setup.py.orig	2013-11-10 08:36:41.000000000 +0100
++++ Python-2.7.6/setup.py	2013-11-21 17:45:59.823303676 +0100
+@@ -881,7 +881,7 @@
+         # a release.  Most open source OSes come with one or more
+         # versions of BerkeleyDB already installed.
+ 
+-        max_db_ver = (5, 3)
++        max_db_ver = (6, 0)
+         min_db_ver = (4, 3)
+         db_setup_debug = False   # verbose debug prints from this script?
+ 
+@@ -905,6 +905,10 @@
+         def gen_db_minor_ver_nums(major):
+             if major == 5:
+                 for x in range(max_db_ver[1]+1):
++                    if allow_db_ver((6, x)):
++                        yield x
++            elif major == 5:
++                for x in range(4):
+                     if allow_db_ver((5, x)):
+                         yield x
+             elif major == 4:
