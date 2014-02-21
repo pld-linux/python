@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.6
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -593,24 +593,22 @@ cp -a Lib/plat-linux2 Lib/plat-linux3
 %build
 %{__aclocal}
 %{__autoconf}
-CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 %configure \
+	OPT="%{rpmcflags}" \
+	CPPFLAGS="%{rpmcppflags}" \
+	LDFLAGS="%{rpmldflags}" \
 	ac_cv_posix_semaphores_enabled=yes \
 	ac_cv_broken_sem_getvalue=no \
+	%{?with_debug:--with-pydebug} \
 	--with-threads \
 	--with-cxx-main="%{__cxx}" \
 	--with-system-ffi \
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
-	--with-dbmliborder=gdbm:bdb \
-	LINKCC='$(PURIFY) $(CXX)' \
-	LDSHARED='$(CC) $(CFLAGS) -shared' \
-	BLDSHARED='$(CC) $(CFLAGS) -shared' \
-	LDFLAGS="%{rpmcflags} %{rpmldflags}"
+	--with-dbmliborder=gdbm:bdb
 
-%{__make} \
-	OPT="%{rpmcflags}" 2>&1 | awk '
+%{__make} 2>&1 | awk '
 BEGIN { fail = 0; logmsg = ""; }
 {
 		if ($0 ~ /\*\*\* WARNING:/) {
