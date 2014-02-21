@@ -603,7 +603,6 @@ CPPFLAGS="-I/usr/include/ncursesw %{rpmcppflags}"; export CPPFLAGS
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
-	--with-system-ffi \
 	--with-dbmliborder=gdbm:bdb \
 	LINKCC='$(PURIFY) $(CXX)' \
 	LDSHARED='$(CC) $(CFLAGS) -shared' \
