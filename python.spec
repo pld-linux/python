@@ -551,6 +551,24 @@ Przykładowe programy w Pythonie.
 
 Przykłady te są dla Pythona 2.3.4, nie %{version}.
 
+%package test
+Summary:	Python test modules
+Summary(pl.UTF-8):	Moduły testowe Pythona
+Group:		Development/Languages/Python
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
+
+%description test
+Python test modules.
+
+Unit tests for Python, some may be reused for testing other Python
+software.
+
+%description test -l pl.UTF-8
+Moduły testowe Pythona.
+
+Niektóre z nich mogą być używane do testowania oprogramowania
+napisanego w Pythonie.
+
 %prep
 %setup -q -n Python-%{version}%{beta}
 %patch0 -p1
@@ -665,17 +683,6 @@ sed 's/=/ /' \
 	> $RPM_BUILD_ROOT/etc/shrc.d/python-modules.csh
 
 # just to cut the noise, as they are not packaged (now)
-# first tests
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/test
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/bsddb/test
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/ctypes/test
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/distutils/tests
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/email/test
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/sqlite3/test
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/json/tests
-%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/lib2to3/tests
-
-# other files
 %{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.egg-info -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.bat -exec rm {} \;
@@ -1028,6 +1035,16 @@ rm -rf $RPM_BUILD_ROOT
 %files examples
 %defattr(644,root,root,755)
 %{_examplesdir}/%{name}-%{version}
+
+%files test
+%{py_scriptdir}/test
+%{py_scriptdir}/bsddb/test
+%{py_scriptdir}/ctypes/test
+%{py_scriptdir}/distutils/tests
+%{py_scriptdir}/email/test
+%{py_scriptdir}/sqlite3/test
+%{py_scriptdir}/json/tests
+%{py_scriptdir}/lib2to3/tests
 
 %files doc
 %defattr(644,root,root,755)
