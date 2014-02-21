@@ -845,6 +845,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/*.py[co]
 %{py_scriptdir}/email/mime/*.py[co]
 
+%dir %{py_scriptdir}/idlelib
+
 %dir %{py_scriptdir}/importlib
 %{py_scriptdir}/importlib/*.py[co]
 
@@ -938,7 +940,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n idle
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/idle
-%dir %{py_scriptdir}/idlelib
 %dir %{py_scriptdir}/idlelib/Icons
 %{py_scriptdir}/idlelib/*.py[co]
 %{py_scriptdir}/idlelib/Icons/*
