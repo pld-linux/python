@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.6
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -60,6 +60,7 @@ Patch5:		%{name}-verbose.patch
 Patch6:		%{name}-distro.patch
 Patch7:		%{name}-DNStests.patch
 Patch8:		%{name}-ENOPROTOOPT-test.patch
+Patch9:		%{name}-buffer-overflow.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -561,6 +562,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 tar xjf %{SOURCE1}
 
