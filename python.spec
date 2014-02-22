@@ -556,6 +556,7 @@ Summary:	Python test modules
 Summary(pl.UTF-8):	Moduły testowe Pythona
 Group:		Development/Languages/Python
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
+Suggests:	%{name}-devel-src = %{epoch}:%{version}-%{release}
 
 %description test
 Python test modules.
