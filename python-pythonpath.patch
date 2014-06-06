@@ -181,18 +181,6 @@ diff -urN Python-2.7.org/Mac/PythonLauncher/factorySettings.plist Python-2.7/Mac
                      <string>/usr/bin/pythonw</string>
                      <string>/usr/bin/python</string>
                      <string>/sw/bin/pythonw</string>
-diff -urN Python-2.7.org/Mac/README Python-2.7/Mac/README
---- Python-2.7.org/Mac/README	2010-04-30 17:11:22.000000000 +0200
-+++ Python-2.7/Mac/README	2010-07-05 20:00:03.529530323 +0200
-@@ -213,7 +213,7 @@
- to be supplied later. Some useful (but outdated) info can be found in
- Mac/Demo.
- 
--The commandline scripts /usr/local/bin/python and pythonw can be used to run
-+The commandline scripts /usr/bin/python and pythonw can be used to run
- non-GUI and GUI python scripts from the command line, respectively.
- 
- How do I create a binary distribution?
 diff -urN Python-2.7.org/Misc/HISTORY Python-2.7/Misc/HISTORY
 --- Python-2.7.org/Misc/HISTORY	2010-03-07 16:23:59.000000000 +0100
 +++ Python-2.7/Misc/HISTORY	2010-07-05 20:00:03.576196805 +0200
