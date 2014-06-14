@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.7
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -307,6 +307,7 @@ Summary(tr.UTF-8):	Python ile geliştirme yapmak için gerekli dosyalar
 Summary(uk.UTF-8):	Бібліотеки та хедери для програмування на мові Python
 Group:		Development/Languages/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Obsoletes:	python2-devel
 
 %description devel
@@ -641,10 +642,10 @@ ln -sf python-doc-%{version} $RPM_BUILD_ROOT%{_docdir}/python-doc
 
 %if %{with info}
 %{__make} -C Doc/info
-install Doc/info/python*info* $RPM_BUILD_ROOT%{_infodir}
+cp -p Doc/info/python*info* $RPM_BUILD_ROOT%{_infodir}
 %endif
 
-install Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
+cp -p Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
 mv $RPM_BUILD_ROOT{%{py_libdir}/config,%{_libdir}}/libpython%{py_ver}.a
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
@@ -1032,6 +1033,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_examplesdir}/%{name}-%{version}
 
 %files test
+%defattr(644,root,root,755)
 %{py_scriptdir}/test
 %{py_scriptdir}/bsddb/test
 %{py_scriptdir}/ctypes/test
