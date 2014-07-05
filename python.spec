@@ -42,15 +42,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.7
-Release:	2
+Version:	%{py_ver}.8
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
-# Source0-md5:	41f7348b348e3f72fcfb4f4d76701352
+# Source0-md5:	d235bdfa75b8396942e360a70487ee00
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	f8e87d44548d9b7c1f7ab8af779b31c0
+# Source1-md5:	2cf9ba96b2723a5268cd14432b15fdcf
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
