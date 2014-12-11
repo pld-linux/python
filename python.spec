@@ -42,15 +42,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.8
-Release:	2
+Version:	%{py_ver}.9
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
-# Source0-md5:	d235bdfa75b8396942e360a70487ee00
+# Source0-md5:	38d530f7efc373d64a8fb1637e3baaa7
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	2cf9ba96b2723a5268cd14432b15fdcf
+# Source1-md5:	8804bc888f6b7a1cc217be1acbb59ad6
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
@@ -604,7 +604,8 @@ cp -a Lib/plat-linux2 Lib/plat-linux3
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
 	--enable-shared \
-	--with-dbmliborder=gdbm:bdb
+	--with-dbmliborder=gdbm:bdb \
+	--without-ensurepip
 
 %{__make} 2>&1 | awk '
 BEGIN { fail = 0; logmsg = ""; }
@@ -679,6 +680,8 @@ sed 's/=/ /' \
 
 # just to cut the noise, as they are not packaged (now)
 %{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/plat-*/regen
+%{__rm} -r $RPM_BUILD_ROOT%{py_scriptdir}/idlelib/idle_test
+
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.egg-info -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.bat -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_scriptdir} -name \*.txt -exec rm {} \;
@@ -840,6 +843,10 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/*.py[co]
 %{py_scriptdir}/email/mime/*.py[co]
 
+%dir %{py_scriptdir}/ensurepip
+%{py_scriptdir}/ensurepip/*.py[co]
+%{py_scriptdir}/ensurepip/_bundled
+
 %dir %{py_scriptdir}/idlelib
 
 %dir %{py_scriptdir}/importlib
@@ -979,6 +986,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_scriptdir}/email/mime/*.py
 %{py_scriptdir}/encodings/*.py
 %{py_scriptdir}/hotshot/*.py
+%{py_scriptdir}/ensurepip/*.py
 %{py_scriptdir}/idlelib/*.py
 %{py_scriptdir}/importlib/*.py
 %{py_scriptdir}/json/*.py
