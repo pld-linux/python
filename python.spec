@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.9
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -709,6 +709,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files modules
 %defattr(644,root,root,755)
+%doc Lib/pdb.doc
 /etc/shrc.d/python-modules*
 %exclude %{py_scriptdir}/_abcoll.py[co]
 %exclude %{py_scriptdir}/abc.py[co]
@@ -719,7 +720,6 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_scriptdir}/linecache.py[co]
 %exclude %{py_scriptdir}/locale.py[co]
 %exclude %{py_scriptdir}/posixpath.py[co]
-%exclude %{py_scriptdir}/pdb.py[co]
 %exclude %{py_scriptdir}/profile.py[co]
 %exclude %{py_scriptdir}/pstats.py[co]
 %exclude %{py_scriptdir}/pydoc.py[co]
@@ -1009,13 +1009,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel-tools
 %defattr(644,root,root,755)
-%doc Lib/pdb.doc
 /etc/shrc.d/python-devel*
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_scriptdir}/hotshot
 %{py_scriptdir}/hotshot/*.py[co]
-%{py_scriptdir}/pdb.py[co]
 %{py_scriptdir}/profile.py[co]
 %{py_scriptdir}/pstats.py[co]
 %{py_scriptdir}/timeit.py[co]
