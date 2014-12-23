@@ -592,6 +592,7 @@ cp -a Lib/plat-linux2 Lib/plat-linux3
 %{__aclocal}
 %{__autoconf}
 %configure \
+	CC="%{__cc}" \
 	OPT="%{rpmcflags}" \
 	CPPFLAGS="%{rpmcppflags}" \
 	LDFLAGS="%{rpmldflags}" \

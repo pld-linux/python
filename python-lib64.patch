@@ -1,7 +1,7 @@
 diff -Nur Python-2.5b2.orig/configure.ac Python-2.5b2/configure.ac
 --- Python-2.5b2.orig/configure.ac	2006-07-06 11:13:35.000000000 +0100
 +++ Python-2.5b2/configure.ac	2006-07-12 17:42:51.000000000 +0100
-@@ -503,6 +503,41 @@
+@@ -503,6 +503,44 @@
      ;;
  esac
  
@@ -34,6 +34,9 @@ diff -Nur Python-2.5b2.orig/configure.ac Python-2.5b2/configure.ac
 +case $ARCH:$python_cv_cc_64bit_output in
 +powerpc64:yes | s390x:yes | sparc64:yes | x86_64:yes)
 +  LIB="lib64"
++  ;;
++x86_64:no)
++  LIB="libx32"
 +  ;;
 +*:*)
 +  LIB="lib"
@@ -179,13 +182,17 @@ diff -Nur Python-2.5b2.orig/Makefile.pre.in Python-2.5b2/Makefile.pre.in
 diff -Nur Python-2.5b2.orig/Modules/getpath.c Python-2.5b2/Modules/getpath.c
 --- Python-2.5b2.orig/Modules/getpath.c	2006-07-10 02:18:57.000000000 +0100
 +++ Python-2.5b2/Modules/getpath.c	2006-07-12 17:42:51.000000000 +0100
-@@ -116,9 +116,17 @@
+@@ -116,9 +116,21 @@
  #define EXEC_PREFIX PREFIX
  #endif
  
 +#ifndef LIB_PYTHON
 +#if defined(__x86_64__) || (defined(__sparc__) && defined(__arch64__)) || defined(__powerpc64__) || defined(__s390x__)
++#if defined(__ILP32__)
++#define LIB_PYTHON "libx32/python"
++#else
 +#define LIB_PYTHON "lib64/python"
++#endif
 +#else
 +#define LIB_PYTHON "lib/python"
 +#endif
