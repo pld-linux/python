@@ -55,7 +55,7 @@ Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-info.patch
 Patch8:		%{name}-bug-978833.patch
 Patch9:		%{name}-db4.6.patch
-Patch10:		linux3.patch
+Patch10:	linux3.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -71,11 +71,12 @@ BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
-BuildRequires:	texinfo
 %{?with_info:BuildRequires:	tetex-makeindex}
+BuildRequires:	texinfo
 %{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
+BuildConflicts:	db4.5-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Obsoletes:	python-curses
 Obsoletes:	python-gdbm
