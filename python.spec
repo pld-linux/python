@@ -55,6 +55,7 @@ Patch6:		%{name}-doc_path.patch
 Patch7:		%{name}-info.patch
 Patch8:		%{name}-bug-978833.patch
 Patch9:		%{name}-db4.6.patch
+Patch10:		linux3.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
@@ -509,6 +510,7 @@ Przykłady te są dla Pythona 2.3.4, nie %{version}.
 %patch7 -p1
 %patch8 -p0
 %patch9 -p1
+%patch10 -p1
 
 tar -xf %{SOURCE1} --use=bzip2
 

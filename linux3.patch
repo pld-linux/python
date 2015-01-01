@@ -1,0 +1,13 @@
+allow building under 3.x kernels
+http://bugs.python.org/issue12326
+
+--- Python-2.4.6/configure.in~	2015-01-01 16:14:33.000000000 +0200
++++ Python-2.4.6/configure.in	2015-01-01 16:18:11.754935645 +0200
+@@ -175,6 +175,7 @@
+ 	MACHDEP="$ac_md_system$ac_md_release"
+ 
+ 	case $MACHDEP in
++	linux3) MACHDEP="linux2";;
+ 	cygwin*) MACHDEP="cygwin";;
+ 	darwin*) MACHDEP="darwin";;
+ 	atheos*) MACHDEP="atheos";;
