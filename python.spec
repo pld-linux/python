@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.10
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -249,6 +249,7 @@ Obsoletes:	python-ssl
 Obsoletes:	python-xml
 Obsoletes:	python-xmlrpc <= 1.0.1
 Obsoletes:	python-zlib
+%requires_ge_to	openssl	openssl-devel
 
 %description modules
 Python officially distributed modules.
