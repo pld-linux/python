@@ -43,7 +43,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.10
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -601,7 +601,6 @@ cp -a Lib/plat-linux2 Lib/plat-linux3
 	ac_cv_broken_sem_getvalue=no \
 	%{?with_debug:--with-pydebug} \
 	--with-threads \
-	--with-cxx-main="%{__cxx}" \
 	--with-system-ffi \
 	--enable-ipv6 \
 	--enable-unicode=ucs4 \
