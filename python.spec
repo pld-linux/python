@@ -88,6 +88,7 @@ BuildRequires:	sqlite3-devel >= 3.3.5
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
+Suggests:	python-pip
 Obsoletes:	python2
 Conflicts:	bzr < 1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
