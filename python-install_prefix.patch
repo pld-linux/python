@@ -1,0 +1,84 @@
+diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/command/install.py Python-2.7.6/Lib/distutils/command/install.py
+--- Python-2.7.6.orig/Lib/distutils/command/install.py	2015-11-22 14:29:00.153420762 +0100
++++ Python-2.7.6/Lib/distutils/command/install.py	2015-11-22 14:28:19.000000000 +0100
+@@ -13,6 +13,8 @@
+ from distutils.core import Command
+ from distutils.debug import DEBUG
+ from distutils.sysconfig import get_config_vars
++from distutils.sysconfig import PREFIX, EXEC_PREFIX
++from distutils.sysconfig import SYS_PREFIX, SYS_EXEC_PREFIX
+ from distutils.errors import DistutilsPlatformError
+ from distutils.file_util import write_file
+ from distutils.util import convert_path, subst_vars, change_root
+@@ -306,9 +308,9 @@
+                             'py_version': py_version,
+                             'py_version_short': py_version[0:3],
+                             'py_version_nodot': py_version[0] + py_version[2],
+-                            'sys_prefix': prefix,
++                            'sys_prefix': SYS_PREFIX,
+                             'prefix': prefix,
+-                            'sys_exec_prefix': exec_prefix,
++                            'sys_exec_prefix': SYS_EXEC_PREFIX,
+                             'exec_prefix': exec_prefix,
+                             'userbase': self.install_userbase,
+                             'usersite': self.install_usersite,
+@@ -428,8 +430,8 @@
+                     raise DistutilsOptionError, \
+                           "must not supply exec-prefix without prefix"
+ 
+-                self.prefix = os.path.normpath(sys.prefix)
+-                self.exec_prefix = os.path.normpath(sys.exec_prefix)
++                self.prefix = PREFIX
++                self.exec_prefix = EXEC_PREFIX
+ 
+             else:
+                 if self.exec_prefix is None:
+diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/sysconfig.py Python-2.7.6/Lib/distutils/sysconfig.py
+--- Python-2.7.6.orig/Lib/distutils/sysconfig.py	2015-11-22 14:29:00.153420762 +0100
++++ Python-2.7.6/Lib/distutils/sysconfig.py	2015-11-22 13:49:06.000000000 +0100
+@@ -19,8 +19,10 @@
+ from distutils.errors import DistutilsPlatformError
+ 
+ # These are needed in a couple of spots, so just compute them once.
+-PREFIX = os.path.normpath(sys.prefix)
+-EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
++SYS_PREFIX = os.path.normpath(sys.prefix)
++SYS_EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
++PREFIX = "/usr/local"
++EXEC_PREFIX = "/usr/local"
+ 
+ # Path to the base directory of the project. On Windows the binary may
+ # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
+@@ -75,7 +77,7 @@
+     sys.exec_prefix -- i.e., ignore 'plat_specific'.
+     """
+     if prefix is None:
+-        prefix = plat_specific and EXEC_PREFIX or PREFIX
++        prefix = plat_specific and SYS_EXEC_PREFIX or SYS_PREFIX
+ 
+     if os.name == "posix":
+         if python_build:
+@@ -116,7 +118,10 @@
+     sys.exec_prefix -- i.e., ignore 'plat_specific'.
+     """
+     if prefix is None:
+-        prefix = plat_specific and EXEC_PREFIX or PREFIX
++        if standard_lib:
++            prefix = plat_specific and SYS_EXEC_PREFIX or SYS_PREFIX
++        else:
++            prefix = plat_specific and EXEC_PREFIX or PREFIX
+ 
+     if os.name == "posix":
+         if plat_specific: 
+diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/site.py Python-2.7.6/Lib/site.py
+--- Python-2.7.6.orig/Lib/site.py	2015-11-22 14:29:00.153420762 +0100
++++ Python-2.7.6/Lib/site.py	2015-11-22 13:40:03.000000000 +0100
+@@ -64,7 +64,7 @@
+ import traceback
+ 
+ # Prefixes for site-packages; add additional prefixes like /usr/local here
+-PREFIXES = [sys.prefix, sys.exec_prefix]
++PREFIXES = ["/usr/local", sys.prefix, sys.exec_prefix]
+ # Enable per user site-packages directory
+ # set it to False to disable the feature or True to force the feature
+ ENABLE_USER_SITE = None
