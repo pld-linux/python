@@ -383,3 +383,17 @@ diff -Nur Python-2.5b2.orig/setup.py Python-2.5b2/setup.py
          'include': '{userbase}/include/python{py_version_short}',
          'scripts': '{userbase}/bin',
          'data'   : '{userbase}',
+diff -Nur Python-2.5.orig/Modules/getpath.c Python-2.5/Modules/getpath.c
+--- Python-2.5.orig/Modules/getpath.c	2007-03-17 16:26:13.807358000 +0000
++++ Python-2.5/Modules/getpath.c	2007-03-17 16:26:50.825671500 +0000
+         reduce(prefix);
+@@ -532,7 +534,7 @@
+     }
+     else
+         strncpy(zip_path, PREFIX, MAXPATHLEN);
+-    joinpath(zip_path, "lib/python00.zip");
++    joinpath(zip_path, LIB_PYTHON "00.zip");
+     bufsz = strlen(zip_path);   /* Replace "00" with version */
+     zip_path[bufsz - 6] = VERSION[0];
+     zip_path[bufsz - 5] = VERSION[2];
+
