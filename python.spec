@@ -44,7 +44,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.10
-Release:	5.2
+Release:	5.3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -692,11 +692,20 @@ find $RPM_BUILD_ROOT%{py_libdir} -name \*.bat -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_libdir} -name \*.txt -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_libdir} -name README\* -exec rm {} \;
 
+mv $RPM_BUILD_ROOT%{py_incdir}/{pyconfig.h,pyconfig-%{_target_cpu}.h}
+ln -s pyconfig-%{_target_cpu}.h $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	libs -p /sbin/ldconfig
+%post	libs
+/sbin/ldconfig || :
+[ -e %{py_incdir}/pyconfig.h ] || ln -s pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
+
 %postun	libs -p /sbin/ldconfig
+
+%post devel
+ln -sf pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
 
 %post	doc-info -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
@@ -935,7 +944,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_libdir}/config
 %{py_libdir}/config/Makefile
 %dir %{py_incdir}
-%{py_incdir}/pyconfig.h
+%ghost %{py_incdir}/pyconfig.h
+%{py_incdir}/pyconfig-%{_target_cpu}.h
 
 %files -n pydoc
 %defattr(644,root,root,755)
@@ -962,6 +972,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libpython.so
 %{py_incdir}/*.h
 %exclude %{py_incdir}/pyconfig.h
+%exclude %{py_incdir}/pyconfig-%{_target_cpu}.h
 %{_pkgconfigdir}/python.pc
 %{_pkgconfigdir}/python2.pc
 %{_pkgconfigdir}/python-%{py_ver}.pc
