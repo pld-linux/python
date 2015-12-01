@@ -44,8 +44,8 @@ diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/sysconfig.py Pytho
 -EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
 +SYS_PREFIX = os.path.normpath(sys.prefix)
 +SYS_EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
-+PREFIX = "/usr/local"
-+EXEC_PREFIX = "/usr/local"
++PREFIX = "/usr/local" if SYS_PREFIX == "/usr" else SYS_PREFIX
++EXEC_PREFIX = "/usr/local" if SYS_EXEC_PREFIX == "/usr" else SYS_EXEC_PREFIX
  
  # Path to the base directory of the project. On Windows the binary may
  # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
