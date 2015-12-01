@@ -909,6 +909,7 @@ ln -sf pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
 
 %dir %{py_dyndir}
 %dir %{py_libdir}
+%dir %{_datadir}/python%{py_ver}
 %dir %{py_sitescriptdir}
 %dir %{py_sitedir}
 
