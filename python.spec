@@ -44,7 +44,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.10
-Release:	6.1
+Release:	6.2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -52,6 +52,7 @@ Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.ta
 # Source0-md5:	c685ef0b8e9f27b5e3db5db12b268ac6
 Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
 # Source1-md5:	545fef39b52b15641f6936c623150c63
+Source2:	pyconfig.h.in
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
@@ -690,20 +691,15 @@ find $RPM_BUILD_ROOT%{py_libdir} -name \*.bat -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_libdir} -name \*.txt -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_libdir} -name README\* -exec rm {} \;
 
-mv $RPM_BUILD_ROOT%{py_incdir}/{pyconfig.h,pyconfig-%{_target_cpu}.h}
-ln -s pyconfig-%{_target_cpu}.h $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h
+mv $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h $RPM_BUILD_ROOT%{py_libdir}/config/pyconfig.h
+sed -e's#@PREFIX@#%{_prefix}#g;s#@PY_VER@#%{py_ver}#g' %{SOURCE2} > $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	libs
-/sbin/ldconfig || :
-[ -e %{py_incdir}/pyconfig.h ] || ln -s pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
+%post	libs -p /sbin/ldconfig
 
 %postun	libs -p /sbin/ldconfig
-
-%post devel
-ln -sf pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
 
 %post	doc-info -p /sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
@@ -942,9 +938,9 @@ ln -sf pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
 # required by sysconfig.py
 %dir %{py_libdir}/config
 %{py_libdir}/config/Makefile
+%{py_libdir}/config/pyconfig.h
 %dir %{py_incdir}
-%ghost %{py_incdir}/pyconfig.h
-%{py_incdir}/pyconfig-%{_target_cpu}.h
+%{py_incdir}/pyconfig.h
 
 %files -n pydoc
 %defattr(644,root,root,755)
@@ -971,7 +967,6 @@ ln -sf pyconfig-%{_target_cpu}.h %{py_incdir}/pyconfig.h || :
 %attr(755,root,root) %{_libdir}/libpython.so
 %{py_incdir}/*.h
 %exclude %{py_incdir}/pyconfig.h
-%exclude %{py_incdir}/pyconfig-%{_target_cpu}.h
 %{_pkgconfigdir}/python.pc
 %{_pkgconfigdir}/python2.pc
 %{_pkgconfigdir}/python-%{py_ver}.pc
