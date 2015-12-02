@@ -44,7 +44,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.10
-Release:	6
+Release:	6.1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -55,12 +55,11 @@ Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
 Patch2:		%{name}-ac_fixes.patch
-Patch3:		%{name}-lib64.patch
-Patch4:		%{name}-noarch_to_datadir.patch
-Patch5:		%{name}-verbose.patch
-Patch6:		%{name}-distro.patch
-Patch7:		%{name}-DNStests.patch
-Patch8:		%{name}-install_prefix.patch
+Patch3:		%{name}-multilib.patch
+Patch4:		%{name}-verbose.patch
+Patch5:		%{name}-distro.patch
+Patch6:		%{name}-DNStests.patch
+Patch7:		%{name}-install_prefix.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -583,7 +582,6 @@ napisanego w Pythonie.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 tar xjf %{SOURCE1}
 
