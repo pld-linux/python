@@ -1,7 +1,5 @@
 #
 # TODO
-# - test_distutils fails for unknown reason: (does it still do with new lib64 patch?)
-#   AssertionError: '/tmp/tmpaomC0l/installation/share/python' != '/tmp/tmpaomC0l/installation/lib/python'
 # - test_pydoc fails because of PYTHONPATH override
 # - change searchpath order so /usr/lib* is before /usr/share
 # - kill lib-tk from searchpath
@@ -21,7 +19,7 @@
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2
 # tests which fail because of some unknown/unresolved reason (this list should be empty)
-%define		broken_tests test_anydbm test_bsddb test_re test_shelve test_whichdb test_zipimport test_distutils test_pydoc test_file test_file2k test_gdb test_ioctl
+%define		broken_tests test_doctest test_pydoc
 
 %define	beta		%{nil}
 
@@ -44,7 +42,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.10
-Release:	6.2
+Release:	6.3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -61,6 +59,7 @@ Patch4:		%{name}-verbose.patch
 Patch5:		%{name}-distro.patch
 Patch6:		%{name}-DNStests.patch
 Patch7:		%{name}-install_prefix.patch
+Patch8:		%{name}-bdist_rpm.patch
 URL:		http://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -583,6 +582,7 @@ napisanego w Pythonie.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 tar xjf %{SOURCE1}
 
