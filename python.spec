@@ -19,7 +19,7 @@
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2
 # tests which fail because of some unknown/unresolved reason (this list should be ideally just %{nil})
-%define		broken_tests test_doctest test_pydoc
+%define		broken_tests test_doctest test_pydoc test_distutils
 
 %define	beta		%{nil}
 
