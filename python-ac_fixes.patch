@@ -1,4 +1,3 @@
-diff -Nur Python-2.5.2.orig/configure.ac Python-2.5.2/configure.ac
 --- Python-2.5.2.orig/configure.ac	2008-02-13 19:17:17.000000000 +0000
 +++ Python-2.5.2/configure.ac	2008-02-26 09:43:17.000000000 +0000
 @@ -767,13 +767,13 @@

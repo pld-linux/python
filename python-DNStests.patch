@@ -11,7 +11,6 @@ Subject: [PATCH] Mark tests that require access to resolver
  4 files changed, 14 insertions(+)
  create mode 100644 Lib/test/checkDNS.py
 
-diff --git a/Lib/test/checkDNS.py b/Lib/test/checkDNS.py
 new file mode 100644
 index 0000000..f77cbe7
 --- /dev/null
@@ -20,7 +19,6 @@ index 0000000..f77cbe7
 +import os
 +
 +canresolve = os.access("/etc/resolv.conf", os.R_OK)
-diff --git a/Lib/test/test_mimetools.py b/Lib/test/test_mimetools.py
 index 86a26dc..8f07ada 100644
 --- a/Lib/test/test_mimetools.py
 +++ b/Lib/test/test_mimetools.py
@@ -39,7 +37,6 @@ index 86a26dc..8f07ada 100644
      def test_boundary(self):
          s = set([""])
          for i in xrange(100):
-diff --git a/Lib/test/test_smtplib.py b/Lib/test/test_smtplib.py
 index 81806c9..d88fd97 100644
 --- a/Lib/test/test_smtplib.py
 +++ b/Lib/test/test_smtplib.py
@@ -97,7 +94,6 @@ index 81806c9..d88fd97 100644
      def testNotConnected(self):
          # Test various operations on an unconnected SMTP object that
          # should raise exceptions (at present the attempt in SMTP.send
-diff --git a/Lib/test/test_urllib.py b/Lib/test/test_urllib.py
 index 3a273f8..e6a4c73 100644
 --- a/Lib/test/test_urllib.py
 +++ b/Lib/test/test_urllib.py

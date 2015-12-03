@@ -1,4 +1,3 @@
-diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/command/install.py Python-2.7.6/Lib/distutils/command/install.py
 --- Python-2.7.6.orig/Lib/distutils/command/install.py	2015-11-22 14:29:00.153420762 +0100
 +++ Python-2.7.6/Lib/distutils/command/install.py	2015-11-22 14:28:19.000000000 +0100
 @@ -13,6 +13,8 @@
@@ -33,7 +32,6 @@ diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/command/install.py
  
              else:
                  if self.exec_prefix is None:
-diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/sysconfig.py Python-2.7.6/Lib/distutils/sysconfig.py
 --- Python-2.7.6.orig/Lib/distutils/sysconfig.py	2015-11-22 14:29:00.153420762 +0100
 +++ Python-2.7.6/Lib/distutils/sysconfig.py	2015-11-22 13:49:06.000000000 +0100
 @@ -19,8 +19,10 @@
@@ -70,7 +68,6 @@ diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/distutils/sysconfig.py Pytho
  
      if os.name == "posix":
          if plat_specific: 
-diff -dur -x '*~' -x '*.orig' Python-2.7.6.orig/Lib/site.py Python-2.7.6/Lib/site.py
 --- Python-2.7.6.orig/Lib/site.py	2015-11-22 14:29:00.153420762 +0100
 +++ Python-2.7.6/Lib/site.py	2015-11-22 13:40:03.000000000 +0100
 @@ -64,7 +64,7 @@

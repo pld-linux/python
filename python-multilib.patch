@@ -1,4 +1,3 @@
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Include/pythonrun.h Python-2.7.10/Include/pythonrun.h
 --- Python-2.7.10.orig/Include/pythonrun.h	2015-05-23 18:09:00.000000000 +0200
 +++ Python-2.7.10/Include/pythonrun.h	2015-12-02 19:31:20.058862685 +0100
 @@ -108,6 +108,8 @@
@@ -10,7 +9,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Include/pythonrun.h Python-2.7
  PyAPI_FUNC(const char *) Py_GetCopyright(void);
  PyAPI_FUNC(const char *) Py_GetCompiler(void);
  PyAPI_FUNC(const char *) Py_GetBuildInfo(void);
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/distutils/command/install.py Python-2.7.10/Lib/distutils/command/install.py
 --- Python-2.7.10.orig/Lib/distutils/command/install.py	2015-05-23 18:09:01.000000000 +0200
 +++ Python-2.7.10/Lib/distutils/command/install.py	2015-12-02 19:31:20.058862685 +0100
 @@ -22,6 +22,8 @@
@@ -42,7 +40,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/distutils/command/install.
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
          'data'   : '$base',
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/distutils/sysconfig.py Python-2.7.10/Lib/distutils/sysconfig.py
 --- Python-2.7.10.orig/Lib/distutils/sysconfig.py	2015-05-23 18:09:02.000000000 +0200
 +++ Python-2.7.10/Lib/distutils/sysconfig.py	2015-12-02 19:31:20.058862685 +0100
 @@ -119,8 +119,12 @@
@@ -60,7 +57,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/distutils/sysconfig.py Pyt
          if standard_lib:
              return libpython
          else:
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/distutils/tests/test_install.py Python-2.7.10/Lib/distutils/tests/test_install.py
 --- Python-2.7.10.orig/Lib/distutils/tests/test_install.py	2015-05-23 18:09:02.000000000 +0200
 +++ Python-2.7.10/Lib/distutils/tests/test_install.py	2015-12-02 19:31:20.058862685 +0100
 @@ -56,7 +56,7 @@
@@ -72,7 +68,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/distutils/tests/test_insta
          check_path(cmd.install_lib, libdir)
          check_path(cmd.install_platlib, libdir)
          check_path(cmd.install_purelib, libdir)
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/site.py Python-2.7.10/Lib/site.py
 --- Python-2.7.10.orig/Lib/site.py	2015-05-23 18:09:06.000000000 +0200
 +++ Python-2.7.10/Lib/site.py	2015-12-02 19:31:20.058862685 +0100
 @@ -288,13 +288,17 @@
@@ -96,7 +91,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/site.py Python-2.7.10/Lib/
          if sys.platform == "darwin":
              # for framework builds *only* we add the standard Apple
              # locations.
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/sysconfig.py Python-2.7.10/Lib/sysconfig.py
 --- Python-2.7.10.orig/Lib/sysconfig.py	2015-05-23 18:09:07.000000000 +0200
 +++ Python-2.7.10/Lib/sysconfig.py	2015-12-02 19:33:48.483250053 +0100
 @@ -5,22 +5,24 @@
@@ -156,7 +150,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/sysconfig.py Python-2.7.10
      return os.path.join(inc_dir, 'pyconfig.h')
  
  def get_scheme_names():
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/test/test_site.py Python-2.7.10/Lib/test/test_site.py
 --- Python-2.7.10.orig/Lib/test/test_site.py	2015-05-23 18:09:12.000000000 +0200
 +++ Python-2.7.10/Lib/test/test_site.py	2015-12-02 19:31:20.058862685 +0100
 @@ -226,7 +226,7 @@
@@ -190,7 +183,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Lib/test/test_site.py Python-2
              self.assertEqual(dirs[1], wanted)
  
  class PthFile(object):
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Makefile.pre.in Python-2.7.10/Makefile.pre.in
 --- Python-2.7.10.orig/Makefile.pre.in	2015-12-02 19:31:01.322061528 +0100
 +++ Python-2.7.10/Makefile.pre.in	2015-12-02 19:31:20.058862685 +0100
 @@ -87,6 +87,8 @@
@@ -220,7 +212,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Makefile.pre.in Python-2.7.10/
  
  Python/importdl.o: $(srcdir)/Python/importdl.c
  		$(CC) -c $(PY_CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Modules/getpath.c Python-2.7.10/Modules/getpath.c
 --- Python-2.7.10.orig/Modules/getpath.c	2015-05-23 18:09:20.000000000 +0200
 +++ Python-2.7.10/Modules/getpath.c	2015-12-02 19:31:20.062196042 +0100
 @@ -116,9 +116,21 @@
@@ -256,7 +247,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Modules/getpath.c Python-2.7.1
  
  static void
  reduce(char *dir)
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Python/getplatform.c Python-2.7.10/Python/getplatform.c
 --- Python-2.7.10.orig/Python/getplatform.c	2015-05-23 18:09:24.000000000 +0200
 +++ Python-2.7.10/Python/getplatform.c	2015-12-02 19:31:20.062196042 +0100
 @@ -10,3 +10,23 @@
@@ -283,7 +273,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Python/getplatform.c Python-2.
 +{
 +	return LIB;
 +}
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Python/sysmodule.c Python-2.7.10/Python/sysmodule.c
 --- Python-2.7.10.orig/Python/sysmodule.c	2015-05-23 18:09:24.000000000 +0200
 +++ Python-2.7.10/Python/sysmodule.c	2015-12-02 19:31:20.062196042 +0100
 @@ -1437,6 +1437,10 @@
@@ -297,7 +286,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/Python/sysmodule.c Python-2.7.
      SET_SYS_FROM_STRING("executable",
                          PyString_FromString(Py_GetProgramFullPath()));
      SET_SYS_FROM_STRING("prefix",
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/configure.ac Python-2.7.10/configure.ac
 --- Python-2.7.10.orig/configure.ac	2015-12-02 19:31:01.322061528 +0100
 +++ Python-2.7.10/configure.ac	2015-12-02 19:31:20.062196042 +0100
 @@ -739,6 +739,44 @@
@@ -345,7 +333,6 @@ diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/configure.ac Python-2.7.10/con
  
  AC_SUBST(LIBRARY)
  AC_MSG_CHECKING(LIBRARY)
-diff -durN -x '*~' -x '*.orig' Python-2.7.10.orig/setup.py Python-2.7.10/setup.py
 --- Python-2.7.10.orig/setup.py	2015-12-02 19:31:01.312061456 +0100
 +++ Python-2.7.10/setup.py	2015-12-02 19:31:20.062196042 +0100
 @@ -496,6 +496,7 @@
