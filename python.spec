@@ -12,14 +12,14 @@
 %bcond_without	tkinter			# disables tkinter module building
 %bcond_without	tests			# disables Python testing
 %bcond_with	verbose_tests		# runs tests in verbose mode
-%bcond_with	openssl097
+%bcond_with	openssl097		# build for openssl < 0.9.8
 #
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
 %define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2
 # tests which fail because of some unknown/unresolved reason (this list should be ideally just %{nil})
-%define		broken_tests test_doctest test_pydoc test_distutils
+%define		broken_tests test_doctest test_pydoc test_distutils test_gdb
 
 %define	beta		%{nil}
 
@@ -41,15 +41,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.10
-Release:	8
+Version:	%{py_ver}.11
+Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
-Source0:	http://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
-# Source0-md5:	c685ef0b8e9f27b5e3db5db12b268ac6
-Source1:	http://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	545fef39b52b15641f6936c623150c63
+Source0:	https://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
+# Source0-md5:	1dbcc848b4cd8399a8199d000f9f823c
+Source1:	https://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
+# Source1-md5:	37e1bf28393653575899a00280091af6
 Source2:	pyconfig.h.in
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
@@ -60,7 +60,7 @@ Patch5:		%{name}-distro.patch
 Patch6:		%{name}-DNStests.patch
 Patch7:		%{name}-install_prefix.patch
 Patch8:		%{name}-bdist_rpm.patch
-URL:		http://www.python.org/
+URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
 BuildRequires:	bluez-libs-devel
@@ -678,20 +678,29 @@ sed 's/=/ /' \
 for script in smtpd webbrowser; do
     echo alias $script.py=\"python -m ${script}\"
 done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/smtpd.py
 
 sed 's/=/ /' \
 	< $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh \
 	> $RPM_BUILD_ROOT/etc/shrc.d/python-modules.csh
 
 # just to cut the noise, as they are not packaged (now)
-%{__rm} -r $RPM_BUILD_ROOT%{py_libdir}/plat-*/regen
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/ctypes/macholib/fetch_macholib
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/distutils/command/command_template
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/distutils/command/wininst-*.exe
 %{__rm} -r $RPM_BUILD_ROOT%{py_libdir}/idlelib/idle_test
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/idlelib/ChangeLog
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/idlelib/help.html
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/idlelib/idle.pyw
+%{__rm} -r $RPM_BUILD_ROOT%{py_libdir}/plat-*/regen
+# packaged as %doc
+%{__rm} $RPM_BUILD_ROOT%{py_libdir}/pdb.doc
 
 find $RPM_BUILD_ROOT%{py_libdir} -name \*.bat -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_libdir} -name \*.txt -exec rm {} \;
 find $RPM_BUILD_ROOT%{py_libdir} -name README\* -exec rm {} \;
 
-mv $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h $RPM_BUILD_ROOT%{py_libdir}/config/pyconfig.h
+%{__mv} $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h $RPM_BUILD_ROOT%{py_libdir}/config/pyconfig.h
 sed -e's#@PREFIX@#%{_prefix}#g;s#@PY_VER@#%{py_ver}#g' %{SOURCE2} > $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h
 
 %clean
