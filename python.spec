@@ -42,7 +42,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.11
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -60,6 +60,9 @@ Patch5:		%{name}-distro.patch
 Patch6:		%{name}-DNStests.patch
 Patch7:		%{name}-install_prefix.patch
 Patch8:		%{name}-bdist_rpm.patch
+# https://bugs.python.org/issue10496
+Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
+# Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -583,6 +586,7 @@ napisanego w Pythonie.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 tar xjf %{SOURCE1}
 
