@@ -70,7 +70,7 @@
          check_path(cmd.install_purelib, libdir)
 --- Python-2.7.10.orig/Lib/site.py	2015-05-23 18:09:06.000000000 +0200
 +++ Python-2.7.10/Lib/site.py	2015-12-02 19:31:20.058862685 +0100
-@@ -288,13 +288,17 @@
+@@ -288,13 +288,18 @@ def getsitepackages():
          if sys.platform in ('os2emx', 'riscos'):
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
          elif os.sep == '/':
@@ -81,16 +81,17 @@
 -            sitepackages.append(os.path.join(prefix, "lib", "site-python"))
 +            sitepackages.append(os.path.join(prefix, sys.lib, "site-python"))
 +            sitepackages.append(os.path.join(prefix, "share",
-+                "python" + sys.version[:3],
-+                "site-packages"))
++                                        "python" + sys.version[:3],
++                                        "site-packages"))
 +            sitepackages.append(os.path.join(prefix, "share", "site-python"))
++
          else:
              sitepackages.append(prefix)
 -            sitepackages.append(os.path.join(prefix, "lib", "site-packages"))
 +            sitepackages.append(os.path.join(prefix, sys.lib, "site-packages"))
-         if sys.platform == "darwin":
-             # for framework builds *only* we add the standard Apple
-             # locations.
+     return sitepackages
+ 
+ def addsitepackages(known_paths):
 --- Python-2.7.10.orig/Lib/sysconfig.py	2015-05-23 18:09:07.000000000 +0200
 +++ Python-2.7.10/Lib/sysconfig.py	2015-12-02 19:33:48.483250053 +0100
 @@ -5,22 +5,24 @@
@@ -161,10 +162,10 @@
              self.assertEqual(dirs[0], wanted)
          elif (sys.platform == "darwin" and
              sysconfig.get_config_var("PYTHONFRAMEWORK")):
-@@ -241,17 +241,17 @@
-             self.assertEqual(dirs[2], wanted)
+@@ -235,17 +235,17 @@ class HelperFunctionsTests(unittest.Test
+             self.assertEqual(dirs[0], wanted)
          elif os.sep == '/':
-             # OS X non-framwework builds, Linux, FreeBSD, etc
+             # OS X, Linux, FreeBSD, etc
 -            self.assertEqual(len(dirs), 2)
 -            wanted = os.path.join('xoxo', 'lib', 'python' + sys.version[:3],
 +            self.assertEqual(len(dirs), 4)
@@ -214,8 +215,8 @@
  		$(CC) -c $(PY_CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
 --- Python-2.7.10.orig/Modules/getpath.c	2015-05-23 18:09:20.000000000 +0200
 +++ Python-2.7.10/Modules/getpath.c	2015-12-02 19:31:20.062196042 +0100
-@@ -116,9 +116,21 @@
- #define EXEC_PREFIX PREFIX
+@@ -95,6 +95,17 @@
+  extern "C" {
  #endif
  
 +#ifndef LIB_PYTHON
@@ -229,15 +230,9 @@
 +#define LIB_PYTHON "lib/python"
 +#endif
 +#endif
-+
- #ifndef PYTHONPATH
--#define PYTHONPATH PREFIX "/lib/python" VERSION ":" \
--              EXEC_PREFIX "/lib/python" VERSION "/lib-dynload"
-+#define PYTHONPATH PREFIX "/" LIB_PYTHON VERSION ":" \
-+              EXEC_PREFIX "/" LIB_PYTHON VERSION "/lib-dynload:"
- #endif
  
- #ifndef LANDMARK
+ #if !defined(PREFIX) || !defined(EXEC_PREFIX) || !defined(VERSION) || !defined(VPATH)
+ #error "PREFIX, EXEC_PREFIX, VERSION, and VPATH must be constant defined"
 @@ -129,7 +141,7 @@
  static char exec_prefix[MAXPATHLEN+1];
  static char progpath[MAXPATHLEN+1];
