@@ -63,6 +63,8 @@ Patch8:		%{name}-bdist_rpm.patch
 # https://bugs.python.org/issue10496
 Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
 # Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
+# https://hg.python.org/cpython/rev/13a39142c047
+Patch10:	%{name}-no-getentropy.patch
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -587,6 +589,7 @@ napisanego w Pythonie.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 tar xjf %{SOURCE1}
 
