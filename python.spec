@@ -41,15 +41,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.13
+Version:	%{py_ver}.14
 Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	https://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
-# Source0-md5:	53b43534153bb2a0363f08bae8b9d990
+# Source0-md5:	1f6db41ad91d9eb0a6f0c769b8613c5b
 Source1:	https://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	0839cfc2894cded42b3a246a66ad412c
+# Source1-md5:	ab5f82c3198370f4ad91638f653629da
 Source2:	pyconfig.h.in
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
@@ -63,8 +63,6 @@ Patch8:		%{name}-bdist_rpm.patch
 # https://bugs.python.org/issue10496
 Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
 # Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
-# https://hg.python.org/cpython/rev/13a39142c047
-Patch10:	%{name}-no-getentropy.patch
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -589,7 +587,6 @@ napisanego w Pythonie.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
-%patch10 -p1
 
 tar xjf %{SOURCE1}
 
