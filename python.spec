@@ -731,7 +731,7 @@ rm -rf $RPM_BUILD_ROOT
 %files modules
 %defattr(644,root,root,755)
 %doc Lib/pdb.doc
-/etc/shrc.d/python-modules*
+%config(noreplace) %verify(not md5 mtime size) /etc/shrc.d/python-modules*
 %exclude %{py_libdir}/_abcoll.py[co]
 %exclude %{py_libdir}/abc.py[co]
 %exclude %{py_libdir}/UserDict.py[co]
@@ -1032,7 +1032,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel-tools
 %defattr(644,root,root,755)
-/etc/shrc.d/python-devel*
+%config(noreplace) %verify(not md5 mtime size) /etc/shrc.d/python-devel*
 
 %attr(755,root,root) %{py_dyndir}/_hotshot.so
 %dir %{py_libdir}/hotshot
