@@ -41,15 +41,15 @@ Summary(ru.UTF-8):	Язык программирования очень высо
 Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
-Version:	%{py_ver}.14
+Version:	%{py_ver}.15
 Release:	1
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
 Source0:	https://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
-# Source0-md5:	1f6db41ad91d9eb0a6f0c769b8613c5b
+# Source0-md5:	a80ae3cc478460b922242f43a1b4094d
 Source1:	https://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
-# Source1-md5:	ab5f82c3198370f4ad91638f653629da
+# Source1-md5:	e82bf965f5c6da914fb060640310e080
 Source2:	pyconfig.h.in
 Patch0:		%{name}-db.patch
 Patch1:		%{name}-pythonpath.patch
@@ -626,9 +626,9 @@ BEGIN { fail = 0; logmsg = ""; }
 }
 END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 
-LC_ALL=C
-export LC_ALL
 %if %{with tests}
+LC_ALL=C.UTF-8
+export LC_ALL
 WITHIN_PYTHON_RPM_BUILD=1 %{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
 	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:`pwd`/build/lib.linux-`uname -m`-%{py_ver} ./python -tt"
