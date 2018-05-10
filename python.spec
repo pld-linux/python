@@ -627,8 +627,7 @@ BEGIN { fail = 0; logmsg = ""; }
 END { if (fail) { print "\nPROBLEMS FOUND:"; print logmsg; exit(1); } }'
 
 %if %{with tests}
-LC_ALL=C.UTF-8
-export LC_ALL
+LC_ALL=C.UTF-8 \
 WITHIN_PYTHON_RPM_BUILD=1 %{__make} -j1 test \
 	TESTOPTS="%{test_flags} %{test_list}" \
 	TESTPYTHON="LD_LIBRARY_PATH=`pwd` PYTHONHOME=`pwd` PYTHONPATH=`pwd`/Lib:`pwd`/Lib/lib-tk:`pwd`/build/lib.linux-`uname -m`-%{py_ver} ./python -tt"
