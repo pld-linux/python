@@ -42,7 +42,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.15
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -637,6 +637,7 @@ WITHIN_PYTHON_RPM_BUILD=1 %{__make} -j1 test \
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}} \
 	$RPM_BUILD_ROOT{%{py_sitedir},%{_mandir}/man1} \
+	$RPM_BUILD_ROOT%{_prefix}/local/%{_lib}/python%{py_ver}/site-packages \
 	$RPM_BUILD_ROOT%{py_sitescriptdir} \
 	$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version} \
 	$RPM_BUILD_ROOT%{_infodir} \
@@ -918,6 +919,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/python%{py_ver}
 %dir %{py_sitescriptdir}
 %dir %{py_sitedir}
+
+# for locally installed packages
+%dir %{_prefix}/local/%{_lib}/python%{py_ver}/site-packages
 
 # shared modules required by python library
 %attr(755,root,root) %{py_dyndir}/_struct.so
