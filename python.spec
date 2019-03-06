@@ -42,7 +42,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.16
-Release:	1
+Release:	2
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -921,6 +921,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}
 
 # for locally installed packages
+%dir %{_prefix}/local/%{_lib}/python%{py_ver}
 %dir %{_prefix}/local/%{_lib}/python%{py_ver}/site-packages
 
 # shared modules required by python library
