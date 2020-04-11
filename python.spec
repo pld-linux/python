@@ -596,6 +596,19 @@ sed -i -e 's#db_setup_debug = False#db_setup_debug = True#g' setup.py
 [ -d Lib/plat-linux3 ] && exit 1
 cp -a Lib/plat-linux2 Lib/plat-linux3
 
+%{__sed} -i -e '1s,/usr/bin/python$,%{__python},' Lib/cgi.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' Lib/{UserString,base64,cProfile,keyword,mimify,pdb,platform,profile,pydoc,quopri,smtpd,smtplib,symbol,tabnanny,timeit,trace,uu,webbrowser}.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' Lib/encodings/rot_13.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' Lib/idlelib/PyShell.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' Lib/lib2to3/pgen2/token.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' Lib/lib2to3/tests/{pytree_idempotency,data/different_encoding,data/false_encoding}.py
+%{__sed} -i -e '1s,/usr/bin/env python2,%{__python},' Lib/test/bisect_cmd.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python},' Lib/test/{curses_tests,pystone,re_tests,regrtest}.py
+%{__sed} -i -e '1s,@EXENAME@,%{__python},' Misc/python-config.in
+%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' Tools/ssl/make_ssl_data.py
+%{__sed} -i -e '1s,/usr/bin/python\>,%{__python},' Tools/{gdb/libpython,pybench/pybench}.py
+grep -l '/usr/bin/env python' -r Demo Tools | xargs %{__sed} -i -e '1s,/usr/bin/env python$,%{__python},'
+
 %build
 %{__aclocal}
 %{__autoconf}
