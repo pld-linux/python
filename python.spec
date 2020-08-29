@@ -21,8 +21,6 @@
 # tests which fail because of some unknown/unresolved reason (this list should be ideally just %{nil})
 %define		broken_tests test_doctest test_pydoc test_distutils test_gdb
 
-%define	beta		%{nil}
-
 %define py_ver		2.7
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
@@ -31,7 +29,6 @@
 %define py_sitescriptdir %{_datadir}/python%{py_ver}/site-packages
 %define py_dyndir	%{py_libdir}/lib-dynload
 
-%define dver %{version}
 Summary:	Very high level scripting language with X interface
 Summary(es.UTF-8):	Lenguaje script de alto nivel con interfaz X
 Summary(fr.UTF-8):	Langage de script de très haut niveau avec interface X
@@ -42,13 +39,13 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.18
-Release:	2
+Release:	3
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
-Source0:	https://www.python.org/ftp/python/%{version}/Python-%{version}%{beta}.tar.xz
+Source0:	https://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
 # Source0-md5:	fd6cc8ec0a78c44036f825e739f36e5a
-Source1:	https://www.python.org/ftp/python/doc/%{dver}/%{name}-%{dver}-docs-html.tar.bz2
+Source1:	https://www.python.org/ftp/python/doc/%{version}/%{name}-%{version}-docs-html.tar.bz2
 # Source1-md5:	de2e764e4fda62e61af49df3e640fcba
 Source2:	pyconfig.h.in
 Patch0:		%{name}-db.patch
@@ -74,14 +71,16 @@ BuildRequires:	expat-devel >= 1:1.95.7
 BuildRequires:	file
 BuildRequires:	gdbm-devel >= 1.8.3
 BuildRequires:	gmp-devel >= 4.0
+BuildRequires:	libnsl-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtirpc-devel
 BuildRequires:	ncurses-ext-devel >= 5.2
-BuildRequires:	pkgconfig
 %if %{with openssl097}
 BuildRequires:	openssl-devel < 0.9.8
 %else
 BuildRequires:	openssl-devel >= 0.9.8
 %endif
+BuildRequires:	pkgconfig
 BuildRequires:	readline-devel >= 5.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
@@ -576,7 +575,7 @@ Niektóre z nich mogą być używane do testowania oprogramowania
 napisanego w Pythonie.
 
 %prep
-%setup -q -n Python-%{version}%{beta}
+%setup -q -n Python-%{version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1091,7 +1090,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%doc python-%{dver}-docs-html/*
+%doc python-%{version}-docs-html/*
 %{_docdir}/python-doc
 
 %if %{with info}
