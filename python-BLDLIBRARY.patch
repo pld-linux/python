@@ -1,0 +1,84 @@
+--- Python-2.7.18/Makefile.pre.in.orig	2020-09-08 22:20:51.653142275 +0200
++++ Python-2.7.18/Makefile.pre.in	2020-09-09 06:25:42.385544260 +0200
+@@ -179,6 +179,7 @@
+ LIBRARY=	@LIBRARY@
+ LDLIBRARY=      @LDLIBRARY@
+ BLDLIBRARY=     @BLDLIBRARY@
++BLDLIBDIR=      @BLDLIBDIR@
+ DLLLIBRARY=	@DLLLIBRARY@
+ LDLIBRARYDIR=   @LDLIBRARYDIR@
+ INSTSONAME=	@INSTSONAME@
+@@ -491,7 +492,7 @@
+ $(BUILDPYTHON):	Modules/python.o $(LIBRARY) $(LDLIBRARY)
+ 		$(LINKCC) $(LDFLAGS) $(LINKFORSHARED) -o $@ \
+ 			Modules/python.o \
+-			$(BLDLIBRARY) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
++			$(BLDLIBDIR) $(BLDLIBRARY) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
+ 
+ platform: $(BUILDPYTHON) pybuilddir.txt
+ 	$(RUNSHARED) $(PYTHON_FOR_BUILD) -c 'import sys ; from sysconfig import get_platform ; print get_platform()+"-"+sys.version[0:3]' >platform
+--- Python-2.7.18/configure.ac.orig	2020-09-08 22:20:51.639809014 +0200
++++ Python-2.7.18/configure.ac	2020-09-09 06:28:34.254613165 +0200
+@@ -835,11 +835,13 @@
+ # on the system - some systems like version suffix, others don't
+ AC_SUBST(LDLIBRARY)
+ AC_SUBST(DLLLIBRARY)
++AC_SUBST(BLDLIBDIR)
+ AC_SUBST(BLDLIBRARY)
+ AC_SUBST(LDLIBRARYDIR)
+ AC_SUBST(INSTSONAME)
+ AC_SUBST(RUNSHARED)
+ LDLIBRARY="$LIBRARY"
++BLDLIBDIR=''
+ BLDLIBRARY='$(LDLIBRARY)'
+ INSTSONAME='$(LDLIBRARY)'
+ DLLLIBRARY=''
+@@ -957,13 +959,15 @@
+           ;;
+     SunOS*)
+ 	  LDLIBRARY='libpython$(VERSION).so'
+-	  BLDLIBRARY='-Wl,-R,$(LIBDIR) -L. -lpython$(VERSION)'
++	  BLDLIBDIR='-Wl,-R,$(LIBDIR) -L.'
++	  BLDLIBRARY='-lpython$(VERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+ 	  INSTSONAME="$LDLIBRARY".$SOVERSION
+           ;;
+     Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*)
+ 	  LDLIBRARY='libpython$(VERSION).so'
+-	  BLDLIBRARY='-L. -lpython$(VERSION)'
++	  BLDLIBDIR='-L.'
++	  BLDLIBRARY='-lpython$(VERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+ 	  case $ac_sys_system in
+ 	      FreeBSD*)
+@@ -981,22 +985,26 @@
+ 			LDLIBRARY='libpython$(VERSION).sl'
+ 			;;
+ 	  esac
+-	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -lpython$(VERSION)'
++	  BLDLIBDIR='-Wl,+b,$(LIBDIR) -L.'
++	  BLDLIBRARY='-lpython$(VERSION)'
+ 	  RUNSHARED=SHLIB_PATH=`pwd`${SHLIB_PATH:+:${SHLIB_PATH}}
+ 	  ;;
+     OSF*)
+ 	  LDLIBRARY='libpython$(VERSION).so'
+-	  BLDLIBRARY='-rpath $(LIBDIR) -L. -lpython$(VERSION)'
++	  BLDLIBDIR='-rpath $(LIBDIR) -L.'
++	  BLDLIBRARY='-lpython$(VERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+ 	  ;;
+     atheos*)
+ 	  LDLIBRARY='libpython$(VERSION).so'
+-	  BLDLIBRARY='-L. -lpython$(VERSION)'
++	  BLDLIBDIR='-L.'
++	  BLDLIBRARY='-lpython$(VERSION)'
+ 	  RUNSHARED=DLL_PATH=`pwd`:${DLL_PATH:-/atheos/sys/libs:/atheos/autolnk/lib}
+ 	  ;;
+     Darwin*)
+     	LDLIBRARY='libpython$(VERSION).dylib'
+-	BLDLIBRARY='-L. -lpython$(VERSION)'
++	BLDLIBDIR='-L.'
++	BLDLIBRARY='-lpython$(VERSION)'
+ 	RUNSHARED=DYLD_LIBRARY_PATH=`pwd`${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
+ 	;;
+     AIX*)

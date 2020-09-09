@@ -39,7 +39,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.18
-Release:	3
+Release:	4
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -59,6 +59,7 @@ Patch7:		%{name}-install_prefix.patch
 Patch8:		%{name}-bdist_rpm.patch
 # https://bugs.python.org/issue10496
 Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
+Patch10:	%{name}-BLDLIBRARY.patch
 # Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
@@ -586,6 +587,7 @@ napisanego w Pythonie.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 tar xjf %{SOURCE1}
 
@@ -669,7 +671,7 @@ cp -p Doc/info/python*info* $RPM_BUILD_ROOT%{_infodir}
 
 cp -p Makefile.pre.in $RPM_BUILD_ROOT%{py_libdir}/config
 
-mv $RPM_BUILD_ROOT{%{py_libdir}/config,%{_libdir}}/libpython%{py_ver}.a
+%{__mv} $RPM_BUILD_ROOT{%{py_libdir}/config,%{_libdir}}/libpython%{py_ver}.a
 ln -sf libpython%{py_ver}.a $RPM_BUILD_ROOT%{_libdir}/libpython.a
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython.so
 ln -sf libpython%{py_ver}.so.1.0 $RPM_BUILD_ROOT%{_libdir}/libpython%{py_ver}.so
