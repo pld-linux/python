@@ -1,6 +1,7 @@
---- Python-2.7.6.orig/Lib/distutils/command/install.py	2015-11-22 14:29:00.153420762 +0100
-+++ Python-2.7.6/Lib/distutils/command/install.py	2015-11-22 14:28:19.000000000 +0100
-@@ -13,6 +13,8 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/distutils/command/install.py Python-2.7.18/Lib/distutils/command/install.py
+--- Python-2.7.18.org/Lib/distutils/command/install.py	2021-09-26 12:34:36.324550580 +0200
++++ Python-2.7.18/Lib/distutils/command/install.py	2021-09-26 12:34:37.124559456 +0200
+@@ -13,6 +13,8 @@ from types import *
  from distutils.core import Command
  from distutils.debug import DEBUG
  from distutils.sysconfig import get_config_vars
@@ -9,7 +10,7 @@
  from distutils.errors import DistutilsPlatformError
  from distutils.file_util import write_file
  from distutils.util import convert_path, subst_vars, change_root
-@@ -306,9 +308,9 @@
+@@ -306,9 +308,9 @@ class install (Command):
                              'py_version': py_version,
                              'py_version_short': py_version[0:3],
                              'py_version_nodot': py_version[0] + py_version[2],
@@ -21,7 +22,7 @@
                              'exec_prefix': exec_prefix,
                              'userbase': self.install_userbase,
                              'usersite': self.install_usersite,
-@@ -428,8 +430,8 @@
+@@ -428,8 +430,8 @@ class install (Command):
                      raise DistutilsOptionError, \
                            "must not supply exec-prefix without prefix"
  
@@ -32,9 +33,10 @@
  
              else:
                  if self.exec_prefix is None:
---- Python-2.7.6.orig/Lib/distutils/sysconfig.py	2015-11-22 14:29:00.153420762 +0100
-+++ Python-2.7.6/Lib/distutils/sysconfig.py	2015-11-22 13:49:06.000000000 +0100
-@@ -19,8 +19,10 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/distutils/sysconfig.py Python-2.7.18/Lib/distutils/sysconfig.py
+--- Python-2.7.18.org/Lib/distutils/sysconfig.py	2021-09-26 12:34:36.324550580 +0200
++++ Python-2.7.18/Lib/distutils/sysconfig.py	2021-09-26 12:34:37.124559456 +0200
+@@ -19,8 +19,10 @@ import sys
  from distutils.errors import DistutilsPlatformError
  
  # These are needed in a couple of spots, so just compute them once.
@@ -47,7 +49,7 @@
  
  # Path to the base directory of the project. On Windows the binary may
  # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
-@@ -75,7 +77,7 @@
+@@ -80,7 +82,7 @@ def get_python_inc(plat_specific=0, pref
      sys.exec_prefix -- i.e., ignore 'plat_specific'.
      """
      if prefix is None:
@@ -56,7 +58,7 @@
  
      if os.name == "posix":
          if python_build:
-@@ -116,7 +118,10 @@
+@@ -126,7 +128,10 @@ def get_python_lib(plat_specific=0, stan
      sys.exec_prefix -- i.e., ignore 'plat_specific'.
      """
      if prefix is None:
@@ -67,10 +69,11 @@
 +            prefix = plat_specific and EXEC_PREFIX or PREFIX
  
      if os.name == "posix":
-         if plat_specific: 
---- Python-2.7.6.orig/Lib/site.py	2015-11-22 14:29:00.153420762 +0100
-+++ Python-2.7.6/Lib/site.py	2015-11-22 13:40:03.000000000 +0100
-@@ -64,7 +64,7 @@
+         if plat_specific or standard_lib or prefix != "/usr":
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/site.py Python-2.7.18/Lib/site.py
+--- Python-2.7.18.org/Lib/site.py	2021-09-26 12:34:36.324550580 +0200
++++ Python-2.7.18/Lib/site.py	2021-09-26 12:34:37.124559456 +0200
+@@ -64,7 +64,7 @@ import __builtin__
  import traceback
  
  # Prefixes for site-packages; add additional prefixes like /usr/local here

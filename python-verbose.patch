@@ -1,11 +1,12 @@
---- Python-2.7.4/Makefile.pre.in~	2013-04-23 18:32:25.000000000 +0200
-+++ Python-2.7.4/Makefile.pre.in	2013-04-23 18:34:24.626857195 +0200
-@@ -450,7 +450,7 @@
- sharedmods: $(BUILDPYTHON)
+diff -urNp -x '*.orig' Python-2.7.18.org/Makefile.pre.in Python-2.7.18/Makefile.pre.in
+--- Python-2.7.18.org/Makefile.pre.in	2021-09-26 12:34:30.887823291 +0200
++++ Python-2.7.18/Makefile.pre.in	2021-09-26 12:34:31.717832579 +0200
+@@ -523,7 +523,7 @@ Modules/_math.o: Modules/_math.c Modules
+ sharedmods: $(BUILDPYTHON) pybuilddir.txt Modules/_math.o
  	@case "$$MAKEFLAGS" in \
  	    *\ -s*|s*) quiet="-q";; \
 -	    *) quiet="";; \
 +	    *) quiet="-vvv";; \
  	esac; \
  	$(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' \
- 		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
+ 		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \

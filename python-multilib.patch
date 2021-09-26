@@ -1,6 +1,7 @@
---- Python-2.7.10.orig/Include/pythonrun.h	2015-05-23 18:09:00.000000000 +0200
-+++ Python-2.7.10/Include/pythonrun.h	2015-12-02 19:31:20.058862685 +0100
-@@ -108,6 +108,8 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Include/pythonrun.h Python-2.7.18/Include/pythonrun.h
+--- Python-2.7.18.org/Include/pythonrun.h	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Include/pythonrun.h	2021-09-26 12:34:29.851145003 +0200
+@@ -108,6 +108,8 @@ PyAPI_FUNC(char *) Py_GetPath(void);
  /* In their own files */
  PyAPI_FUNC(const char *) Py_GetVersion(void);
  PyAPI_FUNC(const char *) Py_GetPlatform(void);
@@ -9,9 +10,10 @@
  PyAPI_FUNC(const char *) Py_GetCopyright(void);
  PyAPI_FUNC(const char *) Py_GetCompiler(void);
  PyAPI_FUNC(const char *) Py_GetBuildInfo(void);
---- Python-2.7.10.orig/Lib/distutils/command/install.py	2015-05-23 18:09:01.000000000 +0200
-+++ Python-2.7.10/Lib/distutils/command/install.py	2015-12-02 19:31:20.058862685 +0100
-@@ -22,6 +22,8 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/distutils/command/install.py Python-2.7.18/Lib/distutils/command/install.py
+--- Python-2.7.18.org/Lib/distutils/command/install.py	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Lib/distutils/command/install.py	2021-09-26 12:34:29.851145003 +0200
+@@ -22,6 +22,8 @@ from site import USER_BASE
  from site import USER_SITE
  
  
@@ -20,7 +22,7 @@
  if sys.version < "2.2":
      WINDOWS_SCHEME = {
          'purelib': '$base',
-@@ -41,15 +43,15 @@
+@@ -41,15 +43,15 @@ else:
  
  INSTALL_SCHEMES = {
      'unix_prefix': {
@@ -40,9 +42,10 @@
          'headers': '$base/include/python/$dist_name',
          'scripts': '$base/bin',
          'data'   : '$base',
---- Python-2.7.10.orig/Lib/distutils/sysconfig.py	2015-05-23 18:09:02.000000000 +0200
-+++ Python-2.7.10/Lib/distutils/sysconfig.py	2015-12-02 19:31:20.058862685 +0100
-@@ -119,8 +119,12 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/distutils/sysconfig.py Python-2.7.18/Lib/distutils/sysconfig.py
+--- Python-2.7.18.org/Lib/distutils/sysconfig.py	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Lib/distutils/sysconfig.py	2021-09-26 12:34:29.851145003 +0200
+@@ -129,8 +129,12 @@ def get_python_lib(plat_specific=0, stan
          prefix = plat_specific and EXEC_PREFIX or PREFIX
  
      if os.name == "posix":
@@ -57,9 +60,10 @@
          if standard_lib:
              return libpython
          else:
---- Python-2.7.10.orig/Lib/distutils/tests/test_install.py	2015-05-23 18:09:02.000000000 +0200
-+++ Python-2.7.10/Lib/distutils/tests/test_install.py	2015-12-02 19:31:20.058862685 +0100
-@@ -56,7 +56,7 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/distutils/tests/test_install.py Python-2.7.18/Lib/distutils/tests/test_install.py
+--- Python-2.7.18.org/Lib/distutils/tests/test_install.py	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Lib/distutils/tests/test_install.py	2021-09-26 12:34:29.851145003 +0200
+@@ -57,7 +57,7 @@ class InstallTestCase(support.TempdirMan
              expected = os.path.normpath(expected)
              self.assertEqual(got, expected)
  
@@ -68,8 +72,9 @@
          check_path(cmd.install_lib, libdir)
          check_path(cmd.install_platlib, libdir)
          check_path(cmd.install_purelib, libdir)
---- Python-2.7.10.orig/Lib/site.py	2015-05-23 18:09:06.000000000 +0200
-+++ Python-2.7.10/Lib/site.py	2015-12-02 19:31:20.058862685 +0100
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/site.py Python-2.7.18/Lib/site.py
+--- Python-2.7.18.org/Lib/site.py	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Lib/site.py	2021-09-26 12:34:29.851145003 +0200
 @@ -288,13 +288,18 @@ def getsitepackages():
          if sys.platform in ('os2emx', 'riscos'):
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
@@ -92,9 +97,10 @@
      return sitepackages
  
  def addsitepackages(known_paths):
---- Python-2.7.10.orig/Lib/sysconfig.py	2015-05-23 18:09:07.000000000 +0200
-+++ Python-2.7.10/Lib/sysconfig.py	2015-12-02 19:33:48.483250053 +0100
-@@ -5,22 +5,24 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/sysconfig.py Python-2.7.18/Lib/sysconfig.py
+--- Python-2.7.18.org/Lib/sysconfig.py	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Lib/sysconfig.py	2021-09-26 12:34:29.851145003 +0200
+@@ -5,22 +5,24 @@ import sys
  import os
  from os.path import pardir, realpath
  
@@ -127,7 +133,7 @@
          'include': '{base}/include/python',
          'platinclude': '{base}/include/python',
          'scripts': '{base}/bin',
-@@ -65,10 +67,10 @@
+@@ -65,10 +67,10 @@ _INSTALL_SCHEMES = {
          'data'   : '{userbase}',
          },
      'posix_user': {
@@ -142,7 +148,7 @@
          'include': '{userbase}/include/python{py_version_short}',
          'scripts': '{userbase}/bin',
          'data'   : '{userbase}',
-@@ -409,7 +411,7 @@
+@@ -414,7 +416,7 @@ def get_config_h_filename():
          else:
              inc_dir = _PROJECT_BASE
      else:
@@ -151,18 +157,15 @@
      return os.path.join(inc_dir, 'pyconfig.h')
  
  def get_scheme_names():
---- Python-2.7.10.orig/Lib/test/test_site.py	2015-05-23 18:09:12.000000000 +0200
-+++ Python-2.7.10/Lib/test/test_site.py	2015-12-02 19:31:20.058862685 +0100
-@@ -226,7 +226,7 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Lib/test/test_site.py Python-2.7.18/Lib/test/test_site.py
+--- Python-2.7.18.org/Lib/test/test_site.py	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Lib/test/test_site.py	2021-09-26 12:34:29.851145003 +0200
+@@ -250,21 +250,21 @@ class HelperFunctionsTests(unittest.Test
  
          if sys.platform in ('os2emx', 'riscos'):
              self.assertEqual(len(dirs), 1)
 -            wanted = os.path.join('xoxo', 'Lib', 'site-packages')
 +            wanted = os.path.join('xoxo', sys.lib, 'site-packages')
-             self.assertEqual(dirs[0], wanted)
-         elif (sys.platform == "darwin" and
-             sysconfig.get_config_var("PYTHONFRAMEWORK")):
-@@ -235,17 +235,17 @@ class HelperFunctionsTests(unittest.Test
              self.assertEqual(dirs[0], wanted)
          elif os.sep == '/':
              # OS X, Linux, FreeBSD, etc
@@ -183,10 +186,11 @@
 +            wanted = os.path.join('xoxo', sys.lib, 'site-packages')
              self.assertEqual(dirs[1], wanted)
  
- class PthFile(object):
---- Python-2.7.10.orig/Makefile.pre.in	2015-12-02 19:31:01.322061528 +0100
-+++ Python-2.7.10/Makefile.pre.in	2015-12-02 19:31:20.058862685 +0100
-@@ -87,6 +87,8 @@
+     def test_no_home_directory(self):
+diff -urNp -x '*.orig' Python-2.7.18.org/Makefile.pre.in Python-2.7.18/Makefile.pre.in
+--- Python-2.7.18.org/Makefile.pre.in	2021-09-26 12:34:29.067802877 +0200
++++ Python-2.7.18/Makefile.pre.in	2021-09-26 12:34:29.851145003 +0200
+@@ -91,6 +91,8 @@ PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAG
  
  # Machine-dependent subdirectories
  MACHDEP=	@MACHDEP@
@@ -195,7 +199,7 @@
  
  # Multiarch directory (may be empty)
  MULTIARCH=	@MULTIARCH@
-@@ -106,7 +108,7 @@
+@@ -110,7 +112,7 @@ LIBDIR=		@libdir@
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
@@ -204,8 +208,8 @@
  
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
-@@ -639,7 +641,7 @@
- Python/compile.o Python/symtable.o Python/ast.o: $(GRAMMAR_H) $(AST_H)
+@@ -701,7 +703,7 @@ regen-ast:
+ Python/compile.o Python/symtable.o Python/ast.o: $(srcdir)/Include/graminit.h $(srcdir)/Include/Python-ast.h
  
  Python/getplatform.o: $(srcdir)/Python/getplatform.c
 -		$(CC) -c $(PY_CFLAGS) -DPLATFORM='"$(MACHDEP)"' -o $@ $(srcdir)/Python/getplatform.c
@@ -213,8 +217,9 @@
  
  Python/importdl.o: $(srcdir)/Python/importdl.c
  		$(CC) -c $(PY_CFLAGS) -I$(DLINCLDIR) -o $@ $(srcdir)/Python/importdl.c
---- Python-2.7.10.orig/Modules/getpath.c	2015-05-23 18:09:20.000000000 +0200
-+++ Python-2.7.10/Modules/getpath.c	2015-12-02 19:31:20.062196042 +0100
+diff -urNp -x '*.orig' Python-2.7.18.org/Modules/getpath.c Python-2.7.18/Modules/getpath.c
+--- Python-2.7.18.org/Modules/getpath.c	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Modules/getpath.c	2021-09-26 12:34:29.851145003 +0200
 @@ -95,6 +95,17 @@
   extern "C" {
  #endif
@@ -233,7 +238,7 @@
  
  #if !defined(PREFIX) || !defined(EXEC_PREFIX) || !defined(VERSION) || !defined(VPATH)
  #error "PREFIX, EXEC_PREFIX, VERSION, and VPATH must be constant defined"
-@@ -129,7 +141,7 @@
+@@ -108,7 +119,7 @@ static char prefix[MAXPATHLEN+1];
  static char exec_prefix[MAXPATHLEN+1];
  static char progpath[MAXPATHLEN+1];
  static char *module_search_path = NULL;
@@ -242,9 +247,10 @@
  
  static void
  reduce(char *dir)
---- Python-2.7.10.orig/Python/getplatform.c	2015-05-23 18:09:24.000000000 +0200
-+++ Python-2.7.10/Python/getplatform.c	2015-12-02 19:31:20.062196042 +0100
-@@ -10,3 +10,23 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Python/getplatform.c Python-2.7.18/Python/getplatform.c
+--- Python-2.7.18.org/Python/getplatform.c	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Python/getplatform.c	2021-09-26 12:34:29.851145003 +0200
+@@ -10,3 +10,23 @@ Py_GetPlatform(void)
  {
  	return PLATFORM;
  }
@@ -268,9 +274,10 @@
 +{
 +	return LIB;
 +}
---- Python-2.7.10.orig/Python/sysmodule.c	2015-05-23 18:09:24.000000000 +0200
-+++ Python-2.7.10/Python/sysmodule.c	2015-12-02 19:31:20.062196042 +0100
-@@ -1437,6 +1437,10 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/Python/sysmodule.c Python-2.7.18/Python/sysmodule.c
+--- Python-2.7.18.org/Python/sysmodule.c	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Python/sysmodule.c	2021-09-26 12:34:29.851145003 +0200
+@@ -1437,6 +1437,10 @@ _PySys_Init(void)
                          PyString_FromString(Py_GetCopyright()));
      SET_SYS_FROM_STRING("platform",
                          PyString_FromString(Py_GetPlatform()));
@@ -281,9 +288,10 @@
      SET_SYS_FROM_STRING("executable",
                          PyString_FromString(Py_GetProgramFullPath()));
      SET_SYS_FROM_STRING("prefix",
---- Python-2.7.10.orig/configure.ac	2015-12-02 19:31:01.322061528 +0100
-+++ Python-2.7.10/configure.ac	2015-12-02 19:31:20.062196042 +0100
-@@ -739,6 +739,44 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/configure.ac Python-2.7.18/configure.ac
+--- Python-2.7.18.org/configure.ac	2021-09-26 12:34:29.067802877 +0200
++++ Python-2.7.18/configure.ac	2021-09-26 12:34:29.851145003 +0200
+@@ -773,6 +773,44 @@ SunOS*)
      ;;
  esac
  
@@ -328,9 +336,10 @@
  
  AC_SUBST(LIBRARY)
  AC_MSG_CHECKING(LIBRARY)
---- Python-2.7.10.orig/setup.py	2015-12-02 19:31:01.312061456 +0100
-+++ Python-2.7.10/setup.py	2015-12-02 19:31:20.062196042 +0100
-@@ -496,6 +496,7 @@
+diff -urNp -x '*.orig' Python-2.7.18.org/setup.py Python-2.7.18/setup.py
+--- Python-2.7.18.org/setup.py	2021-09-26 12:34:29.061136136 +0200
++++ Python-2.7.18/setup.py	2021-09-26 12:34:29.851145003 +0200
+@@ -558,6 +558,7 @@ class PyBuildExt(build_ext):
          except NameError:
              have_unicode = 0
  
@@ -338,7 +347,7 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
          # be assumed that no additional -I,-L directives are needed.
-@@ -507,8 +508,7 @@
+@@ -569,8 +570,7 @@ class PyBuildExt(build_ext):
                  ):
                  add_dir_to_list(inc_dirs, d)
              for d in (
@@ -348,7 +357,7 @@
                  ):
                  add_dir_to_list(lib_dirs, d)
          exts = []
-@@ -762,11 +762,11 @@
+@@ -828,11 +828,11 @@ class PyBuildExt(build_ext):
              elif curses_library:
                  readline_libs.append(curses_library)
              elif self.compiler.find_library_file(lib_dirs +
@@ -362,7 +371,7 @@
                                     extra_link_args=readline_extra_link_args,
                                     libraries=readline_libs) )
          else:
-@@ -1925,8 +1925,8 @@
+@@ -1986,8 +1986,8 @@ class PyBuildExt(build_ext):
              added_lib_dirs.append('/usr/openwin/lib')
          elif os.path.exists('/usr/X11R6/include'):
              include_dirs.append('/usr/X11R6/include')
