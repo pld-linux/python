@@ -60,6 +60,7 @@ Patch8:		%{name}-bdist_rpm.patch
 # https://bugs.python.org/issue10496
 Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
 Patch10:	%{name}-BLDLIBRARY.patch
+Patch11:	openssl3.patch
 # Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
@@ -588,6 +589,7 @@ napisanego w Pythonie.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 tar xjf %{SOURCE1}
 
