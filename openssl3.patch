@@ -15298,3 +15298,245 @@ diff -urN Python-2.7.18/Tools/ssl/make_ssl_data.py Python-2.7.18.openssl3/Tools/
 -    if not use_stdout:
 -        f.close()
 +    main()
+diff -ur Python-2.7.18/Lib/test/test_ssl.py Python-2.7.18.ssl3/Lib/test/test_ssl.py
+--- Python-2.7.18/Lib/test/test_ssl.py	2021-09-27 23:43:12.111251846 +0200
++++ Python-2.7.18.ssl3/Lib/test/test_ssl.py	2021-09-27 23:41:03.000000000 +0200
+@@ -1005,7 +1005,7 @@
+         neuronio_der = ssl.PEM_cert_to_DER_cert(neuronio_pem)
+ 
+         # test PEM
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 0)
+         ctx.load_verify_locations(cadata=cacert_pem)
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 1)
+@@ -1016,20 +1016,20 @@
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 2)
+ 
+         # combined
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         combined = "\n".join((cacert_pem, neuronio_pem))
+         ctx.load_verify_locations(cadata=combined)
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 2)
+ 
+         # with junk around the certs
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         combined = ["head", cacert_pem, "other", neuronio_pem, "again",
+                     neuronio_pem, "tail"]
+         ctx.load_verify_locations(cadata="\n".join(combined))
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 2)
+ 
+         # test DER
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         ctx.load_verify_locations(cadata=cacert_der)
+         ctx.load_verify_locations(cadata=neuronio_der)
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 2)
+@@ -1038,13 +1038,13 @@
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 2)
+ 
+         # combined
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         combined = b"".join((cacert_der, neuronio_der))
+         ctx.load_verify_locations(cadata=combined)
+         self.assertEqual(ctx.cert_store_stats()["x509_ca"], 2)
+ 
+         # error cases
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         self.assertRaises(TypeError, ctx.load_verify_locations, cadata=object)
+ 
+         with self.assertRaisesRegexp(ssl.SSLError, "no start line"):
+@@ -1334,7 +1334,7 @@
+             assert_python_ok("-c", https_is_verified, **extra_env)
+ 
+     def test_check_hostname(self):
+-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS)
+         self.assertFalse(ctx.check_hostname)
+ 
+         # Requires CERT_REQUIRED or CERT_OPTIONAL
+@@ -2211,10 +2211,10 @@
+             if support.verbose:
+                 sys.stdout.write("\n")
+ 
+-            server_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            server_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             server_context.load_cert_chain(SIGNED_CERTFILE)
+ 
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.verify_mode = ssl.CERT_REQUIRED
+             context.load_verify_locations(SIGNING_CA)
+             tf = getattr(ssl, "VERIFY_X509_TRUSTED_FIRST", 0)
+@@ -2252,10 +2252,10 @@
+             if support.verbose:
+                 sys.stdout.write("\n")
+ 
+-            server_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            server_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             server_context.load_cert_chain(SIGNED_CERTFILE)
+ 
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.verify_mode = ssl.CERT_REQUIRED
+             context.check_hostname = True
+             context.load_verify_locations(SIGNING_CA)
+@@ -2445,43 +2445,6 @@
+                                    False, client_options=ssl.OP_NO_SSLv2)
+ 
+         @skip_if_broken_ubuntu_ssl
+-        def test_protocol_tlsv1(self):
+-            """Connecting to a TLSv1 server with various client options"""
+-            if support.verbose:
+-                sys.stdout.write("\n")
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_TLSv1, 'TLSv1')
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_TLSv1, 'TLSv1', ssl.CERT_OPTIONAL)
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_TLSv1, 'TLSv1', ssl.CERT_REQUIRED)
+-            if hasattr(ssl, 'PROTOCOL_SSLv2'):
+-                try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_SSLv2, False)
+-            if hasattr(ssl, 'PROTOCOL_SSLv3'):
+-                try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_SSLv3, False)
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_SSLv23, False,
+-                               client_options=ssl.OP_NO_TLSv1)
+-
+-        @skip_if_broken_ubuntu_ssl
+-        @unittest.skipUnless(hasattr(ssl, "PROTOCOL_TLSv1_1"),
+-                             "TLS version 1.1 not supported.")
+-        @skip_if_openssl_cnf_minprotocol_gt_tls1
+-        def test_protocol_tlsv1_1(self):
+-            """Connecting to a TLSv1.1 server with various client options.
+-               Testing against older TLS versions."""
+-            if support.verbose:
+-                sys.stdout.write("\n")
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1_1, ssl.PROTOCOL_TLSv1_1, 'TLSv1.1')
+-            if hasattr(ssl, 'PROTOCOL_SSLv2'):
+-                try_protocol_combo(ssl.PROTOCOL_TLSv1_1, ssl.PROTOCOL_SSLv2, False)
+-            if hasattr(ssl, 'PROTOCOL_SSLv3'):
+-                try_protocol_combo(ssl.PROTOCOL_TLSv1_1, ssl.PROTOCOL_SSLv3, False)
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1_1, ssl.PROTOCOL_SSLv23, False,
+-                               client_options=ssl.OP_NO_TLSv1_1)
+-
+-            try_protocol_combo(ssl.PROTOCOL_SSLv23, ssl.PROTOCOL_TLSv1_1, 'TLSv1.1')
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1_1, ssl.PROTOCOL_TLSv1, False)
+-            try_protocol_combo(ssl.PROTOCOL_TLSv1, ssl.PROTOCOL_TLSv1_1, False)
+-
+-
+-        @skip_if_broken_ubuntu_ssl
+         @unittest.skipUnless(hasattr(ssl, "PROTOCOL_TLSv1_2"),
+                              "TLS version 1.2 not supported.")
+         def test_protocol_tlsv1_2(self):
+@@ -2510,7 +2473,7 @@
+             msgs = (b"msg 1", b"MSG 2", b"STARTTLS", b"MSG 3", b"msg 4", b"ENDTLS", b"msg 5", b"msg 6")
+ 
+             server = ThreadedEchoServer(CERTFILE,
+-                                        ssl_version=ssl.PROTOCOL_TLSv1,
++                                        ssl_version=ssl.PROTOCOL_TLS,
+                                         starttls_server=True,
+                                         chatty=True,
+                                         connectionchatty=True)
+@@ -2538,7 +2501,7 @@
+                             sys.stdout.write(
+                                 " client:  read %r from server, starting TLS...\n"
+                                 % msg)
+-                        conn = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_TLSv1)
++                        conn = ssl.wrap_socket(s, ssl_version=ssl.PROTOCOL_TLS)
+                         wrapped = True
+                     elif indata == b"ENDTLS" and msg.startswith(b"ok"):
+                         # ENDTLS ok, switch back to clear text
+@@ -2625,7 +2588,7 @@
+ 
+             server = ThreadedEchoServer(CERTFILE,
+                                         certreqs=ssl.CERT_NONE,
+-                                        ssl_version=ssl.PROTOCOL_TLSv1,
++                                        ssl_version=ssl.PROTOCOL_TLS,
+                                         cacerts=CERTFILE,
+                                         chatty=True,
+                                         connectionchatty=False)
+@@ -2635,7 +2598,7 @@
+                                     certfile=CERTFILE,
+                                     ca_certs=CERTFILE,
+                                     cert_reqs=ssl.CERT_NONE,
+-                                    ssl_version=ssl.PROTOCOL_TLSv1)
++                                    ssl_version=ssl.PROTOCOL_TLS)
+                 s.connect((HOST, server.port))
+                 # helper methods for standardising recv* method signatures
+                 def _recv_into():
+@@ -2884,14 +2847,14 @@
+             Basic tests for SSLSocket.version().
+             More tests are done in the test_protocol_*() methods.
+             """
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             with ThreadedEchoServer(CERTFILE,
+-                                    ssl_version=ssl.PROTOCOL_TLSv1,
++                                    ssl_version=ssl.PROTOCOL_TLS,
+                                     chatty=False) as server:
+                 with closing(context.wrap_socket(socket.socket())) as s:
+                     self.assertIs(s.version(), None)
+                     s.connect((HOST, server.port))
+-                    self.assertEqual(s.version(), 'TLSv1')
++                    self.assertEqual(s.version(), 'TLSv1.3')
+                 self.assertIs(s.version(), None)
+ 
+         @unittest.skipUnless(ssl.HAS_TLSv1_3,
+@@ -2994,7 +2957,7 @@
+                 s.close()
+ 
+         def test_compression(self):
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.load_cert_chain(CERTFILE)
+             stats = server_params_test(context, context,
+                                        chatty=True, connectionchatty=True)
+@@ -3005,7 +2968,7 @@
+         @unittest.skipUnless(hasattr(ssl, 'OP_NO_COMPRESSION'),
+                              "ssl.OP_NO_COMPRESSION needed for this test")
+         def test_compression_disabled(self):
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.load_cert_chain(CERTFILE)
+             context.options |= ssl.OP_NO_COMPRESSION
+             stats = server_params_test(context, context,
+@@ -3014,7 +2977,7 @@
+ 
+         def test_dh_params(self):
+             # Check we can get a connection with ephemeral Diffie-Hellman
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.load_cert_chain(CERTFILE)
+             context.load_dh_params(DHFILE)
+             context.set_ciphers("kEDH")
+@@ -3027,7 +2990,7 @@
+ 
+         def test_selected_alpn_protocol(self):
+             # selected_alpn_protocol() is None unless ALPN is used.
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.load_cert_chain(CERTFILE)
+             stats = server_params_test(context, context,
+                                        chatty=True, connectionchatty=True)
+@@ -3036,9 +2999,9 @@
+         @unittest.skipUnless(ssl.HAS_ALPN, "ALPN support required")
+         def test_selected_alpn_protocol_if_server_uses_alpn(self):
+             # selected_alpn_protocol() is None unless ALPN is used by the client.
+-            client_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            client_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             client_context.load_verify_locations(CERTFILE)
+-            server_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            server_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             server_context.load_cert_chain(CERTFILE)
+             server_context.set_alpn_protocols(['foo', 'bar'])
+             stats = server_params_test(client_context, server_context,
+@@ -3089,7 +3052,7 @@
+ 
+         def test_selected_npn_protocol(self):
+             # selected_npn_protocol() is None unless NPN is used
+-            context = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
++            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+             context.load_cert_chain(CERTFILE)
+             stats = server_params_test(context, context,
+                                        chatty=True, connectionchatty=True)
