@@ -769,6 +769,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_libdir}/os.py[co]
 %exclude %{py_libdir}/_weakrefset.py[co]
 %exclude %{py_libdir}/encodings/*.py[co]
+%exclude %{py_libdir}/traceback.py[co]
 %exclude %{py_libdir}/types.py[co]
 %exclude %{py_libdir}/warnings.py[co]
 
@@ -960,6 +961,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/sysconfig.py[co]
 %{py_libdir}/os.py[co]
 %{py_libdir}/_weakrefset.py[co]
+%{py_libdir}/traceback.py[co]
 # needed by the dynamic sys.lib patch
 %{py_libdir}/types.py[co]
 %{py_libdir}/warnings.py[co]
