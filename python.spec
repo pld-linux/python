@@ -39,7 +39,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.18
-Release:	6
+Release:	7
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -765,6 +765,7 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_libdir}/sre_*.py[co]
 %exclude %{py_libdir}/stat.py[co]
 %exclude %{py_libdir}/sysconfig.py[co]
+%exclude %{py_libdir}/_sysconfigdata.py[co]
 %exclude %{py_libdir}/timeit.py[co]
 %exclude %{py_libdir}/os.py[co]
 %exclude %{py_libdir}/_weakrefset.py[co]
@@ -959,6 +960,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/sre_*.py[co]
 %{py_libdir}/stat.py[co]
 %{py_libdir}/sysconfig.py[co]
+%{py_libdir}/_sysconfigdata.py[co]
 %{py_libdir}/os.py[co]
 %{py_libdir}/_weakrefset.py[co]
 %{py_libdir}/traceback.py[co]
