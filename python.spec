@@ -93,7 +93,7 @@ BuildRequires:	sqlite3-devel >= 3.3.5
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Suggests:	python-pip
-Obsoletes:	python2
+Obsoletes:	python2 < 2.7
 Conflicts:	bzr < 1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -222,7 +222,7 @@ Group:		Libraries/Python
 Provides:	python(abi) = %{py_ver}
 # for compatibility with existing Ac packages
 Provides:	python(bytecode) = %{py_ver}
-%{!?with_info:Obsoletes:	python-doc-info}
+%{!?with_info:Obsoletes:	python-doc-info < %{epoch}:%{version}-%{release}}
 Obsoletes:	python-intl
 
 %description libs
@@ -238,23 +238,24 @@ Summary(pl.UTF-8):	Moduły języka Python
 Group:		Libraries/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Provides:	python-argparse = 1.1
-Provides:	python-cElementTree
+Provides:	python-cElementTree = 1.0.6
 Provides:	python-elementtree
 Provides:	pythonegg(argparse) = 1.1
 Obsoletes:	python-argparse < 1.1.99
-Obsoletes:	python-cElementTree
-Obsoletes:	python-ctypes
+Obsoletes:	python-cElementTree < 1.0.7
+Obsoletes:	python-ctypes < 1.0.3
 Obsoletes:	python-curses
-Obsoletes:	python-elementtree
+Obsoletes:	python-elementtree < 1.2.7
 Obsoletes:	python-gdbm
-Obsoletes:	python-hashlib
-Obsoletes:	python-logging
-Obsoletes:	python-old
-Obsoletes:	python-optik
-Obsoletes:	python-ssl
+Obsoletes:	python-hashlib < 20081120
+Obsoletes:	python-logging < 0.5
+Obsoletes:	python-old < 1:2.5
+# just dropped module? 1.5 is on pypi now
+Obsoletes:	python-optik < 1.5
+Obsoletes:	python-ssl < 1.17
 Obsoletes:	python-xml
 Obsoletes:	python-xmlrpc <= 1.0.1
-Obsoletes:	python-zlib
+Obsoletes:	python-zlib <= 1.0
 %requires_ge_to	openssl	openssl-devel
 
 %description modules
@@ -281,7 +282,7 @@ Summary:	Python interactive module documentation access support
 Summary(pl.UTF-8):	Interaktywne korzystanie z dokumentacji modułów języka Python
 Group:		Applications
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
-Obsoletes:	python-pydoc
+Obsoletes:	python-pydoc < 1:2.3-2
 
 %description -n pydoc
 Python interactive module documentation access support.
@@ -294,7 +295,7 @@ Summary:	IDE for Python language
 Summary(pl.UTF-8):	IDE dla języka Python
 Group:		Applications/Editors
 Requires:	%{name}-tkinter = %{epoch}:%{version}-%{release}
-Obsoletes:	python-idle
+Obsoletes:	python-idle < 1:2.3-2
 
 %description -n idle
 IDE for Python language.
@@ -315,7 +316,7 @@ Summary(uk.UTF-8):	Бібліотеки та хедери для програм�
 Group:		Development/Languages/Python
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
-Obsoletes:	python2-devel
+Obsoletes:	python2-devel < 2.7
 
 %description devel
 The Python interpreter is relatively easy to extend with dynamically
@@ -440,7 +441,7 @@ Summary(ru.UTF-8):	Документация по языку Python
 Summary(tr.UTF-8):	Python belgeleri
 Summary(uk.UTF-8):	Документація по мові Python
 Group:		Documentation
-Obsoletes:	python-docs
+Obsoletes:	python-docs < 1.5.2-18
 
 %description doc
 This package contains documentation on the Python language and
@@ -507,7 +508,7 @@ Requires:	%{name}-modules = %{epoch}:%{version}-%{release}
 Requires:	tcl >= 8.4.3
 Requires:	tix >= 1:8.1.4-4
 Requires:	tk >= 8.4.3
-Obsoletes:	tkinter
+Obsoletes:	tkinter < 1:2.3-2
 
 %description tkinter
 Standard Python interface to the Tk GUI toolkit.
@@ -545,7 +546,7 @@ kullanılan grafik bir arayüzdür.
 Summary:	Example programs in Python
 Summary(pl.UTF-8):	Przykładowe programy w Pythonie
 Group:		Development/Languages/Python
-Obsoletes:	python-tools
+Obsoletes:	python-tools < 2.2
 
 %description examples
 Example programs in Python.
