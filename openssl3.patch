@@ -15688,3 +15688,15 @@ diff -urN Python-2.7.18/Tools/ssl/make_ssl_data.py Python-2.7.18.ssl3/Tools/ssl/
 -    if not use_stdout:
 -        f.close()
 +    main()
+--- Python-2.7.18/Lib/test/test_ssl.py.orig	2023-02-10 22:49:15.749209456 +0100
++++ Python-2.7.18/Lib/test/test_ssl.py	2023-02-11 07:47:08.331040548 +0100
+@@ -363,6 +363,9 @@ class BasicSocketTests(unittest.TestCase
+         if IS_LIBRESSL:
+             self.assertTrue(s.startswith("LibreSSL {:d}".format(major)),
+                             (s, t, hex(n)))
++        elif major >= 3:
++            self.assertTrue(s.startswith("OpenSSL {:d}.{:d}.{:d}".format(major, minor, patch)),
++                            (s, t))
+         else:
+             self.assertTrue(s.startswith("OpenSSL {:d}.{:d}.{:d}".format(major, minor, fix)),
+                             (s, t))
