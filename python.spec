@@ -84,6 +84,7 @@ BuildRequires:	openssl-devel >= 0.9.8
 %endif
 BuildRequires:	pkgconfig
 BuildRequires:	readline-devel >= 5.0
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3.3.5
@@ -442,6 +443,7 @@ Summary(tr.UTF-8):	Python belgeleri
 Summary(uk.UTF-8):	Документація по мові Python
 Group:		Documentation
 Obsoletes:	python-docs < 1.5.2-18
+BuildArch:	noarch
 
 %description doc
 This package contains documentation on the Python language and
@@ -547,6 +549,7 @@ Summary:	Example programs in Python
 Summary(pl.UTF-8):	Przykładowe programy w Pythonie
 Group:		Development/Languages/Python
 Obsoletes:	python-tools < 2.2
+BuildArch:	noarch
 
 %description examples
 Example programs in Python.
@@ -688,7 +691,7 @@ cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # for python devel tools
 for script in timeit profile pdb pstats; do
-    echo alias $script.py=\"python -m ${script}\"
+	echo alias $script.py=\"python -m ${script}\"
 done > $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
 
 sed 's/=/ /' \
@@ -697,7 +700,7 @@ sed 's/=/ /' \
 
 # for python modules
 for script in smtpd webbrowser; do
-    echo alias $script.py=\"python -m ${script}\"
+	echo alias $script.py=\"python -m ${script}\"
 done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/smtpd.py
 
