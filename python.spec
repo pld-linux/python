@@ -39,7 +39,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.18
-Release:	9
+Release:	10
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -691,7 +691,7 @@ cp -a Tools Demo $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 # for python devel tools
 for script in timeit profile pdb pstats; do
-	echo alias $script.py=\"python -m ${script}\"
+	echo alias $script.py=\"python2 -m ${script}\"
 done > $RPM_BUILD_ROOT/etc/shrc.d/python-devel.sh
 
 sed 's/=/ /' \
@@ -700,7 +700,7 @@ sed 's/=/ /' \
 
 # for python modules
 for script in smtpd webbrowser; do
-	echo alias $script.py=\"python -m ${script}\"
+	echo alias $script.py=\"python2 -m ${script}\"
 done > $RPM_BUILD_ROOT/etc/shrc.d/python-modules.sh
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/smtpd.py
 
@@ -727,6 +727,15 @@ find $RPM_BUILD_ROOT%{py_libdir} -name README\* -exec rm {} \;
 %{__mv} $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h $RPM_BUILD_ROOT%{py_libdir}/config/pyconfig.h
 sed -e's#@PREFIX@#%{_prefix}#g;s#@PY_VER@#%{py_ver}#g' %{SOURCE2} > $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h
 
+# no more unversioned files
+rm $RPM_BUILD_ROOT%{_bindir}/python
+rm $RPM_BUILD_ROOT%{_bindir}/python-config
+rm $RPM_BUILD_ROOT%{_pkgconfigdir}/python.pc
+mv $RPM_BUILD_ROOT%{_mandir}/man1/python{.1,2.1}
+mv $RPM_BUILD_ROOT%{_bindir}/idle{,2}
+mv $RPM_BUILD_ROOT%{_bindir}/pydoc{,2}
+mv $RPM_BUILD_ROOT%{_bindir}/2to3{,-%{py_ver}}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -742,10 +751,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/python
 %attr(755,root,root) %{_bindir}/python2
 %attr(755,root,root) %{_bindir}/python%{py_ver}
-%{_mandir}/man1/python.1*
 %{_mandir}/man1/python2.1*
 
 %files modules
@@ -985,14 +992,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n pydoc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/pydoc
+%attr(755,root,root) %{_bindir}/pydoc2
 %{py_libdir}/pydoc.py[co]
 %dir %{py_libdir}/pydoc_data
 %{py_libdir}/pydoc_data/*.py[co]
 
 %files -n idle
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/idle
+%attr(755,root,root) %{_bindir}/idle2
 %dir %{py_libdir}/idlelib/Icons
 %{py_libdir}/idlelib/*.py[co]
 %{py_libdir}/idlelib/Icons/*
@@ -1001,14 +1008,12 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %doc Misc/{ACKS,NEWS,README,README.valgrind,valgrind-python.supp}
-%attr(755,root,root) %{_bindir}/python-config
 %attr(755,root,root) %{_bindir}/python2-config
 %attr(755,root,root) %{_bindir}/python%{py_ver}-config
 %attr(755,root,root) %{_libdir}/libpython%{py_ver}.so
 %attr(755,root,root) %{_libdir}/libpython.so
 %{py_incdir}/*.h
 %exclude %{py_incdir}/pyconfig.h
-%{_pkgconfigdir}/python.pc
 %{_pkgconfigdir}/python2.pc
 %{_pkgconfigdir}/python-%{py_ver}.pc
 
@@ -1071,7 +1076,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files 2to3
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/2to3
+%attr(755,root,root) %{_bindir}/2to3-%{py_ver}
 %dir %{py_libdir}/lib2to3
 %dir %{py_libdir}/lib2to3/fixes
 %dir %{py_libdir}/lib2to3/pgen2
