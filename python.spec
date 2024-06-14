@@ -62,6 +62,7 @@ Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
 # Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
 Patch10:	%{name}-BLDLIBRARY.patch
 Patch11:	openssl3.patch
+Patch12:	gcc14.patch
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -596,6 +597,7 @@ napisanego w Pythonie.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 tar xjf %{SOURCE1}
 
