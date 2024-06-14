@@ -59,9 +59,9 @@ Patch7:		%{name}-install_prefix.patch
 Patch8:		%{name}-bdist_rpm.patch
 # https://bugs.python.org/issue10496
 Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
+# Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
 Patch10:	%{name}-BLDLIBRARY.patch
 Patch11:	openssl3.patch
-# Patch9-md5:	db706fbe6de467c6e4c97c675eddf29a
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -88,9 +88,11 @@ BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 BuildRequires:	sqlite3-devel >= 3.3.5
+%{?with_tkinter:BuildRequires:	tcl-devel}
 %{?with_info:BuildRequires:	tetex-makeindex}
 #%{?with_tkinter:BuildRequires:	tix-devel >= 1:8.1.4-4}
 %{?with_tkinter:BuildRequires:	tk-devel >= 8.4.3}
+%{?with_tkinter:BuildRequires:	xorg-lib-libX11-devel}
 BuildRequires:	zlib-devel
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Suggests:	python-pip
