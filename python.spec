@@ -227,7 +227,7 @@ Provides:	python(abi) = %{py_ver}
 # for compatibility with existing Ac packages
 Provides:	python(bytecode) = %{py_ver}
 %{!?with_info:Obsoletes:	python-doc-info < %{epoch}:%{version}-%{release}}
-Obsoletes:	python-intl
+Obsoletes:	python-intl < 2
 
 %description libs
 Python shared library and very essental modules for Python binary.
@@ -248,16 +248,16 @@ Provides:	pythonegg(argparse) = 1.1
 Obsoletes:	python-argparse < 1.1.99
 Obsoletes:	python-cElementTree < 1.0.7
 Obsoletes:	python-ctypes < 1.0.3
-Obsoletes:	python-curses
+Obsoletes:	python-curses < 2
 Obsoletes:	python-elementtree < 1.2.7
-Obsoletes:	python-gdbm
+Obsoletes:	python-gdbm < 2
 Obsoletes:	python-hashlib < 20081120
 Obsoletes:	python-logging < 0.5
 Obsoletes:	python-old < 1:2.5
 # just dropped module? 1.5 is on pypi now
 Obsoletes:	python-optik < 1.5
 Obsoletes:	python-ssl < 1.17
-Obsoletes:	python-xml
+Obsoletes:	python-xml < 2
 Obsoletes:	python-xmlrpc <= 1.0.1
 Obsoletes:	python-zlib <= 1.0
 %requires_ge_to	openssl	openssl-devel
