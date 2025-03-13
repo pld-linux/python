@@ -8,16 +8,19 @@
 #   http://securitytracker.com/alerts/2008/Sep/1020904.html
 #
 # Conditional build:
-%bcond_with	info			# build info pages (requires emacs, fails in python-2.5.0)
-%bcond_without	tkinter			# disables tkinter module building
-%bcond_without	tests			# disables Python testing
-%bcond_with	verbose_tests		# runs tests in verbose mode
-%bcond_with	openssl097		# build for openssl < 0.9.8
+%bcond_with	default_python		# build as default system Python
+%bcond_with	info			# info pages (requires emacs, fails in python-2.5.0)
+%bcond_without	tkinter			# tkinter module (requires tcl+tk)
+%bcond_without	tests			# Python testing
+%bcond_with	verbose_tests		# tests in verbose mode
+%bcond_with	openssl097		# OpenSSL < 0.9.8
 #
 # tests which will not work on 64-bit platforms
 %define		no64bit_tests	test_audioop test_rgbimg test_imageop
 # tests which may fail because of builder environment limitations (no /proc or /dev/pts)
-%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2
+%define		nobuilder_tests test_resource test_openpty test_socket test_nis test_posix test_locale test_pty test_urllib2 test_multiprocessing
+# tests which use local, but AF_INET networking (failing with unshare --net)
+%define		net_tests	test_asynchat test_asyncore test_docxmlrpc test_epoll test_ftplib test_httplib test_httpservers test_logging test_multiprocessing test_nntplib test_poplib test_robotparser test_smtplib test_ssl test_telnetlib test_urllib2_localnet test_xmlrpc
 # tests which fail because of some unknown/unresolved reason (this list should be ideally just %{nil})
 %define		broken_tests test_doctest test_pydoc test_distutils test_gdb
 
@@ -108,17 +111,17 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %endif
 
 %ifarch alpha ia64 ppc64 ppc64 %{x8664}
-%define test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests}
+%define test_list %{nobuilder_tests} %{broken_tests} %{net_tests} %{no64bit_tests}
 %else
-%define test_list %{nobuilder_tests} %{broken_tests}
+%define test_list %{nobuilder_tests} %{broken_tests} %{net_tests}
 %endif
 
 %ifarch sparc sparcv9
-%define test_list %{nobuilder_tests} %{broken_tests} test_fcntl test_ioctl
+%define test_list %{nobuilder_tests} %{broken_tests} %{net_tests} test_fcntl test_ioctl
 %endif
 
 %ifarch sparc64
-%define test_list %{nobuilder_tests} %{broken_tests} %{no64bit_tests} test_fcntl test_ioctl
+%define test_list %{nobuilder_tests} %{broken_tests} %{net_tests} %{no64bit_tests} test_fcntl test_ioctl
 %endif
 
 %description
@@ -732,13 +735,20 @@ find $RPM_BUILD_ROOT%{py_libdir} -name README\* -exec rm {} \;
 sed -e's#@PREFIX@#%{_prefix}#g;s#@PY_VER@#%{py_ver}#g' %{SOURCE2} > $RPM_BUILD_ROOT%{py_incdir}/pyconfig.h
 
 # no more unversioned files
-rm $RPM_BUILD_ROOT%{_bindir}/python
-rm $RPM_BUILD_ROOT%{_bindir}/python-config
-rm $RPM_BUILD_ROOT%{_pkgconfigdir}/python.pc
-mv $RPM_BUILD_ROOT%{_mandir}/man1/python{.1,2.1}
-mv $RPM_BUILD_ROOT%{_bindir}/idle{,2}
-mv $RPM_BUILD_ROOT%{_bindir}/pydoc{,2}
-mv $RPM_BUILD_ROOT%{_bindir}/2to3{,-%{py_ver}}
+%{__mv} $RPM_BUILD_ROOT%{_mandir}/man1/python{.1,2.1}
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/idle{,2}
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/pydoc{,2}
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/2to3{,-%{py_ver}}
+%if %{with default_python}
+ln -s idle2 $RPM_BUILD_ROOT%{_bindir}/idle
+ln -s pydoc2 $RPM_BUILD_ROOT%{_bindir}/pydoc
+ln -s 2to3-%{py_ver} $RPM_BUILD_ROOT%{_bindir}/2to3
+echo '.so python2.1' >$RPM_BUILD_ROOT%{_mandir}/man1/python.1
+%else
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/python
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/python-config
+%{__rm} $RPM_BUILD_ROOT%{_pkgconfigdir}/python.pc
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -758,6 +768,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/python2
 %attr(755,root,root) %{_bindir}/python%{py_ver}
 %{_mandir}/man1/python2.1*
+%if %{with default_python}
+%attr(755,root,root) %{_bindir}/python
+%{_mandir}/man1/python.1*
+%endif
 
 %files modules
 %defattr(644,root,root,755)
@@ -1000,6 +1014,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/pydoc.py[co]
 %dir %{py_libdir}/pydoc_data
 %{py_libdir}/pydoc_data/*.py[co]
+%if %{with default_python}
+%attr(755,root,root) %{_bindir}/pydoc
+%endif
 
 %files -n idle
 %defattr(644,root,root,755)
@@ -1008,6 +1025,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/idlelib/*.py[co]
 %{py_libdir}/idlelib/Icons/*
 %{py_libdir}/idlelib/*.def
+%if %{with default_python}
+%attr(755,root,root) %{_bindir}/idle
+%endif
 
 %files devel
 %defattr(644,root,root,755)
@@ -1020,6 +1040,10 @@ rm -rf $RPM_BUILD_ROOT
 %exclude %{py_incdir}/pyconfig.h
 %{_pkgconfigdir}/python2.pc
 %{_pkgconfigdir}/python-%{py_ver}.pc
+%if %{with default_python}
+%attr(755,root,root) %{_bindir}/python-config
+%{_pkgconfigdir}/python.pc
+%endif
 
 %attr(755,root,root) %{py_libdir}/config/makesetup
 %attr(755,root,root) %{py_libdir}/config/install-sh
@@ -1088,6 +1112,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_libdir}/lib2to3/*.pickle
 %{py_libdir}/lib2to3/fixes/*.py[co]
 %{py_libdir}/lib2to3/pgen2/*.py[co]
+%if %{with default_python}
+%attr(755,root,root) %{_bindir}/2to3
+%endif
 
 %files static
 %defattr(644,root,root,755)
