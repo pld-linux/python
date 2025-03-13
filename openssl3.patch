@@ -15473,16 +15473,23 @@ diff -urN Python-2.7.18/setup.py Python-2.7.18.ssl3/setup.py
          else:
              missing.append('_ssl')
  
-@@ -910,8 +910,7 @@
+@@ -890,6 +890,7 @@ class PyBuildExt(build_ext):
+         openssl_ver = 0
+         openssl_ver_re = re.compile(
+             '^\s*#\s*define\s+OPENSSL_VERSION_NUMBER\s+(0x[0-9a-fA-F]+)' )
++        openssl3_re = re.compile('^\s*#\s*define\s+OPENSSL_VERSION_MAJOR\s+[3-9]\s*$')
  
-         min_openssl_ver = 0x00907000
-         have_any_openssl = ssl_incs is not None and ssl_libs is not None
--        have_usable_openssl = (have_any_openssl and
--                               openssl_ver >= min_openssl_ver)
-+        have_usable_openssl = True
- 
-         if have_any_openssl:
-             if have_usable_openssl:
+         # look for the openssl version header on the compiler search path.
+         opensslv_h = find_file('openssl/opensslv.h', [],
+@@ -904,6 +905,8 @@ class PyBuildExt(build_ext):
+                     m = openssl_ver_re.match(line)
+                     if m:
+                         openssl_ver = eval(m.group(1))
++                    elif openssl3_re.match(line):
++                        openssl_ver = 0x30000000
+             except IOError, msg:
+                 print "IOError while reading opensshv.h:", msg
+                 pass
 diff -urN Python-2.7.18/Tools/ssl/make_ssl_data.py Python-2.7.18.ssl3/Tools/ssl/make_ssl_data.py
 --- Python-2.7.18/Tools/ssl/make_ssl_data.py	2021-09-28 22:33:44.731853312 +0200
 +++ Python-2.7.18.ssl3/Tools/ssl/make_ssl_data.py	2021-09-28 21:17:49.467400341 +0200
