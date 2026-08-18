@@ -1,0 +1,21 @@
+From: Mike Gilbert <floppym@gentoo.org>
+Subject: test.support.unlink: ignore EACCES and EROFS
+
+test.support.forget() removes a module's .pyc/.pyo from every sys.path entry,
+including ones the build environment mounts read-only (/usr/local/lib*) - there
+can be no stale .pyc there, so the failure to remove one is not a test failure.
+
+Based on Gentoo's https://bugs.gentoo.org/679628 (EACCES); PLD's builder mounts
+the tree read-only rather than denying the write, so EROFS is needed too.
+
+--- a/Lib/test/support/__init__.py
++++ b/Lib/test/support/__init__.py
+@@ -291,7 +291,7 @@ def unlink(filename):
+     try:
+         _unlink(filename)
+     except OSError as exc:
+-        if exc.errno not in (errno.ENOENT, errno.ENOTDIR):
++        if exc.errno not in (errno.ENOENT, errno.ENOTDIR, errno.EACCES, errno.EROFS):
+             raise
+ 
+ def rmdir(dirname):

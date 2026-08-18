@@ -24,6 +24,9 @@
 # tests which fail because of some unknown/unresolved reason (this list should be ideally just %{nil})
 %define		broken_tests test_doctest test_pydoc test_distutils test_gdb
 
+# C sources predate C23, which GCC 15 defaults to (asdl.h: typedef enum {false, true} bool)
+%define		specflags	-std=gnu17
+
 %define py_ver		2.7
 %define py_prefix	%{_prefix}
 %define py_libdir	%{py_prefix}/%{_lib}/python%{py_ver}
@@ -42,7 +45,7 @@ Summary(tr.UTF-8):	X arayüzlü, yüksek düzeyli, kabuk yorumlayıcı dili
 Summary(uk.UTF-8):	Мова програмування дуже високого рівня з X-інтерфейсом
 Name:		python
 Version:	%{py_ver}.18
-Release:	10
+Release:	11
 Epoch:		1
 License:	PSF
 Group:		Development/Languages/Python
@@ -66,6 +69,31 @@ Patch9:		https://bugs.python.org/file21896/nonexistent_user.patch
 Patch10:	%{name}-BLDLIBRARY.patch
 Patch11:	openssl3.patch
 Patch12:	gcc14.patch
+# Post-2.7.18 backports; upstream CPython 2.7 has had no commits since 2020-04-19.
+# Sources: Gentoo python-gentoo-patches-2.7.18_p16, Debian 2.7.18-8+deb11u1, RHEL python2-2.7.18-17.
+Patch13:	CVE-2019-20907.patch
+Patch14:	CVE-2020-8492.patch
+Patch15:	CVE-2020-26116.patch
+Patch16:	CVE-2022-48565.patch
+Patch17:	CVE-2020-27619.patch
+Patch18:	CVE-2022-48566.patch
+Patch19:	CVE-2021-3177.patch
+Patch20:	CVE-2021-23336.patch
+Patch21:	CVE-2021-4189.patch
+Patch22:	CVE-2021-3733.patch
+Patch23:	CVE-2021-3737.patch
+Patch24:	%{name}-bpo-43124-smtplib-crlf.patch
+Patch25:	%{name}-bpo-42278-pydoc-mktemp.patch
+Patch26:	%{name}-bpo-46756-urllib-auth.patch
+Patch27:	CVE-2022-0391.patch
+Patch28:	CVE-2022-45061.patch
+Patch29:	CVE-2022-48560.patch
+Patch30:	CVE-2023-24329.patch
+Patch31:	CVE-2023-40217.patch
+Patch32:	CVE-2015-20107.patch
+Patch33:	%{name}-expat-2.4.5-tests.patch
+Patch34:	%{name}-configure-c99.patch
+Patch35:	%{name}-test-support-unlink-errno.patch
 URL:		https://www.python.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake
@@ -601,6 +629,29 @@ napisanego w Pythonie.
 %patch -P10 -p1
 %patch -P11 -p1
 %patch -P12 -p1
+%patch -P13 -p1
+%patch -P14 -p1
+%patch -P15 -p1
+%patch -P16 -p1
+%patch -P17 -p1
+%patch -P18 -p1
+%patch -P19 -p1
+%patch -P20 -p1
+%patch -P21 -p1
+%patch -P22 -p1
+%patch -P23 -p1
+%patch -P24 -p1
+%patch -P25 -p1
+%patch -P26 -p1
+%patch -P27 -p1
+%patch -P28 -p1
+%patch -P29 -p1
+%patch -P30 -p1
+%patch -P31 -p1
+%patch -P32 -p1
+%patch -P33 -p1
+%patch -P34 -p1
+%patch -P35 -p1
 
 tar xjf %{SOURCE1}
 
